@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <record id="netdespatch_rm_service" model="select.service">
+            <field name="name">Netdespatch Royalmail</field>
+        </record>
+
+         <record id="netdespatch_apc_service" model="select.service">
+            <field name="name">Netdespatch APC</field>
+        </record>
+
+         <record id="netdespatch_ukmail_service" model="select.service">
+            <field name="name">Netdespatch UKMail</field>
+        </record>
+
+        <record id="netdespatch_yodel_service" model="select.service">
+            <field name="name">Netdespatch Yodel</field>
+        </record>
+</data>
+    </odoo>

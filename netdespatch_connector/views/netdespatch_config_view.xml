@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+        <odoo>
+    <data>
+
+        <record id="view_netdespatch_config_view_form" model="ir.ui.view">
+            <field name="name">netdespatch.config.form</field>
+            <field name="model">netdespatch.config</field>
+            <field name="arch" type="xml">
+                <form string="Netdespatch Configuration">
+                    <sheet>
+                        <!--<group name='config'>-->
+
+                            <group>
+                                <field name="name" required="1"/>
+                                <field name="url" required="1"/>
+                            </group>
+                        <notebook>
+                            <page string="Royalmail">
+                                <group>
+                                     <field name="rm_enable"/>
+                                 </group>
+                             <group string="Domestic" attrs="{'invisible': [('rm_enable','=', False)]}">
+
+                                 <group>
+                                      <field name="domestic_name" attrs="{'required': [('rm_enable','=', True)]}"/>
+                                        <field name="domestic_pwd" attrs="{'required': [('rm_enable','=', True)]}"/>
+
+                                 </group>
+                                 <group>
+                                     <field name="domestic_accountid" attrs="{'required': [('rm_enable','=', True)]}"/>
+                                     <!--<field name="category" widget="radio" options="{'horizontal': true}"/>-->
+                                 </group>
+                             </group>
+                            <group string="International" attrs="{'invisible': [('rm_enable','=', False)]}">
+                                <group>
+                                    <field name="in_name" attrs="{'required': [('rm_enable','=', True)]}"/>
+                                    <field name="in_pwd" attrs="{'required': [('rm_enable','=', True)]}"/>
+                                </group>
+                                <group>
+                                    <field name="in_accountid" attrs="{'required': [('rm_enable','=', True)]}"/>
+                                </group>
+                            </group>
+                                 </page>
+
+
+                        <page string="APC">
+
+                            <group>
+                                     <field name="apc_enable"/>
+                                 </group>
+                             <group attrs="{'invisible': [('apc_enable','=', False)]}">
+                                 <group>
+                                      <field name="apc_name" attrs="{'required': [('apc_enable','=', True)]}"/>
+                                        <field name="apc_pwd" attrs="{'required': [('apc_enable','=', True)]}"/>
+
+                                 </group>
+                                 <group>
+                                     <field name="apc_accountid" attrs="{'required': [('apc_enable','=', True)]}"/>
+
+                                 </group>
+                             </group>
+
+                                 </page>
+
+                            <page string="UKMail">
+                                <group>
+                                     <field name="ukmail_enable"/>
+                                 </group>
+                             <group attrs="{'invisible': [('ukmail_enable','=', False)]}">
+                                 <group>
+                                      <field name="ukmail_name" attrs="{'required': [('ukmail_enable','=', True)]}"/>
+                                        <field name="ukmail_pwd" attrs="{'required': [('ukmail_enable','=', True)]}"/>
+
+                                 </group>
+                                 <group>
+                                     <field name="ukmail_accountid" attrs="{'required': [('ukmail_enable','=', True)]}"/>
+
+                                 </group>
+                             </group>
+
+                                 </page>
+
+                            <page string="Yodel">
+                                <group>
+                                     <field name="yodel_enable"/>
+                                 </group>
+                             <group attrs="{'invisible': [('yodel_enable','=', False)]}">
+                                 <group>
+                                      <field name="yodel_name" attrs="{'required': [('yodel_enable','=', True)]}"/>
+                                        <field name="yodel_pwd" attrs="{'required': [('yodel_enable','=', True)]}"/>
+
+                                 </group>
+                                 <group>
+                                     <field name="yodel_accountid" attrs="{'required': [('yodel_enable','=', True)]}"/>
+                                 </group>
+                             </group>
+
+                                 </page>
+                        </notebook>
+
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+         <!--<record id="view_picking_netdespatch_form" model="ir.ui.view">-->
+            <!--<field name="name">stock.picking.out.form.inherit.netdespatch</field>-->
+            <!--<field name="model">stock.picking</field>-->
+            <!--<field name="inherit_id" ref="delivery.view_picking_withcarrier_out_form" />-->
+            <!--<field name="type">form</field>-->
+            <!--<field name="arch" type="xml">-->
+                <!--<xpath expr="//field[@name='number_of_packages']" position="after">-->
+                    <!--&lt;!&ndash;<field name="product_weight"/>&ndash;&gt;-->
+                    <!--<label for="length" string="Dimension"/>-->
+                    <!--<table>-->
+                        <!--<tr>-->
+
+                            <!--<td>Length<field name="length"/>(mm)</td>-->
+                            <!--<td>Width<field name="width"/>(mm)</td>-->
+                            <!--<td>Height<field name="height"/>(mm)</td>-->
+                        <!--</tr>-->
+                    <!--</table>-->
+
+
+                <!--</xpath>-->
+            <!--</field>-->
+         <!--</record>-->
+
+
+
+        <record model="ir.ui.view" id="netdespatch_config_tree_view">
+            <field name="name">netdespatch.config.tree.view</field>
+            <field name="model">netdespatch.config</field>
+            <field name="arch" type="xml">
+                <tree string="Netdespatch Configurations">
+                    <field name="name"/>
+                    <field name="url"/>
+
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_netdespatch_config" model="ir.actions.act_window">
+            <field name="name">Netdespatch</field>
+            <field name="res_model">netdespatch.config</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="netdespatch_config_tree_view"/>
+        </record>`
+
+        <menuitem action="action_netdespatch_config" id="menu_netdespatch_config_form" parent="base_shipping_v10.menu_shipping_services_settings" groups="base_shipping_v10.group_base_shipping_manager"/>
+</data>
+    </odoo>

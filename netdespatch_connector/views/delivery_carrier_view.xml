@@ -1,0 +1,30 @@
+<odoo>
+    <data>
+        <record id="delivery_carrier_inherit_netdespatch_form_view" model="ir.ui.view">
+            <field name="name">delivery.carrier.inherit.form.netdespatch</field>
+            <field name="model">delivery.carrier</field>
+
+            <field name="inherit_id" ref="base_shipping_v10.view_delivery_carrier_inherit_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[1]/group/field[@name='select_service']" position="after">
+
+                        <!--<field name="netdespatch_royalmail" invisible="1"/>-->
+                        <!--<field name="tariff_code" attrs="{'invisible': [('service_name','!=', 'Is Netdespatch Royalmail')]}"/>-->
+
+                        <field name="rm_category" widget="radio" attrs="{'invisible': [('service_name','!=', 'Netdespatch Royalmail')]}" options="{'horizontal': true}"/>
+
+                        <!--<field name="netdespatch_apc" invisible="1"/>-->
+                        <!--<field name="apc_tariff_code" attrs="{'invisible': [('service_name','!=', 'Is Netdespatch APC')]}" sequence="10"/>-->
+
+                        <!--<field name="netdespatch_ukmail" invisible="1"/>-->
+                        <!--<field name="ukmail_tariff_code" attrs="{'invisible': [('service_name','!=', 'Is Netdespatch UKMail')]}" sequence="10"/>-->
+
+                         <!--<field name="netdespatch_yodel" invisible="1"/>-->
+                        <!--<field name="yodel_tariff_code" attrs="{'invisible': [('service_name','!=', 'Is Netdespatch Yodel')]}" sequence="10"/>-->
+                        <field name="yodel_category" attrs="{'invisible': [('service_name','!=', 'Netdespatch Yodel')]}" options="{'horizontal': true}" widget="radio"/>
+
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
