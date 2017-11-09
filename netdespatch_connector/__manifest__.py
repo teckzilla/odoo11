@@ -40,7 +40,7 @@
             'data/netdespatch_royalmail_data.xml',
             'views/netdespatch_config_view.xml',
             'views/delivery_carrier_view.xml',
-            'views/stock_picking_view.xml'
+            # 'views/stock_picking_view.xml'
 
 
     ],
