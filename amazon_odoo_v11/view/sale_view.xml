@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+##############################################################################
+#    Copyright (c) 2015 - Present Teckzilla Software Solutions Pvt. All Rights Reserved
+#    Author: [Teckzilla Software Solutions]  <[ sales@teckzilla.net]>
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    A copy of the GNU General Public License is available at:
+#    <http://www.gnu.org/licenses/gpl.html>.
+#
+#    
+#
+##############################################################################
+-->
+
+
+
+<odoo>
+	<data>
+        <!--sales channel shop-->
+        <!--sales channel shop form view-->
+<!--        <record model="ir.ui.view" id="sale_cahnnel_ebay_shop_view">
+            <field name="name">sale.cahnnel.ebay.shop.view</field>
+            <field name="model">sale.shop</field>
+            <field name="inherit_id" ref="base_ecommerce.view_shop_form"/>
+            <field name="arch" type="xml">
+             <xpath expr="//page[@name='Actions']" position="after">
+                 <page string="Amazon Actions" attrs="{'invisible':[('amazon_shop','!=',True)]}">
+                            <group>
+                                <field name="amazon_shop" invisible="1" />
+                                 <label for="id" string="Request Merchant Listing Report"/>
+                                 <div>
+                                    <div name="Request Merchant Listing Report">
+                                    <div>
+                                        <field name="requested_report_id" nolabel="1"  class="oe_inline"/>
+                                        <button name="request_products_report" string="Request Products Report" type="object" icon="gtk-jump-to" context="{'report_diff': 'Product'}"/>
+                                    </div>
+                                    <div>
+                                        <field name="report_id"  nolabel="1" class="oe_inline"/>
+                                        <button name="check_report_status" string="Check Report Status" type="object" icon="gtk-jump-to" context="{'report_diff': 'Product'}"/>
+                                    </div>
+                                    <div>
+                                        <button name="import_amazon_products" string="Import Products" type="object" icon="gtk-jump-to"/>
+                                        <field name="report_update"  nolabel="1" class="oe_inline"/>
+                                     </div>
+                                    
+                                    </div>
+                                     <separator string="Get Orders" colspan="4"/>
+                                     <group attrs="{'invisible':True}">
+                                        <field name="order_all_request_id"/>
+                                        <field name="order_all_report_id"/>
+                                        <field name="order_request_id" />
+                                        <field name="order_report_id"  />
+
+                                        
+                                    </group>
+                                     <div>
+                                        <div>
+                                            <field name="request_from_date"  class="oe_inline"/>
+                                            <button name="request_reports" string="Request Report" type="object" icon="gtk-jump-to"/>
+                                            <button name="request_order_report" string="Get Order" type="object" icon="gtk-jump-to"/>
+                                        </div>
+                                    </div>
+                                    <separator string="Get Reserved Quantites" colspan="4"/>
+                                    <div>
+                                     <div>
+                                    <field name="reserved_requested_report_id" nolabel="1"  class="oe_inline"/>
+                                    <button name="request_products_report" string="Request Products Report" type="object" icon="gtk-jump-to" context="{'report_diff':'Quantity'}"/>
+                                     </div>
+                                     <div>
+                                    <field name="reserved_report_id" nolabel="1" class="oe_inline"/>
+                                    <button name="check_report_status" string="Import AFN Products And Reserved Quantity" type="object" icon="gtk-jump-to" context="{'report_diff':'Quantity'}"/>
+                                    </div>
+                                    <div>
+                                    <field name="reserved_report_update" nolabel="1" class="oe_inline"/>
+                                    <button name="import_reserved_quantity" string="Import AFN Products And Reserved Quantity" type="object" icon="gtk-jump-to"/>
+                                    </div>
+                                    <separator string="Get Competitors Data" colspan="4"/>
+                                     <div>
+                                        <button name="import_competitors_data" string="Get Competitors Data" type="object" icon="gtk-jump-to"/>
+                                        <button name="import_buybox" string="Get BuyBoxOwner" type="object" icon="gtk-jump-to"/>
+                                     </div>
+                                     
+                                     <separator string="Get Customer FeedBack" colspan="4"/>
+                                     <field name="feedback_report_update"/>
+                                      <div>
+                                        <field name="feedback_report_id" nolabel="1"  class="oe_inline"/>
+                                        <button name="import_feedback" string="Request Feedback Report" type="object" icon="gtk-jump-to" context="{'report_diff': 'Product'}"/>
+                                    </div>
+                                    <div>
+                                        <field name="feed_report_id"  nolabel="1" class="oe_inline"/>
+                                        <button name="import_feedback" string="Check Report Status" type="object" icon="gtk-jump-to" context="{'report_diff': 'Product'}"/>
+                                    </div>
+                                    <div>
+                                        <button name="import_feedback" string="Import Feedback" type="object" icon="gtk-jump-to"/>
+                                     </div>
+                                     </div>
+                                     </div>
+                                   
+                            </group>
+                        </page>
+                  </xpath>
+                  
+                  <xpath expr="//page[@name='Actions']" position="after">
+                 
+                     <page string="Amazon FBA Actions" attrs="{'invisible':[('amazon_fba_shop','!=',True)]}">         
+                        <group>
+                                <field name="amazon_shop" invisible="1" />
+                                 <label for="id" string="Request Merchant Listing Report"/>
+                                 <div>
+                                    <div name="Request Merchant Listing Report">
+                                        <field name="requested_report_id" nolabel="1"  class="oe_inline"/>
+                                        <button name="request_products_report" string="Request Products Report" type="object" icon="gtk-jump-to"/>
+                                        <field name="report_id" />
+                                        <button name="check_report_status" string="Check Report Status" type="object" icon="gtk-jump-to"/>
+                                         <field name="report_update" />
+                                        <button name="import_products" string="Import Products" type="object" icon="gtk-jump-to"/>
+                                        <div>
+                                            <button name="import_amazon_stock" string="Import stock" type="object" icon="gtk-jump-to"/>
+                                            <field name="last_stock_imported_Date"  nolabel="1" class="oe_inline"/>
+                                        </div>
+                                        <group>
+                                            <field name="fba_request_id" />
+                                            <field name="fba_report_id"  />
+                                        </group>
+                                         <div>
+                                            <div>
+                                                <field name="fba_from_date"  class="oe_inline"/>
+                                                <field name="fba_to_date"  class="oe_inline"/>
+                                            </div>
+                                            <div>
+                                                <button name="request_fba_reports" string="Request FBA Order Report" type="object" icon="gtk-jump-to"/>
+                                                <button name="request_fba_order_report" string="Get FBA Order" type="object" icon="gtk-jump-to"/>
+                                            </div>
+                                        </div>
+                                    
+                                    </div>
+                                 </div>
+                            </group>
+                     </page>
+                     <page string="FBA Location" attrs="{'invisible':[('amazon_fba_shop','!=',True)]}">
+                            <group>
+                                <field name="amazon_fba_shop" />
+                                <field name="stock_location"/>   
+                                <field name="preparation_location"/>
+                                <field name="fba_transit" />
+                                <field name="fba_location" />
+                            </group>
+                        </page>
+                  </xpath>
+               </field>   
+        </record>-->
+        
+        <record model="ir.ui.view" id="attribute_form_view">
+            <field name="name">amazon.feedback.form.view</field>
+            <field name="model">amazon.order.feedback</field>
+            <field name="arch" type="xml">
+                <form string="Customer Feedback">
+                    <group>
+                        <field name="date"/>
+                        <field name="order_id"/>
+                        <field name="rating"/>
+                        <field name="comments" />
+                        <field name="response" />
+                        <field name="arrived" />
+                        <field name="described" />
+                        <field name="customer_service" />
+                        <field name="rater_email" />
+                        <field name="rater_role" />
+                    </group>
+                </form>
+            </field>   
+        </record>
+
+        <record model="ir.ui.view" id="amazon_feedback_tree_view">
+            <field name="name">amazon.feedback.tree.view</field>
+            <field name="model">amazon.order.feedback</field>
+            <field name="arch" type="xml">
+                <tree string="Customer Feedback">
+                    <field name="date"/>
+                    <field name="rating"/>
+                    <field name="comments" />
+                    <field name="response" />
+                    <field name="arrived" />
+                    <field name="described" />
+                    <field name="customer_service" />
+                    <field name="rater_email" />
+                    <field name="rater_role" />
+                </tree>
+           </field>
+        </record>
+        <record model="ir.ui.view" id="amazon_feedback_tree_sale_view">
+            <field name="name">amazon.feedback.tree.view</field>
+            <field name="model">amazon.order.feedback</field>
+            <field name="arch" type="xml">
+                <tree string="Customer Feedback">
+                    <field name="date"/>
+                    <field name="order_id"/>
+                    <field name="rating"/>
+                    <field name="comments" />
+                    <field name="response" />
+                    <field name="arrived" />
+                    <field name="described" />
+                    <field name="customer_service" />
+                    <field name="rater_email" />
+                    <field name="rater_role" />
+                </tree>
+           </field>
+        </record>
+        
+        <record model="ir.ui.view" id="amazon_feedback_search_view">
+            <field name="name">amazon.feedback.search.view</field>
+            <field name="model">amazon.order.feedback</field>
+            <field name="arch" type="xml">
+                <search string="Customer Feedback">
+                     <field name="date"/>
+                     <field name="order_id"/>
+                    <field name="rating"/>
+                    <field name="comments" />
+                    <field name="response" />
+                    <field name="arrived" />
+                    <field name="described" />
+                    <field name="customer_service" />
+                    <field name="rater_email" />
+                    <field name="rater_role" />
+                </search>
+           </field>
+        </record>
+        
+        <record model="ir.ui.view" id="view_sale_order_form_for_feedback">
+            <field name="name">view.sale.order.form.for.amazon.feedback</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <data>
+                    <notebook position="inside">
+                        <page string="Amazon Feed Back" >
+                             <field name="amazon_feedback_ids" nolabel="1"/>
+                        </page>
+                    </notebook>
+                </data>
+           </field>
+        </record>
+        
+        <record id="action_amazon_customer_feedback" model="ir.actions.act_window">
+            <field name="name">Negative Feedback</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">amazon.order.feedback</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="amazon_feedback_tree_sale_view"/>
+        </record>
+
+        <menuitem action="action_amazon_customer_feedback" id="menu_amazon_customer_feedback" parent="menu_amazon_product_base"  />
+        
+        
+<!--        <record model="ir.ui.view" id="sale_cahnnel_shop_inherit_amazon_view">
+            <field name="name">sale.cahnnel.shop.inherit.amazon.view</field>
+            <field name="model">sale.shop</field>
+            <field name="inherit_id" ref="base_ecommerce.sale_cahnnel_shop_view1"/>
+            <field name="arch" type="xml">
+            <xpath  expr="//field[@name='last_import_order_date']" position="after">
+                <field name="import_order_to_date" />
+            </xpath>
+            </field>
+        </record>-->
+
+    </data>
+</odoo>

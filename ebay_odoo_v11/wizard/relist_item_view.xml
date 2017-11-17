@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+##############################################################################
+#    Copyright (c) 2015 - Present Teckzilla Software Solutions Pvt Ltd. All Rights Reserved
+#    Author: [Teckzilla Software Solutions]  <[ sales@teckzilla.net]>
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    A copy of the GNU General Public License is available at:
+#    <http://www.gnu.org/licenses/gpl.html>.
+#
+#    
+#
+##############################################################################
+-->
+
+
+
+<openerp>
+    <data>
+        <record id="view_relist_item_ebay_listing" model="ir.ui.view">
+            <field name="name">Add Ebay Listing</field>
+            <field name="model">relist.item</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Add Listing">
+                    <separator string="Add Ebay Price To Be Updated" colspan="4" />
+                    <group col="4" colspan="4">
+                        <field name="name" />
+                    </group>
+                    <group col="2" colspan="4">
+                        <button name="relist_item_action" string="Relist" type="object" icon="fa-share" />
+                        <button special="cancel" string="_Cancel" icon="fa-ban"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+
+        <act_window name="Relist Item"
+            res_model="relist.item"
+            src_model="ebay.product.listing"
+            view_mode="form"
+            target="new"
+            context="{'search_default_in_location':1}"
+            key2="client_action_multi"
+            id="action_view_relist_item_ebay_listing"/>
+       
+    </data>
+</openerp>

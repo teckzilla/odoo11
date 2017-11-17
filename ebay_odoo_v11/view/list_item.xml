@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+##############################################################################
+#    Copyright (c) 2015 - Present Teckzilla Software Solutions Pvt Ltd. All Rights Reserved
+#    Author: [Teckzilla Software Solutions]  <[ sales@teckzilla.net]>
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    A copy of the GNU General Public License is available at:
+#    <http://www.gnu.org/licenses/gpl.html>.
+#
+#    
+#
+##############################################################################
+-->
+
+
+<odoo>
+    <data>
+        <record id="view_ebay_site_tree" model="ir.ui.view">
+            <field name="name">view.ebay.site.tree</field>
+            <field name="model">ebay.site</field>
+            <field name="arch" type="xml">
+                <tree string="eBay Site">
+                    <field name="name" />
+                    <field name="site"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="view_ebay_site_form" model="ir.ui.view">
+            <field name="name">view.ebay.site.form</field>
+            <field name="model">ebay.site</field>
+            <field name="arch" type="xml">
+                <form string="eBay Site" version="7.0">
+                    <group colspan="4">
+                        <field name="name" />
+                        <field name="site"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+        
+        <record id="view_ebay_products_form" model="ir.ui.view">
+            <field name="name">view.ebay.products.form</field>
+            <field name="model">ebay.products</field>
+            <field name="arch" type="xml">
+                <form string="eBay Products" version="7.0">
+                    <group colspan="4">
+                        <field name="variation_product" />
+                        <field name="ebay_product" />
+                        
+                        <field name="ebay_title" />
+                        <field name="ebay_price" />
+                        <field name="ebay_subtitle"/>
+                        <field name="item_id"/>
+                        <field name="variation_datas"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <!--<record id="view_list_item_tree" model="ir.ui.view">-->
+            <!--<field name="name">view.list.item.tree</field>-->
+            <!--<field name="model">list.item</field>-->
+            <!--<field name="arch" type="xml">-->
+                <!--<tree string="Product Listing">-->
+                    <!---->
+                    <!--<field name="name" />-->
+                    <!--<field name="shop_id" />-->
+                    <!--<field name="template_id"/>-->
+                <!--</tree>-->
+            <!--</field>-->
+        <!--</record>-->
+        
+        <record id="view_list_item_form" model="ir.ui.view">
+            <field name="name">view.list.item.form</field>
+            <field name="model">list.item</field>
+            <field name="arch" type="xml">
+                <form string="New Listing" version="7.0">
+                    <header>
+                        <button name="add_ebay_product_conatainer" string="Add Product In eBay" type="object" class="oe_highlight"/>
+                        <button name="update_ebay_product" string="Update Product In eBay" type="object" class="oe_highlight"/>
+
+                    </header>
+                    <sheet>
+                            <group>
+                            <h3>
+                            <label string="Note:- Save the Details Before Adding Variation Products Checked"/>
+                            
+                            </h3>
+                            </group>
+                            <group colspan="4">
+                            <group colspan="4">
+                            <div align="center"><h4 style="color:red;"><field name="req_err" nolabel="1" readonly="1" colspan="4" /></h4></div>
+                        </group>
+              
+                            </group>
+                            <group colspan="4">
+                            <group>
+                            <field name="name"  colspan="2"/>
+                            <field name="shop_id" widget="selection" domain="[('ebay_shop','=',True)]" select="1"/>
+                            <field name="template_id" widget="selection"   colspan="2"/>
+                            <field name="type"  colspan="2"  />
+                            <field name="reverse_met" attrs="{'invisible': [('type','!=','Chinese')]}"  colspan="2"/>
+                            <field name="buy_it_now_price" string="Buy it now price" attrs="{'invisible': [('reverse_met','!=',True)]}"  colspan="2"/>
+                            </group>
+                            <group>      
+                            <field name="condition"  colspan="2" />
+                            <field name="inst_list_chk"  colspan="2"/>
+                            <field name="schedule_time" attrs="{'readonly':[('inst_list_chk','=',True)],'required':[('inst_list_chk','=',False)]}"  colspan="2"/>
+                            <field name="listing_duration"  colspan="2"/>
+                            <field name="variation_product"   colspan="2"/>
+                            </group>
+                            </group>
+
+                  <notebook colspan="4">
+                        <page string="Variation Details"  attrs="{'invisible': [('variation_product','!=',True)]}">
+                            <sheet>
+                            <group>
+                                <group>
+                            <field name="variation_itemid" />
+                            <field name="variation_subtitle"  colspan="2"/>
+                                </group> 
+
+                            </group>
+                                                        
+                            <group>
+                            <field name="variation_des" colspan="8" widget="text_ckeditor4" />
+
+                            <newline/>
+                            <field name="main_variation_imgs"  colspan="8"/>
+                            </group>
+                            </sheet>    
+                            
+                        </page>
+                        <page string="Add Product">
+                    <field name="ebay_product_ids" nolabel="1"  widget="one2many_list" colspan="4" context="{'model_line_id': active_id}" options="{'always_reload': True}">
+                    <form>
+                        <group>
+                        <field name="variation_product"/>
+                        <!--<field name="ebay_product"/>-->
+                        <field name="ebay_product" />
+                        <field name="ebay_title" />
+                        <field name="ebay_price" />
+                        <field name="ebay_subtitle" />
+                      
+                        <field name="item_id" readonly = "1"/>
+                        <field name="item_id_link" widget = "url" readonly = "1"/>
+                        
+                        <field name="category_name" invisible = "1"/>
+                        </group>
+                        <field colspan="4" mode="tree" name="variation_datas" widget="one2many_list" nolabel="1" attrs="{'invisible': [('variation_product','!=',True)]}" >
+                        
+                            <tree  editable="bottom" string="Variation Data">
+                     
+                              <!--<field name="variation_name" />-->
+                            <field name="variation_name" domain="[('attr_set_id','=',parent.category_name)]"/>
+                            <field name="variation_val" domain="[('attribute_id','=',variation_name)]"/>
+                            <field name="value_text"/>
+                        </tree>
+                    </field>
+<!--                        <field name="err_txt_box"/>-->
+                        
+     
+                    </form>
+                    <tree>
+                        <field name="ebay_product"/>
+                        <field name="variation_product"/>
+                        <field name="ebay_title" attrs="{'invisible': [('variation_product','=',True)],'required':[('variation_product','=',False)]}"/>
+                        
+                        <field name="ebay_price"/>
+                        <field name="ebay_subtitle"/>   
+                        <field name="is_listed"/>
+                        <field name="item_id" readonly = "1"/>
+<!--                        <field name="err_txt_box"/>                                             -->
+                    </tree>
+                </field>
+                </page>
+                        <page string="Category 1">
+                    <group colspan="4" >
+                        <field name="category_id1"/>
+                        <field name="store_category_id1"/>
+                    </group>
+                    <newline/>
+        
+                        <field name="match_attribute_idss" nolabel="1" colspan="4" >
+                            <tree string="Attributes" editable="bottom">
+                                <field name="name" domain="[('attr_set_id','=',parent.category_id1)]"/>
+                                <field name="value" domain="[('attribute_id','=',name)]"/>
+                                <field name="value_text"/>
+                            </tree>
+                        </field>
+                    
+                    </page>
+                    <page string="Category 2">
+                    <group colspan="4" >
+                        <field name="category_id2"/>
+                        <field name="store_category_id2"/>
+                    </group>
+                    <newline/>
+                    <field colspan="4"  name="match_attribute_idss2" nolabel="1" >
+        
+                    <tree string="Attributes"  editable="bottom">
+                        <field name="name"/>
+                        <field name="name" domain="[('attr_set_id','=',parent.category_id2)]" />
+                        <field name="value" />
+                        <field name="value_text"/>
+                    </tree>
+                    </field>
+                    </page>   
+                      
+</notebook>    
+
+            <!--<table style="height:100%;width:100%;margin:5%;">-->
+                <!--<tr>-->
+                    <!--<td>-->
+                        <!--<button name="add_ebay_product_conatainer" string="Add Product In eBay" colspan="4" type="object" class="oe_highlight"/>-->
+                    <!--</td>-->
+                    <!--<td>-->
+                        <!--<button name="update_ebay_product" string="Update Product In eBay" colspan="8" type="object" class="oe_highlight"/>-->
+                    <!--</td>-->
+                <!--</tr>-->
+            <!--</table>-->
+              <!--<group colspan="4">-->
+                <!--<button name="add_ebay_product_conatainer" string="Add Product In eBay" colspan="4" type="object"/>-->
+                <!--<button name="update_ebay_product" string="Update Product In eBay" colspan="8" type="object"/>-->
+                <!--</group>-->
+                <h5 style="color:red;"><field name="common_err" colspan="8" bgcolor="green" fgcolor="yellow" cssclass="myCssClass" /></h5>
+<!--                <html>
+                    <a onclick="javascript:toggle_ckeditor();" class="wysiwyg_button wysiwyg_button_off oe_button">WYSIWYG on</a>
+                    
+                </html>-->
+<!--                <field name="wiswing_editore" widget="text_ckeditor4"/>-->
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_ebay_list_item" model="ir.actions.act_window">
+            <field name="name">Create an eBay Listing</field>
+            <field name="res_model">list.item</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            
+        
+<!--            <field name="domain">[('type','!=','Chinese')]</field>-->
+
+            
+        </record>
+        <menuitem id="menu_ebay_list" name="eBay Listing" parent="base_ecommerce_v11.menu_ecommerce_root"  sequence="30"/>
+        <menuitem action="action_ebay_list_item" id="menu_ebay_product_listing_single" parent="menu_ebay_list"/>
+           
+        <record id="action_ebay_site_item" model="ir.actions.act_window">
+                <field name="name">eBay Sites</field>
+                <field name="res_model">ebay.site</field>
+                <field name="view_type">form</field>
+                <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem action="action_ebay_site_item" id="menu_ebay_site_single" parent="base_ecommerce_v11.menu_sales_channel_config" sequence="53"/>
+    
+     </data>
+</odoo>

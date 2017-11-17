@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+##############################################################################
+#    Copyright (c) 2015 - Present Teckzilla Software Solutions Pvt. All Rights Reserved
+#    Author: [Teckzilla Software Solutions]  <[ sales@teckzilla.net]>
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    A copy of the GNU General Public License is available at:
+#    <http://www.gnu.org/licenses/gpl.html>.
+#
+#    
+#
+##############################################################################
+-->
+
+
+<odoo>
+    <data>
+            <record id="product_amazon_form_view" model="ir.ui.view">
+                <field name="name">product.amazon.form.inherit</field>
+                <field name="model">product.product</field>
+                <field name="type">form</field>
+                <field name="inherit_id" ref="product.product_normal_form_view"/>
+                <field name="arch" type="xml">
+                    <div name="options" position="inside">
+                        <field name="amazon_exported"/>
+                        <label for="amazon_exported"/>
+                     </div>
+                    <notebook position="inside">
+                        <page string="Amazon Information" attrs="{'invisible': [('amazon_exported','=',False)]}" >
+                            <notebook>
+                                 <page string="Amazon Listing Details">
+                                    <separator string="Listings" colspan="4"/>
+                                    <field colspan="4" name="amazon_listing_ids" nolabel="1" widget="one2many_list">
+                                        <tree string="Amazon Listing">
+                                            <field name="title" />
+                                            <field name="name" />
+                                            <field name="asin" />
+                                            <!--<field name="product_id" />-->
+                                            <field name="last_sync_price" />
+                                            <field name="last_sync_date" />
+                                            <field name="last_sync_stock" />
+                                            <field name="reserved_quantity" />
+                                            <field name="amazon_condition"/>
+<!--                                            <field name="fulfillment_channel" />-->
+                                            <field name="shop_id" />
+                                            <field name="active_amazon" />
+                                            <field name="rank" />
+                                            <field name="prod_dep" />
+                                        </tree>
+                                    </field>
+                                </page>
+                                <page string="Amazon Attributes">
+                                    <separator string="Amazon Attributes" colspan="4"/>
+                                    <group>
+                                        <field name="amazon_category" domain="[('shop_id.instance_id.module_id','=','amazon_teckzilla')]"/>
+                                        <field name="item_type" domain="[('attr_type_id','=',amazon_category)]"/>
+                                    </group>
+                                    <field name="amazon_attribute_ids1" nolabel="1" colspan="4">
+                                        <tree string="Attributes" editable="bottom">
+                                            <field name="name" domain="[('attr_set_id','=',parent.amazon_category), ('is_leaf','=',True)]"/>
+                                            <field name="value" domain="[('attribute_id','=',name)]"/>
+                                            <field name="value_text"/>
+                                        </tree>
+                                    </field>
+                                </page>
+                                <page string="Amazon Details">
+                                    <separator string="Amazon Details" colspan="8"/>
+                                    <group>
+                                        <field name="amzn_condtn" colspan="2" />
+                                        <field name="amazon_cat" placeholder="Item Type e.g. Shirt, Sweater, Pants, Shorts, Skirt, Dress, Suit, Blazer, Outerwear, SocksHosiery"/>
+                                        <field name="amazon_brand"/>" />
+                                        <field name="department" placeholder="Department e.g. mens,womens etc"/>" />
+                                        <field name="amazon_manufacturer"/>
+                                        <field name="amazon_description" colspan="2" />
+                                        <field name="style_keywords" placeholder="Style Keywords e.g. Style Keywords1,Style Keywords2,Style Keywords3,Style Keywords4,Style Keywords5"/>
+                                        <field name="search_keywords" placeholder="Search Keywords e.g. Search Keywords1,Search Keywords2,Search Keywords3,Search Keywords4,Search Keywords5"/>
+                                        <field name="platinum_keywords" placeholder="Platinum Keywords e.g. Platinum Keywords1,Platinum Keywords2,Platinum Keywords3,Platinum Keywords4,PlatinumKeywords5"/>
+                                        <field name="bullet_point" placeholder="Bullet Point e.g. Bullet Point1,Bullet Point2,Bullet Point3,Bullet Point4,Bullet Point5"/>    
+                                        <field name="code_type"/>                       
+                                        <!--<field name="amazon_category" colspan="2" invisible="1"/>-->
+                                    </group>
+                                </page>
+                            </notebook>
+                        </page>
+                    </notebook>
+                </field>
+            </record>
+
+            <record id="product_amazon_listing_search_view" model="ir.ui.view">
+                <field name="name">amazon.product.listing.search</field>
+                <field name="model">amazon.product.listing</field>
+                <field name="type">search</field>
+                <field name="arch" type="xml">
+                    <search string="Amazon Listing" >
+                        <field name="name" />
+                        <field name="asin" />
+                        <field name="product_id" />
+                        <field name="listing_name" />
+                        <field name="shop_id" />
+                        <field name="active_amazon" />
+                    </search>
+                </field>
+            </record>
+
+            <record id="product_amazon_listing_form_view" model="ir.ui.view">
+                <field name="name">product.amazon.form.listing.view</field>
+                <field name="model">amazon.product.listing</field>
+                <field name="type">form</field>
+                <field name="arch" type="xml">
+                    <form string="Amazon Listing">
+                        <notebook position="inside">
+                            <page string="Amazon Listing Details">
+                                <group col="4" colspan="4">
+                                    <separator string="Listings Details" colspan="4"/>
+                                    <field name="title" />
+                                    <field name="name" />
+                                    <field name="asin" />
+                                    <field name="code_type" />
+                                    <field name="product_id" />
+                                    <!--<field name="fulfillment_channel" />-->
+                                    <field name="shop_id" />
+                                    <field name="active_amazon" />
+                                    <field name="item_type" />
+                                    <field name="department" />
+                                    <field name="producttypename" />
+                                    <field name="color" />
+                                    <field name="size" />
+                                </group>
+                                <group col="4" colspan="4">
+                                    <separator string="Stock and Price Details" colspan="4"/>
+                                    <field name="last_sync_date" />
+                                    <field name="last_sync_stock" />
+                                    <field name="reserved_quantity" />
+                                    <field name="amazon_condition"/>
+
+                                    <!--<field name="total_sales" />-->
+<!--                                    <field name="percentage_sales" />-->
+<!--                                    <field name="current_stock"/>-->
+                                    <field name="last_sync_price" />
+                                    <field name="fnsku" />
+                               </group>
+                            </page>
+                            <page string="Rank Details">
+                                <group col="4" colspan="4">
+                                   <separator string="Rank Details" colspan="4"/>
+                                    <field name="rank" />
+                                    <field name="last_rank_updated" />
+                                    <field name="avg_seven_rank" />
+                                </group>
+                                <group colspan="4">
+                                    <separator string="Rank History" colspan="4"/>
+                                    <field name="amazon_rank_ids" nolabel="1">
+                                        <tree string="Product Ranks">
+                                            <field name="name"/>
+                                            <field name="buybox_owner"/>
+                                            <field name="buybox_price"/>
+                                            <field name="category" />
+                                            <field name="rank_created_date"/>
+                                        </tree>
+                                    </field>
+                                </group>
+                            </page>
+                           <page string="Lowest Offerings">
+                                <group colspan="4">
+                                    <separator string="Offerings" colspan="4"/>
+                                    <field name="amazon_lowest_competitors" nolabel="1">
+                                        <tree string="Lowest Offer">
+                                            <field name="price"/>
+                                            <field name="shipping_time"/>
+                                            <field name="seller_feedback_count"/>
+                                            <field name="sellerpositivefeedbackrating"/>
+                                            <field name="no_offer_listingsconsidered"/>
+<!--                                            <field name="item_condition"/>-->
+                                            <field name="item_subcondition"/>
+<!--                                            <field name="fulfillment_channel"/>-->
+                                            <field name="feedback_count"/>
+                                            <field name="ships_domestically"/>
+                                            <field name="last_sync_date"/>
+                                        </tree>
+                                    </field>
+                                </group>
+                           </page>
+                       </notebook>
+                    </form>
+                </field>
+            </record>
+
+            <record id="product_amazon_listing_tree_view" model="ir.ui.view">
+                <field name="name">product.amazon.tree.listing.view</field>
+                <field name="model">amazon.product.listing</field>
+                <field name="type">tree</field>
+                <field name="arch" type="xml">
+                    <tree string="Amazon Listing">
+                        <field name="name" />
+                        <field name="asin" />
+                        <field name="product_id" />
+                        <field name="last_sync_price" />
+                        <field name="last_sync_date" />
+                        <field name="last_sync_stock" />
+                        <field name="reserved_quantity" />
+                        <!--<field name="total_sales" />-->
+                        <!--<field name="current_stock"/>-->
+                        <!--<field name="percentage_sales" />-->
+<!--                        <field name="fulfillment_channel" />-->
+                        <field name="shop_id" />
+                        <field name="active_amazon" />
+                        <field name="rank" />
+                    </tree>
+                </field>
+            </record>
+
+        <record id="action_amazon_product_listing" model="ir.actions.act_window">
+            <field name="name">Listing</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">amazon.product.listing</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="product_amazon_listing_tree_view"/>
+        </record>
+        
+        <menuitem id="menu_amazon_product_base" parent="sales_team.menu_base_partner" name="Amazon" groups="base_ecommerce_v11.group_ecommerce_manager"/>
+        <menuitem action="action_amazon_product_listing" id="menu_amazon_product_listing" parent="menu_amazon_product_base"  />
+        
+<!--        amazon product listing rank view start-->
+            <record id="product_amazon_listing_rank_search_view" model="ir.ui.view">
+                <field name="name">product.amazon.listing.rank.search.view</field>
+                <field name="model">amazon.product.listing.rank</field>
+                <field name="type">search</field>
+                <field name="arch" type="xml">
+                    <search string="Listing Rank" >
+                        <field name="listing_id" />
+                        <field name="name" />
+                        <field name="buybox_price" />
+                        <field name="category" />
+                    </search>
+                </field>
+            </record>
+            <record id="product_amazon_listing_rank_form_view" model="ir.ui.view">
+                <field name="name">product.amazon.listing.rank.form.view</field>
+                <field name="model">amazon.product.listing.rank</field>
+                <field name="type">form</field>
+                <field name="arch" type="xml">
+                    <form string="Listing Rank">
+                        <group col="4" colspan="4">
+                            <field name="listing_id" />
+                            <field name="name" />
+                            <field name="category" />
+                            <field name="buybox_price" />
+                            <field name="buybox_owner" />
+                            <field name="rank_created_date" />
+                        </group>
+                    </form>
+                </field>
+            </record>
+            <record id="product_amazon_listing_rank_tree_view" model="ir.ui.view">
+                <field name="name">product.amazon.listing.rank.tree.view</field>
+                <field name="model">amazon.product.listing.rank</field>
+                <field name="type">tree</field>
+                <field name="arch" type="xml">
+                    <tree string="Listing Rank">
+                        <field name="listing_id" />
+                        <field name="name" />
+                        <field name="rank_created_date" />
+                        <field name="buybox_owner" />
+                        <field name="buybox_price" />
+                        <field name="category" />
+                    </tree>
+                </field>
+            </record>
+        <record id="action_amazon_product_listing_rank" model="ir.actions.act_window">
+            <field name="name">Listing Rank</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">amazon.product.listing.rank</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="product_amazon_listing_rank_tree_view"/>
+            <field name="search_view_id" ref="product_amazon_listing_rank_search_view"/>
+        </record>
+        <menuitem action="action_amazon_product_listing_rank" id="menu_amazon_product_listing_rank" parent="menu_amazon_product_base"/>
+        
+        
+       
+<!--        amazon product listing rank view end-->
+
+
+        </data>
+    </odoo>

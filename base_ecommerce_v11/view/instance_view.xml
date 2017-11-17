@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+##############################################################################
+#    Copyright (c) 2015 - Present Teckzilla Software Solutions Pvt. All Rights Reserved
+#    Author: [Teckzilla Software Solutions]  <[ sales@teckzilla.net]>
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    A copy of the GNU General Public License is available at:
+#    <http://www.gnu.org/licenses/gpl.html>.
+#
+#    
+#
+##############################################################################
+-->
+<odoo>
+        <data>
+            <!--Sales Channel Instance-->
+             <!--Sales Channel Instance Form View-->
+            <record id="sales_channel_instance_form_view" model="ir.ui.view">
+                <field name="name">sales.channel.instance.form.view</field>
+                <field name="model">sales.channel.instance</field>
+                <field name="arch" type="xml">
+                    <form string="Sales Channel Instance" version="7.0">
+                        <sheet>
+                          <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1><field name="name"/></h1>
+                          </div>
+                          <group name="module">
+                              <div >
+                                <h3>
+                                    <field name="module_id" />
+                                </h3>
+                              </div>
+                          </group>
+                          <group>
+                         <button name="create_stores" type="object" string="Create Channel" class="oe_highlight"/>
+                          </group>
+                        </sheet>
+                    </form>
+                </field>
+            </record>
+
+            <!--Sales Channel Instance Tree View-->
+	    <record model="ir.ui.view" id="sales_channel_instance_tree_view">
+            	<field name="name">sales.channel.instance.tree.view</field>
+	        <field name="model">sales.channel.instance</field>
+	        <field name="arch" type="xml">
+                    <tree string="Sales Channel Instance">
+                        <field name="name"/>
+                        <field name="module_id"/>
+                    </tree>
+                </field>
+            </record>
+
+
+           <!--Sales Channel Instance Action-->
+            <record model="ir.actions.act_window" id="action_sales_channel_instance">
+                <field name="name">Add a Channel</field>
+                <field name="res_model">sales.channel.instance</field>
+                <field name="view_type">form</field>
+                <field name="view_mode">tree,form</field>
+            </record>
+
+
+		
+    </data>
+</odoo>
+
+

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+##############################################################################
+#    Copyright (c) 2015 - Present Teckzilla Software Solutions Pvt Ltd. All Rights Reserved
+#    Author: [Teckzilla Software Solutions]  <[ sales@teckzilla.net]>
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    A copy of the GNU General Public License is available at:
+#    <http://www.gnu.org/licenses/gpl.html>.
+#
+#    
+#
+##############################################################################
+-->
+
+
+<odoo>
+	<data>
+
+        <!--Attribute set Form view-->
+        <record model="ir.ui.view" id="ebay_attribute_set_form_view">
+            <field name="name">ebay.attribute.set.form.view</field>
+            <field name="model">product.attribute.set</field>
+            <field name="inherit_id" ref="base_ecommerce_v11.attribute_set_form_view" />
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='base_attrs']//field[@name='shop_id']" position="replace">
+                    <field name="shop_id" />
+                </xpath>
+                
+<!--                <xpath expr="//page[@string='Attributes']" position="after">
+                    <page string="Ebay Store Category" attrs="{'invisible': [('shop','!=',True)]}" >
+                        <field name="attri_store_categ_ids"/>
+                    </page>
+                </xpath>-->
+                    <xpath expr="//group[@name='base_attrs']" position="after">
+                    <!--<group name="ebay_attrs_set" attrs="{'invisible': [('shop_id','!=',True)]}" colspan="4" col="4">-->
+                    <group name="ebay_attrs_set"  colspan="4" col="4" attrs="{'invisible': [('shop','!=',True)]}">
+                        <separator string="Ebay Category Information" colspan="4"/>
+                            <!--<field name="shop_id" invisible="1" />-->
+                            <!--<field name="ebay_category_id" colspan="2"/>-->
+                            <field name="item_specifics" colspan="2"/>
+                            <field name="class_ad" colspan="2"/>
+                            <field name="condition_enabled" colspan="2"/>
+                            <field name="catlog_enabled" colspan="2"/>
+                            <field name="shop" colspan="2" attrs="{'invisible':True}"/>
+                            <newline />
+                            <button name="get_attribute" string="Get item/condition enabled" type="object" icon="gtk-go-forward" colspan="2"/>
+                            <button name="get_category_specifics" string="Get Category Specifics" type="object" icon="gtk-go-forward" colspan="2"/>
+                    </group>
+                </xpath>
+           </field>
+        </record>
+
+    </data>
+</odoo>

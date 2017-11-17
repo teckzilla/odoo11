@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!--Attribute set Form view-->
+        <record model="ir.ui.view" id="attribute_set_form_view">
+            <field name="name">attribute.set.form.view</field>
+            <field name="model">product.attribute.set</field>
+            <field name="arch" type="xml">
+                <form string="Attribute Set">
+                    <group name="base_attrs" colspan="4">
+                        <field name="name" required="1"/>
+                        <field name="code" required="1"/>
+                        <field name="shop_id" required="1"/>
+                        <field name="imported" />
+                    </group>
+                    <group name="attribute" colspan="4">
+                        <notebook>
+                            <page string="Attributes" >
+                                 <field name="attribute_ids" nolabel="1">
+                                    <form string="Attribute">
+                                        
+                                        <!--<field name="complete_name" colspan="4" />-->
+                                        <group>
+                                        <field name="name" colspan="4" />
+                                        <field name="attribute_code" colspan="4" />
+                                        <field name="imported" />
+                                        <field name="pattern"  attrs="{'invisible':[('attribute_code','!=','ProductType')]}" />
+                                        </group>
+                                         <field name="value_ids" nolabel="1" colspan="4" >
+                                             <form string="Attribute">
+                                                 <field name="name"/>
+                                                 <field name="value"/>
+                                             </form>
+                                             <tree string="Attribute">
+                                                 <field name="name"/>
+                                                 <field name="value"/>
+                                             </tree>
+                                         </field>
+                                    </form>
+                                    <tree string="Attribute">
+                                        <field name="attribute_code"/>
+                                        <field name="imported" />
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                       
+                    </group>
+                </form>
+            </field>   
+        </record>
+
+        <!--Attribute set tree view-->
+        <record model="ir.ui.view" id="attribute_set_tree_view">
+            <field name="name">attribute.set.tree.view</field>
+            <field name="model">product.attribute.set</field>
+            <field name="arch" type="xml">
+                <tree string="Attribute Set">
+                     <field name="name"/>
+                     <field name="code" />
+                    
+                     <field name="shop_id"/>
+                </tree>
+           </field>
+        </record>
+        
+         <!--Attribute set tree view-->
+        <record model="ir.ui.view" id="attribute_set_search_view">
+            <field name="name">attribute.set.search.view</field>
+            <field name="model">product.attribute.set</field>
+            <field name="arch" type="xml">
+                <search string="Attribute Set">
+                     <field name="name"/>
+                     <field name="code" />
+                     <field name="shop_id"/>
+                </search>
+           </field>
+        </record>
+
+        <!--Attribute set action-->
+        <record id="action_attribute_set" model="ir.actions.act_window">
+            <field name="name">Attribute Set</field>
+            <field name="res_model">product.attribute.set</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+       <!--Attribute Form view-->
+        <record model="ir.ui.view" id="attribute_form_view">
+            <field name="name">attribute.form.view</field>
+            <field name="model">product.attribute</field>
+            <field name="arch" type="xml">
+                <form string="Attribute">
+                        <group>
+                        <field name="name"/>
+                        <field name="attribute_code"/>
+                        <field name="imported" />
+                        </group>
+                        <field name="value_ids" nolabel="1" colspan="4">
+                            <form string="Attribute">
+                                <field name="name"/>
+                                <field name="value"/>
+                            </form>
+                            <tree string="Attribute">
+                                <field name="name"/>
+                                <field name="value"/>
+                            </tree>
+                        </field>
+                </form>
+            </field>   
+        </record>
+
+        <!--Attribute tree view-->
+        <record model="ir.ui.view" id="attribute_tree_view">
+            <field name="name">attribute.tree.view</field>
+            <field name="model">product.attribute</field>
+            <field name="arch" type="xml">
+                <tree string="Attribute Set">
+                     <field name="name" />
+                     <field name="attr_set_id" />
+                     <field name="imported" />
+                </tree>
+           </field>
+        </record>
+        
+         <!--Attribute search view-->
+        <record model="ir.ui.view" id="attribute_earch_view">
+            <field name="name">attribute.search.view</field>
+            <field name="model">product.attribute</field>
+            <field name="arch" type="xml">
+                <search string="Attribute Set">
+                     <field name="attribute_code"/>
+                     <field name="imported" />
+                </search>
+           </field>
+        </record>
+
+        <!--Attribute action-->
+        <record id="action_attribute" model="ir.actions.act_window">
+            <field name="name">Attributes</field>
+            <field name="res_model">product.attribute</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+         <!--Attribute option Form view-->
+        <record model="ir.ui.view" id="attribute_option_form_view">
+            <field name="name">attribute.option.form.view</field>
+            <field name="model">product.attribute.value</field>
+            <field name="arch" type="xml">
+                <form string="Value">
+                     <group>
+                        <field name="attribute_id"/>
+                    </group>
+                    <group>
+                        <field name="name" />
+                        <field name="value"/>
+                    </group>
+                </form>
+            </field>   
+        </record>
+
+        <!--Attribute option tree view-->
+        <record model="ir.ui.view" id="attribute_option_tree_view">
+            <field name="name">attribute.option.tree.view</field>
+            <field name="model">product.attribute.value</field>
+            <field name="arch" type="xml">
+                <tree string="Value">
+                     <field name="attribute_id"/>
+                     <field name="name"/>
+                     <field name="value"/>
+                </tree>
+           </field>
+        </record>
+        
+         <!--Attribute option search view-->
+        <record model="ir.ui.view" id="attribute_option_seach_view">
+            <field name="name">attribute.option.search.view</field>
+            <field name="model">product.attribute.value</field>
+            <field name="arch" type="xml">
+                <search string="Values">
+                     <field name="attribute_id" />
+                </search>
+           </field>
+        </record>
+
+        <!--Attribute option action-->
+        <record id="action_attribute_option" model="ir.actions.act_window">
+            <field name="name">Attribute Values</field>
+            <field name="res_model">product.attribute.value</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+    </data>
+</odoo>

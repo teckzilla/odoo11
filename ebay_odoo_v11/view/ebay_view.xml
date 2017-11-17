@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+##############################################################################
+#    Copyright (c) 2015 - Present Teckzilla Software Solutions Pvt Ltd. All Rights Reserved
+#    Author: [Teckzilla Software Solutions]  <[ sales@teckzilla.net]>
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    A copy of the GNU General Public License is available at:
+#    <http://www.gnu.org/licenses/gpl.html>.
+#
+#    
+#
+##############################################################################
+-->
+
+
+<odoo>
+        <data>
+	     
+            <!--Amazon Instance-->
+            <!--Amazon Instance form  View-->
+            <record id="ebay_instance_form_view" model="ir.ui.view">
+                <field name="name">ebay.instance.form</field>
+                <field name="model">sales.channel.instance</field>
+                <field name="inherit_id" ref="base_ecommerce_v11.sales_channel_instance_form_view" />
+                <field name="arch" type="xml">
+                    <xpath expr="//group[@name='module']" position="after">
+                        <group>
+                            <field name="ebay_oauth" attrs="{'invisible':[('module_id','!=','ebay_odoo_v11')]}"/>
+                        </group>
+                        <group  attrs="{'invisible':[('module_id','!=','ebay_odoo_v11')]}">
+
+                            <span attrs="{'invisible':[('ebay_oauth','=',False)]}">Please enter the mandatory details and save the record. Use Get User Token button to generate the user token</span>
+                            <separator string="eBay Credentials" colspan="4"/>
+
+                            <group>
+                                <field name="sandbox" onchange="onchange_environment(sandbox)"/>
+                                <field name="server_url" readonly="1"/>
+                                <field name="ebayuser_id" attrs="{'required': [('module_id','=','ebay_odoo_v11')]}"/>
+                                <field name="dev_id" attrs="{'required': [('module_id','=','ebay_odoo_v11'),('ebay_oauth','=',False)]}"/>
+                                <field name="refresh_token"/>
+                                <field name="refresh_token_expiry" readonly="1"/>
+                            </group>
+                                <group>
+                                    <field name="app_id" attrs="{'required': [('module_id','=','ebay_odoo_v11'),('ebay_oauth','=',False)]}"/>
+                                <field name="cert_id" attrs="{'required': [('module_id','=','ebay_odoo_v11'),('ebay_oauth','=',False)]}"/>
+                                <field name="site_id" attrs="{'required': [('module_id','=','ebay_odoo_v11')]}"/>
+                                <field name="auth_token" attrs="{'required': [('module_id','=','ebay_odoo_v11'),('ebay_oauth','=',False)]}"/>
+                                <field name="auth_token_expiry" readonly="1"/>
+                                </group>
+
+
+                       </group>
+                    </xpath>
+                    <xpath expr="//sheet" position="before">
+                            <header attrs="{'invisible':[('module_id','!=','ebay_odoo_v11')]}">
+                              <button name="get_authorization_code" type="object" string="Get User Token" class="oe_highlight" attrs="{'invisible':[('ebay_oauth','=',False)]}"/>
+                              <button name="renew_token" type="object" string="Refresh User Token" class="oe_highlight" attrs="{'invisible':[('ebay_oauth','=',False)]}"/>
+                            </header>
+                    </xpath>
+
+
+                </field>
+            </record>
+        </data>
+</odoo>

@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+##############################################################################
+#    Copyright (c) 2015 - Present Teckzilla Software Solutions Pvt Ltd. All Rights Reserved
+#    Author: [Teckzilla Software Solutions]  <[ sales@teckzilla.net]>
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    A copy of the GNU General Public License is available at:
+#    <http://www.gnu.org/licenses/gpl.html>.
+#
+#    
+#
+##############################################################################
+-->
+
+
+<odoo>
+    <data>
+
+        <record id="product_ebay_listing_search_view" model="ir.ui.view">
+                <field name="name">ebay.product.listing.search</field>
+                <field name="model">ebay.product.listing</field>
+                <field name="type">search</field>
+                <field name="arch" type="xml">
+                    <search string="Ebay Listing" >
+                        <field name="name" />
+                        <field name="product_id" />
+                        <field name="shop_id" />
+                        <field name="type" />
+                        <field name="last_sync_date" />
+                        <field name="active_ebay" />
+                    </search>
+                </field>
+         </record>
+
+
+        <!-- Ebay Product Listing Start -->
+        <record id="view_ebay_product_listing_form" model="ir.ui.view">
+            <field name="name">ebay.product.listing.form</field>
+            <field name="model">ebay.product.listing</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Ebay Listing">
+                    <group col="4" colspan="4">
+                        <separator string="Listings Details" colspan="4"/>
+                            <field name="name" />
+                            <field name="ebay_sku" />
+                            <field name="shop_id" />
+                            <field name="product_id" />
+                            <field name="type"/>
+                            <field name="is_variant" />
+                            <field name="ebay_title" />
+                            <field name="sub_title" attrs="{'invisible': [('is_variant','=',False)]}"/>
+                            <field name="listing_duration" />
+                            <field name="condition" />
+                            <field name="ebay_start_time" />
+                            <field name="ebay_end_time" />
+                            <field name="reverse_met" attrs="{'invisible': [('type','!=','Chinese')]}"/>
+                            <field name="buy_it_now_price" attrs="{'invisible': [('reverse_met','!=',True)]}"/>
+                            <field name="price" />
+                            <field name="active_ebay" />
+                    </group>
+                    <group col="4" colspan="4">
+                        <separator string="Stock Details" colspan="4"/>
+                        <field name="last_sync_date" />
+                        <field name="last_sync_stock" />
+                    </group>
+                    <group colspan="4">
+                        <button name="%(action_view_relist_item_ebay_listing)s" type="action" string="Relist Item" icon="terp-camera_test"/>
+                        <button name="end_ebay_item" string="End Ebay Item"  type="object"/>
+                    </group>
+                    
+                    
+                </form>
+            </field>
+        </record>
+
+        <record id="view_ebay_product_listing_tree" model="ir.ui.view">
+            <field name="name">ebay.product.listing.tree</field>
+            <field name="model">ebay.product.listing</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Product Listing">
+                    <field name="name" />
+                    <field name="ebay_sku" />
+                    <field name="product_id" />
+                    <field name="ebay_title" />
+                    <field name="shop_id" />
+                    <field name="type" />
+                    <field name="last_sync_date" />
+                    <field name="last_sync_stock" />
+                    <field name="price" />
+                    <field name="listing_duration" />
+                    <field name="ebay_start_time" />
+                    <field name="ebay_end_time" />
+                    <field name="active_ebay" />
+                    <field name="is_variant" />
+                    <button name="%(action_view_relist_item_ebay_listing)s" type="action" string="Relist Item" icon="terp-camera_test"/>
+                </tree>
+            </field>
+        </record>
+        <!-- Ebay Product Listing End -->
+
+        <record id="view_ebay_product_form_ebay_inherit1" model="ir.ui.view">
+                <field name="name">eaby.product.form.ebay.inherit1</field>
+                <field name="model">product.product</field>
+                <field name="type">form</field>
+                <field name="inherit_id" ref="product.product_normal_form_view" />
+                <field name="arch" type="xml">
+                    <div name="options" position="inside">
+                        <field name="ebay_exported"/>
+                        <label for="ebay_exported"/>
+                     </div>
+                     <notebook position="inside">
+                            <page string="Ebay Information" attrs="{'invisible': [('ebay_exported','=',False)]}">
+                                <notebook>
+                                     <page string="Ebay Product Listing">
+                                        <separator string="Product Listing" colspan="4"/>
+                                        <field name="prodlisting_ids" nolabel="1" colspan="4" />
+                                    </page>
+                                    <page string="Ebay Attributes">
+                                        <separator string="Ebay Attributes" colspan="4"/>
+                                        <group>
+                                            <field name="ebay_category1" domain="[('shop_id.instance_id.module_id','=','ebay_odoo_v11')]"/>
+                                        </group>
+                                        <field name="ebay_attribute_ids1" nolabel="1" colspan="4" >
+                                            <tree string="Attributes" editable="bottom">
+                                                <field name="name" domain="[('attr_set_id','=',parent.ebay_category1)]"/>
+                                                <field name="value" domain="[('attribute_id','=',name)]"/>
+                                                <field name="value_text"/>
+                                            </tree>
+                                        </field>
+                                        <group>
+                                            <field name="ebay_category2" domain="[('shop_id.instance_id.module_id','=','ebay_odoo_v11')]"/>
+                                        </group>
+                                        <field name="ebay_attribute_ids2" nolabel="1" colspan="4">
+                                            <tree string="Attributes" editable="bottom">
+                                                <field name="name" domain="[('attr_set_id','=',parent.ebay_category2)]"/>
+                                                <field name="value" domain="[('attribute_id','=',name)]"/>
+                                                <field name="value_text"/>
+                                            </tree>
+                                        </field>                                   
+                                     </page>
+                                     <page string="Ebay PlaceHolder">
+                                         <field name="plcs_holds" nolabel="1" colspan="4">
+                                             <form>
+                                                 <field name="name"/>
+                                                 <field name="value"/>
+                                                 <field name="product_field_id"/>
+                                             </form>
+                                             <tree>
+                                                  <field name="name"/>
+                                                 <field name="value"/>
+                                                 <field name="product_field_id"/>
+                                             </tree>
+                                         </field>
+                                         
+                                     </page>
+                                </notebook>
+                            </page>
+
+                        </notebook>
+                        <xpath expr="//field[@name='active']" position="after">
+                            <field name="ebay_prod_condition" attrs="{'invisible':[('ebay_exported','!=',True)]}" />
+                        </xpath>
+                        <xpath expr="//field[@name='ebay_category1']" position="after">
+                            <field name="store_cat_id1" attrs="{'invisible':[('ebay_exported','!=',True)]}" />
+                        </xpath>
+                        <xpath expr="//field[@name='ebay_category2']" position="after">
+                            <field name="store_cat_id2" attrs="{'invisible':[('ebay_exported','!=',True)]}" />
+                        </xpath>
+                </field>
+        </record>
+
+        <record id="action_ebay_product_listing" model="ir.actions.act_window">
+            <field name="name"> Ebay Listing</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">ebay.product.listing</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="view_ebay_product_listing_tree"/>
+        </record>
+
+        <menuitem id="menu_ebay_product_base" parent="base.menu_product" name="Ebay"/>
+        <menuitem action="action_ebay_product_listing" id="menu_ebay_product_listing" parent="menu_ebay_product_base" groups="base_ecommerce_v11.group_ecommerce_manager"/>
+        
+     </data>
+</odoo>

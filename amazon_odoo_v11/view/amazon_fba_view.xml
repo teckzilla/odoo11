@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+##############################################################################
+#    Copyright (c) 2015 - Present Teckzilla Software Solutions Pvt. All Rights Reserved
+#    Author: [Teckzilla Software Solutions]  <[ sales@teckzilla.net]>
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    A copy of the GNU General Public License is available at:
+#    <http://www.gnu.org/licenses/gpl.html>.
+#
+#    
+#
+##############################################################################
+-->
+
+
+
+<odoo>
+    <data>
+       
+        <record model="ir.ui.view" id="view_amazon_shipping_form">
+            <field name="name">view amazon shipping form</field>
+            <field name="model">amazon.shipping</field>
+            <field name="arch" type="xml">
+                <form string="amazon shipping">
+                   <group colspan="4" col="4">
+                    <field name="name"/>
+                    <field name="partner_id"/>
+                    <field name="inbound_shipment_id"/>
+                    <field name="plan_shipment_id"/>   
+                     <field name="fulfillment_centre_id"/>
+                   </group>
+                    <group colspan="4" >
+                        <separator colspan="4"/>
+                        
+                         <field name="shipping_product_ids" nolabel="1">
+                            <tree string="Amazon" editable="bottom">
+                                <field name="product_id"/>
+                                 <field name="qty"/>
+                            </tree>
+                         </field>
+                    </group>
+                    <group colspan="4">
+            
+                       <field name="total_qty"/>
+                    </group>
+               <button name="Get_Fulfilment_Center" string="Create Fulfillment Centre" type="object" class="oe_highlight"/>
+               <button name="CreateInboundShipmentPlan" string="Create Inbound Shipment Plan" type="object" class="oe_highlight"/> 
+               <button name="ConfirmInboundshipment" string="Confirm Inbound Shipment" type="object" class="oe_highlight"/> 
+               <button name="CreateInboundShipmentPlan_and_Confirm" string="Plan and Create Inbound Shipment" type="object" class="oe_highlight"/>
+               </form>
+            </field>
+        </record>
+        
+         <record model="ir.ui.view" id="view_shipment_product_tree">
+            <field name="name">view shipment product tree</field>
+            <field name="model">amazon.shipping.product</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="amazon shipment">
+                    <field name="product_id"/>
+                    <field name="qty" sum="sum"/>
+                </tree>
+            </field>
+        </record>  
+                      
+                      
+        <record model="ir.actions.act_window" id="action_amazon_shipment">
+            <field name="name">amazon shipment</field>
+            <field name="res_model">amazon.shipping</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>     
+                            
+        <!--<menuitem name="Send FBA Shipment" id="menu_amazon_shipment" action="action_amazon_shipment" parent="amazon_odoo.menu_amazon_product_listing_root"/>-->
+    </data>
+</odoo>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+##############################################################################
+#    Copyright (c) 2015 - Present Teckzilla Software Solutions Pvt. All Rights Reserved
+#    Author: [Teckzilla Software Solutions]  <[ sales@teckzilla.net]>
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    A copy of the GNU General Public License is available at:
+#    <http://www.gnu.org/licenses/gpl.html>.
+#
+#    
+#
+##############################################################################
+-->
+
+
+
+<odoo>
+        <data>
+            <record id="amazon_instance_form_view" model="ir.ui.view">
+                <field name="name">amazon.instance.form</field>
+                <field name="model">sales.channel.instance</field>
+                <field name="inherit_id" ref="base_ecommerce_v11.sales_channel_instance_form_view" />
+                <field name="arch" type="xml">
+                    <xpath expr="//group[@name='module']" position="after">
+                        <group colspan="4" col="4" attrs="{'invisible':[('module_id','!=','amazon_odoo_v11')]}">
+                            <separator string="Amazon Credentials" colspan="4"/>
+                                <field name="aws_access_key_id"  attrs="{'required': [('module_id','=','amazon_odoo_v11')]}"/>
+                                <field name="aws_secret_access_key" attrs="{'required': [('module_id','=','amazon_odoo_v11')]}"/>
+                                <field name="aws_market_place_id" attrs="{'required': [('module_id','=','amazon_odoo_v11')]}"/>
+                                <field name="aws_merchant_id" attrs="{'required': [('module_id','=','amazon_odoo_v11')]}"/>
+                                <field name="site" attrs="{'required': [('module_id','=','amazon_odoo_v11')]}"/>
+                                <field name="is_fba" />
+                            <!--<separator string="Product Advertisement API" colspan="4"/>-->
+                                <!--<field name="prod_advert_api_url" />-->
+                                <!--<field name="aws_prod_advert_access_key"/>-->
+                                <!--<field name="aws_associate_tag"/>-->
+                                <!--<field name="aws_prod_advert_secret_key"/>-->
+                        </group>
+                    </xpath>
+                </field>
+            </record>
+            
+            
+           
+        </data>
+</odoo>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="view_wizard_export">
+            <field name="name">wizard.export.form</field>
+            <field name="model">wizard.export</field>
+            <field name="arch" type="xml">
+                <form string="Partners">
+                    <group>
+                    <field name="import_data"/>
+
+                    </group>
+
+                    <footer>
+                    <button string="next" type="object" name="action_next"/>
+                    </footer>
+                </form>
+                </field>
+            </record>
+     <act_window  id="action_wizard_export"
+                  name="Import CSV"
+                 res_model="wizard.export"
+                src_model="amazon.category"
+                view_mode="form"
+                view_type="form"
+                multi="True"
+                target="new"
+                 key2="client_action_multi"
+                 />
+
+</data>
+    </odoo>
+

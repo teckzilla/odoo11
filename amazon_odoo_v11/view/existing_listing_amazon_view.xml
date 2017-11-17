@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+##############################################################################
+#    Copyright (c) 2015 - Present Teckzilla Software Solutions Pvt. All Rights Reserved
+#    Author: [Teckzilla Software Solutions]  <[ sales@teckzilla.net]>
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    A copy of the GNU General Public License is available at:
+#    <http://www.gnu.org/licenses/gpl.html>.
+#
+#    
+#
+##############################################################################
+-->
+
+
+
+
+<odoo>
+    <data>
+        <record id="get_existing_listing_amazon_form_view" model="ir.ui.view">
+            <field name="name">Import Exsting Listing</field>
+            <field name="model">exisiting.listing.amazon</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Import Listing" >
+                    <group name="search_by_op">
+                        <group>
+                            <field name="name" colspan="2"/>
+                            <field name="shop_id" colspan="2" domain="[('amazon_shop','=',True)]"/>
+                        </group>
+                        <group>
+                            <field name="search_by" nolabel="1"/>
+                        </group>
+                    </group>
+                    <group>
+                        <button name="import_exisiting_listing" type='object' string="List Existing Listing" />
+                    </group>
+                    <group colspan="4">
+                        <field name="existing_listing_ids" nolabel="1">
+                            <form string="Listing">
+                                <group>
+                                    <field name="name" />
+                                    <field name="sku" />
+                                    <field name="asin" />
+                                    <field name="ean" />
+                                    <field name="upc" />
+                                    <field name="product_url" />
+                                    <field name="binding" />
+                                    <field name="description" />
+                                    <field name="brand" />
+                                    <field name="price" />
+                                    <field name="inventory" />
+                                    <field name="manufacturer" />
+                                    <field name="max_inventory" />
+                                    <field name="marketplace_id" />
+                                    <field name="listing_id" />
+                                    <field name="add_to_sku" />
+                                </group>
+                            </form>
+                            <tree string="Listing">
+                                <field name="name" />
+                                <field name="description" string="Title" />
+                                <field name="asin" />
+<!--                                <field name="upc" />-->
+                                <field name="add_to_sku" />
+                                <field name="listing_id" />
+                                <button name="create_listing" type="object" string="Add Listing" />
+                            </tree>
+                        </field>
+                    </group>
+                    <group>
+                        <group>
+                            <button name="update_inventory" type="object" string="Update Inventory" />
+                            <button name="update_price" type="object" string="Update Price" />
+                        </group>
+                        <group>
+                        </group>
+                    </group>
+                </form>
+            </field>
+        </record>
+        
+        <record id="get_existing_listing_amazon_tree_view" model="ir.ui.view">
+            <field name="name">Import Exsting Listing</field>
+            <field name="model">exisiting.listing.amazon</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                 <tree string="Listing">
+                    <field name="name" />
+                    <field name="search_by" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_existing_amazon_listing" model="ir.actions.act_window">
+            <field name="name">Existing Amazon Listings</field>
+            <field name="res_model">exisiting.listing.amazon</field>
+             <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem action="action_existing_amazon_listing"
+                  id="menu_existing_amazon_listing"
+                  parent="menu_amazon_product_listing_root"
+                  groups = "base_ecommerce_v11.group_ecommerce_manager"
+                  sequence="1"/>
+        
+    </data>
+</odoo>

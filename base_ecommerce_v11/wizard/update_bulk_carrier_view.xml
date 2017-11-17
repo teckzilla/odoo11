@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        
+        <record id="view_update_carrier_marketplace" model="ir.ui.view">
+            <field name="name">Update Carrier</field>
+            <field name="model">update.bulk.carrier.marketplace</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group colspan="4">
+                        <field colspan="4" mode="tree" height="200" name="bulk_carrier_ids" nolabel="1" widget="one2many_list">
+                            <form string="">
+                                <field name="order_id"/>
+                                <field name="carrier_id"/>
+                                <field name="shop_id"/>
+                                <field name="carrier_tracking_ref"/>
+                            </form>
+                            <tree editable="bottom" string="Update Carrier Line">
+                                <field name="order_id"/>
+                                <field name="carrier_tracking_ref"/>
+                                <field name="carrier_id"/>
+                                <field name="shop_id"/>
+                            </tree>
+                        </field>
+                    </group>
+                    <footer>
+                       <button name="update_status" string="Update Order Status" type="object" icon="gtk-apply"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <act_window name="Update Order Status"
+            res_model="update.bulk.carrier.marketplace"
+            src_model="sale.order"
+            view_mode="form"
+            target="new"
+            context="{'search_default_in_location':1}"
+            key2="client_action_multi"
+            id="action_view_update_carrier_marketplace"/>
+            
+    </data>
+</odoo>

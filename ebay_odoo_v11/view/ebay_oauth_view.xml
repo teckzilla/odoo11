@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+        <data>
+            <record id="ebay_outh_form_view" model="ir.ui.view">
+                <field name="name">ebay.outh.form.view</field>
+                <field name="model">ebay.oauth</field>
+                <field name="arch" type="xml">
+                    <form string="Ebay Outh Credentials" version="7.0">
+                        <sheet>
+
+                          <group>
+                              <field name="dev_id"/>
+                              <field name="app_id"/>
+                              <field name="cert_id"/>
+                              <field name="run_name"/>
+
+                          </group>
+                            <group>
+                                <field name="app_auth_url"/>
+                            </group>
+
+                        </sheet>
+                    </form>
+                </field>
+            </record>
+
+            <!--Sales Channel Instance Tree View-->
+	    <record model="ir.ui.view" id="ebay_oauth_tree_view">
+            	<field name="name">ebay.oauth.tree.view</field>
+	        <field name="model">ebay.oauth</field>
+	        <field name="arch" type="xml">
+                    <tree string="Ebay Outh Credentials">
+                        <field name="app_id"/>
+                        <field name="dev_id"/>
+                    </tree>
+                </field>
+            </record>
+
+
+           <!--Sales Channel Instance Action-->
+            <record model="ir.actions.act_window" id="action_ebay_oauth">
+                <field name="name">Ebay Outh</field>
+                <field name="res_model">ebay.oauth</field>
+                <field name="view_type">form</field>
+                <field name="view_mode">tree,form</field>
+            </record>
+            <menuitem id="menu_ebay_outh_creds_label" name="Ebay" parent="base.menu_administration"  sequence="12" groups="base_ecommerce_v11.group_ecommerce_manager"/>
+            <menuitem id="menu_ebay_outh_creds" parent="menu_ebay_outh_creds_label" action="action_ebay_oauth" sequence="12"/>
+
+           
+		
+    </data>
+</odoo>
+
+

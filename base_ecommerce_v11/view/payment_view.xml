@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+##############################################################################
+#    Copyright (c) 2015 - Present Teckzilla Software Solutions Pvt. All Rights Reserved
+#    Author: [Teckzilla Software Solutions]  <[ sales@teckzilla.net]>
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    A copy of the GNU General Public License is available at:
+#    <http://www.gnu.org/licenses/gpl.html>.
+#
+#    
+#
+##############################################################################
+-->
+<odoo>
+    <data>
+        
+        <!--Payment method Form View-->
+        <record model="ir.ui.view" id="ecommerce_payment_groups_form">
+            <field name="name">ecommerce.payment.groups.form</field>
+            <field name="model">payment.method.ecommerce</field>
+            <field name="arch" type="xml">
+                <form string="Ecommerce Payment Method">
+                    <sheet>
+                        <group col="2" colspan="2">
+                            <field name="name" />
+                            <field name="val_order" />
+                            <field name="pay_invoice" />
+                            <field name="order_policy" />
+                            <field name="shop_id" domain = "[('sale_channel_shop', '=', True)]"/>
+                            <field name="journal_id" />
+                        </group>
+                    </sheet>
+
+                </form>
+            </field>
+	</record>
+        
+        <!--Payment method Tree View-->
+        <record model="ir.ui.view" id="ecommerce_payment_groups_tree">
+            <field name="name">ecommerce.payment.method.tree</field>
+                <field name="model">payment.method.ecommerce</field>
+                <field name="arch" type="xml">
+                    <tree string="Ecommerce Payment Method">
+                            <field name="name" />
+                            <field name="val_order" />
+                            <field name="pay_invoice" />
+                            <field name="order_policy" />
+                            <field name="shop_id" domain = "[('sale_channel_shop', '=', True)]"/>
+                            <field name="journal_id" />
+                    </tree>
+                </field>
+        </record>
+
+        <!--Payment method Action-->
+        <record id="action_ecommerce_payment_method" model="ir.actions.act_window">
+            <field name="name">Manage Order Workflow</field>
+            <field name="res_model">payment.method.ecommerce</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        
+        
+        <!--Payment Method form View-->
+        <record model="ir.ui.view" id="payment_method_view_1">
+            <field name="name">payment.method.view.1</field>
+            <field name="model">payment.method.ecommerce</field>
+            <field name="arch" type="xml">
+                <form string="Payment Method">
+                    <field name="name" />
+                    <field name="code" />
+                </form>
+            </field>
+        </record>
+        
+        <!--Payment Method tree View-->
+        <record model="ir.ui.view" id="payment_method_tree_view_1">
+            <field name="name">payment.method.tree.view.1</field>
+            <field name="model">payment.method.ecommerce</field>
+            <field name="arch" type="xml">
+                <tree string="Payment Method">
+                    <field name="name" />
+                    <field name="code" />
+                </tree>
+            </field>
+        </record>
+        
+         <!--Payment method Action-->
+        <record id="action_payment_method1" model="ir.actions.act_window">
+            <field name="name">Payment Methods</field>
+            <field name="res_model">payment.method.ecommerce</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        
+    </data>
+ </odoo>
