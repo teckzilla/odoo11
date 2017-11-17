@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        
+         <record id="update_order_onemany_tree" model="ir.ui.view">
+            <field name="name">update.order.onemany.tree</field>
+            <field name="model">update.order.onemany</field>
+            <field name="arch" type="xml">
+                <tree >
+                    <field name="orders_id"/>
+                    <field name="carriers_tracking_ref"/>
+                    <field name="carriers_id"/>
+                    <field name="shop_ids"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="view_update_order_onemany_form" model="ir.ui.view">
+            <field name="name">update.order.onemany.form</field>
+            <field name="model">update.order.onemany</field>
+            <field eval="12" name="priority"/>
+            <field name="arch" type="xml">
+                <form>
+                    <field name="orders_id"/>
+                    <field name="carriers_id"/>
+                    <field name="shop_ids"/>
+                    <field name="carriers_tracking_ref"/>
+                </form>
+            </field>
+        </record>
+        
+        <record id="view_update_carrier_new_marketplace123" model="ir.ui.view">
+            <field name="name">Update Carrier New</field>
+            <field name="model">update.carrier.marketplace</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                    <!--<field name="bulks_carrier" />-->
+                    </group>
+                    <footer>
+                       <button name="update_status" string="Update Order Status" type="object" class="oe_highlight"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <act_window name="Update Order Status new"
+            res_model="update.carrier.marketplace"
+            src_model="sale.order"
+            view_mode="form"
+            target="new"
+            context="{'search_default_in_location':1}"
+            key2="client_action_multi"
+            id="action_view_update_carrier_new_marketplace"/>
+            
+    </data>
+</odoo>

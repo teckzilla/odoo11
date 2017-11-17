@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data >
+
+
+
+
+
+        <record model="ir.ui.view" id="form_view_amazon_category">
+            <field name="name">form.view.amazon.category</field>
+            <field name="model">amazon.category</field>
+            <field name="arch" type="xml">
+                <form string="Amazon Category">
+                    <header>
+                        <button string="Import Child Categories" name="import_amazon_categories" type="object" class="oe_highlight" attrs="{'invisible': [('is_parent', '=', False)]}"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name" required="1"/>
+                                <field name="is_parent"/>
+                                <field name="btg_node"/>
+                            </group>
+                            <group>
+                                <field name="parent_id"/>
+                                <field name="root_parent_id"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="tree_view_amazon_category">
+            <field name="name">tree.view.amazon.category</field>
+            <field name="model">amazon.category</field>
+            <field name="arch" type="xml">
+                <tree string="Amazon Category">
+
+                    <field name = "display_name"/>
+                    <field name = "parent_id"/>
+                    <field name = "is_leaf_node"/>
+                </tree>
+            </field>
+        </record>
+
+
+        
+        <record id="act_amazon_category" model="ir.actions.act_window">
+            <field name="name">Amazon Category</field>
+            <field name="res_model">amazon.category</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="menu_amazon_category" name="Amazon Category" parent="base_ecommerce_v11.menu_sales_channel_config" action="act_amazon_category"  sequence="54"/>
+
+
+    </data>
+</openerp>

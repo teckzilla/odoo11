@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+##############################################################################
+#    Copyright (c) 2015 - Present Teckzilla Software Solutions Pvt. All Rights Reserved
+#    Author: [Teckzilla Software Solutions]  <[ sales@teckzilla.net]>
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    A copy of the GNU General Public License is available at:
+#    <http://www.gnu.org/licenses/gpl.html>.
+#
+#    
+#
+##############################################################################
+-->
+<odoo>
+<data>
+
+    <record id="view_order_product_custom_graph" model="ir.ui.view">
+         <field name="name">sale.custom.report.base.graph</field>
+         <field name="model">sale.custom.report.base</field>
+         <field name="arch" type="xml">
+             <graph string="Sales Analysis" type="pivot" stacked="True">
+                 <field name="date" interval="month" type="col"/>
+                 <field name="price_total" type="measure"/>
+             </graph>
+         </field>
+    </record>
+
+     Custom reports (aka filters) 
+    <record id="filter_sale_report_sales_custom_funnel" model="ir.filters">
+        <field name="name">Sales Funnel</field>
+        <field name="model_id">sale.custom.report.base</field>
+        <field name="domain">['&amp;', ('date','&lt;=', time.strftime('%%Y-12-31')), '&amp;', ('date','&gt;=',time.strftime('%%Y-01-01')), '|', ('state','in',('draft','sent')), ('state','not in',('draft','sent','cancel'))]</field>
+        <field name="user_id" eval="False"/>
+        <field name="context">{'group_by': ['state'], 'measures': ['price_total']}</field>
+    </record>
+    <record id="filter_sale_report_custom_salespersons" model="ir.filters">
+        <field name="name">By Salespersons</field>
+        <field name="model_id">sale.custom.report.base</field>
+        <field name="user_id" eval="False"/>
+        <field name="context">{'group_by': ['date:month', 'user_id']}</field>
+    </record>
+<!--    <record id="filter_sale_report_custom_salesteam" model="ir.filters">
+        <field name="name">By Salesteam</field>
+        <field name="model_id">sale.custom.report.base</field>
+        <field name="user_id" eval="False"/>
+        <field name="context">{'group_by': ['date:month', 'section_id']}</field>
+    </record>-->
+    <record id="filter_isale_report_custom_product" model="ir.filters">
+        <field name="name">By Product</field>
+        <field name="model_id">sale.custom.report.base</field>
+        <field name="user_id" eval="False"/>
+        <field name="context">{'group_by': ['date:month', 'product_id']}</field>
+    </record>
+
+    <record id="view_order_product_custom_search" model="ir.ui.view">
+        <field name="name">sale.custom.report.base.search</field>
+        <field name="model">sale.custom.report.base</field>
+        <field name="arch" type="xml">
+            <search string="Sales Custom Analysis">
+                <field name="date"/>
+                <field name="date_confirm"/>
+                <filter string="This Year" name="year" invisible="1" domain="[('date','&lt;=', time.strftime('%%Y-12-31')),('date','&gt;=',time.strftime('%%Y-01-01'))]"/>
+                <filter name="Quotations" domain="[('state','in',('draft','sent'))]"/>
+                <filter name="Sales" string="Sales" domain="[('state','not in',('draft','sent','cancel'))]"/>
+                <separator/>
+                <filter string="My Sales" help="My Sales" domain="[('user_id','=',uid)]"/>
+                <field name="partner_id"/>
+                <field name="product_id"/>
+                <field name="user_id"/>
+                <group expand="0" string="Extended Filters">
+                    <field name="categ_id"/>
+                    <field name="company_id" groups="base.group_multi_company"/>
+                </group>
+                <group expand="1" string="Group By">
+                    <filter string="Salesperson" name="User" context="{'group_by':'user_id'}"/>
+                    <!--<filter string="Sales Team" context="{'group_by':'section_id'}" groups="base.group_multi_salesteams"/>-->
+                    <filter string="Customer" name="Customer" context="{'group_by':'partner_id'}"/>
+                    <filter string="Category of Product" name="Category" context="{'group_by':'categ_id'}"/>
+                    <filter string="Shop" name="Category" context="{'group_by':'shop_id'}"/>
+                    <filter string="Payment Method" name="Category" context="{'group_by':'payment_method_id'}"/>
+                    <filter string="Status" context="{'group_by':'state'}"/>
+                    <filter string="Company" groups="base.group_multi_company" context="{'group_by':'company_id'}"/>
+                    
+                    
+                    <separator/>
+                    <filter string="Order Month" context="{'group_by':'date:month'}" help="Ordered date of the sales order"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_order_report_custom_all" model="ir.actions.act_window">
+        <field name="name">Sales Custom Analysis</field>
+        <field name="res_model">sale.custom.report.base</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">graph</field>
+        <field name="search_view_id" ref="view_order_product_custom_search"/>
+        <field name="view_id" ref="view_order_product_custom_graph"/>
+        <field name="context">{'search_default_Sales':1, 'group_by_no_leaf':1,'group_by':[]}</field>
+        <field name="help">This report performs analysis on your quotations and sales orders. Analysis check your sales revenues and sort it by different group criteria (salesman, partner, product, etc.) Use this report to perform analysis on sales not having invoiced yet. If you want to analyse your turnover, you should use the Invoice Analysis report in the Accounting application.</field>
+    </record>
+
+    <menuitem action="action_order_report_custom_all" id="menu_report_product_custom_all" parent="base.next_id_64" sequence="10"/>
+
+</data>
+</odoo>

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+##############################################################################
+#    Copyright (c) 2015 - Present Teckzilla Software Solutions Pvt. All Rights Reserved
+#    Author: [Teckzilla Software Solutions]  <[ sales@teckzilla.net]>
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    A copy of the GNU General Public License is available at:
+#    <http://www.gnu.org/licenses/gpl.html>.
+#
+#    
+#
+##############################################################################
+-->
+
+
+
+<odoo>
+    <data>
+        <record id="view_upload_amazon_products" model="ir.ui.view">
+            <field name="name">upload amazon products</field>
+            <field name="model">upload.amazon.products</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="upload amazon products" >
+                    <field name="name" /> 
+                     <field name="shop_id" widget="selection" />
+                     <group col="6" colspan="6">
+                         
+                     <field name="is_parent" />
+                     <field name="parent_asin" attrs="{'invisible': [('is_parent','=',False)]}" />
+                     <!--<field name="parent_sku"  attrs="{'invisible': [('is_parent','=',False)]}"/>-->
+                     <field name="parent_sku1"  attrs="{'invisible': [('is_parent','=',False)]}"/>
+                     </group>
+                    <group col="4" colspan="4" string="Listing Details">
+                        <field name="prod_listing_ids" colspan="4" nolabel="1" mode="tree">
+                          <tree editable="bottom" string="Amazon Products Listing">
+                                <field name="product_id" />
+                                <field name="product_asin" domain="[('product_id','=',product_id)]" />
+                                 <!--<field name="is_new_listing" />-->
+                                  <!--<field name="fulfillment_by" />-->
+                                   <field name="quantity_db" />
+                           </tree>
+                         </field>                    
+                        <!--<field name="amazon_category" domain="[('shop_id','=',shop_id)]"/>-->
+                        <field name="amazon_category" domain="[('is_parent','=',True)]" widget="selection" required="1"/>
+                        <field name="amazon_subcategory" domain="[('parent_id','=',amazon_category),('is_parent','=',False)]" widget="selection" required="1"/>
+
+                        <field name="btg_node" domain="[('root_parent_id','=',amazon_category),('is_leaf_node','=',True)]" widget="selection" help="Browse Node and add here" required="1"/>
+                        <!--<a href="https://www.amazon.com/gp/help/customer/display.html?nodeId=200186090#templates_tables" class="btn btn-link" target='_blank' role="button">Browse Node</a>-->
+                        <!--<field name="item_type" domain="[('attr_type_id','=',amazon_category)]"/>-->
+                    </group>
+                    <group col="4" colspan="4" string="Product Attributes (Order by sequence)">
+                        <field name="amazon_attribute_ids1" nolabel="1" colspan="4">
+                             <tree string="Attributes" editable="bottom">
+                                <field name="sequence"/>
+                                <field name="name" domain="[('attr_set_id','=',parent.amazon_category), ('is_leaf','=',True)]"/>
+                                <field name="value" domain="[('attribute_id','=',name)]" />
+                                <field name="value_text"/>
+                            </tree>
+                        </field>
+                        </group>
+                    <group col="4" colspan="4">
+                        <button name="upload_amazon_products" string="1.Upload Amazon Products"  type="object" icon="gtk-apply"/>
+                        <button name="create_relationship" string="2.Upload Relationship" type="object" icon="gtk-apply" />
+                        <button name="upload_pricing" string="3.Upload Pricing" type="object" icon="gtk-apply" />
+                        <!--<button name="upload_pricing" string="3.Upload Pricing" type="object" icon="gtk-apply" attrs="{'invisible': [('is_Parent','=',False)]}" />-->
+                        <!--<button name="upload_inventory" string="3.Upload Inventory" type="object" icon="gtk-apply" attrs="{'invisible': [('is_Parent','=',True)]}"/>-->
+                        <button name="upload_inventory" string="4.Upload Inventory" type="object" icon="gtk-apply" />
+                        <!--<button name="import_image" string="4.Update/Add Images" icon="gtk-go-forward" type="object" attrs="{'invisible': [('is_Parent','=',True)]}"/>-->
+                        <!--<button name="import_image" string="5.Update/Add Images" icon="gtk-go-forward" type="object" attrs="{'invisible': [('is_Parent','=',False)]}" />-->
+                        <button name="import_asin" string="5.Import Asin" icon="gtk-go-forward" type="object"/>
+                        <button name="import_image" string="6.Upload Image" icon="gtk-apply" type="object" />
+                        <!--<button name="get_feed_result" string="6.Get Feed Result" icon="gtk-go-forward" type="object" attrs="{'invisible': [('is_Parent','=',True)]}"/>-->
+                        <button name="get_feed_result" string="7.Get Feed Result" icon="gtk-go-forward" type="object"/>
+                        <button name="upload_price_inventory_image" string="Upload Price &amp; Inventory &amp; Image" type="object"/>
+                   </group>
+                    <group col="4" colspan="4">
+                        <field name="feed_result" colspan="4"/> <newline/>
+                        <!--<field name="res_feed_result" colspan="4"/> <newline/>-->
+                        <field name="feed_data" colspan="4"/> <newline/>
+                   </group>
+                </form>
+            </field>
+        </record>
+
+
+
+
+         <record id="view_upload_amazon_products_listing_tree" model="ir.ui.view">
+            <field name="name">view upload amazon products listing tree</field>
+            <field name="model">upload.amazon.products</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Attributes">
+<!--                    <field name="is_new_listing"/>-->
+                      <field name="name" />
+                     <field name="product_data"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_amazon_manage_listing" model="ir.actions.act_window">
+            <field name="name">Amazon Listings</field>
+            <field name="res_model">upload.amazon.products</field>
+             <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_upload_amazon_products_listing_tree"/>
+        </record>
+
+        <menuitem id="menu_amazon_product_listing_root" parent="base_ecommerce_v11.menu_ecommerce_root" name="Amazon Listing" sequence="50"/>
+        <menuitem action="action_amazon_manage_listing" id="menu_amazon_product_listing_1" parent="menu_amazon_product_listing_root" sequence="51"/>
+        
+    </data>
+</odoo>

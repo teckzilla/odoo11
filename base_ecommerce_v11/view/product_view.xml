@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+##############################################################################
+#    Copyright (c) 2015 - Present Teckzilla Software Solutions Pvt. All Rights Reserved
+#    Author: [Teckzilla Software Solutions]  <[ sales@teckzilla.net]>
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    A copy of the GNU General Public License is available at:
+#    <http://www.gnu.org/licenses/gpl.html>.
+#
+#    
+#
+##############################################################################
+-->
+<odoo>
+    <data>
+    <record id="view_base_product_form_view" model="ir.ui.view">
+                <field name="name">view.base.product.form.view</field>
+                <field name="model">product.product</field>
+                <field name="type">form</field>
+                <field name="inherit_id" ref="product.product_normal_form_view" />
+                <field name="arch" type="xml">
+<!--                    <field name="default_code" position="replace">
+                        <field name="default_code"  required="1"/>
+                   </field>-->
+                   <notebook position="inside">
+                       <page string="Allocation">
+                           <group>
+                               <button name="get_allocation" string="History" type="object" />
+                           </group>
+                           <field name="allocation_history_id" nolable="1">
+                               <tree string="History">
+                                   <field name="name"/>
+                                   <field name="qty_allocate"/>
+                                   <field name="date"/>
+                               </tree>
+                           </field>
+                       </page>
+                   </notebook>
+                 </field>
+        </record>
+
+     </data>
+</odoo>

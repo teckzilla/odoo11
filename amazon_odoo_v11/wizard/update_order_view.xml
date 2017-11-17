@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+##############################################################################
+#    Copyright (c) 2015 - Present Teckzilla Software Solutions Pvt. All Rights Reserved
+#    Author: [Teckzilla Software Solutions]  <[ sales@teckzilla.net]>
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    A copy of the GNU General Public License is available at:
+#    <http://www.gnu.org/licenses/gpl.html>.
+#
+#    
+#
+##############################################################################
+-->
+
+
+
+<odoo>
+    <data>
+        
+        <record id="view_update_ordre_status" model="ir.ui.view">
+            <field name="name">Update Ordre Status</field>
+            <field name="model">update.ordre.status</field>
+            <field name="arch" type="xml">
+                <form string="Update Ordre Status On Amazon" version="7.0">
+                    <footer>
+                        <button string="Update" name="update" type="object" class="oe_highlight" /> 
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <act_window name="Update Status On Amazon"
+            res_model="update.ordre.status"
+            src_model="sale.order"
+            view_mode="form"
+            target="new"
+            key2="client_action_multi"
+            id="action_view_update_ordre_status"/>
+            
+    </data>
+</odoo>

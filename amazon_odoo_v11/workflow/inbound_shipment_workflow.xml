@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+##############################################################################
+#    Copyright (c) 2015 - Present Teckzilla Software Solutions Pvt. All Rights Reserved
+#    Author: [Teckzilla Software Solutions]  <[ sales@teckzilla.net]>
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    A copy of the GNU General Public License is available at:
+#    <http://www.gnu.org/licenses/gpl.html>.
+#
+#    
+#
+##############################################################################
+-->
+
+
+
+<odoo>
+    <data>
+        <record id="wkf_inbound_shipment" model="workflow">
+            <field name="name">wkf.inbound.shipment</field>
+            <field name="osv">amazon.inbound.shipment</field>
+            <field name="on_create">True</field>
+        </record>
+
+        <!-- Activity -->
+        <record id="act_inbound_draft" model="workflow.activity">
+            <field name="wkf_id" ref="wkf_inbound_shipment"/>
+            <field name="flow_start">True</field>
+            <field name="name">draft</field>
+        </record>
+        
+        <record id="act_inbound_processing" model="workflow.activity">
+            <field name="wkf_id" ref="wkf_inbound_shipment"/>
+            <field name="name">processing</field>
+            <field name="kind">function</field>
+            <field name="action">write({'state':'processing'})</field>
+        </record>
+        
+        <record id="act_inbound_confirm" model="workflow.activity">
+            <field name="wkf_id" ref="wkf_inbound_shipment"/>
+            <field name="name">confirm</field>
+            <field name="kind">function</field>
+            <field name="action">write({'state':'confirm'})</field>
+        </record>   
+        
+        <record id="act_inbound_transfer" model="workflow.activity">
+            <field name="wkf_id" ref="wkf_inbound_shipment"/>
+            <field name="name">transfer</field>
+            <field name="kind">function</field>
+            <field name="action">write({'state':'transfer'})</field>
+        </record>
+        
+<!--        <record id="act_inbound_confirm_charges" model="workflow.activity">
+            <field name="wkf_id" ref="wkf_inbound_shipment"/>
+            <field name="name">confirm_charges</field>
+            <field name="kind">function</field>
+            <field name="action">write({'state':'confirm_charges'})</field>
+        </record>
+        -->
+        <record id="act_intransit" model="workflow.activity">
+            <field name="wkf_id" ref="wkf_inbound_shipment"/>
+            <field name="name">transit</field>
+            <field name="kind">function</field>
+            <field name="action">write({'state':'in_transit'})</field>
+        </record>
+        
+        <record id="act_inbound_done" model="workflow.activity">
+            <field name="wkf_id" ref="wkf_inbound_shipment"/>
+            <field name="name">done</field>
+            <field name="kind">function</field>
+            <field name="action">write({'state':'done'})</field>
+        </record>
+        
+         <record id="act_inbound_cancel" model="workflow.activity">
+            <field name="wkf_id" ref="wkf_inbound_shipment"/>
+            <field name="name">cancel</field>
+            <field name="kind">function</field>
+            <field name="action">write({'state':'cancel'})</field>
+        </record>
+     
+        <!-- Transistion -->
+        <record id="trans_inbound_draft_confirm" model="workflow.transition">
+            <field name="act_from" ref="act_inbound_draft"/>
+            <field name="act_to" ref="act_inbound_processing"/>
+            <field name="signal">get_processing</field>
+        </record>
+        
+        <record id="trans_inbound_draft_cancel" model="workflow.transition">
+            <field name="act_from" ref="act_inbound_draft"/>
+            <field name="act_to" ref="act_inbound_cancel"/>
+            <field name="signal">cancel</field>
+        </record>
+        
+        
+         <record id="trans_inbound_processing_to_confirm" model="workflow.transition">
+            <field name="act_from" ref="act_inbound_processing"/>
+            <field name="act_to" ref="act_inbound_confirm"/>
+            <field name="signal">get_confirm</field>
+        </record>
+        
+        <record id="trans_inbound_processing_cancel" model="workflow.transition">
+            <field name="act_from" ref="act_inbound_processing"/>
+            <field name="act_to" ref="act_inbound_cancel"/>
+            <field name="signal">cancel</field>
+        </record>
+        
+         <record id="trans_inbound_confirm_transfer" model="workflow.transition">
+            <field name="act_from" ref="act_inbound_confirm"/>
+            <field name="act_to" ref="act_inbound_transfer"/>
+            <field name="signal">get_transfer</field>
+        </record>
+        
+        <record id="trans_inbound_confirm_cancel" model="workflow.transition">
+            <field name="act_from" ref="act_inbound_confirm"/>
+            <field name="act_to" ref="act_inbound_cancel"/>
+            <field name="signal">cancel</field>
+        </record>
+        
+<!--        <record id="trans_inbound_transfer_to_confirm_charges" model="workflow.transition">
+            <field name="act_from" ref="act_inbound_transfer"/>
+            <field name="act_to" ref="act_inbound_confirm_charges"/>
+            <field name="signal">get_transfer</field>
+        </record>
+        
+       <record id="trans_inbound_transfer_cancel" model="workflow.transition">
+            <field name="act_from" ref="act_inbound_transfer"/>
+            <field name="act_to" ref="act_inbound_cancel"/>
+            <field name="signal">cancel</field>
+        </record>-->
+        
+        <record id="trans_inbound_confirm_charges_transit" model="workflow.transition">
+            <field name="act_from" ref="act_inbound_transfer"/>
+            <field name="act_to" ref="act_intransit"/>
+            <field name="signal">get_confirm_charges</field>
+        </record>
+        
+        <record id="trans_inbound_confirm_charges_cancel" model="workflow.transition">
+            <field name="act_from" ref="act_inbound_confirm_charges"/>
+            <field name="act_to" ref="act_inbound_cancel"/>
+            <field name="signal">cancel</field>
+        </record>
+        
+         <record id="trans_inbound_transit_done" model="workflow.transition">
+            <field name="act_from" ref="act_intransit"/>
+            <field name="act_to" ref="act_inbound_done"/>
+            <field name="signal">get_transit</field>
+        </record>
+        
+        <record id="trans_intransit_cancel" model="workflow.transition">
+            <field name="act_from" ref="act_intransit"/>
+            <field name="act_to" ref="act_inbound_cancel"/>
+            <field name="signal">cancel</field>
+        </record>     
+      
+    </data>
+</odoo>

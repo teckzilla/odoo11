@@ -1,0 +1,2392 @@
+id,categ_type_ids/node,categ_type_ids/refine_name,categ_type_ids/concat,categ_type_ids/code_type
+__export__.product_attribute_set_115_1,1389376031,Channels,AV Receivers & Amplifiers,output_channel_quantity
+,1389376031,Wattage,AV Receivers & Amplifiers,wattage
+,1375444031,Connectivity,All-In-One Printers,connectivity_technology
+,1375444031,Maximum Media Size,All-In-One Printers,media_size_maximum
+,1375444031,Output Type,All-In-One Printers,printer_output
+,1375444031,Printing Speed,All-In-One Printers,max_printspeed_black_white
+,1805559031,Camera Resolution,Basic Mobiles,effective_still_resolution
+,1805559031,Cell Phone Type,Basic Mobiles,form_factor
+,1805559031,Data Transfer,Basic Mobiles,connectivity_technology
+,1805559031,Features,Basic Mobiles,special_features
+,1805559031,Operating System,Basic Mobiles,operating_system
+,1805559031,Operator,Basic Mobiles,wireless_provider
+,1389366031,Wattage,Bookshelf Speakers,wattage
+,1389367031,Wattage,Built-in Speakers,wattage
+,1389198031,Max. Focal Length,Camcorder Lenses,max_focal_length
+,1389198031,Min. Focal Length,Camcorder Lenses,min_focal_length
+,1389198031,Mounting Type,Camcorder Lenses,mounting_type
+,1389197031,Max. Focal Length,Camera Lenses,max_focal_length
+,1389197031,Min. Focal Length,Camera Lenses,min_focal_length
+,1389197031,Mounting Type,Camera Lenses,mounting_type
+,1389199031,Max. Focal Length,Camera Lenses,max_focal_length
+,1389199031,Min. Focal Length,Camera Lenses,min_focal_length
+,1389199031,Mounting Type,Camera Lenses,mounting_type
+,1389328031,Display Size,Car GPS,display_size
+,1389328031,Features,Car GPS,data_service
+,1389328031,Features,Car GPS,connectivity_technology
+,1389328031,Features,Car GPS,display_type
+,1389328031,Maps,Car GPS,map_type
+,1389368031,Wattage,Centre Speakers,wattage
+,1388964031,Capacity,Compact Flash Cards,memory_storage_capacity
+,1389384031,Hard Disk Size,DVD Recorders,hard_disk_size
+,1389175031,Display Size,Digital Cameras,display_size
+,1389175031,Image Stabilization,Digital Cameras,image_stabilization
+,1389175031,Optical Zoom,Digital Cameras,optical_zoom
+,1389175031,Resolution,Digital Cameras,optical_sensor_resolution
+,1389175031,Viewfinder Type,Digital Cameras,viewfinder_type
+,1389176031,Display Size,Digital SLR Camera Bundles,display_size
+,1389176031,Image Stabilization,Digital SLR Camera Bundles,image_stabilization
+,1389176031,Optical Zoom,Digital SLR Camera Bundles,optical_zoom
+,1389176031,Resolution,Digital SLR Camera Bundles,optical_sensor_resolution
+,1389176031,Viewfinder Type,Digital SLR Camera Bundles,viewfinder_type
+,1389177031,Display Size,Digital SLR Cameras,display_size
+,1389177031,Image Stabilization,Digital SLR Cameras,image_stabilization
+,1389177031,Optical Zoom,Digital SLR Cameras,optical_zoom
+,1389177031,Resolution,Digital SLR Cameras,optical_sensor_resolution
+,1389177031,Viewfinder Type,Digital SLR Cameras,viewfinder_type
+,1388874031,Battery Cell Composition,Disposable Batteries,battery_cell_composition
+,1375395031,Capacity,External Hard Drives,hard_disk_size
+,1375395031,Format,External Hard Drives,form_factor
+,1389369031,Wattage,Floorstanding Speakers,wattage
+,1388871031,Battery Cell Composition,General Purpose Batteries & Battery Chargers,battery_cell_composition
+,1388872031,Battery Cell Composition,General Purpose Battery & Charger Sets,battery_cell_composition
+,1388873031,Battery Cell Composition,General Purpose Battery Chargers,battery_cell_composition
+,1388876031,Battery Cell Composition,General Purpose Battery Spacers,battery_cell_composition
+,1388877031,Battery Cell Composition,General Purpose Battery Testers,battery_cell_composition
+,1389365031,Wattage,Hi-Fi & Home Audio Speakers,wattage
+,1389350031,Wattage,Hi-Fi Amplifiers,wattage
+,1389338031,Wattage,Hi-Fi Compact Stereo Systems,wattage
+,1389361031,Wattage,Hi-Fi Receivers,wattage
+,1389387031,Hard Disk Size,Home Cinema Systems,hard_disk_size
+,1389351031,Wattage,Hybrid Amplifiers,wattage
+,1375367031,Capacity,IDE Hard Drives,hard_disk_size
+,1375445031,Connectivity,Ink All-In-One Printers,connectivity_technology
+,1375445031,Maximum Media Size,Ink All-In-One Printers,media_size_maximum
+,1375445031,Output Type,Ink All-In-One Printers,printer_output
+,1375445031,Printing Speed,Ink All-In-One Printers,max_printspeed_black_white
+,1375323031,Cartridge Type,Ink Cartridges,compatibility_options
+,1375447031,Connectivity,Ink Printers,connectivity_technology
+,1375447031,Maximum Media Size,Ink Printers,media_size_maximum
+,1375447031,Output Type,Ink Printers,printer_output
+,1375447031,Printing Speed,Ink Printers,max_printspeed_black_white
+,1375366031,Capacity,Internal Hard Drives,hard_disk_size
+,1375467031,Casing,Laptop Roller Cases,shell_type
+,1375424031,CPU Manufacturer & Type,Laptops,computer_cpu_type
+,1375424031,Display Size,Laptops,display_size
+,1375424031,HDD Size,Laptops,hard_disk_size
+,1375424031,Memory Size,Laptops,computer_memory_size
+,1375424031,Operating System,Laptops,operating_system
+,1375446031,Connectivity,Laser All-In-One Printers,connectivity_technology
+,1375446031,Maximum Media Size,Laser All-In-One Printers,media_size_maximum
+,1375446031,Output Type,Laser All-In-One Printers,printer_output
+,1375446031,Printing Speed,Laser All-In-One Printers,max_printspeed_black_white
+,1375448031,Connectivity,Laser Printers,connectivity_technology
+,1375448031,Maximum Media Size,Laser Printers,media_size_maximum
+,1375448031,Output Type,Laser Printers,printer_output
+,1375448031,Printing Speed,Laser Printers,max_printspeed_black_white
+,1389458031,Storage Capacity,MP3/MP4 Players,digital_storage_capacity
+,1389458031,Supported Standards,MP3/MP4 Players,supported_audio_format
+,1375449031,Connectivity,Matrix Printers,connectivity_technology
+,1375449031,Maximum Media Size,Matrix Printers,media_size_maximum
+,1375449031,Output Type,Matrix Printers,printer_output
+,1375449031,Printing Speed,Matrix Printers,max_printspeed_black_white
+,1389178031,Display Size,Medium Format Digital Cameras,display_size
+,1389178031,Image Stabilization,Medium Format Digital Cameras,image_stabilization
+,1389178031,Optical Zoom,Medium Format Digital Cameras,optical_zoom
+,1389178031,Resolution,Medium Format Digital Cameras,optical_sensor_resolution
+,1389178031,Viewfinder Type,Medium Format Digital Cameras,viewfinder_type
+,1375384031,System RAM Type,Memory,system_ram_type
+,1388963031,Capacity,Memory Cards,memory_storage_capacity
+,1388965031,Capacity,Micro SD Cards,memory_storage_capacity
+,1389179031,Display Size,Mirrorless System Cameras,display_size
+,1389179031,Image Stabilization,Mirrorless System Cameras,image_stabilization
+,1389179031,Optical Zoom,Mirrorless System Cameras,optical_zoom
+,1389179031,Resolution,Mirrorless System Cameras,optical_sensor_resolution
+,1389179031,Viewfinder Type,Mirrorless System Cameras,viewfinder_type
+,1375425031,Connectivity,Monitors,connectivity_technology
+,1375425031,Resolution,Monitors,display_resolution_maximum
+,1375425031,Response Time,Monitors,response_time
+,1375425031,Screen Size,Monitors,display_size
+,1375425031,Tuner,Monitors,tuner
+,1375385031,Processor Socket,Motherboards,processor_socket
+,1388966031,Capacity,Multimedia Cards,memory_storage_capacity
+,1389370031,Wattage,Outdoor Speakers,wattage
+,1388967031,Capacity,PC Cards & PCMCIA,memory_storage_capacity
+,1375411031,Capacity,Pen Drives,memory_storage_capacity
+,1375450031,Connectivity,Photo Printers,connectivity_technology
+,1375450031,Maximum Media Size,Photo Printers,media_size_maximum
+,1375450031,Output Type,Photo Printers,printer_output
+,1375450031,Printing Speed,Photo Printers,max_printspeed_black_white
+,1375451031,Connectivity,Plotters,connectivity_technology
+,1375451031,Maximum Media Size,Plotters,media_size_maximum
+,1375451031,Output Type,Plotters,printer_output
+,1375451031,Printing Speed,Plotters,max_printspeed_black_white
+,1389180031,Display Size,Point & Shoot Digital Camera Bundles,display_size
+,1389180031,Image Stabilization,Point & Shoot Digital Camera Bundles,image_stabilization
+,1389180031,Optical Zoom,Point & Shoot Digital Camera Bundles,optical_zoom
+,1389180031,Resolution,Point & Shoot Digital Camera Bundles,optical_sensor_resolution
+,1389180031,Viewfinder Type,Point & Shoot Digital Camera Bundles,viewfinder_type
+,1389181031,Display Size,Point & Shoot Digital Cameras,display_size
+,1389181031,Image Stabilization,Point & Shoot Digital Cameras,image_stabilization
+,1389181031,Optical Zoom,Point & Shoot Digital Cameras,optical_zoom
+,1389181031,Resolution,Point & Shoot Digital Cameras,optical_sensor_resolution
+,1389181031,Viewfinder Type,Point & Shoot Digital Cameras,viewfinder_type
+,1389430031,Cell Phone Type,Prepaid Phones,form_factor
+,1389430031,Data Transfer,Prepaid Phones,connectivity_technology
+,1389430031,Features,Prepaid Phones,special_features
+,1389430031,Operating System,Prepaid Phones,operating_system
+,1389430031,Operator,Prepaid Phones,wireless_provider
+,1375443031,Connectivity,Printers,connectivity_technology
+,1375443031,Maximum Media Size,Printers,media_size_maximum
+,1375443031,Output Type,Printers,printer_output
+,1375443031,Printing Speed,Printers,max_printspeed_black_white
+,1388875031,Battery Cell Composition,Rechargeable Batteries,battery_cell_composition
+,1375368031,Capacity,SAS Hard Drives,hard_disk_size
+,1375369031,Capacity,SATA Hard Drives,hard_disk_size
+,1375370031,Capacity,SCSI Hard Drives,hard_disk_size
+,1389371031,Wattage,Satellite Speakers,wattage
+,1388968031,Capacity,SecureDigital Cards,memory_storage_capacity
+,1388969031,Capacity,SmartMedia Cards,memory_storage_capacity
+,1805560031,Camera Resolution,Smartphones,effective_still_resolution
+,1805560031,Cell Phone Type,Smartphones,form_factor
+,1805560031,Data Transfer,Smartphones,connectivity_technology
+,1805560031,Features,Smartphones,special_features
+,1805560031,Operating System,Smartphones,operating_system
+,1805560031,Operator,Smartphones,wireless_provider
+,1389432031,Camera Resolution,Smartphones & Basic Mobiles,effective_still_resolution
+,1389432031,Cell Phone Type,Smartphones & Basic Mobiles,form_factor
+,1389432031,Data Transfer,Smartphones & Basic Mobiles,connectivity_technology
+,1389432031,Features,Smartphones & Basic Mobiles,special_features
+,1389432031,Operating System,Smartphones & Basic Mobiles,operating_system
+,1389432031,Operator,Smartphones & Basic Mobiles,wireless_provider
+,1388970031,Capacity,Sony Memory Sticks,memory_storage_capacity
+,1389372031,Wattage,Soundbar Speakers,wattage
+,1389373031,Channels,Speaker Systems,output_channel_quantity
+,1389373031,Connectivity,Speaker Systems,speaker_connectivity
+,1389373031,Wattage,Speaker Systems,wattage
+,1389374031,Wattage,Subwoofers,wattage
+,1389396031,Aspect Ratio,Televisions,image_aspect_ratio
+,1389396031,Display Technology,Televisions,display_technology
+,1389396031,HD Format,Televisions,display_resolution_maximum
+,1389396031,Refresh Rate,Televisions,refresh_rate
+,1389396031,Screen Size,Televisions,display_size
+,1375325031,Cartridge Type,Toner Cartridges,compatibility_options
+,1389352031,Wattage,Transistor Amplifiers,wattage
+,1389353031,Wattage,Tube Amplifiers,wattage
+,1388971031,Capacity,miniSD Cards,memory_storage_capacity
+,1388972031,Capacity,xD-Picture Cards,memory_storage_capacity
+,1389376031,Channels,AV Receivers & Amplifiers,output_channel_quantity
+,1389376031,Wattage,AV Receivers & Amplifiers,wattage
+,1375444031,Connectivity,All-In-One Printers,connectivity_technology
+,1375444031,Maximum Media Size,All-In-One Printers,media_size_maximum
+,1375444031,Output Type,All-In-One Printers,printer_output
+,1375444031,Printing Speed,All-In-One Printers,max_printspeed_black_white
+,1805559031,Camera Resolution,Basic Mobiles,effective_still_resolution
+,1805559031,Cell Phone Type,Basic Mobiles,form_factor
+,1805559031,Data Transfer,Basic Mobiles,connectivity_technology
+,1805559031,Features,Basic Mobiles,special_features
+,1805559031,Operating System,Basic Mobiles,operating_system
+,1805559031,Operator,Basic Mobiles,wireless_provider
+,1389366031,Wattage,Bookshelf Speakers,wattage
+,1389367031,Wattage,Built-in Speakers,wattage
+,1389198031,Max. Focal Length,Camcorder Lenses,max_focal_length
+,1389198031,Min. Focal Length,Camcorder Lenses,min_focal_length
+,1389198031,Mounting Type,Camcorder Lenses,mounting_type
+,1389197031,Max. Focal Length,Camera Lenses,max_focal_length
+,1389197031,Min. Focal Length,Camera Lenses,min_focal_length
+,1389197031,Mounting Type,Camera Lenses,mounting_type
+,1389199031,Max. Focal Length,Camera Lenses,max_focal_length
+,1389199031,Min. Focal Length,Camera Lenses,min_focal_length
+,1389199031,Mounting Type,Camera Lenses,mounting_type
+,1389328031,Display Size,Car GPS,display_size
+,1389328031,Features,Car GPS,data_service
+,1389328031,Features,Car GPS,connectivity_technology
+,1389328031,Features,Car GPS,display_type
+,1389328031,Maps,Car GPS,map_type
+,1389368031,Wattage,Centre Speakers,wattage
+,1388964031,Capacity,Compact Flash Cards,memory_storage_capacity
+,1389384031,Hard Disk Size,DVD Recorders,hard_disk_size
+,1389175031,Display Size,Digital Cameras,display_size
+,1389175031,Image Stabilization,Digital Cameras,image_stabilization
+,1389175031,Optical Zoom,Digital Cameras,optical_zoom
+,1389175031,Resolution,Digital Cameras,optical_sensor_resolution
+,1389175031,Viewfinder Type,Digital Cameras,viewfinder_type
+,1389176031,Display Size,Digital SLR Camera Bundles,display_size
+,1389176031,Image Stabilization,Digital SLR Camera Bundles,image_stabilization
+,1389176031,Optical Zoom,Digital SLR Camera Bundles,optical_zoom
+,1389176031,Resolution,Digital SLR Camera Bundles,optical_sensor_resolution
+,1389176031,Viewfinder Type,Digital SLR Camera Bundles,viewfinder_type
+,1389177031,Display Size,Digital SLR Cameras,display_size
+,1389177031,Image Stabilization,Digital SLR Cameras,image_stabilization
+,1389177031,Optical Zoom,Digital SLR Cameras,optical_zoom
+,1389177031,Resolution,Digital SLR Cameras,optical_sensor_resolution
+,1389177031,Viewfinder Type,Digital SLR Cameras,viewfinder_type
+,1388874031,Battery Cell Composition,Disposable Batteries,battery_cell_composition
+,1375395031,Capacity,External Hard Drives,hard_disk_size
+,1375395031,Format,External Hard Drives,form_factor
+,1389369031,Wattage,Floorstanding Speakers,wattage
+,1388871031,Battery Cell Composition,General Purpose Batteries & Battery Chargers,battery_cell_composition
+,1388872031,Battery Cell Composition,General Purpose Battery & Charger Sets,battery_cell_composition
+,1388873031,Battery Cell Composition,General Purpose Battery Chargers,battery_cell_composition
+,1388876031,Battery Cell Composition,General Purpose Battery Spacers,battery_cell_composition
+,1388877031,Battery Cell Composition,General Purpose Battery Testers,battery_cell_composition
+,1389365031,Wattage,Hi-Fi & Home Audio Speakers,wattage
+,1389350031,Wattage,Hi-Fi Amplifiers,wattage
+,1389338031,Wattage,Hi-Fi Compact Stereo Systems,wattage
+,1389361031,Wattage,Hi-Fi Receivers,wattage
+,1389387031,Hard Disk Size,Home Cinema Systems,hard_disk_size
+,1389351031,Wattage,Hybrid Amplifiers,wattage
+,1375367031,Capacity,IDE Hard Drives,hard_disk_size
+,1375445031,Connectivity,Ink All-In-One Printers,connectivity_technology
+,1375445031,Maximum Media Size,Ink All-In-One Printers,media_size_maximum
+,1375445031,Output Type,Ink All-In-One Printers,printer_output
+,1375445031,Printing Speed,Ink All-In-One Printers,max_printspeed_black_white
+,1375323031,Cartridge Type,Ink Cartridges,compatibility_options
+,1375447031,Connectivity,Ink Printers,connectivity_technology
+,1375447031,Maximum Media Size,Ink Printers,media_size_maximum
+,1375447031,Output Type,Ink Printers,printer_output
+,1375447031,Printing Speed,Ink Printers,max_printspeed_black_white
+,1375366031,Capacity,Internal Hard Drives,hard_disk_size
+,1375467031,Casing,Laptop Roller Cases,shell_type
+,1375424031,CPU Manufacturer & Type,Laptops,computer_cpu_type
+,1375424031,Display Size,Laptops,display_size
+,1375424031,HDD Size,Laptops,hard_disk_size
+,1375424031,Memory Size,Laptops,computer_memory_size
+,1375424031,Operating System,Laptops,operating_system
+,1375446031,Connectivity,Laser All-In-One Printers,connectivity_technology
+,1375446031,Maximum Media Size,Laser All-In-One Printers,media_size_maximum
+,1375446031,Output Type,Laser All-In-One Printers,printer_output
+,1375446031,Printing Speed,Laser All-In-One Printers,max_printspeed_black_white
+,1375448031,Connectivity,Laser Printers,connectivity_technology
+,1375448031,Maximum Media Size,Laser Printers,media_size_maximum
+,1375448031,Output Type,Laser Printers,printer_output
+,1375448031,Printing Speed,Laser Printers,max_printspeed_black_white
+,1389458031,Storage Capacity,MP3/MP4 Players,digital_storage_capacity
+,1389458031,Supported Standards,MP3/MP4 Players,supported_audio_format
+,1375449031,Connectivity,Matrix Printers,connectivity_technology
+,1375449031,Maximum Media Size,Matrix Printers,media_size_maximum
+,1375449031,Output Type,Matrix Printers,printer_output
+,1375449031,Printing Speed,Matrix Printers,max_printspeed_black_white
+,1389178031,Display Size,Medium Format Digital Cameras,display_size
+,1389178031,Image Stabilization,Medium Format Digital Cameras,image_stabilization
+,1389178031,Optical Zoom,Medium Format Digital Cameras,optical_zoom
+,1389178031,Resolution,Medium Format Digital Cameras,optical_sensor_resolution
+,1389178031,Viewfinder Type,Medium Format Digital Cameras,viewfinder_type
+,1375384031,System RAM Type,Memory,system_ram_type
+,1388963031,Capacity,Memory Cards,memory_storage_capacity
+,1388965031,Capacity,Micro SD Cards,memory_storage_capacity
+,1389179031,Display Size,Mirrorless System Cameras,display_size
+,1389179031,Image Stabilization,Mirrorless System Cameras,image_stabilization
+,1389179031,Optical Zoom,Mirrorless System Cameras,optical_zoom
+,1389179031,Resolution,Mirrorless System Cameras,optical_sensor_resolution
+,1389179031,Viewfinder Type,Mirrorless System Cameras,viewfinder_type
+,1375425031,Connectivity,Monitors,connectivity_technology
+,1375425031,Resolution,Monitors,display_resolution_maximum
+,1375425031,Response Time,Monitors,response_time
+,1375425031,Screen Size,Monitors,display_size
+,1375425031,Tuner,Monitors,tuner
+,1375385031,Processor Socket,Motherboards,processor_socket
+,1388966031,Capacity,Multimedia Cards,memory_storage_capacity
+,1389370031,Wattage,Outdoor Speakers,wattage
+,1388967031,Capacity,PC Cards & PCMCIA,memory_storage_capacity
+,1375411031,Capacity,Pen Drives,memory_storage_capacity
+,1375450031,Connectivity,Photo Printers,connectivity_technology
+,1375450031,Maximum Media Size,Photo Printers,media_size_maximum
+,1375450031,Output Type,Photo Printers,printer_output
+,1375450031,Printing Speed,Photo Printers,max_printspeed_black_white
+,1375451031,Connectivity,Plotters,connectivity_technology
+,1375451031,Maximum Media Size,Plotters,media_size_maximum
+,1375451031,Output Type,Plotters,printer_output
+,1375451031,Printing Speed,Plotters,max_printspeed_black_white
+,1389180031,Display Size,Point & Shoot Digital Camera Bundles,display_size
+,1389180031,Image Stabilization,Point & Shoot Digital Camera Bundles,image_stabilization
+,1389180031,Optical Zoom,Point & Shoot Digital Camera Bundles,optical_zoom
+,1389180031,Resolution,Point & Shoot Digital Camera Bundles,optical_sensor_resolution
+,1389180031,Viewfinder Type,Point & Shoot Digital Camera Bundles,viewfinder_type
+,1389181031,Display Size,Point & Shoot Digital Cameras,display_size
+,1389181031,Image Stabilization,Point & Shoot Digital Cameras,image_stabilization
+,1389181031,Optical Zoom,Point & Shoot Digital Cameras,optical_zoom
+,1389181031,Resolution,Point & Shoot Digital Cameras,optical_sensor_resolution
+,1389181031,Viewfinder Type,Point & Shoot Digital Cameras,viewfinder_type
+,1389430031,Cell Phone Type,Prepaid Phones,form_factor
+,1389430031,Data Transfer,Prepaid Phones,connectivity_technology
+,1389430031,Features,Prepaid Phones,special_features
+,1389430031,Operating System,Prepaid Phones,operating_system
+,1389430031,Operator,Prepaid Phones,wireless_provider
+,1375443031,Connectivity,Printers,connectivity_technology
+,1375443031,Maximum Media Size,Printers,media_size_maximum
+,1375443031,Output Type,Printers,printer_output
+,1375443031,Printing Speed,Printers,max_printspeed_black_white
+,1388875031,Battery Cell Composition,Rechargeable Batteries,battery_cell_composition
+,1375368031,Capacity,SAS Hard Drives,hard_disk_size
+,1375369031,Capacity,SATA Hard Drives,hard_disk_size
+,1375370031,Capacity,SCSI Hard Drives,hard_disk_size
+,1389371031,Wattage,Satellite Speakers,wattage
+,1388968031,Capacity,SecureDigital Cards,memory_storage_capacity
+,1388969031,Capacity,SmartMedia Cards,memory_storage_capacity
+,1805560031,Camera Resolution,Smartphones,effective_still_resolution
+,1805560031,Cell Phone Type,Smartphones,form_factor
+,1805560031,Data Transfer,Smartphones,connectivity_technology
+,1805560031,Features,Smartphones,special_features
+,1805560031,Operating System,Smartphones,operating_system
+,1805560031,Operator,Smartphones,wireless_provider
+,1389432031,Camera Resolution,Smartphones & Basic Mobiles,effective_still_resolution
+,1389432031,Cell Phone Type,Smartphones & Basic Mobiles,form_factor
+,1389432031,Data Transfer,Smartphones & Basic Mobiles,connectivity_technology
+,1389432031,Features,Smartphones & Basic Mobiles,special_features
+,1389432031,Operating System,Smartphones & Basic Mobiles,operating_system
+,1389432031,Operator,Smartphones & Basic Mobiles,wireless_provider
+,1388970031,Capacity,Sony Memory Sticks,memory_storage_capacity
+,1389372031,Wattage,Soundbar Speakers,wattage
+,1389373031,Channels,Speaker Systems,output_channel_quantity
+,1389373031,Connectivity,Speaker Systems,speaker_connectivity
+,1389373031,Wattage,Speaker Systems,wattage
+,1389374031,Wattage,Subwoofers,wattage
+,1389396031,Aspect Ratio,Televisions,image_aspect_ratio
+,1389396031,Display Technology,Televisions,display_technology
+,1389396031,HD Format,Televisions,display_resolution_maximum
+,1389396031,Refresh Rate,Televisions,refresh_rate
+,1389396031,Screen Size,Televisions,display_size
+,1375325031,Cartridge Type,Toner Cartridges,compatibility_options
+,1389352031,Wattage,Transistor Amplifiers,wattage
+,1389353031,Wattage,Tube Amplifiers,wattage
+,1388971031,Capacity,miniSD Cards,memory_storage_capacity
+,1388972031,Capacity,xD-Picture Cards,memory_storage_capacity
+,1389376031,Channels,AV Receivers & Amplifiers,output_channel_quantity
+,1389376031,Wattage,AV Receivers & Amplifiers,wattage
+,1375444031,Connectivity,All-In-One Printers,connectivity_technology
+,1375444031,Maximum Media Size,All-In-One Printers,media_size_maximum
+,1375444031,Output Type,All-In-One Printers,printer_output
+,1375444031,Printing Speed,All-In-One Printers,max_printspeed_black_white
+,1805559031,Camera Resolution,Basic Mobiles,effective_still_resolution
+,1805559031,Cell Phone Type,Basic Mobiles,form_factor
+,1805559031,Data Transfer,Basic Mobiles,connectivity_technology
+,1805559031,Features,Basic Mobiles,special_features
+,1805559031,Operating System,Basic Mobiles,operating_system
+,1805559031,Operator,Basic Mobiles,wireless_provider
+,1389366031,Wattage,Bookshelf Speakers,wattage
+,1389367031,Wattage,Built-in Speakers,wattage
+,1389198031,Max. Focal Length,Camcorder Lenses,max_focal_length
+,1389198031,Min. Focal Length,Camcorder Lenses,min_focal_length
+,1389198031,Mounting Type,Camcorder Lenses,mounting_type
+,1389197031,Max. Focal Length,Camera Lenses,max_focal_length
+,1389197031,Min. Focal Length,Camera Lenses,min_focal_length
+,1389197031,Mounting Type,Camera Lenses,mounting_type
+,1389199031,Max. Focal Length,Camera Lenses,max_focal_length
+,1389199031,Min. Focal Length,Camera Lenses,min_focal_length
+,1389199031,Mounting Type,Camera Lenses,mounting_type
+,1389328031,Display Size,Car GPS,display_size
+,1389328031,Features,Car GPS,data_service
+,1389328031,Features,Car GPS,connectivity_technology
+,1389328031,Features,Car GPS,display_type
+,1389328031,Maps,Car GPS,map_type
+,1389368031,Wattage,Centre Speakers,wattage
+,1388964031,Capacity,Compact Flash Cards,memory_storage_capacity
+,1389384031,Hard Disk Size,DVD Recorders,hard_disk_size
+,1389175031,Display Size,Digital Cameras,display_size
+,1389175031,Image Stabilization,Digital Cameras,image_stabilization
+,1389175031,Optical Zoom,Digital Cameras,optical_zoom
+,1389175031,Resolution,Digital Cameras,optical_sensor_resolution
+,1389175031,Viewfinder Type,Digital Cameras,viewfinder_type
+,1389176031,Display Size,Digital SLR Camera Bundles,display_size
+,1389176031,Image Stabilization,Digital SLR Camera Bundles,image_stabilization
+,1389176031,Optical Zoom,Digital SLR Camera Bundles,optical_zoom
+,1389176031,Resolution,Digital SLR Camera Bundles,optical_sensor_resolution
+,1389176031,Viewfinder Type,Digital SLR Camera Bundles,viewfinder_type
+,1389177031,Display Size,Digital SLR Cameras,display_size
+,1389177031,Image Stabilization,Digital SLR Cameras,image_stabilization
+,1389177031,Optical Zoom,Digital SLR Cameras,optical_zoom
+,1389177031,Resolution,Digital SLR Cameras,optical_sensor_resolution
+,1389177031,Viewfinder Type,Digital SLR Cameras,viewfinder_type
+,1388874031,Battery Cell Composition,Disposable Batteries,battery_cell_composition
+,1375395031,Capacity,External Hard Drives,hard_disk_size
+,1375395031,Format,External Hard Drives,form_factor
+,1389369031,Wattage,Floorstanding Speakers,wattage
+,1388871031,Battery Cell Composition,General Purpose Batteries & Battery Chargers,battery_cell_composition
+,1388872031,Battery Cell Composition,General Purpose Battery & Charger Sets,battery_cell_composition
+,1388873031,Battery Cell Composition,General Purpose Battery Chargers,battery_cell_composition
+,1388876031,Battery Cell Composition,General Purpose Battery Spacers,battery_cell_composition
+,1388877031,Battery Cell Composition,General Purpose Battery Testers,battery_cell_composition
+,1389365031,Wattage,Hi-Fi & Home Audio Speakers,wattage
+,1389350031,Wattage,Hi-Fi Amplifiers,wattage
+,1389338031,Wattage,Hi-Fi Compact Stereo Systems,wattage
+,1389361031,Wattage,Hi-Fi Receivers,wattage
+,1389387031,Hard Disk Size,Home Cinema Systems,hard_disk_size
+,1389351031,Wattage,Hybrid Amplifiers,wattage
+,1375367031,Capacity,IDE Hard Drives,hard_disk_size
+,1375445031,Connectivity,Ink All-In-One Printers,connectivity_technology
+,1375445031,Maximum Media Size,Ink All-In-One Printers,media_size_maximum
+,1375445031,Output Type,Ink All-In-One Printers,printer_output
+,1375445031,Printing Speed,Ink All-In-One Printers,max_printspeed_black_white
+,1375323031,Cartridge Type,Ink Cartridges,compatibility_options
+,1375447031,Connectivity,Ink Printers,connectivity_technology
+,1375447031,Maximum Media Size,Ink Printers,media_size_maximum
+,1375447031,Output Type,Ink Printers,printer_output
+,1375447031,Printing Speed,Ink Printers,max_printspeed_black_white
+,1375366031,Capacity,Internal Hard Drives,hard_disk_size
+,1375467031,Casing,Laptop Roller Cases,shell_type
+,1375424031,CPU Manufacturer & Type,Laptops,computer_cpu_type
+,1375424031,Display Size,Laptops,display_size
+,1375424031,HDD Size,Laptops,hard_disk_size
+,1375424031,Memory Size,Laptops,computer_memory_size
+,1375424031,Operating System,Laptops,operating_system
+,1375446031,Connectivity,Laser All-In-One Printers,connectivity_technology
+,1375446031,Maximum Media Size,Laser All-In-One Printers,media_size_maximum
+,1375446031,Output Type,Laser All-In-One Printers,printer_output
+,1375446031,Printing Speed,Laser All-In-One Printers,max_printspeed_black_white
+,1375448031,Connectivity,Laser Printers,connectivity_technology
+,1375448031,Maximum Media Size,Laser Printers,media_size_maximum
+,1375448031,Output Type,Laser Printers,printer_output
+,1375448031,Printing Speed,Laser Printers,max_printspeed_black_white
+,1389458031,Storage Capacity,MP3/MP4 Players,digital_storage_capacity
+,1389458031,Supported Standards,MP3/MP4 Players,supported_audio_format
+,1375449031,Connectivity,Matrix Printers,connectivity_technology
+,1375449031,Maximum Media Size,Matrix Printers,media_size_maximum
+,1375449031,Output Type,Matrix Printers,printer_output
+,1375449031,Printing Speed,Matrix Printers,max_printspeed_black_white
+,1389178031,Display Size,Medium Format Digital Cameras,display_size
+,1389178031,Image Stabilization,Medium Format Digital Cameras,image_stabilization
+,1389178031,Optical Zoom,Medium Format Digital Cameras,optical_zoom
+,1389178031,Resolution,Medium Format Digital Cameras,optical_sensor_resolution
+,1389178031,Viewfinder Type,Medium Format Digital Cameras,viewfinder_type
+,1375384031,System RAM Type,Memory,system_ram_type
+,1388963031,Capacity,Memory Cards,memory_storage_capacity
+,1388965031,Capacity,Micro SD Cards,memory_storage_capacity
+,1389179031,Display Size,Mirrorless System Cameras,display_size
+,1389179031,Image Stabilization,Mirrorless System Cameras,image_stabilization
+,1389179031,Optical Zoom,Mirrorless System Cameras,optical_zoom
+,1389179031,Resolution,Mirrorless System Cameras,optical_sensor_resolution
+,1389179031,Viewfinder Type,Mirrorless System Cameras,viewfinder_type
+,1375425031,Connectivity,Monitors,connectivity_technology
+,1375425031,Resolution,Monitors,display_resolution_maximum
+,1375425031,Response Time,Monitors,response_time
+,1375425031,Screen Size,Monitors,display_size
+,1375425031,Tuner,Monitors,tuner
+,1375385031,Processor Socket,Motherboards,processor_socket
+,1388966031,Capacity,Multimedia Cards,memory_storage_capacity
+,1389370031,Wattage,Outdoor Speakers,wattage
+,1388967031,Capacity,PC Cards & PCMCIA,memory_storage_capacity
+,1375411031,Capacity,Pen Drives,memory_storage_capacity
+,1375450031,Connectivity,Photo Printers,connectivity_technology
+,1375450031,Maximum Media Size,Photo Printers,media_size_maximum
+,1375450031,Output Type,Photo Printers,printer_output
+,1375450031,Printing Speed,Photo Printers,max_printspeed_black_white
+,1375451031,Connectivity,Plotters,connectivity_technology
+,1375451031,Maximum Media Size,Plotters,media_size_maximum
+,1375451031,Output Type,Plotters,printer_output
+,1375451031,Printing Speed,Plotters,max_printspeed_black_white
+,1389180031,Display Size,Point & Shoot Digital Camera Bundles,display_size
+,1389180031,Image Stabilization,Point & Shoot Digital Camera Bundles,image_stabilization
+,1389180031,Optical Zoom,Point & Shoot Digital Camera Bundles,optical_zoom
+,1389180031,Resolution,Point & Shoot Digital Camera Bundles,optical_sensor_resolution
+,1389180031,Viewfinder Type,Point & Shoot Digital Camera Bundles,viewfinder_type
+,1389181031,Display Size,Point & Shoot Digital Cameras,display_size
+,1389181031,Image Stabilization,Point & Shoot Digital Cameras,image_stabilization
+,1389181031,Optical Zoom,Point & Shoot Digital Cameras,optical_zoom
+,1389181031,Resolution,Point & Shoot Digital Cameras,optical_sensor_resolution
+,1389181031,Viewfinder Type,Point & Shoot Digital Cameras,viewfinder_type
+,1389430031,Cell Phone Type,Prepaid Phones,form_factor
+,1389430031,Data Transfer,Prepaid Phones,connectivity_technology
+,1389430031,Features,Prepaid Phones,special_features
+,1389430031,Operating System,Prepaid Phones,operating_system
+,1389430031,Operator,Prepaid Phones,wireless_provider
+,1375443031,Connectivity,Printers,connectivity_technology
+,1375443031,Maximum Media Size,Printers,media_size_maximum
+,1375443031,Output Type,Printers,printer_output
+,1375443031,Printing Speed,Printers,max_printspeed_black_white
+,1388875031,Battery Cell Composition,Rechargeable Batteries,battery_cell_composition
+,1375368031,Capacity,SAS Hard Drives,hard_disk_size
+,1375369031,Capacity,SATA Hard Drives,hard_disk_size
+,1375370031,Capacity,SCSI Hard Drives,hard_disk_size
+,1389371031,Wattage,Satellite Speakers,wattage
+,1388968031,Capacity,SecureDigital Cards,memory_storage_capacity
+,1388969031,Capacity,SmartMedia Cards,memory_storage_capacity
+,1805560031,Camera Resolution,Smartphones,effective_still_resolution
+,1805560031,Cell Phone Type,Smartphones,form_factor
+,1805560031,Data Transfer,Smartphones,connectivity_technology
+,1805560031,Features,Smartphones,special_features
+,1805560031,Operating System,Smartphones,operating_system
+,1805560031,Operator,Smartphones,wireless_provider
+,1389432031,Camera Resolution,Smartphones & Basic Mobiles,effective_still_resolution
+,1389432031,Cell Phone Type,Smartphones & Basic Mobiles,form_factor
+,1389432031,Data Transfer,Smartphones & Basic Mobiles,connectivity_technology
+,1389432031,Features,Smartphones & Basic Mobiles,special_features
+,1389432031,Operating System,Smartphones & Basic Mobiles,operating_system
+,1389432031,Operator,Smartphones & Basic Mobiles,wireless_provider
+,1388970031,Capacity,Sony Memory Sticks,memory_storage_capacity
+,1389372031,Wattage,Soundbar Speakers,wattage
+,1389373031,Channels,Speaker Systems,output_channel_quantity
+,1389373031,Connectivity,Speaker Systems,speaker_connectivity
+,1389373031,Wattage,Speaker Systems,wattage
+,1389374031,Wattage,Subwoofers,wattage
+,1389396031,Aspect Ratio,Televisions,image_aspect_ratio
+,1389396031,Display Technology,Televisions,display_technology
+,1389396031,HD Format,Televisions,display_resolution_maximum
+,1389396031,Refresh Rate,Televisions,refresh_rate
+,1389396031,Screen Size,Televisions,display_size
+,1375325031,Cartridge Type,Toner Cartridges,compatibility_options
+,1389352031,Wattage,Transistor Amplifiers,wattage
+,1389353031,Wattage,Tube Amplifiers,wattage
+,1388971031,Capacity,miniSD Cards,memory_storage_capacity
+,1388972031,Capacity,xD-Picture Cards,memory_storage_capacity
+,1389376031,Channels,AV Receivers & Amplifiers,output_channel_quantity
+,1389376031,Wattage,AV Receivers & Amplifiers,wattage
+,1375444031,Connectivity,All-In-One Printers,connectivity_technology
+,1375444031,Maximum Media Size,All-In-One Printers,media_size_maximum
+,1375444031,Output Type,All-In-One Printers,printer_output
+,1375444031,Printing Speed,All-In-One Printers,max_printspeed_black_white
+,1805559031,Camera Resolution,Basic Mobiles,effective_still_resolution
+,1805559031,Cell Phone Type,Basic Mobiles,form_factor
+,1805559031,Data Transfer,Basic Mobiles,connectivity_technology
+,1805559031,Features,Basic Mobiles,special_features
+,1805559031,Operating System,Basic Mobiles,operating_system
+,1805559031,Operator,Basic Mobiles,wireless_provider
+,1389366031,Wattage,Bookshelf Speakers,wattage
+,1389367031,Wattage,Built-in Speakers,wattage
+,1389198031,Max. Focal Length,Camcorder Lenses,max_focal_length
+,1389198031,Min. Focal Length,Camcorder Lenses,min_focal_length
+,1389198031,Mounting Type,Camcorder Lenses,mounting_type
+,1389197031,Max. Focal Length,Camera Lenses,max_focal_length
+,1389197031,Min. Focal Length,Camera Lenses,min_focal_length
+,1389197031,Mounting Type,Camera Lenses,mounting_type
+,1389199031,Max. Focal Length,Camera Lenses,max_focal_length
+,1389199031,Min. Focal Length,Camera Lenses,min_focal_length
+,1389199031,Mounting Type,Camera Lenses,mounting_type
+,1389328031,Display Size,Car GPS,display_size
+,1389328031,Features,Car GPS,data_service
+,1389328031,Features,Car GPS,connectivity_technology
+,1389328031,Features,Car GPS,display_type
+,1389328031,Maps,Car GPS,map_type
+,1389368031,Wattage,Centre Speakers,wattage
+,1388964031,Capacity,Compact Flash Cards,memory_storage_capacity
+,1389384031,Hard Disk Size,DVD Recorders,hard_disk_size
+,1389175031,Display Size,Digital Cameras,display_size
+,1389175031,Image Stabilization,Digital Cameras,image_stabilization
+,1389175031,Optical Zoom,Digital Cameras,optical_zoom
+,1389175031,Resolution,Digital Cameras,optical_sensor_resolution
+,1389175031,Viewfinder Type,Digital Cameras,viewfinder_type
+,1389176031,Display Size,Digital SLR Camera Bundles,display_size
+,1389176031,Image Stabilization,Digital SLR Camera Bundles,image_stabilization
+,1389176031,Optical Zoom,Digital SLR Camera Bundles,optical_zoom
+,1389176031,Resolution,Digital SLR Camera Bundles,optical_sensor_resolution
+,1389176031,Viewfinder Type,Digital SLR Camera Bundles,viewfinder_type
+,1389177031,Display Size,Digital SLR Cameras,display_size
+,1389177031,Image Stabilization,Digital SLR Cameras,image_stabilization
+,1389177031,Optical Zoom,Digital SLR Cameras,optical_zoom
+,1389177031,Resolution,Digital SLR Cameras,optical_sensor_resolution
+,1389177031,Viewfinder Type,Digital SLR Cameras,viewfinder_type
+,1388874031,Battery Cell Composition,Disposable Batteries,battery_cell_composition
+,1375395031,Capacity,External Hard Drives,hard_disk_size
+,1375395031,Format,External Hard Drives,form_factor
+,1389369031,Wattage,Floorstanding Speakers,wattage
+,1388871031,Battery Cell Composition,General Purpose Batteries & Battery Chargers,battery_cell_composition
+,1388872031,Battery Cell Composition,General Purpose Battery & Charger Sets,battery_cell_composition
+,1388873031,Battery Cell Composition,General Purpose Battery Chargers,battery_cell_composition
+,1388876031,Battery Cell Composition,General Purpose Battery Spacers,battery_cell_composition
+,1388877031,Battery Cell Composition,General Purpose Battery Testers,battery_cell_composition
+,1389365031,Wattage,Hi-Fi & Home Audio Speakers,wattage
+,1389350031,Wattage,Hi-Fi Amplifiers,wattage
+,1389338031,Wattage,Hi-Fi Compact Stereo Systems,wattage
+,1389361031,Wattage,Hi-Fi Receivers,wattage
+,1389387031,Hard Disk Size,Home Cinema Systems,hard_disk_size
+,1389351031,Wattage,Hybrid Amplifiers,wattage
+,1375367031,Capacity,IDE Hard Drives,hard_disk_size
+,1375445031,Connectivity,Ink All-In-One Printers,connectivity_technology
+,1375445031,Maximum Media Size,Ink All-In-One Printers,media_size_maximum
+,1375445031,Output Type,Ink All-In-One Printers,printer_output
+,1375445031,Printing Speed,Ink All-In-One Printers,max_printspeed_black_white
+,1375323031,Cartridge Type,Ink Cartridges,compatibility_options
+,1375447031,Connectivity,Ink Printers,connectivity_technology
+,1375447031,Maximum Media Size,Ink Printers,media_size_maximum
+,1375447031,Output Type,Ink Printers,printer_output
+,1375447031,Printing Speed,Ink Printers,max_printspeed_black_white
+,1375366031,Capacity,Internal Hard Drives,hard_disk_size
+,1375467031,Casing,Laptop Roller Cases,shell_type
+,1375424031,CPU Manufacturer & Type,Laptops,computer_cpu_type
+,1375424031,Display Size,Laptops,display_size
+,1375424031,HDD Size,Laptops,hard_disk_size
+,1375424031,Memory Size,Laptops,computer_memory_size
+,1375424031,Operating System,Laptops,operating_system
+,1375446031,Connectivity,Laser All-In-One Printers,connectivity_technology
+,1375446031,Maximum Media Size,Laser All-In-One Printers,media_size_maximum
+,1375446031,Output Type,Laser All-In-One Printers,printer_output
+,1375446031,Printing Speed,Laser All-In-One Printers,max_printspeed_black_white
+,1375448031,Connectivity,Laser Printers,connectivity_technology
+,1375448031,Maximum Media Size,Laser Printers,media_size_maximum
+,1375448031,Output Type,Laser Printers,printer_output
+,1375448031,Printing Speed,Laser Printers,max_printspeed_black_white
+,1389458031,Storage Capacity,MP3/MP4 Players,digital_storage_capacity
+,1389458031,Supported Standards,MP3/MP4 Players,supported_audio_format
+,1375449031,Connectivity,Matrix Printers,connectivity_technology
+,1375449031,Maximum Media Size,Matrix Printers,media_size_maximum
+,1375449031,Output Type,Matrix Printers,printer_output
+,1375449031,Printing Speed,Matrix Printers,max_printspeed_black_white
+,1389178031,Display Size,Medium Format Digital Cameras,display_size
+,1389178031,Image Stabilization,Medium Format Digital Cameras,image_stabilization
+,1389178031,Optical Zoom,Medium Format Digital Cameras,optical_zoom
+,1389178031,Resolution,Medium Format Digital Cameras,optical_sensor_resolution
+,1389178031,Viewfinder Type,Medium Format Digital Cameras,viewfinder_type
+,1375384031,System RAM Type,Memory,system_ram_type
+,1388963031,Capacity,Memory Cards,memory_storage_capacity
+,1388965031,Capacity,Micro SD Cards,memory_storage_capacity
+,1389179031,Display Size,Mirrorless System Cameras,display_size
+,1389179031,Image Stabilization,Mirrorless System Cameras,image_stabilization
+,1389179031,Optical Zoom,Mirrorless System Cameras,optical_zoom
+,1389179031,Resolution,Mirrorless System Cameras,optical_sensor_resolution
+,1389179031,Viewfinder Type,Mirrorless System Cameras,viewfinder_type
+,1375425031,Connectivity,Monitors,connectivity_technology
+,1375425031,Resolution,Monitors,display_resolution_maximum
+,1375425031,Response Time,Monitors,response_time
+,1375425031,Screen Size,Monitors,display_size
+,1375425031,Tuner,Monitors,tuner
+,1375385031,Processor Socket,Motherboards,processor_socket
+,1388966031,Capacity,Multimedia Cards,memory_storage_capacity
+,1389370031,Wattage,Outdoor Speakers,wattage
+,1388967031,Capacity,PC Cards & PCMCIA,memory_storage_capacity
+,1375411031,Capacity,Pen Drives,memory_storage_capacity
+,1375450031,Connectivity,Photo Printers,connectivity_technology
+,1375450031,Maximum Media Size,Photo Printers,media_size_maximum
+,1375450031,Output Type,Photo Printers,printer_output
+,1375450031,Printing Speed,Photo Printers,max_printspeed_black_white
+,1375451031,Connectivity,Plotters,connectivity_technology
+,1375451031,Maximum Media Size,Plotters,media_size_maximum
+,1375451031,Output Type,Plotters,printer_output
+,1375451031,Printing Speed,Plotters,max_printspeed_black_white
+,1389180031,Display Size,Point & Shoot Digital Camera Bundles,display_size
+,1389180031,Image Stabilization,Point & Shoot Digital Camera Bundles,image_stabilization
+,1389180031,Optical Zoom,Point & Shoot Digital Camera Bundles,optical_zoom
+,1389180031,Resolution,Point & Shoot Digital Camera Bundles,optical_sensor_resolution
+,1389180031,Viewfinder Type,Point & Shoot Digital Camera Bundles,viewfinder_type
+,1389181031,Display Size,Point & Shoot Digital Cameras,display_size
+,1389181031,Image Stabilization,Point & Shoot Digital Cameras,image_stabilization
+,1389181031,Optical Zoom,Point & Shoot Digital Cameras,optical_zoom
+,1389181031,Resolution,Point & Shoot Digital Cameras,optical_sensor_resolution
+,1389181031,Viewfinder Type,Point & Shoot Digital Cameras,viewfinder_type
+,1389430031,Cell Phone Type,Prepaid Phones,form_factor
+,1389430031,Data Transfer,Prepaid Phones,connectivity_technology
+,1389430031,Features,Prepaid Phones,special_features
+,1389430031,Operating System,Prepaid Phones,operating_system
+,1389430031,Operator,Prepaid Phones,wireless_provider
+,1375443031,Connectivity,Printers,connectivity_technology
+,1375443031,Maximum Media Size,Printers,media_size_maximum
+,1375443031,Output Type,Printers,printer_output
+,1375443031,Printing Speed,Printers,max_printspeed_black_white
+,1388875031,Battery Cell Composition,Rechargeable Batteries,battery_cell_composition
+,1375368031,Capacity,SAS Hard Drives,hard_disk_size
+,1375369031,Capacity,SATA Hard Drives,hard_disk_size
+,1375370031,Capacity,SCSI Hard Drives,hard_disk_size
+,1389371031,Wattage,Satellite Speakers,wattage
+,1388968031,Capacity,SecureDigital Cards,memory_storage_capacity
+,1388969031,Capacity,SmartMedia Cards,memory_storage_capacity
+,1805560031,Camera Resolution,Smartphones,effective_still_resolution
+,1805560031,Cell Phone Type,Smartphones,form_factor
+,1805560031,Data Transfer,Smartphones,connectivity_technology
+,1805560031,Features,Smartphones,special_features
+,1805560031,Operating System,Smartphones,operating_system
+,1805560031,Operator,Smartphones,wireless_provider
+,1389432031,Camera Resolution,Smartphones & Basic Mobiles,effective_still_resolution
+,1389432031,Cell Phone Type,Smartphones & Basic Mobiles,form_factor
+,1389432031,Data Transfer,Smartphones & Basic Mobiles,connectivity_technology
+,1389432031,Features,Smartphones & Basic Mobiles,special_features
+,1389432031,Operating System,Smartphones & Basic Mobiles,operating_system
+,1389432031,Operator,Smartphones & Basic Mobiles,wireless_provider
+,1388970031,Capacity,Sony Memory Sticks,memory_storage_capacity
+,1389372031,Wattage,Soundbar Speakers,wattage
+,1389373031,Channels,Speaker Systems,output_channel_quantity
+,1389373031,Connectivity,Speaker Systems,speaker_connectivity
+,1389373031,Wattage,Speaker Systems,wattage
+,1389374031,Wattage,Subwoofers,wattage
+,1389396031,Aspect Ratio,Televisions,image_aspect_ratio
+,1389396031,Display Technology,Televisions,display_technology
+,1389396031,HD Format,Televisions,display_resolution_maximum
+,1389396031,Refresh Rate,Televisions,refresh_rate
+,1389396031,Screen Size,Televisions,display_size
+,1375325031,Cartridge Type,Toner Cartridges,compatibility_options
+,1389352031,Wattage,Transistor Amplifiers,wattage
+,1389353031,Wattage,Tube Amplifiers,wattage
+,1388971031,Capacity,miniSD Cards,memory_storage_capacity
+,1388972031,Capacity,xD-Picture Cards,memory_storage_capacity
+,1389376031,Channels,AV Receivers & Amplifiers,output_channel_quantity
+,1389376031,Wattage,AV Receivers & Amplifiers,wattage
+,1375444031,Connectivity,All-In-One Printers,connectivity_technology
+,1375444031,Maximum Media Size,All-In-One Printers,media_size_maximum
+,1375444031,Output Type,All-In-One Printers,printer_output
+,1375444031,Printing Speed,All-In-One Printers,max_printspeed_black_white
+,1805559031,Camera Resolution,Basic Mobiles,effective_still_resolution
+,1805559031,Cell Phone Type,Basic Mobiles,form_factor
+,1805559031,Data Transfer,Basic Mobiles,connectivity_technology
+,1805559031,Features,Basic Mobiles,special_features
+,1805559031,Operating System,Basic Mobiles,operating_system
+,1805559031,Operator,Basic Mobiles,wireless_provider
+,1389366031,Wattage,Bookshelf Speakers,wattage
+,1389367031,Wattage,Built-in Speakers,wattage
+,1389198031,Max. Focal Length,Camcorder Lenses,max_focal_length
+,1389198031,Min. Focal Length,Camcorder Lenses,min_focal_length
+,1389198031,Mounting Type,Camcorder Lenses,mounting_type
+,1389197031,Max. Focal Length,Camera Lenses,max_focal_length
+,1389197031,Min. Focal Length,Camera Lenses,min_focal_length
+,1389197031,Mounting Type,Camera Lenses,mounting_type
+,1389199031,Max. Focal Length,Camera Lenses,max_focal_length
+,1389199031,Min. Focal Length,Camera Lenses,min_focal_length
+,1389199031,Mounting Type,Camera Lenses,mounting_type
+,1389328031,Display Size,Car GPS,display_size
+,1389328031,Features,Car GPS,data_service
+,1389328031,Features,Car GPS,connectivity_technology
+,1389328031,Features,Car GPS,display_type
+,1389328031,Maps,Car GPS,map_type
+,1389368031,Wattage,Centre Speakers,wattage
+,1388964031,Capacity,Compact Flash Cards,memory_storage_capacity
+,1389384031,Hard Disk Size,DVD Recorders,hard_disk_size
+,1389175031,Display Size,Digital Cameras,display_size
+,1389175031,Image Stabilization,Digital Cameras,image_stabilization
+,1389175031,Optical Zoom,Digital Cameras,optical_zoom
+,1389175031,Resolution,Digital Cameras,optical_sensor_resolution
+,1389175031,Viewfinder Type,Digital Cameras,viewfinder_type
+,1389176031,Display Size,Digital SLR Camera Bundles,display_size
+,1389176031,Image Stabilization,Digital SLR Camera Bundles,image_stabilization
+,1389176031,Optical Zoom,Digital SLR Camera Bundles,optical_zoom
+,1389176031,Resolution,Digital SLR Camera Bundles,optical_sensor_resolution
+,1389176031,Viewfinder Type,Digital SLR Camera Bundles,viewfinder_type
+,1389177031,Display Size,Digital SLR Cameras,display_size
+,1389177031,Image Stabilization,Digital SLR Cameras,image_stabilization
+,1389177031,Optical Zoom,Digital SLR Cameras,optical_zoom
+,1389177031,Resolution,Digital SLR Cameras,optical_sensor_resolution
+,1389177031,Viewfinder Type,Digital SLR Cameras,viewfinder_type
+,1388874031,Battery Cell Composition,Disposable Batteries,battery_cell_composition
+,1375395031,Capacity,External Hard Drives,hard_disk_size
+,1375395031,Format,External Hard Drives,form_factor
+,1389369031,Wattage,Floorstanding Speakers,wattage
+,1388871031,Battery Cell Composition,General Purpose Batteries & Battery Chargers,battery_cell_composition
+,1388872031,Battery Cell Composition,General Purpose Battery & Charger Sets,battery_cell_composition
+,1388873031,Battery Cell Composition,General Purpose Battery Chargers,battery_cell_composition
+,1388876031,Battery Cell Composition,General Purpose Battery Spacers,battery_cell_composition
+,1388877031,Battery Cell Composition,General Purpose Battery Testers,battery_cell_composition
+,1389365031,Wattage,Hi-Fi & Home Audio Speakers,wattage
+,1389350031,Wattage,Hi-Fi Amplifiers,wattage
+,1389338031,Wattage,Hi-Fi Compact Stereo Systems,wattage
+,1389361031,Wattage,Hi-Fi Receivers,wattage
+,1389387031,Hard Disk Size,Home Cinema Systems,hard_disk_size
+,1389351031,Wattage,Hybrid Amplifiers,wattage
+,1375367031,Capacity,IDE Hard Drives,hard_disk_size
+,1375445031,Connectivity,Ink All-In-One Printers,connectivity_technology
+,1375445031,Maximum Media Size,Ink All-In-One Printers,media_size_maximum
+,1375445031,Output Type,Ink All-In-One Printers,printer_output
+,1375445031,Printing Speed,Ink All-In-One Printers,max_printspeed_black_white
+,1375323031,Cartridge Type,Ink Cartridges,compatibility_options
+,1375447031,Connectivity,Ink Printers,connectivity_technology
+,1375447031,Maximum Media Size,Ink Printers,media_size_maximum
+,1375447031,Output Type,Ink Printers,printer_output
+,1375447031,Printing Speed,Ink Printers,max_printspeed_black_white
+,1375366031,Capacity,Internal Hard Drives,hard_disk_size
+,1375467031,Casing,Laptop Roller Cases,shell_type
+,1375424031,CPU Manufacturer & Type,Laptops,computer_cpu_type
+,1375424031,Display Size,Laptops,display_size
+,1375424031,HDD Size,Laptops,hard_disk_size
+,1375424031,Memory Size,Laptops,computer_memory_size
+,1375424031,Operating System,Laptops,operating_system
+,1375446031,Connectivity,Laser All-In-One Printers,connectivity_technology
+,1375446031,Maximum Media Size,Laser All-In-One Printers,media_size_maximum
+,1375446031,Output Type,Laser All-In-One Printers,printer_output
+,1375446031,Printing Speed,Laser All-In-One Printers,max_printspeed_black_white
+,1375448031,Connectivity,Laser Printers,connectivity_technology
+,1375448031,Maximum Media Size,Laser Printers,media_size_maximum
+,1375448031,Output Type,Laser Printers,printer_output
+,1375448031,Printing Speed,Laser Printers,max_printspeed_black_white
+,1389458031,Storage Capacity,MP3/MP4 Players,digital_storage_capacity
+,1389458031,Supported Standards,MP3/MP4 Players,supported_audio_format
+,1375449031,Connectivity,Matrix Printers,connectivity_technology
+,1375449031,Maximum Media Size,Matrix Printers,media_size_maximum
+,1375449031,Output Type,Matrix Printers,printer_output
+,1375449031,Printing Speed,Matrix Printers,max_printspeed_black_white
+,1389178031,Display Size,Medium Format Digital Cameras,display_size
+,1389178031,Image Stabilization,Medium Format Digital Cameras,image_stabilization
+,1389178031,Optical Zoom,Medium Format Digital Cameras,optical_zoom
+,1389178031,Resolution,Medium Format Digital Cameras,optical_sensor_resolution
+,1389178031,Viewfinder Type,Medium Format Digital Cameras,viewfinder_type
+,1375384031,System RAM Type,Memory,system_ram_type
+,1388963031,Capacity,Memory Cards,memory_storage_capacity
+,1388965031,Capacity,Micro SD Cards,memory_storage_capacity
+,1389179031,Display Size,Mirrorless System Cameras,display_size
+,1389179031,Image Stabilization,Mirrorless System Cameras,image_stabilization
+,1389179031,Optical Zoom,Mirrorless System Cameras,optical_zoom
+,1389179031,Resolution,Mirrorless System Cameras,optical_sensor_resolution
+,1389179031,Viewfinder Type,Mirrorless System Cameras,viewfinder_type
+,1375425031,Connectivity,Monitors,connectivity_technology
+,1375425031,Resolution,Monitors,display_resolution_maximum
+,1375425031,Response Time,Monitors,response_time
+,1375425031,Screen Size,Monitors,display_size
+,1375425031,Tuner,Monitors,tuner
+,1375385031,Processor Socket,Motherboards,processor_socket
+,1388966031,Capacity,Multimedia Cards,memory_storage_capacity
+,1389370031,Wattage,Outdoor Speakers,wattage
+,1388967031,Capacity,PC Cards & PCMCIA,memory_storage_capacity
+,1375411031,Capacity,Pen Drives,memory_storage_capacity
+,1375450031,Connectivity,Photo Printers,connectivity_technology
+,1375450031,Maximum Media Size,Photo Printers,media_size_maximum
+,1375450031,Output Type,Photo Printers,printer_output
+,1375450031,Printing Speed,Photo Printers,max_printspeed_black_white
+,1375451031,Connectivity,Plotters,connectivity_technology
+,1375451031,Maximum Media Size,Plotters,media_size_maximum
+,1375451031,Output Type,Plotters,printer_output
+,1375451031,Printing Speed,Plotters,max_printspeed_black_white
+,1389180031,Display Size,Point & Shoot Digital Camera Bundles,display_size
+,1389180031,Image Stabilization,Point & Shoot Digital Camera Bundles,image_stabilization
+,1389180031,Optical Zoom,Point & Shoot Digital Camera Bundles,optical_zoom
+,1389180031,Resolution,Point & Shoot Digital Camera Bundles,optical_sensor_resolution
+,1389180031,Viewfinder Type,Point & Shoot Digital Camera Bundles,viewfinder_type
+,1389181031,Display Size,Point & Shoot Digital Cameras,display_size
+,1389181031,Image Stabilization,Point & Shoot Digital Cameras,image_stabilization
+,1389181031,Optical Zoom,Point & Shoot Digital Cameras,optical_zoom
+,1389181031,Resolution,Point & Shoot Digital Cameras,optical_sensor_resolution
+,1389181031,Viewfinder Type,Point & Shoot Digital Cameras,viewfinder_type
+,1389430031,Cell Phone Type,Prepaid Phones,form_factor
+,1389430031,Data Transfer,Prepaid Phones,connectivity_technology
+,1389430031,Features,Prepaid Phones,special_features
+,1389430031,Operating System,Prepaid Phones,operating_system
+,1389430031,Operator,Prepaid Phones,wireless_provider
+,1375443031,Connectivity,Printers,connectivity_technology
+,1375443031,Maximum Media Size,Printers,media_size_maximum
+,1375443031,Output Type,Printers,printer_output
+,1375443031,Printing Speed,Printers,max_printspeed_black_white
+,1388875031,Battery Cell Composition,Rechargeable Batteries,battery_cell_composition
+,1375368031,Capacity,SAS Hard Drives,hard_disk_size
+,1375369031,Capacity,SATA Hard Drives,hard_disk_size
+,1375370031,Capacity,SCSI Hard Drives,hard_disk_size
+,1389371031,Wattage,Satellite Speakers,wattage
+,1388968031,Capacity,SecureDigital Cards,memory_storage_capacity
+,1388969031,Capacity,SmartMedia Cards,memory_storage_capacity
+,1805560031,Camera Resolution,Smartphones,effective_still_resolution
+,1805560031,Cell Phone Type,Smartphones,form_factor
+,1805560031,Data Transfer,Smartphones,connectivity_technology
+,1805560031,Features,Smartphones,special_features
+,1805560031,Operating System,Smartphones,operating_system
+,1805560031,Operator,Smartphones,wireless_provider
+,1389432031,Camera Resolution,Smartphones & Basic Mobiles,effective_still_resolution
+,1389432031,Cell Phone Type,Smartphones & Basic Mobiles,form_factor
+,1389432031,Data Transfer,Smartphones & Basic Mobiles,connectivity_technology
+,1389432031,Features,Smartphones & Basic Mobiles,special_features
+,1389432031,Operating System,Smartphones & Basic Mobiles,operating_system
+,1389432031,Operator,Smartphones & Basic Mobiles,wireless_provider
+,1388970031,Capacity,Sony Memory Sticks,memory_storage_capacity
+,1389372031,Wattage,Soundbar Speakers,wattage
+,1389373031,Channels,Speaker Systems,output_channel_quantity
+,1389373031,Connectivity,Speaker Systems,speaker_connectivity
+,1389373031,Wattage,Speaker Systems,wattage
+,1389374031,Wattage,Subwoofers,wattage
+,1389396031,Aspect Ratio,Televisions,image_aspect_ratio
+,1389396031,Display Technology,Televisions,display_technology
+,1389396031,HD Format,Televisions,display_resolution_maximum
+,1389396031,Refresh Rate,Televisions,refresh_rate
+,1389396031,Screen Size,Televisions,display_size
+,1375325031,Cartridge Type,Toner Cartridges,compatibility_options
+,1389352031,Wattage,Transistor Amplifiers,wattage
+,1389353031,Wattage,Tube Amplifiers,wattage
+,1388971031,Capacity,miniSD Cards,memory_storage_capacity
+,1388972031,Capacity,xD-Picture Cards,memory_storage_capacity
+,1389376031,Channels,AV Receivers & Amplifiers,output_channel_quantity
+,1389376031,Wattage,AV Receivers & Amplifiers,wattage
+,1375444031,Connectivity,All-In-One Printers,connectivity_technology
+,1375444031,Maximum Media Size,All-In-One Printers,media_size_maximum
+,1375444031,Output Type,All-In-One Printers,printer_output
+,1375444031,Printing Speed,All-In-One Printers,max_printspeed_black_white
+,1805559031,Camera Resolution,Basic Mobiles,effective_still_resolution
+,1805559031,Cell Phone Type,Basic Mobiles,form_factor
+,1805559031,Data Transfer,Basic Mobiles,connectivity_technology
+,1805559031,Features,Basic Mobiles,special_features
+,1805559031,Operating System,Basic Mobiles,operating_system
+,1805559031,Operator,Basic Mobiles,wireless_provider
+,1389366031,Wattage,Bookshelf Speakers,wattage
+,1389367031,Wattage,Built-in Speakers,wattage
+,1389198031,Max. Focal Length,Camcorder Lenses,max_focal_length
+,1389198031,Min. Focal Length,Camcorder Lenses,min_focal_length
+,1389198031,Mounting Type,Camcorder Lenses,mounting_type
+,1389197031,Max. Focal Length,Camera Lenses,max_focal_length
+,1389197031,Min. Focal Length,Camera Lenses,min_focal_length
+,1389197031,Mounting Type,Camera Lenses,mounting_type
+,1389199031,Max. Focal Length,Camera Lenses,max_focal_length
+,1389199031,Min. Focal Length,Camera Lenses,min_focal_length
+,1389199031,Mounting Type,Camera Lenses,mounting_type
+,1389328031,Display Size,Car GPS,display_size
+,1389328031,Features,Car GPS,data_service
+,1389328031,Features,Car GPS,connectivity_technology
+,1389328031,Features,Car GPS,display_type
+,1389328031,Maps,Car GPS,map_type
+,1389368031,Wattage,Centre Speakers,wattage
+,1388964031,Capacity,Compact Flash Cards,memory_storage_capacity
+,1389384031,Hard Disk Size,DVD Recorders,hard_disk_size
+,1389175031,Display Size,Digital Cameras,display_size
+,1389175031,Image Stabilization,Digital Cameras,image_stabilization
+,1389175031,Optical Zoom,Digital Cameras,optical_zoom
+,1389175031,Resolution,Digital Cameras,optical_sensor_resolution
+,1389175031,Viewfinder Type,Digital Cameras,viewfinder_type
+,1389176031,Display Size,Digital SLR Camera Bundles,display_size
+,1389176031,Image Stabilization,Digital SLR Camera Bundles,image_stabilization
+,1389176031,Optical Zoom,Digital SLR Camera Bundles,optical_zoom
+,1389176031,Resolution,Digital SLR Camera Bundles,optical_sensor_resolution
+,1389176031,Viewfinder Type,Digital SLR Camera Bundles,viewfinder_type
+,1389177031,Display Size,Digital SLR Cameras,display_size
+,1389177031,Image Stabilization,Digital SLR Cameras,image_stabilization
+,1389177031,Optical Zoom,Digital SLR Cameras,optical_zoom
+,1389177031,Resolution,Digital SLR Cameras,optical_sensor_resolution
+,1389177031,Viewfinder Type,Digital SLR Cameras,viewfinder_type
+,1388874031,Battery Cell Composition,Disposable Batteries,battery_cell_composition
+,1375395031,Capacity,External Hard Drives,hard_disk_size
+,1375395031,Format,External Hard Drives,form_factor
+,1389369031,Wattage,Floorstanding Speakers,wattage
+,1388871031,Battery Cell Composition,General Purpose Batteries & Battery Chargers,battery_cell_composition
+,1388872031,Battery Cell Composition,General Purpose Battery & Charger Sets,battery_cell_composition
+,1388873031,Battery Cell Composition,General Purpose Battery Chargers,battery_cell_composition
+,1388876031,Battery Cell Composition,General Purpose Battery Spacers,battery_cell_composition
+,1388877031,Battery Cell Composition,General Purpose Battery Testers,battery_cell_composition
+,1389365031,Wattage,Hi-Fi & Home Audio Speakers,wattage
+,1389350031,Wattage,Hi-Fi Amplifiers,wattage
+,1389338031,Wattage,Hi-Fi Compact Stereo Systems,wattage
+,1389361031,Wattage,Hi-Fi Receivers,wattage
+,1389387031,Hard Disk Size,Home Cinema Systems,hard_disk_size
+,1389351031,Wattage,Hybrid Amplifiers,wattage
+,1375367031,Capacity,IDE Hard Drives,hard_disk_size
+,1375445031,Connectivity,Ink All-In-One Printers,connectivity_technology
+,1375445031,Maximum Media Size,Ink All-In-One Printers,media_size_maximum
+,1375445031,Output Type,Ink All-In-One Printers,printer_output
+,1375445031,Printing Speed,Ink All-In-One Printers,max_printspeed_black_white
+,1375323031,Cartridge Type,Ink Cartridges,compatibility_options
+,1375447031,Connectivity,Ink Printers,connectivity_technology
+,1375447031,Maximum Media Size,Ink Printers,media_size_maximum
+,1375447031,Output Type,Ink Printers,printer_output
+,1375447031,Printing Speed,Ink Printers,max_printspeed_black_white
+,1375366031,Capacity,Internal Hard Drives,hard_disk_size
+,1375467031,Casing,Laptop Roller Cases,shell_type
+,1375424031,CPU Manufacturer & Type,Laptops,computer_cpu_type
+,1375424031,Display Size,Laptops,display_size
+,1375424031,HDD Size,Laptops,hard_disk_size
+,1375424031,Memory Size,Laptops,computer_memory_size
+,1375424031,Operating System,Laptops,operating_system
+,1375446031,Connectivity,Laser All-In-One Printers,connectivity_technology
+,1375446031,Maximum Media Size,Laser All-In-One Printers,media_size_maximum
+,1375446031,Output Type,Laser All-In-One Printers,printer_output
+,1375446031,Printing Speed,Laser All-In-One Printers,max_printspeed_black_white
+,1375448031,Connectivity,Laser Printers,connectivity_technology
+,1375448031,Maximum Media Size,Laser Printers,media_size_maximum
+,1375448031,Output Type,Laser Printers,printer_output
+,1375448031,Printing Speed,Laser Printers,max_printspeed_black_white
+,1389458031,Storage Capacity,MP3/MP4 Players,digital_storage_capacity
+,1389458031,Supported Standards,MP3/MP4 Players,supported_audio_format
+,1375449031,Connectivity,Matrix Printers,connectivity_technology
+,1375449031,Maximum Media Size,Matrix Printers,media_size_maximum
+,1375449031,Output Type,Matrix Printers,printer_output
+,1375449031,Printing Speed,Matrix Printers,max_printspeed_black_white
+,1389178031,Display Size,Medium Format Digital Cameras,display_size
+,1389178031,Image Stabilization,Medium Format Digital Cameras,image_stabilization
+,1389178031,Optical Zoom,Medium Format Digital Cameras,optical_zoom
+,1389178031,Resolution,Medium Format Digital Cameras,optical_sensor_resolution
+,1389178031,Viewfinder Type,Medium Format Digital Cameras,viewfinder_type
+,1375384031,System RAM Type,Memory,system_ram_type
+,1388963031,Capacity,Memory Cards,memory_storage_capacity
+,1388965031,Capacity,Micro SD Cards,memory_storage_capacity
+,1389179031,Display Size,Mirrorless System Cameras,display_size
+,1389179031,Image Stabilization,Mirrorless System Cameras,image_stabilization
+,1389179031,Optical Zoom,Mirrorless System Cameras,optical_zoom
+,1389179031,Resolution,Mirrorless System Cameras,optical_sensor_resolution
+,1389179031,Viewfinder Type,Mirrorless System Cameras,viewfinder_type
+,1375425031,Connectivity,Monitors,connectivity_technology
+,1375425031,Resolution,Monitors,display_resolution_maximum
+,1375425031,Response Time,Monitors,response_time
+,1375425031,Screen Size,Monitors,display_size
+,1375425031,Tuner,Monitors,tuner
+,1375385031,Processor Socket,Motherboards,processor_socket
+,1388966031,Capacity,Multimedia Cards,memory_storage_capacity
+,1389370031,Wattage,Outdoor Speakers,wattage
+,1388967031,Capacity,PC Cards & PCMCIA,memory_storage_capacity
+,1375411031,Capacity,Pen Drives,memory_storage_capacity
+,1375450031,Connectivity,Photo Printers,connectivity_technology
+,1375450031,Maximum Media Size,Photo Printers,media_size_maximum
+,1375450031,Output Type,Photo Printers,printer_output
+,1375450031,Printing Speed,Photo Printers,max_printspeed_black_white
+,1375451031,Connectivity,Plotters,connectivity_technology
+,1375451031,Maximum Media Size,Plotters,media_size_maximum
+,1375451031,Output Type,Plotters,printer_output
+,1375451031,Printing Speed,Plotters,max_printspeed_black_white
+,1389180031,Display Size,Point & Shoot Digital Camera Bundles,display_size
+,1389180031,Image Stabilization,Point & Shoot Digital Camera Bundles,image_stabilization
+,1389180031,Optical Zoom,Point & Shoot Digital Camera Bundles,optical_zoom
+,1389180031,Resolution,Point & Shoot Digital Camera Bundles,optical_sensor_resolution
+,1389180031,Viewfinder Type,Point & Shoot Digital Camera Bundles,viewfinder_type
+,1389181031,Display Size,Point & Shoot Digital Cameras,display_size
+,1389181031,Image Stabilization,Point & Shoot Digital Cameras,image_stabilization
+,1389181031,Optical Zoom,Point & Shoot Digital Cameras,optical_zoom
+,1389181031,Resolution,Point & Shoot Digital Cameras,optical_sensor_resolution
+,1389181031,Viewfinder Type,Point & Shoot Digital Cameras,viewfinder_type
+,1389430031,Cell Phone Type,Prepaid Phones,form_factor
+,1389430031,Data Transfer,Prepaid Phones,connectivity_technology
+,1389430031,Features,Prepaid Phones,special_features
+,1389430031,Operating System,Prepaid Phones,operating_system
+,1389430031,Operator,Prepaid Phones,wireless_provider
+,1375443031,Connectivity,Printers,connectivity_technology
+,1375443031,Maximum Media Size,Printers,media_size_maximum
+,1375443031,Output Type,Printers,printer_output
+,1375443031,Printing Speed,Printers,max_printspeed_black_white
+,1388875031,Battery Cell Composition,Rechargeable Batteries,battery_cell_composition
+,1375368031,Capacity,SAS Hard Drives,hard_disk_size
+,1375369031,Capacity,SATA Hard Drives,hard_disk_size
+,1375370031,Capacity,SCSI Hard Drives,hard_disk_size
+,1389371031,Wattage,Satellite Speakers,wattage
+,1388968031,Capacity,SecureDigital Cards,memory_storage_capacity
+,1388969031,Capacity,SmartMedia Cards,memory_storage_capacity
+,1805560031,Camera Resolution,Smartphones,effective_still_resolution
+,1805560031,Cell Phone Type,Smartphones,form_factor
+,1805560031,Data Transfer,Smartphones,connectivity_technology
+,1805560031,Features,Smartphones,special_features
+,1805560031,Operating System,Smartphones,operating_system
+,1805560031,Operator,Smartphones,wireless_provider
+,1389432031,Camera Resolution,Smartphones & Basic Mobiles,effective_still_resolution
+,1389432031,Cell Phone Type,Smartphones & Basic Mobiles,form_factor
+,1389432031,Data Transfer,Smartphones & Basic Mobiles,connectivity_technology
+,1389432031,Features,Smartphones & Basic Mobiles,special_features
+,1389432031,Operating System,Smartphones & Basic Mobiles,operating_system
+,1389432031,Operator,Smartphones & Basic Mobiles,wireless_provider
+,1388970031,Capacity,Sony Memory Sticks,memory_storage_capacity
+,1389372031,Wattage,Soundbar Speakers,wattage
+,1389373031,Channels,Speaker Systems,output_channel_quantity
+,1389373031,Connectivity,Speaker Systems,speaker_connectivity
+,1389373031,Wattage,Speaker Systems,wattage
+,1389374031,Wattage,Subwoofers,wattage
+,1389396031,Aspect Ratio,Televisions,image_aspect_ratio
+,1389396031,Display Technology,Televisions,display_technology
+,1389396031,HD Format,Televisions,display_resolution_maximum
+,1389396031,Refresh Rate,Televisions,refresh_rate
+,1389396031,Screen Size,Televisions,display_size
+,1375325031,Cartridge Type,Toner Cartridges,compatibility_options
+,1389352031,Wattage,Transistor Amplifiers,wattage
+,1389353031,Wattage,Tube Amplifiers,wattage
+,1388971031,Capacity,miniSD Cards,memory_storage_capacity
+,1388972031,Capacity,xD-Picture Cards,memory_storage_capacity
+,1389376031,Channels,AV Receivers & Amplifiers,output_channel_quantity
+,1389376031,Wattage,AV Receivers & Amplifiers,wattage
+,1375444031,Connectivity,All-In-One Printers,connectivity_technology
+,1375444031,Maximum Media Size,All-In-One Printers,media_size_maximum
+,1375444031,Output Type,All-In-One Printers,printer_output
+,1375444031,Printing Speed,All-In-One Printers,max_printspeed_black_white
+,1805559031,Camera Resolution,Basic Mobiles,effective_still_resolution
+,1805559031,Cell Phone Type,Basic Mobiles,form_factor
+,1805559031,Data Transfer,Basic Mobiles,connectivity_technology
+,1805559031,Features,Basic Mobiles,special_features
+,1805559031,Operating System,Basic Mobiles,operating_system
+,1805559031,Operator,Basic Mobiles,wireless_provider
+,1389366031,Wattage,Bookshelf Speakers,wattage
+,1389367031,Wattage,Built-in Speakers,wattage
+,1389198031,Max. Focal Length,Camcorder Lenses,max_focal_length
+,1389198031,Min. Focal Length,Camcorder Lenses,min_focal_length
+,1389198031,Mounting Type,Camcorder Lenses,mounting_type
+,1389197031,Max. Focal Length,Camera Lenses,max_focal_length
+,1389197031,Min. Focal Length,Camera Lenses,min_focal_length
+,1389197031,Mounting Type,Camera Lenses,mounting_type
+,1389199031,Max. Focal Length,Camera Lenses,max_focal_length
+,1389199031,Min. Focal Length,Camera Lenses,min_focal_length
+,1389199031,Mounting Type,Camera Lenses,mounting_type
+,1389328031,Display Size,Car GPS,display_size
+,1389328031,Features,Car GPS,data_service
+,1389328031,Features,Car GPS,connectivity_technology
+,1389328031,Features,Car GPS,display_type
+,1389328031,Maps,Car GPS,map_type
+,1389368031,Wattage,Centre Speakers,wattage
+,1388964031,Capacity,Compact Flash Cards,memory_storage_capacity
+,1389384031,Hard Disk Size,DVD Recorders,hard_disk_size
+,1389175031,Display Size,Digital Cameras,display_size
+,1389175031,Image Stabilization,Digital Cameras,image_stabilization
+,1389175031,Optical Zoom,Digital Cameras,optical_zoom
+,1389175031,Resolution,Digital Cameras,optical_sensor_resolution
+,1389175031,Viewfinder Type,Digital Cameras,viewfinder_type
+,1389176031,Display Size,Digital SLR Camera Bundles,display_size
+,1389176031,Image Stabilization,Digital SLR Camera Bundles,image_stabilization
+,1389176031,Optical Zoom,Digital SLR Camera Bundles,optical_zoom
+,1389176031,Resolution,Digital SLR Camera Bundles,optical_sensor_resolution
+,1389176031,Viewfinder Type,Digital SLR Camera Bundles,viewfinder_type
+,1389177031,Display Size,Digital SLR Cameras,display_size
+,1389177031,Image Stabilization,Digital SLR Cameras,image_stabilization
+,1389177031,Optical Zoom,Digital SLR Cameras,optical_zoom
+,1389177031,Resolution,Digital SLR Cameras,optical_sensor_resolution
+,1389177031,Viewfinder Type,Digital SLR Cameras,viewfinder_type
+,1388874031,Battery Cell Composition,Disposable Batteries,battery_cell_composition
+,1375395031,Capacity,External Hard Drives,hard_disk_size
+,1375395031,Format,External Hard Drives,form_factor
+,1389369031,Wattage,Floorstanding Speakers,wattage
+,1388871031,Battery Cell Composition,General Purpose Batteries & Battery Chargers,battery_cell_composition
+,1388872031,Battery Cell Composition,General Purpose Battery & Charger Sets,battery_cell_composition
+,1388873031,Battery Cell Composition,General Purpose Battery Chargers,battery_cell_composition
+,1388876031,Battery Cell Composition,General Purpose Battery Spacers,battery_cell_composition
+,1388877031,Battery Cell Composition,General Purpose Battery Testers,battery_cell_composition
+,1389365031,Wattage,Hi-Fi & Home Audio Speakers,wattage
+,1389350031,Wattage,Hi-Fi Amplifiers,wattage
+,1389338031,Wattage,Hi-Fi Compact Stereo Systems,wattage
+,1389361031,Wattage,Hi-Fi Receivers,wattage
+,1389387031,Hard Disk Size,Home Cinema Systems,hard_disk_size
+,1389351031,Wattage,Hybrid Amplifiers,wattage
+,1375367031,Capacity,IDE Hard Drives,hard_disk_size
+,1375445031,Connectivity,Ink All-In-One Printers,connectivity_technology
+,1375445031,Maximum Media Size,Ink All-In-One Printers,media_size_maximum
+,1375445031,Output Type,Ink All-In-One Printers,printer_output
+,1375445031,Printing Speed,Ink All-In-One Printers,max_printspeed_black_white
+,1375323031,Cartridge Type,Ink Cartridges,compatibility_options
+,1375447031,Connectivity,Ink Printers,connectivity_technology
+,1375447031,Maximum Media Size,Ink Printers,media_size_maximum
+,1375447031,Output Type,Ink Printers,printer_output
+,1375447031,Printing Speed,Ink Printers,max_printspeed_black_white
+,1375366031,Capacity,Internal Hard Drives,hard_disk_size
+,1375467031,Casing,Laptop Roller Cases,shell_type
+,1375424031,CPU Manufacturer & Type,Laptops,computer_cpu_type
+,1375424031,Display Size,Laptops,display_size
+,1375424031,HDD Size,Laptops,hard_disk_size
+,1375424031,Memory Size,Laptops,computer_memory_size
+,1375424031,Operating System,Laptops,operating_system
+,1375446031,Connectivity,Laser All-In-One Printers,connectivity_technology
+,1375446031,Maximum Media Size,Laser All-In-One Printers,media_size_maximum
+,1375446031,Output Type,Laser All-In-One Printers,printer_output
+,1375446031,Printing Speed,Laser All-In-One Printers,max_printspeed_black_white
+,1375448031,Connectivity,Laser Printers,connectivity_technology
+,1375448031,Maximum Media Size,Laser Printers,media_size_maximum
+,1375448031,Output Type,Laser Printers,printer_output
+,1375448031,Printing Speed,Laser Printers,max_printspeed_black_white
+,1389458031,Storage Capacity,MP3/MP4 Players,digital_storage_capacity
+,1389458031,Supported Standards,MP3/MP4 Players,supported_audio_format
+,1375449031,Connectivity,Matrix Printers,connectivity_technology
+,1375449031,Maximum Media Size,Matrix Printers,media_size_maximum
+,1375449031,Output Type,Matrix Printers,printer_output
+,1375449031,Printing Speed,Matrix Printers,max_printspeed_black_white
+,1389178031,Display Size,Medium Format Digital Cameras,display_size
+,1389178031,Image Stabilization,Medium Format Digital Cameras,image_stabilization
+,1389178031,Optical Zoom,Medium Format Digital Cameras,optical_zoom
+,1389178031,Resolution,Medium Format Digital Cameras,optical_sensor_resolution
+,1389178031,Viewfinder Type,Medium Format Digital Cameras,viewfinder_type
+,1375384031,System RAM Type,Memory,system_ram_type
+,1388963031,Capacity,Memory Cards,memory_storage_capacity
+,1388965031,Capacity,Micro SD Cards,memory_storage_capacity
+,1389179031,Display Size,Mirrorless System Cameras,display_size
+,1389179031,Image Stabilization,Mirrorless System Cameras,image_stabilization
+,1389179031,Optical Zoom,Mirrorless System Cameras,optical_zoom
+,1389179031,Resolution,Mirrorless System Cameras,optical_sensor_resolution
+,1389179031,Viewfinder Type,Mirrorless System Cameras,viewfinder_type
+,1375425031,Connectivity,Monitors,connectivity_technology
+,1375425031,Resolution,Monitors,display_resolution_maximum
+,1375425031,Response Time,Monitors,response_time
+,1375425031,Screen Size,Monitors,display_size
+,1375425031,Tuner,Monitors,tuner
+,1375385031,Processor Socket,Motherboards,processor_socket
+,1388966031,Capacity,Multimedia Cards,memory_storage_capacity
+,1389370031,Wattage,Outdoor Speakers,wattage
+,1388967031,Capacity,PC Cards & PCMCIA,memory_storage_capacity
+,1375411031,Capacity,Pen Drives,memory_storage_capacity
+,1375450031,Connectivity,Photo Printers,connectivity_technology
+,1375450031,Maximum Media Size,Photo Printers,media_size_maximum
+,1375450031,Output Type,Photo Printers,printer_output
+,1375450031,Printing Speed,Photo Printers,max_printspeed_black_white
+,1375451031,Connectivity,Plotters,connectivity_technology
+,1375451031,Maximum Media Size,Plotters,media_size_maximum
+,1375451031,Output Type,Plotters,printer_output
+,1375451031,Printing Speed,Plotters,max_printspeed_black_white
+,1389180031,Display Size,Point & Shoot Digital Camera Bundles,display_size
+,1389180031,Image Stabilization,Point & Shoot Digital Camera Bundles,image_stabilization
+,1389180031,Optical Zoom,Point & Shoot Digital Camera Bundles,optical_zoom
+,1389180031,Resolution,Point & Shoot Digital Camera Bundles,optical_sensor_resolution
+,1389180031,Viewfinder Type,Point & Shoot Digital Camera Bundles,viewfinder_type
+,1389181031,Display Size,Point & Shoot Digital Cameras,display_size
+,1389181031,Image Stabilization,Point & Shoot Digital Cameras,image_stabilization
+,1389181031,Optical Zoom,Point & Shoot Digital Cameras,optical_zoom
+,1389181031,Resolution,Point & Shoot Digital Cameras,optical_sensor_resolution
+,1389181031,Viewfinder Type,Point & Shoot Digital Cameras,viewfinder_type
+,1389430031,Cell Phone Type,Prepaid Phones,form_factor
+,1389430031,Data Transfer,Prepaid Phones,connectivity_technology
+,1389430031,Features,Prepaid Phones,special_features
+,1389430031,Operating System,Prepaid Phones,operating_system
+,1389430031,Operator,Prepaid Phones,wireless_provider
+,1375443031,Connectivity,Printers,connectivity_technology
+,1375443031,Maximum Media Size,Printers,media_size_maximum
+,1375443031,Output Type,Printers,printer_output
+,1375443031,Printing Speed,Printers,max_printspeed_black_white
+,1388875031,Battery Cell Composition,Rechargeable Batteries,battery_cell_composition
+,1375368031,Capacity,SAS Hard Drives,hard_disk_size
+,1375369031,Capacity,SATA Hard Drives,hard_disk_size
+,1375370031,Capacity,SCSI Hard Drives,hard_disk_size
+,1389371031,Wattage,Satellite Speakers,wattage
+,1388968031,Capacity,SecureDigital Cards,memory_storage_capacity
+,1388969031,Capacity,SmartMedia Cards,memory_storage_capacity
+,1805560031,Camera Resolution,Smartphones,effective_still_resolution
+,1805560031,Cell Phone Type,Smartphones,form_factor
+,1805560031,Data Transfer,Smartphones,connectivity_technology
+,1805560031,Features,Smartphones,special_features
+,1805560031,Operating System,Smartphones,operating_system
+,1805560031,Operator,Smartphones,wireless_provider
+,1389432031,Camera Resolution,Smartphones & Basic Mobiles,effective_still_resolution
+,1389432031,Cell Phone Type,Smartphones & Basic Mobiles,form_factor
+,1389432031,Data Transfer,Smartphones & Basic Mobiles,connectivity_technology
+,1389432031,Features,Smartphones & Basic Mobiles,special_features
+,1389432031,Operating System,Smartphones & Basic Mobiles,operating_system
+,1389432031,Operator,Smartphones & Basic Mobiles,wireless_provider
+,1388970031,Capacity,Sony Memory Sticks,memory_storage_capacity
+,1389372031,Wattage,Soundbar Speakers,wattage
+,1389373031,Channels,Speaker Systems,output_channel_quantity
+,1389373031,Connectivity,Speaker Systems,speaker_connectivity
+,1389373031,Wattage,Speaker Systems,wattage
+,1389374031,Wattage,Subwoofers,wattage
+,1389396031,Aspect Ratio,Televisions,image_aspect_ratio
+,1389396031,Display Technology,Televisions,display_technology
+,1389396031,HD Format,Televisions,display_resolution_maximum
+,1389396031,Refresh Rate,Televisions,refresh_rate
+,1389396031,Screen Size,Televisions,display_size
+,1375325031,Cartridge Type,Toner Cartridges,compatibility_options
+,1389352031,Wattage,Transistor Amplifiers,wattage
+,1389353031,Wattage,Tube Amplifiers,wattage
+,1388971031,Capacity,miniSD Cards,memory_storage_capacity
+,1388972031,Capacity,xD-Picture Cards,memory_storage_capacity
+,1389376031,Channels,AV Receivers & Amplifiers,output_channel_quantity
+,1389376031,Wattage,AV Receivers & Amplifiers,wattage
+,1375444031,Connectivity,All-In-One Printers,connectivity_technology
+,1375444031,Maximum Media Size,All-In-One Printers,media_size_maximum
+,1375444031,Output Type,All-In-One Printers,printer_output
+,1375444031,Printing Speed,All-In-One Printers,max_printspeed_black_white
+,1805559031,Camera Resolution,Basic Mobiles,effective_still_resolution
+,1805559031,Cell Phone Type,Basic Mobiles,form_factor
+,1805559031,Data Transfer,Basic Mobiles,connectivity_technology
+,1805559031,Features,Basic Mobiles,special_features
+,1805559031,Operating System,Basic Mobiles,operating_system
+,1805559031,Operator,Basic Mobiles,wireless_provider
+,1389366031,Wattage,Bookshelf Speakers,wattage
+,1389367031,Wattage,Built-in Speakers,wattage
+,1389198031,Max. Focal Length,Camcorder Lenses,max_focal_length
+,1389198031,Min. Focal Length,Camcorder Lenses,min_focal_length
+,1389198031,Mounting Type,Camcorder Lenses,mounting_type
+,1389197031,Max. Focal Length,Camera Lenses,max_focal_length
+,1389197031,Min. Focal Length,Camera Lenses,min_focal_length
+,1389197031,Mounting Type,Camera Lenses,mounting_type
+,1389199031,Max. Focal Length,Camera Lenses,max_focal_length
+,1389199031,Min. Focal Length,Camera Lenses,min_focal_length
+,1389199031,Mounting Type,Camera Lenses,mounting_type
+,1389328031,Display Size,Car GPS,display_size
+,1389328031,Features,Car GPS,data_service
+,1389328031,Features,Car GPS,connectivity_technology
+,1389328031,Features,Car GPS,display_type
+,1389328031,Maps,Car GPS,map_type
+,1389368031,Wattage,Centre Speakers,wattage
+,1388964031,Capacity,Compact Flash Cards,memory_storage_capacity
+,1389384031,Hard Disk Size,DVD Recorders,hard_disk_size
+,1389175031,Display Size,Digital Cameras,display_size
+,1389175031,Image Stabilization,Digital Cameras,image_stabilization
+,1389175031,Optical Zoom,Digital Cameras,optical_zoom
+,1389175031,Resolution,Digital Cameras,optical_sensor_resolution
+,1389175031,Viewfinder Type,Digital Cameras,viewfinder_type
+,1389176031,Display Size,Digital SLR Camera Bundles,display_size
+,1389176031,Image Stabilization,Digital SLR Camera Bundles,image_stabilization
+,1389176031,Optical Zoom,Digital SLR Camera Bundles,optical_zoom
+,1389176031,Resolution,Digital SLR Camera Bundles,optical_sensor_resolution
+,1389176031,Viewfinder Type,Digital SLR Camera Bundles,viewfinder_type
+,1389177031,Display Size,Digital SLR Cameras,display_size
+,1389177031,Image Stabilization,Digital SLR Cameras,image_stabilization
+,1389177031,Optical Zoom,Digital SLR Cameras,optical_zoom
+,1389177031,Resolution,Digital SLR Cameras,optical_sensor_resolution
+,1389177031,Viewfinder Type,Digital SLR Cameras,viewfinder_type
+,1388874031,Battery Cell Composition,Disposable Batteries,battery_cell_composition
+,1375395031,Capacity,External Hard Drives,hard_disk_size
+,1375395031,Format,External Hard Drives,form_factor
+,1389369031,Wattage,Floorstanding Speakers,wattage
+,1388871031,Battery Cell Composition,General Purpose Batteries & Battery Chargers,battery_cell_composition
+,1388872031,Battery Cell Composition,General Purpose Battery & Charger Sets,battery_cell_composition
+,1388873031,Battery Cell Composition,General Purpose Battery Chargers,battery_cell_composition
+,1388876031,Battery Cell Composition,General Purpose Battery Spacers,battery_cell_composition
+,1388877031,Battery Cell Composition,General Purpose Battery Testers,battery_cell_composition
+,1389365031,Wattage,Hi-Fi & Home Audio Speakers,wattage
+,1389350031,Wattage,Hi-Fi Amplifiers,wattage
+,1389338031,Wattage,Hi-Fi Compact Stereo Systems,wattage
+,1389361031,Wattage,Hi-Fi Receivers,wattage
+,1389387031,Hard Disk Size,Home Cinema Systems,hard_disk_size
+,1389351031,Wattage,Hybrid Amplifiers,wattage
+,1375367031,Capacity,IDE Hard Drives,hard_disk_size
+,1375445031,Connectivity,Ink All-In-One Printers,connectivity_technology
+,1375445031,Maximum Media Size,Ink All-In-One Printers,media_size_maximum
+,1375445031,Output Type,Ink All-In-One Printers,printer_output
+,1375445031,Printing Speed,Ink All-In-One Printers,max_printspeed_black_white
+,1375323031,Cartridge Type,Ink Cartridges,compatibility_options
+,1375447031,Connectivity,Ink Printers,connectivity_technology
+,1375447031,Maximum Media Size,Ink Printers,media_size_maximum
+,1375447031,Output Type,Ink Printers,printer_output
+,1375447031,Printing Speed,Ink Printers,max_printspeed_black_white
+,1375366031,Capacity,Internal Hard Drives,hard_disk_size
+,1375467031,Casing,Laptop Roller Cases,shell_type
+,1375424031,CPU Manufacturer & Type,Laptops,computer_cpu_type
+,1375424031,Display Size,Laptops,display_size
+,1375424031,HDD Size,Laptops,hard_disk_size
+,1375424031,Memory Size,Laptops,computer_memory_size
+,1375424031,Operating System,Laptops,operating_system
+,1375446031,Connectivity,Laser All-In-One Printers,connectivity_technology
+,1375446031,Maximum Media Size,Laser All-In-One Printers,media_size_maximum
+,1375446031,Output Type,Laser All-In-One Printers,printer_output
+,1375446031,Printing Speed,Laser All-In-One Printers,max_printspeed_black_white
+,1375448031,Connectivity,Laser Printers,connectivity_technology
+,1375448031,Maximum Media Size,Laser Printers,media_size_maximum
+,1375448031,Output Type,Laser Printers,printer_output
+,1375448031,Printing Speed,Laser Printers,max_printspeed_black_white
+,1389458031,Storage Capacity,MP3/MP4 Players,digital_storage_capacity
+,1389458031,Supported Standards,MP3/MP4 Players,supported_audio_format
+,1375449031,Connectivity,Matrix Printers,connectivity_technology
+,1375449031,Maximum Media Size,Matrix Printers,media_size_maximum
+,1375449031,Output Type,Matrix Printers,printer_output
+,1375449031,Printing Speed,Matrix Printers,max_printspeed_black_white
+,1389178031,Display Size,Medium Format Digital Cameras,display_size
+,1389178031,Image Stabilization,Medium Format Digital Cameras,image_stabilization
+,1389178031,Optical Zoom,Medium Format Digital Cameras,optical_zoom
+,1389178031,Resolution,Medium Format Digital Cameras,optical_sensor_resolution
+,1389178031,Viewfinder Type,Medium Format Digital Cameras,viewfinder_type
+,1375384031,System RAM Type,Memory,system_ram_type
+,1388963031,Capacity,Memory Cards,memory_storage_capacity
+,1388965031,Capacity,Micro SD Cards,memory_storage_capacity
+,1389179031,Display Size,Mirrorless System Cameras,display_size
+,1389179031,Image Stabilization,Mirrorless System Cameras,image_stabilization
+,1389179031,Optical Zoom,Mirrorless System Cameras,optical_zoom
+,1389179031,Resolution,Mirrorless System Cameras,optical_sensor_resolution
+,1389179031,Viewfinder Type,Mirrorless System Cameras,viewfinder_type
+,1375425031,Connectivity,Monitors,connectivity_technology
+,1375425031,Resolution,Monitors,display_resolution_maximum
+,1375425031,Response Time,Monitors,response_time
+,1375425031,Screen Size,Monitors,display_size
+,1375425031,Tuner,Monitors,tuner
+,1375385031,Processor Socket,Motherboards,processor_socket
+,1388966031,Capacity,Multimedia Cards,memory_storage_capacity
+,1389370031,Wattage,Outdoor Speakers,wattage
+,1388967031,Capacity,PC Cards & PCMCIA,memory_storage_capacity
+,1375411031,Capacity,Pen Drives,memory_storage_capacity
+,1375450031,Connectivity,Photo Printers,connectivity_technology
+,1375450031,Maximum Media Size,Photo Printers,media_size_maximum
+,1375450031,Output Type,Photo Printers,printer_output
+,1375450031,Printing Speed,Photo Printers,max_printspeed_black_white
+,1375451031,Connectivity,Plotters,connectivity_technology
+,1375451031,Maximum Media Size,Plotters,media_size_maximum
+,1375451031,Output Type,Plotters,printer_output
+,1375451031,Printing Speed,Plotters,max_printspeed_black_white
+,1389180031,Display Size,Point & Shoot Digital Camera Bundles,display_size
+,1389180031,Image Stabilization,Point & Shoot Digital Camera Bundles,image_stabilization
+,1389180031,Optical Zoom,Point & Shoot Digital Camera Bundles,optical_zoom
+,1389180031,Resolution,Point & Shoot Digital Camera Bundles,optical_sensor_resolution
+,1389180031,Viewfinder Type,Point & Shoot Digital Camera Bundles,viewfinder_type
+,1389181031,Display Size,Point & Shoot Digital Cameras,display_size
+,1389181031,Image Stabilization,Point & Shoot Digital Cameras,image_stabilization
+,1389181031,Optical Zoom,Point & Shoot Digital Cameras,optical_zoom
+,1389181031,Resolution,Point & Shoot Digital Cameras,optical_sensor_resolution
+,1389181031,Viewfinder Type,Point & Shoot Digital Cameras,viewfinder_type
+,1389430031,Cell Phone Type,Prepaid Phones,form_factor
+,1389430031,Data Transfer,Prepaid Phones,connectivity_technology
+,1389430031,Features,Prepaid Phones,special_features
+,1389430031,Operating System,Prepaid Phones,operating_system
+,1389430031,Operator,Prepaid Phones,wireless_provider
+,1375443031,Connectivity,Printers,connectivity_technology
+,1375443031,Maximum Media Size,Printers,media_size_maximum
+,1375443031,Output Type,Printers,printer_output
+,1375443031,Printing Speed,Printers,max_printspeed_black_white
+,1388875031,Battery Cell Composition,Rechargeable Batteries,battery_cell_composition
+,1375368031,Capacity,SAS Hard Drives,hard_disk_size
+,1375369031,Capacity,SATA Hard Drives,hard_disk_size
+,1375370031,Capacity,SCSI Hard Drives,hard_disk_size
+,1389371031,Wattage,Satellite Speakers,wattage
+,1388968031,Capacity,SecureDigital Cards,memory_storage_capacity
+,1388969031,Capacity,SmartMedia Cards,memory_storage_capacity
+,1805560031,Camera Resolution,Smartphones,effective_still_resolution
+,1805560031,Cell Phone Type,Smartphones,form_factor
+,1805560031,Data Transfer,Smartphones,connectivity_technology
+,1805560031,Features,Smartphones,special_features
+,1805560031,Operating System,Smartphones,operating_system
+,1805560031,Operator,Smartphones,wireless_provider
+,1389432031,Camera Resolution,Smartphones & Basic Mobiles,effective_still_resolution
+,1389432031,Cell Phone Type,Smartphones & Basic Mobiles,form_factor
+,1389432031,Data Transfer,Smartphones & Basic Mobiles,connectivity_technology
+,1389432031,Features,Smartphones & Basic Mobiles,special_features
+,1389432031,Operating System,Smartphones & Basic Mobiles,operating_system
+,1389432031,Operator,Smartphones & Basic Mobiles,wireless_provider
+,1388970031,Capacity,Sony Memory Sticks,memory_storage_capacity
+,1389372031,Wattage,Soundbar Speakers,wattage
+,1389373031,Channels,Speaker Systems,output_channel_quantity
+,1389373031,Connectivity,Speaker Systems,speaker_connectivity
+,1389373031,Wattage,Speaker Systems,wattage
+,1389374031,Wattage,Subwoofers,wattage
+,1389396031,Aspect Ratio,Televisions,image_aspect_ratio
+,1389396031,Display Technology,Televisions,display_technology
+,1389396031,HD Format,Televisions,display_resolution_maximum
+,1389396031,Refresh Rate,Televisions,refresh_rate
+,1389396031,Screen Size,Televisions,display_size
+,1375325031,Cartridge Type,Toner Cartridges,compatibility_options
+,1389352031,Wattage,Transistor Amplifiers,wattage
+,1389353031,Wattage,Tube Amplifiers,wattage
+,1388971031,Capacity,miniSD Cards,memory_storage_capacity
+,1388972031,Capacity,xD-Picture Cards,memory_storage_capacity
+,1389376031,Channels,AV Receivers & Amplifiers,output_channel_quantity
+,1389376031,Wattage,AV Receivers & Amplifiers,wattage
+,1375444031,Connectivity,All-In-One Printers,connectivity_technology
+,1375444031,Maximum Media Size,All-In-One Printers,media_size_maximum
+,1375444031,Output Type,All-In-One Printers,printer_output
+,1375444031,Printing Speed,All-In-One Printers,max_printspeed_black_white
+,1805559031,Camera Resolution,Basic Mobiles,effective_still_resolution
+,1805559031,Cell Phone Type,Basic Mobiles,form_factor
+,1805559031,Data Transfer,Basic Mobiles,connectivity_technology
+,1805559031,Features,Basic Mobiles,special_features
+,1805559031,Operating System,Basic Mobiles,operating_system
+,1805559031,Operator,Basic Mobiles,wireless_provider
+,1389366031,Wattage,Bookshelf Speakers,wattage
+,1389367031,Wattage,Built-in Speakers,wattage
+,1389198031,Max. Focal Length,Camcorder Lenses,max_focal_length
+,1389198031,Min. Focal Length,Camcorder Lenses,min_focal_length
+,1389198031,Mounting Type,Camcorder Lenses,mounting_type
+,1389197031,Max. Focal Length,Camera Lenses,max_focal_length
+,1389197031,Min. Focal Length,Camera Lenses,min_focal_length
+,1389197031,Mounting Type,Camera Lenses,mounting_type
+,1389199031,Max. Focal Length,Camera Lenses,max_focal_length
+,1389199031,Min. Focal Length,Camera Lenses,min_focal_length
+,1389199031,Mounting Type,Camera Lenses,mounting_type
+,1389328031,Display Size,Car GPS,display_size
+,1389328031,Features,Car GPS,data_service
+,1389328031,Features,Car GPS,connectivity_technology
+,1389328031,Features,Car GPS,display_type
+,1389328031,Maps,Car GPS,map_type
+,1389368031,Wattage,Centre Speakers,wattage
+,1388964031,Capacity,Compact Flash Cards,memory_storage_capacity
+,1389384031,Hard Disk Size,DVD Recorders,hard_disk_size
+,1389175031,Display Size,Digital Cameras,display_size
+,1389175031,Image Stabilization,Digital Cameras,image_stabilization
+,1389175031,Optical Zoom,Digital Cameras,optical_zoom
+,1389175031,Resolution,Digital Cameras,optical_sensor_resolution
+,1389175031,Viewfinder Type,Digital Cameras,viewfinder_type
+,1389176031,Display Size,Digital SLR Camera Bundles,display_size
+,1389176031,Image Stabilization,Digital SLR Camera Bundles,image_stabilization
+,1389176031,Optical Zoom,Digital SLR Camera Bundles,optical_zoom
+,1389176031,Resolution,Digital SLR Camera Bundles,optical_sensor_resolution
+,1389176031,Viewfinder Type,Digital SLR Camera Bundles,viewfinder_type
+,1389177031,Display Size,Digital SLR Cameras,display_size
+,1389177031,Image Stabilization,Digital SLR Cameras,image_stabilization
+,1389177031,Optical Zoom,Digital SLR Cameras,optical_zoom
+,1389177031,Resolution,Digital SLR Cameras,optical_sensor_resolution
+,1389177031,Viewfinder Type,Digital SLR Cameras,viewfinder_type
+,1388874031,Battery Cell Composition,Disposable Batteries,battery_cell_composition
+,1375395031,Capacity,External Hard Drives,hard_disk_size
+,1375395031,Format,External Hard Drives,form_factor
+,1389369031,Wattage,Floorstanding Speakers,wattage
+,1388871031,Battery Cell Composition,General Purpose Batteries & Battery Chargers,battery_cell_composition
+,1388872031,Battery Cell Composition,General Purpose Battery & Charger Sets,battery_cell_composition
+,1388873031,Battery Cell Composition,General Purpose Battery Chargers,battery_cell_composition
+,1388876031,Battery Cell Composition,General Purpose Battery Spacers,battery_cell_composition
+,1388877031,Battery Cell Composition,General Purpose Battery Testers,battery_cell_composition
+,1389365031,Wattage,Hi-Fi & Home Audio Speakers,wattage
+,1389350031,Wattage,Hi-Fi Amplifiers,wattage
+,1389338031,Wattage,Hi-Fi Compact Stereo Systems,wattage
+,1389361031,Wattage,Hi-Fi Receivers,wattage
+,1389387031,Hard Disk Size,Home Cinema Systems,hard_disk_size
+,1389351031,Wattage,Hybrid Amplifiers,wattage
+,1375367031,Capacity,IDE Hard Drives,hard_disk_size
+,1375445031,Connectivity,Ink All-In-One Printers,connectivity_technology
+,1375445031,Maximum Media Size,Ink All-In-One Printers,media_size_maximum
+,1375445031,Output Type,Ink All-In-One Printers,printer_output
+,1375445031,Printing Speed,Ink All-In-One Printers,max_printspeed_black_white
+,1375323031,Cartridge Type,Ink Cartridges,compatibility_options
+,1375447031,Connectivity,Ink Printers,connectivity_technology
+,1375447031,Maximum Media Size,Ink Printers,media_size_maximum
+,1375447031,Output Type,Ink Printers,printer_output
+,1375447031,Printing Speed,Ink Printers,max_printspeed_black_white
+,1375366031,Capacity,Internal Hard Drives,hard_disk_size
+,1375467031,Casing,Laptop Roller Cases,shell_type
+,1375424031,CPU Manufacturer & Type,Laptops,computer_cpu_type
+,1375424031,Display Size,Laptops,display_size
+,1375424031,HDD Size,Laptops,hard_disk_size
+,1375424031,Memory Size,Laptops,computer_memory_size
+,1375424031,Operating System,Laptops,operating_system
+,1375446031,Connectivity,Laser All-In-One Printers,connectivity_technology
+,1375446031,Maximum Media Size,Laser All-In-One Printers,media_size_maximum
+,1375446031,Output Type,Laser All-In-One Printers,printer_output
+,1375446031,Printing Speed,Laser All-In-One Printers,max_printspeed_black_white
+,1375448031,Connectivity,Laser Printers,connectivity_technology
+,1375448031,Maximum Media Size,Laser Printers,media_size_maximum
+,1375448031,Output Type,Laser Printers,printer_output
+,1375448031,Printing Speed,Laser Printers,max_printspeed_black_white
+,1389458031,Storage Capacity,MP3/MP4 Players,digital_storage_capacity
+,1389458031,Supported Standards,MP3/MP4 Players,supported_audio_format
+,1375449031,Connectivity,Matrix Printers,connectivity_technology
+,1375449031,Maximum Media Size,Matrix Printers,media_size_maximum
+,1375449031,Output Type,Matrix Printers,printer_output
+,1375449031,Printing Speed,Matrix Printers,max_printspeed_black_white
+,1389178031,Display Size,Medium Format Digital Cameras,display_size
+,1389178031,Image Stabilization,Medium Format Digital Cameras,image_stabilization
+,1389178031,Optical Zoom,Medium Format Digital Cameras,optical_zoom
+,1389178031,Resolution,Medium Format Digital Cameras,optical_sensor_resolution
+,1389178031,Viewfinder Type,Medium Format Digital Cameras,viewfinder_type
+,1375384031,System RAM Type,Memory,system_ram_type
+,1388963031,Capacity,Memory Cards,memory_storage_capacity
+,1388965031,Capacity,Micro SD Cards,memory_storage_capacity
+,1389179031,Display Size,Mirrorless System Cameras,display_size
+,1389179031,Image Stabilization,Mirrorless System Cameras,image_stabilization
+,1389179031,Optical Zoom,Mirrorless System Cameras,optical_zoom
+,1389179031,Resolution,Mirrorless System Cameras,optical_sensor_resolution
+,1389179031,Viewfinder Type,Mirrorless System Cameras,viewfinder_type
+,1375425031,Connectivity,Monitors,connectivity_technology
+,1375425031,Resolution,Monitors,display_resolution_maximum
+,1375425031,Response Time,Monitors,response_time
+,1375425031,Screen Size,Monitors,display_size
+,1375425031,Tuner,Monitors,tuner
+,1375385031,Processor Socket,Motherboards,processor_socket
+,1388966031,Capacity,Multimedia Cards,memory_storage_capacity
+,1389370031,Wattage,Outdoor Speakers,wattage
+,1388967031,Capacity,PC Cards & PCMCIA,memory_storage_capacity
+,1375411031,Capacity,Pen Drives,memory_storage_capacity
+,1375450031,Connectivity,Photo Printers,connectivity_technology
+,1375450031,Maximum Media Size,Photo Printers,media_size_maximum
+,1375450031,Output Type,Photo Printers,printer_output
+,1375450031,Printing Speed,Photo Printers,max_printspeed_black_white
+,1375451031,Connectivity,Plotters,connectivity_technology
+,1375451031,Maximum Media Size,Plotters,media_size_maximum
+,1375451031,Output Type,Plotters,printer_output
+,1375451031,Printing Speed,Plotters,max_printspeed_black_white
+,1389180031,Display Size,Point & Shoot Digital Camera Bundles,display_size
+,1389180031,Image Stabilization,Point & Shoot Digital Camera Bundles,image_stabilization
+,1389180031,Optical Zoom,Point & Shoot Digital Camera Bundles,optical_zoom
+,1389180031,Resolution,Point & Shoot Digital Camera Bundles,optical_sensor_resolution
+,1389180031,Viewfinder Type,Point & Shoot Digital Camera Bundles,viewfinder_type
+,1389181031,Display Size,Point & Shoot Digital Cameras,display_size
+,1389181031,Image Stabilization,Point & Shoot Digital Cameras,image_stabilization
+,1389181031,Optical Zoom,Point & Shoot Digital Cameras,optical_zoom
+,1389181031,Resolution,Point & Shoot Digital Cameras,optical_sensor_resolution
+,1389181031,Viewfinder Type,Point & Shoot Digital Cameras,viewfinder_type
+,1389430031,Cell Phone Type,Prepaid Phones,form_factor
+,1389430031,Data Transfer,Prepaid Phones,connectivity_technology
+,1389430031,Features,Prepaid Phones,special_features
+,1389430031,Operating System,Prepaid Phones,operating_system
+,1389430031,Operator,Prepaid Phones,wireless_provider
+,1375443031,Connectivity,Printers,connectivity_technology
+,1375443031,Maximum Media Size,Printers,media_size_maximum
+,1375443031,Output Type,Printers,printer_output
+,1375443031,Printing Speed,Printers,max_printspeed_black_white
+,1388875031,Battery Cell Composition,Rechargeable Batteries,battery_cell_composition
+,1375368031,Capacity,SAS Hard Drives,hard_disk_size
+,1375369031,Capacity,SATA Hard Drives,hard_disk_size
+,1375370031,Capacity,SCSI Hard Drives,hard_disk_size
+,1389371031,Wattage,Satellite Speakers,wattage
+,1388968031,Capacity,SecureDigital Cards,memory_storage_capacity
+,1388969031,Capacity,SmartMedia Cards,memory_storage_capacity
+,1805560031,Camera Resolution,Smartphones,effective_still_resolution
+,1805560031,Cell Phone Type,Smartphones,form_factor
+,1805560031,Data Transfer,Smartphones,connectivity_technology
+,1805560031,Features,Smartphones,special_features
+,1805560031,Operating System,Smartphones,operating_system
+,1805560031,Operator,Smartphones,wireless_provider
+,1389432031,Camera Resolution,Smartphones & Basic Mobiles,effective_still_resolution
+,1389432031,Cell Phone Type,Smartphones & Basic Mobiles,form_factor
+,1389432031,Data Transfer,Smartphones & Basic Mobiles,connectivity_technology
+,1389432031,Features,Smartphones & Basic Mobiles,special_features
+,1389432031,Operating System,Smartphones & Basic Mobiles,operating_system
+,1389432031,Operator,Smartphones & Basic Mobiles,wireless_provider
+,1388970031,Capacity,Sony Memory Sticks,memory_storage_capacity
+,1389372031,Wattage,Soundbar Speakers,wattage
+,1389373031,Channels,Speaker Systems,output_channel_quantity
+,1389373031,Connectivity,Speaker Systems,speaker_connectivity
+,1389373031,Wattage,Speaker Systems,wattage
+,1389374031,Wattage,Subwoofers,wattage
+,1389396031,Aspect Ratio,Televisions,image_aspect_ratio
+,1389396031,Display Technology,Televisions,display_technology
+,1389396031,HD Format,Televisions,display_resolution_maximum
+,1389396031,Refresh Rate,Televisions,refresh_rate
+,1389396031,Screen Size,Televisions,display_size
+,1375325031,Cartridge Type,Toner Cartridges,compatibility_options
+,1389352031,Wattage,Transistor Amplifiers,wattage
+,1389353031,Wattage,Tube Amplifiers,wattage
+,1388971031,Capacity,miniSD Cards,memory_storage_capacity
+,1388972031,Capacity,xD-Picture Cards,memory_storage_capacity
+,1389376031,Channels,AV Receivers & Amplifiers,output_channel_quantity
+,1389376031,Wattage,AV Receivers & Amplifiers,wattage
+,1375444031,Connectivity,All-In-One Printers,connectivity_technology
+,1375444031,Maximum Media Size,All-In-One Printers,media_size_maximum
+,1375444031,Output Type,All-In-One Printers,printer_output
+,1375444031,Printing Speed,All-In-One Printers,max_printspeed_black_white
+,1805559031,Camera Resolution,Basic Mobiles,effective_still_resolution
+,1805559031,Cell Phone Type,Basic Mobiles,form_factor
+,1805559031,Data Transfer,Basic Mobiles,connectivity_technology
+,1805559031,Features,Basic Mobiles,special_features
+,1805559031,Operating System,Basic Mobiles,operating_system
+,1805559031,Operator,Basic Mobiles,wireless_provider
+,1389366031,Wattage,Bookshelf Speakers,wattage
+,1389367031,Wattage,Built-in Speakers,wattage
+,1389198031,Max. Focal Length,Camcorder Lenses,max_focal_length
+,1389198031,Min. Focal Length,Camcorder Lenses,min_focal_length
+,1389198031,Mounting Type,Camcorder Lenses,mounting_type
+,1389197031,Max. Focal Length,Camera Lenses,max_focal_length
+,1389197031,Min. Focal Length,Camera Lenses,min_focal_length
+,1389197031,Mounting Type,Camera Lenses,mounting_type
+,1389199031,Max. Focal Length,Camera Lenses,max_focal_length
+,1389199031,Min. Focal Length,Camera Lenses,min_focal_length
+,1389199031,Mounting Type,Camera Lenses,mounting_type
+,1389328031,Display Size,Car GPS,display_size
+,1389328031,Features,Car GPS,data_service
+,1389328031,Features,Car GPS,connectivity_technology
+,1389328031,Features,Car GPS,display_type
+,1389328031,Maps,Car GPS,map_type
+,1389368031,Wattage,Centre Speakers,wattage
+,1388964031,Capacity,Compact Flash Cards,memory_storage_capacity
+,1389384031,Hard Disk Size,DVD Recorders,hard_disk_size
+,1389175031,Display Size,Digital Cameras,display_size
+,1389175031,Image Stabilization,Digital Cameras,image_stabilization
+,1389175031,Optical Zoom,Digital Cameras,optical_zoom
+,1389175031,Resolution,Digital Cameras,optical_sensor_resolution
+,1389175031,Viewfinder Type,Digital Cameras,viewfinder_type
+,1389176031,Display Size,Digital SLR Camera Bundles,display_size
+,1389176031,Image Stabilization,Digital SLR Camera Bundles,image_stabilization
+,1389176031,Optical Zoom,Digital SLR Camera Bundles,optical_zoom
+,1389176031,Resolution,Digital SLR Camera Bundles,optical_sensor_resolution
+,1389176031,Viewfinder Type,Digital SLR Camera Bundles,viewfinder_type
+,1389177031,Display Size,Digital SLR Cameras,display_size
+,1389177031,Image Stabilization,Digital SLR Cameras,image_stabilization
+,1389177031,Optical Zoom,Digital SLR Cameras,optical_zoom
+,1389177031,Resolution,Digital SLR Cameras,optical_sensor_resolution
+,1389177031,Viewfinder Type,Digital SLR Cameras,viewfinder_type
+,1388874031,Battery Cell Composition,Disposable Batteries,battery_cell_composition
+,1375395031,Capacity,External Hard Drives,hard_disk_size
+,1375395031,Format,External Hard Drives,form_factor
+,1389369031,Wattage,Floorstanding Speakers,wattage
+,1388871031,Battery Cell Composition,General Purpose Batteries & Battery Chargers,battery_cell_composition
+,1388872031,Battery Cell Composition,General Purpose Battery & Charger Sets,battery_cell_composition
+,1388873031,Battery Cell Composition,General Purpose Battery Chargers,battery_cell_composition
+,1388876031,Battery Cell Composition,General Purpose Battery Spacers,battery_cell_composition
+,1388877031,Battery Cell Composition,General Purpose Battery Testers,battery_cell_composition
+,1389365031,Wattage,Hi-Fi & Home Audio Speakers,wattage
+,1389350031,Wattage,Hi-Fi Amplifiers,wattage
+,1389338031,Wattage,Hi-Fi Compact Stereo Systems,wattage
+,1389361031,Wattage,Hi-Fi Receivers,wattage
+,1389387031,Hard Disk Size,Home Cinema Systems,hard_disk_size
+,1389351031,Wattage,Hybrid Amplifiers,wattage
+,1375367031,Capacity,IDE Hard Drives,hard_disk_size
+,1375445031,Connectivity,Ink All-In-One Printers,connectivity_technology
+,1375445031,Maximum Media Size,Ink All-In-One Printers,media_size_maximum
+,1375445031,Output Type,Ink All-In-One Printers,printer_output
+,1375445031,Printing Speed,Ink All-In-One Printers,max_printspeed_black_white
+,1375323031,Cartridge Type,Ink Cartridges,compatibility_options
+,1375447031,Connectivity,Ink Printers,connectivity_technology
+,1375447031,Maximum Media Size,Ink Printers,media_size_maximum
+,1375447031,Output Type,Ink Printers,printer_output
+,1375447031,Printing Speed,Ink Printers,max_printspeed_black_white
+,1375366031,Capacity,Internal Hard Drives,hard_disk_size
+,1375467031,Casing,Laptop Roller Cases,shell_type
+,1375424031,CPU Manufacturer & Type,Laptops,computer_cpu_type
+,1375424031,Display Size,Laptops,display_size
+,1375424031,HDD Size,Laptops,hard_disk_size
+,1375424031,Memory Size,Laptops,computer_memory_size
+,1375424031,Operating System,Laptops,operating_system
+,1375446031,Connectivity,Laser All-In-One Printers,connectivity_technology
+,1375446031,Maximum Media Size,Laser All-In-One Printers,media_size_maximum
+,1375446031,Output Type,Laser All-In-One Printers,printer_output
+,1375446031,Printing Speed,Laser All-In-One Printers,max_printspeed_black_white
+,1375448031,Connectivity,Laser Printers,connectivity_technology
+,1375448031,Maximum Media Size,Laser Printers,media_size_maximum
+,1375448031,Output Type,Laser Printers,printer_output
+,1375448031,Printing Speed,Laser Printers,max_printspeed_black_white
+,1389458031,Storage Capacity,MP3/MP4 Players,digital_storage_capacity
+,1389458031,Supported Standards,MP3/MP4 Players,supported_audio_format
+,1375449031,Connectivity,Matrix Printers,connectivity_technology
+,1375449031,Maximum Media Size,Matrix Printers,media_size_maximum
+,1375449031,Output Type,Matrix Printers,printer_output
+,1375449031,Printing Speed,Matrix Printers,max_printspeed_black_white
+,1389178031,Display Size,Medium Format Digital Cameras,display_size
+,1389178031,Image Stabilization,Medium Format Digital Cameras,image_stabilization
+,1389178031,Optical Zoom,Medium Format Digital Cameras,optical_zoom
+,1389178031,Resolution,Medium Format Digital Cameras,optical_sensor_resolution
+,1389178031,Viewfinder Type,Medium Format Digital Cameras,viewfinder_type
+,1375384031,System RAM Type,Memory,system_ram_type
+,1388963031,Capacity,Memory Cards,memory_storage_capacity
+,1388965031,Capacity,Micro SD Cards,memory_storage_capacity
+,1389179031,Display Size,Mirrorless System Cameras,display_size
+,1389179031,Image Stabilization,Mirrorless System Cameras,image_stabilization
+,1389179031,Optical Zoom,Mirrorless System Cameras,optical_zoom
+,1389179031,Resolution,Mirrorless System Cameras,optical_sensor_resolution
+,1389179031,Viewfinder Type,Mirrorless System Cameras,viewfinder_type
+,1375425031,Connectivity,Monitors,connectivity_technology
+,1375425031,Resolution,Monitors,display_resolution_maximum
+,1375425031,Response Time,Monitors,response_time
+,1375425031,Screen Size,Monitors,display_size
+,1375425031,Tuner,Monitors,tuner
+,1375385031,Processor Socket,Motherboards,processor_socket
+,1388966031,Capacity,Multimedia Cards,memory_storage_capacity
+,1389370031,Wattage,Outdoor Speakers,wattage
+,1388967031,Capacity,PC Cards & PCMCIA,memory_storage_capacity
+,1375411031,Capacity,Pen Drives,memory_storage_capacity
+,1375450031,Connectivity,Photo Printers,connectivity_technology
+,1375450031,Maximum Media Size,Photo Printers,media_size_maximum
+,1375450031,Output Type,Photo Printers,printer_output
+,1375450031,Printing Speed,Photo Printers,max_printspeed_black_white
+,1375451031,Connectivity,Plotters,connectivity_technology
+,1375451031,Maximum Media Size,Plotters,media_size_maximum
+,1375451031,Output Type,Plotters,printer_output
+,1375451031,Printing Speed,Plotters,max_printspeed_black_white
+,1389180031,Display Size,Point & Shoot Digital Camera Bundles,display_size
+,1389180031,Image Stabilization,Point & Shoot Digital Camera Bundles,image_stabilization
+,1389180031,Optical Zoom,Point & Shoot Digital Camera Bundles,optical_zoom
+,1389180031,Resolution,Point & Shoot Digital Camera Bundles,optical_sensor_resolution
+,1389180031,Viewfinder Type,Point & Shoot Digital Camera Bundles,viewfinder_type
+,1389181031,Display Size,Point & Shoot Digital Cameras,display_size
+,1389181031,Image Stabilization,Point & Shoot Digital Cameras,image_stabilization
+,1389181031,Optical Zoom,Point & Shoot Digital Cameras,optical_zoom
+,1389181031,Resolution,Point & Shoot Digital Cameras,optical_sensor_resolution
+,1389181031,Viewfinder Type,Point & Shoot Digital Cameras,viewfinder_type
+,1389430031,Cell Phone Type,Prepaid Phones,form_factor
+,1389430031,Data Transfer,Prepaid Phones,connectivity_technology
+,1389430031,Features,Prepaid Phones,special_features
+,1389430031,Operating System,Prepaid Phones,operating_system
+,1389430031,Operator,Prepaid Phones,wireless_provider
+,1375443031,Connectivity,Printers,connectivity_technology
+,1375443031,Maximum Media Size,Printers,media_size_maximum
+,1375443031,Output Type,Printers,printer_output
+,1375443031,Printing Speed,Printers,max_printspeed_black_white
+,1388875031,Battery Cell Composition,Rechargeable Batteries,battery_cell_composition
+,1375368031,Capacity,SAS Hard Drives,hard_disk_size
+,1375369031,Capacity,SATA Hard Drives,hard_disk_size
+,1375370031,Capacity,SCSI Hard Drives,hard_disk_size
+,1389371031,Wattage,Satellite Speakers,wattage
+,1388968031,Capacity,SecureDigital Cards,memory_storage_capacity
+,1388969031,Capacity,SmartMedia Cards,memory_storage_capacity
+,1805560031,Camera Resolution,Smartphones,effective_still_resolution
+,1805560031,Cell Phone Type,Smartphones,form_factor
+,1805560031,Data Transfer,Smartphones,connectivity_technology
+,1805560031,Features,Smartphones,special_features
+,1805560031,Operating System,Smartphones,operating_system
+,1805560031,Operator,Smartphones,wireless_provider
+,1389432031,Camera Resolution,Smartphones & Basic Mobiles,effective_still_resolution
+,1389432031,Cell Phone Type,Smartphones & Basic Mobiles,form_factor
+,1389432031,Data Transfer,Smartphones & Basic Mobiles,connectivity_technology
+,1389432031,Features,Smartphones & Basic Mobiles,special_features
+,1389432031,Operating System,Smartphones & Basic Mobiles,operating_system
+,1389432031,Operator,Smartphones & Basic Mobiles,wireless_provider
+,1388970031,Capacity,Sony Memory Sticks,memory_storage_capacity
+,1389372031,Wattage,Soundbar Speakers,wattage
+,1389373031,Channels,Speaker Systems,output_channel_quantity
+,1389373031,Connectivity,Speaker Systems,speaker_connectivity
+,1389373031,Wattage,Speaker Systems,wattage
+,1389374031,Wattage,Subwoofers,wattage
+,1389396031,Aspect Ratio,Televisions,image_aspect_ratio
+,1389396031,Display Technology,Televisions,display_technology
+,1389396031,HD Format,Televisions,display_resolution_maximum
+,1389396031,Refresh Rate,Televisions,refresh_rate
+,1389396031,Screen Size,Televisions,display_size
+,1375325031,Cartridge Type,Toner Cartridges,compatibility_options
+,1389352031,Wattage,Transistor Amplifiers,wattage
+,1389353031,Wattage,Tube Amplifiers,wattage
+,1388971031,Capacity,miniSD Cards,memory_storage_capacity
+,1388972031,Capacity,xD-Picture Cards,memory_storage_capacity
+,1389376031,Channels,AV Receivers & Amplifiers,output_channel_quantity
+,1389376031,Wattage,AV Receivers & Amplifiers,wattage
+,1375444031,Connectivity,All-In-One Printers,connectivity_technology
+,1375444031,Maximum Media Size,All-In-One Printers,media_size_maximum
+,1375444031,Output Type,All-In-One Printers,printer_output
+,1375444031,Printing Speed,All-In-One Printers,max_printspeed_black_white
+,1805559031,Camera Resolution,Basic Mobiles,effective_still_resolution
+,1805559031,Cell Phone Type,Basic Mobiles,form_factor
+,1805559031,Data Transfer,Basic Mobiles,connectivity_technology
+,1805559031,Features,Basic Mobiles,special_features
+,1805559031,Operating System,Basic Mobiles,operating_system
+,1805559031,Operator,Basic Mobiles,wireless_provider
+,1389366031,Wattage,Bookshelf Speakers,wattage
+,1389367031,Wattage,Built-in Speakers,wattage
+,1389198031,Max. Focal Length,Camcorder Lenses,max_focal_length
+,1389198031,Min. Focal Length,Camcorder Lenses,min_focal_length
+,1389198031,Mounting Type,Camcorder Lenses,mounting_type
+,1389197031,Max. Focal Length,Camera Lenses,max_focal_length
+,1389197031,Min. Focal Length,Camera Lenses,min_focal_length
+,1389197031,Mounting Type,Camera Lenses,mounting_type
+,1389199031,Max. Focal Length,Camera Lenses,max_focal_length
+,1389199031,Min. Focal Length,Camera Lenses,min_focal_length
+,1389199031,Mounting Type,Camera Lenses,mounting_type
+,1389328031,Display Size,Car GPS,display_size
+,1389328031,Features,Car GPS,data_service
+,1389328031,Features,Car GPS,connectivity_technology
+,1389328031,Features,Car GPS,display_type
+,1389328031,Maps,Car GPS,map_type
+,1389368031,Wattage,Centre Speakers,wattage
+,1388964031,Capacity,Compact Flash Cards,memory_storage_capacity
+,1389384031,Hard Disk Size,DVD Recorders,hard_disk_size
+,1389175031,Display Size,Digital Cameras,display_size
+,1389175031,Image Stabilization,Digital Cameras,image_stabilization
+,1389175031,Optical Zoom,Digital Cameras,optical_zoom
+,1389175031,Resolution,Digital Cameras,optical_sensor_resolution
+,1389175031,Viewfinder Type,Digital Cameras,viewfinder_type
+,1389176031,Display Size,Digital SLR Camera Bundles,display_size
+,1389176031,Image Stabilization,Digital SLR Camera Bundles,image_stabilization
+,1389176031,Optical Zoom,Digital SLR Camera Bundles,optical_zoom
+,1389176031,Resolution,Digital SLR Camera Bundles,optical_sensor_resolution
+,1389176031,Viewfinder Type,Digital SLR Camera Bundles,viewfinder_type
+,1389177031,Display Size,Digital SLR Cameras,display_size
+,1389177031,Image Stabilization,Digital SLR Cameras,image_stabilization
+,1389177031,Optical Zoom,Digital SLR Cameras,optical_zoom
+,1389177031,Resolution,Digital SLR Cameras,optical_sensor_resolution
+,1389177031,Viewfinder Type,Digital SLR Cameras,viewfinder_type
+,1388874031,Battery Cell Composition,Disposable Batteries,battery_cell_composition
+,1375395031,Capacity,External Hard Drives,hard_disk_size
+,1375395031,Format,External Hard Drives,form_factor
+,1389369031,Wattage,Floorstanding Speakers,wattage
+,1388871031,Battery Cell Composition,General Purpose Batteries & Battery Chargers,battery_cell_composition
+,1388872031,Battery Cell Composition,General Purpose Battery & Charger Sets,battery_cell_composition
+,1388873031,Battery Cell Composition,General Purpose Battery Chargers,battery_cell_composition
+,1388876031,Battery Cell Composition,General Purpose Battery Spacers,battery_cell_composition
+,1388877031,Battery Cell Composition,General Purpose Battery Testers,battery_cell_composition
+,1389365031,Wattage,Hi-Fi & Home Audio Speakers,wattage
+,1389350031,Wattage,Hi-Fi Amplifiers,wattage
+,1389338031,Wattage,Hi-Fi Compact Stereo Systems,wattage
+,1389361031,Wattage,Hi-Fi Receivers,wattage
+,1389387031,Hard Disk Size,Home Cinema Systems,hard_disk_size
+,1389351031,Wattage,Hybrid Amplifiers,wattage
+,1375367031,Capacity,IDE Hard Drives,hard_disk_size
+,1375445031,Connectivity,Ink All-In-One Printers,connectivity_technology
+,1375445031,Maximum Media Size,Ink All-In-One Printers,media_size_maximum
+,1375445031,Output Type,Ink All-In-One Printers,printer_output
+,1375445031,Printing Speed,Ink All-In-One Printers,max_printspeed_black_white
+,1375323031,Cartridge Type,Ink Cartridges,compatibility_options
+,1375447031,Connectivity,Ink Printers,connectivity_technology
+,1375447031,Maximum Media Size,Ink Printers,media_size_maximum
+,1375447031,Output Type,Ink Printers,printer_output
+,1375447031,Printing Speed,Ink Printers,max_printspeed_black_white
+,1375366031,Capacity,Internal Hard Drives,hard_disk_size
+,1375467031,Casing,Laptop Roller Cases,shell_type
+,1375424031,CPU Manufacturer & Type,Laptops,computer_cpu_type
+,1375424031,Display Size,Laptops,display_size
+,1375424031,HDD Size,Laptops,hard_disk_size
+,1375424031,Memory Size,Laptops,computer_memory_size
+,1375424031,Operating System,Laptops,operating_system
+,1375446031,Connectivity,Laser All-In-One Printers,connectivity_technology
+,1375446031,Maximum Media Size,Laser All-In-One Printers,media_size_maximum
+,1375446031,Output Type,Laser All-In-One Printers,printer_output
+,1375446031,Printing Speed,Laser All-In-One Printers,max_printspeed_black_white
+,1375448031,Connectivity,Laser Printers,connectivity_technology
+,1375448031,Maximum Media Size,Laser Printers,media_size_maximum
+,1375448031,Output Type,Laser Printers,printer_output
+,1375448031,Printing Speed,Laser Printers,max_printspeed_black_white
+,1389458031,Storage Capacity,MP3/MP4 Players,digital_storage_capacity
+,1389458031,Supported Standards,MP3/MP4 Players,supported_audio_format
+,1375449031,Connectivity,Matrix Printers,connectivity_technology
+,1375449031,Maximum Media Size,Matrix Printers,media_size_maximum
+,1375449031,Output Type,Matrix Printers,printer_output
+,1375449031,Printing Speed,Matrix Printers,max_printspeed_black_white
+,1389178031,Display Size,Medium Format Digital Cameras,display_size
+,1389178031,Image Stabilization,Medium Format Digital Cameras,image_stabilization
+,1389178031,Optical Zoom,Medium Format Digital Cameras,optical_zoom
+,1389178031,Resolution,Medium Format Digital Cameras,optical_sensor_resolution
+,1389178031,Viewfinder Type,Medium Format Digital Cameras,viewfinder_type
+,1375384031,System RAM Type,Memory,system_ram_type
+,1388963031,Capacity,Memory Cards,memory_storage_capacity
+,1388965031,Capacity,Micro SD Cards,memory_storage_capacity
+,1389179031,Display Size,Mirrorless System Cameras,display_size
+,1389179031,Image Stabilization,Mirrorless System Cameras,image_stabilization
+,1389179031,Optical Zoom,Mirrorless System Cameras,optical_zoom
+,1389179031,Resolution,Mirrorless System Cameras,optical_sensor_resolution
+,1389179031,Viewfinder Type,Mirrorless System Cameras,viewfinder_type
+,1375425031,Connectivity,Monitors,connectivity_technology
+,1375425031,Resolution,Monitors,display_resolution_maximum
+,1375425031,Response Time,Monitors,response_time
+,1375425031,Screen Size,Monitors,display_size
+,1375425031,Tuner,Monitors,tuner
+,1375385031,Processor Socket,Motherboards,processor_socket
+,1388966031,Capacity,Multimedia Cards,memory_storage_capacity
+,1389370031,Wattage,Outdoor Speakers,wattage
+,1388967031,Capacity,PC Cards & PCMCIA,memory_storage_capacity
+,1375411031,Capacity,Pen Drives,memory_storage_capacity
+,1375450031,Connectivity,Photo Printers,connectivity_technology
+,1375450031,Maximum Media Size,Photo Printers,media_size_maximum
+,1375450031,Output Type,Photo Printers,printer_output
+,1375450031,Printing Speed,Photo Printers,max_printspeed_black_white
+,1375451031,Connectivity,Plotters,connectivity_technology
+,1375451031,Maximum Media Size,Plotters,media_size_maximum
+,1375451031,Output Type,Plotters,printer_output
+,1375451031,Printing Speed,Plotters,max_printspeed_black_white
+,1389180031,Display Size,Point & Shoot Digital Camera Bundles,display_size
+,1389180031,Image Stabilization,Point & Shoot Digital Camera Bundles,image_stabilization
+,1389180031,Optical Zoom,Point & Shoot Digital Camera Bundles,optical_zoom
+,1389180031,Resolution,Point & Shoot Digital Camera Bundles,optical_sensor_resolution
+,1389180031,Viewfinder Type,Point & Shoot Digital Camera Bundles,viewfinder_type
+,1389181031,Display Size,Point & Shoot Digital Cameras,display_size
+,1389181031,Image Stabilization,Point & Shoot Digital Cameras,image_stabilization
+,1389181031,Optical Zoom,Point & Shoot Digital Cameras,optical_zoom
+,1389181031,Resolution,Point & Shoot Digital Cameras,optical_sensor_resolution
+,1389181031,Viewfinder Type,Point & Shoot Digital Cameras,viewfinder_type
+,1389430031,Cell Phone Type,Prepaid Phones,form_factor
+,1389430031,Data Transfer,Prepaid Phones,connectivity_technology
+,1389430031,Features,Prepaid Phones,special_features
+,1389430031,Operating System,Prepaid Phones,operating_system
+,1389430031,Operator,Prepaid Phones,wireless_provider
+,1375443031,Connectivity,Printers,connectivity_technology
+,1375443031,Maximum Media Size,Printers,media_size_maximum
+,1375443031,Output Type,Printers,printer_output
+,1375443031,Printing Speed,Printers,max_printspeed_black_white
+,1388875031,Battery Cell Composition,Rechargeable Batteries,battery_cell_composition
+,1375368031,Capacity,SAS Hard Drives,hard_disk_size
+,1375369031,Capacity,SATA Hard Drives,hard_disk_size
+,1375370031,Capacity,SCSI Hard Drives,hard_disk_size
+,1389371031,Wattage,Satellite Speakers,wattage
+,1388968031,Capacity,SecureDigital Cards,memory_storage_capacity
+,1388969031,Capacity,SmartMedia Cards,memory_storage_capacity
+,1805560031,Camera Resolution,Smartphones,effective_still_resolution
+,1805560031,Cell Phone Type,Smartphones,form_factor
+,1805560031,Data Transfer,Smartphones,connectivity_technology
+,1805560031,Features,Smartphones,special_features
+,1805560031,Operating System,Smartphones,operating_system
+,1805560031,Operator,Smartphones,wireless_provider
+,1389432031,Camera Resolution,Smartphones & Basic Mobiles,effective_still_resolution
+,1389432031,Cell Phone Type,Smartphones & Basic Mobiles,form_factor
+,1389432031,Data Transfer,Smartphones & Basic Mobiles,connectivity_technology
+,1389432031,Features,Smartphones & Basic Mobiles,special_features
+,1389432031,Operating System,Smartphones & Basic Mobiles,operating_system
+,1389432031,Operator,Smartphones & Basic Mobiles,wireless_provider
+,1388970031,Capacity,Sony Memory Sticks,memory_storage_capacity
+,1389372031,Wattage,Soundbar Speakers,wattage
+,1389373031,Channels,Speaker Systems,output_channel_quantity
+,1389373031,Connectivity,Speaker Systems,speaker_connectivity
+,1389373031,Wattage,Speaker Systems,wattage
+,1389374031,Wattage,Subwoofers,wattage
+,1389396031,Aspect Ratio,Televisions,image_aspect_ratio
+,1389396031,Display Technology,Televisions,display_technology
+,1389396031,HD Format,Televisions,display_resolution_maximum
+,1389396031,Refresh Rate,Televisions,refresh_rate
+,1389396031,Screen Size,Televisions,display_size
+,1375325031,Cartridge Type,Toner Cartridges,compatibility_options
+,1389352031,Wattage,Transistor Amplifiers,wattage
+,1389353031,Wattage,Tube Amplifiers,wattage
+,1388971031,Capacity,miniSD Cards,memory_storage_capacity
+,1388972031,Capacity,xD-Picture Cards,memory_storage_capacity
+,1389376031,Channels,AV Receivers & Amplifiers,output_channel_quantity
+,1389376031,Wattage,AV Receivers & Amplifiers,wattage
+,1375444031,Connectivity,All-In-One Printers,connectivity_technology
+,1375444031,Maximum Media Size,All-In-One Printers,media_size_maximum
+,1375444031,Output Type,All-In-One Printers,printer_output
+,1375444031,Printing Speed,All-In-One Printers,max_printspeed_black_white
+,1805559031,Camera Resolution,Basic Mobiles,effective_still_resolution
+,1805559031,Cell Phone Type,Basic Mobiles,form_factor
+,1805559031,Data Transfer,Basic Mobiles,connectivity_technology
+,1805559031,Features,Basic Mobiles,special_features
+,1805559031,Operating System,Basic Mobiles,operating_system
+,1805559031,Operator,Basic Mobiles,wireless_provider
+,1389366031,Wattage,Bookshelf Speakers,wattage
+,1389367031,Wattage,Built-in Speakers,wattage
+,1389198031,Max. Focal Length,Camcorder Lenses,max_focal_length
+,1389198031,Min. Focal Length,Camcorder Lenses,min_focal_length
+,1389198031,Mounting Type,Camcorder Lenses,mounting_type
+,1389197031,Max. Focal Length,Camera Lenses,max_focal_length
+,1389197031,Min. Focal Length,Camera Lenses,min_focal_length
+,1389197031,Mounting Type,Camera Lenses,mounting_type
+,1389199031,Max. Focal Length,Camera Lenses,max_focal_length
+,1389199031,Min. Focal Length,Camera Lenses,min_focal_length
+,1389199031,Mounting Type,Camera Lenses,mounting_type
+,1389328031,Display Size,Car GPS,display_size
+,1389328031,Features,Car GPS,data_service
+,1389328031,Features,Car GPS,connectivity_technology
+,1389328031,Features,Car GPS,display_type
+,1389328031,Maps,Car GPS,map_type
+,1389368031,Wattage,Centre Speakers,wattage
+,1388964031,Capacity,Compact Flash Cards,memory_storage_capacity
+,1389384031,Hard Disk Size,DVD Recorders,hard_disk_size
+,1389175031,Display Size,Digital Cameras,display_size
+,1389175031,Image Stabilization,Digital Cameras,image_stabilization
+,1389175031,Optical Zoom,Digital Cameras,optical_zoom
+,1389175031,Resolution,Digital Cameras,optical_sensor_resolution
+,1389175031,Viewfinder Type,Digital Cameras,viewfinder_type
+,1389176031,Display Size,Digital SLR Camera Bundles,display_size
+,1389176031,Image Stabilization,Digital SLR Camera Bundles,image_stabilization
+,1389176031,Optical Zoom,Digital SLR Camera Bundles,optical_zoom
+,1389176031,Resolution,Digital SLR Camera Bundles,optical_sensor_resolution
+,1389176031,Viewfinder Type,Digital SLR Camera Bundles,viewfinder_type
+,1389177031,Display Size,Digital SLR Cameras,display_size
+,1389177031,Image Stabilization,Digital SLR Cameras,image_stabilization
+,1389177031,Optical Zoom,Digital SLR Cameras,optical_zoom
+,1389177031,Resolution,Digital SLR Cameras,optical_sensor_resolution
+,1389177031,Viewfinder Type,Digital SLR Cameras,viewfinder_type
+,1388874031,Battery Cell Composition,Disposable Batteries,battery_cell_composition
+,1375395031,Capacity,External Hard Drives,hard_disk_size
+,1375395031,Format,External Hard Drives,form_factor
+,1389369031,Wattage,Floorstanding Speakers,wattage
+,1388871031,Battery Cell Composition,General Purpose Batteries & Battery Chargers,battery_cell_composition
+,1388872031,Battery Cell Composition,General Purpose Battery & Charger Sets,battery_cell_composition
+,1388873031,Battery Cell Composition,General Purpose Battery Chargers,battery_cell_composition
+,1388876031,Battery Cell Composition,General Purpose Battery Spacers,battery_cell_composition
+,1388877031,Battery Cell Composition,General Purpose Battery Testers,battery_cell_composition
+,1389365031,Wattage,Hi-Fi & Home Audio Speakers,wattage
+,1389350031,Wattage,Hi-Fi Amplifiers,wattage
+,1389338031,Wattage,Hi-Fi Compact Stereo Systems,wattage
+,1389361031,Wattage,Hi-Fi Receivers,wattage
+,1389387031,Hard Disk Size,Home Cinema Systems,hard_disk_size
+,1389351031,Wattage,Hybrid Amplifiers,wattage
+,1375367031,Capacity,IDE Hard Drives,hard_disk_size
+,1375445031,Connectivity,Ink All-In-One Printers,connectivity_technology
+,1375445031,Maximum Media Size,Ink All-In-One Printers,media_size_maximum
+,1375445031,Output Type,Ink All-In-One Printers,printer_output
+,1375445031,Printing Speed,Ink All-In-One Printers,max_printspeed_black_white
+,1375323031,Cartridge Type,Ink Cartridges,compatibility_options
+,1375447031,Connectivity,Ink Printers,connectivity_technology
+,1375447031,Maximum Media Size,Ink Printers,media_size_maximum
+,1375447031,Output Type,Ink Printers,printer_output
+,1375447031,Printing Speed,Ink Printers,max_printspeed_black_white
+,1375366031,Capacity,Internal Hard Drives,hard_disk_size
+,1375467031,Casing,Laptop Roller Cases,shell_type
+,1375424031,CPU Manufacturer & Type,Laptops,computer_cpu_type
+,1375424031,Display Size,Laptops,display_size
+,1375424031,HDD Size,Laptops,hard_disk_size
+,1375424031,Memory Size,Laptops,computer_memory_size
+,1375424031,Operating System,Laptops,operating_system
+,1375446031,Connectivity,Laser All-In-One Printers,connectivity_technology
+,1375446031,Maximum Media Size,Laser All-In-One Printers,media_size_maximum
+,1375446031,Output Type,Laser All-In-One Printers,printer_output
+,1375446031,Printing Speed,Laser All-In-One Printers,max_printspeed_black_white
+,1375448031,Connectivity,Laser Printers,connectivity_technology
+,1375448031,Maximum Media Size,Laser Printers,media_size_maximum
+,1375448031,Output Type,Laser Printers,printer_output
+,1375448031,Printing Speed,Laser Printers,max_printspeed_black_white
+,1389458031,Storage Capacity,MP3/MP4 Players,digital_storage_capacity
+,1389458031,Supported Standards,MP3/MP4 Players,supported_audio_format
+,1375449031,Connectivity,Matrix Printers,connectivity_technology
+,1375449031,Maximum Media Size,Matrix Printers,media_size_maximum
+,1375449031,Output Type,Matrix Printers,printer_output
+,1375449031,Printing Speed,Matrix Printers,max_printspeed_black_white
+,1389178031,Display Size,Medium Format Digital Cameras,display_size
+,1389178031,Image Stabilization,Medium Format Digital Cameras,image_stabilization
+,1389178031,Optical Zoom,Medium Format Digital Cameras,optical_zoom
+,1389178031,Resolution,Medium Format Digital Cameras,optical_sensor_resolution
+,1389178031,Viewfinder Type,Medium Format Digital Cameras,viewfinder_type
+,1375384031,System RAM Type,Memory,system_ram_type
+,1388963031,Capacity,Memory Cards,memory_storage_capacity
+,1388965031,Capacity,Micro SD Cards,memory_storage_capacity
+,1389179031,Display Size,Mirrorless System Cameras,display_size
+,1389179031,Image Stabilization,Mirrorless System Cameras,image_stabilization
+,1389179031,Optical Zoom,Mirrorless System Cameras,optical_zoom
+,1389179031,Resolution,Mirrorless System Cameras,optical_sensor_resolution
+,1389179031,Viewfinder Type,Mirrorless System Cameras,viewfinder_type
+,1375425031,Connectivity,Monitors,connectivity_technology
+,1375425031,Resolution,Monitors,display_resolution_maximum
+,1375425031,Response Time,Monitors,response_time
+,1375425031,Screen Size,Monitors,display_size
+,1375425031,Tuner,Monitors,tuner
+,1375385031,Processor Socket,Motherboards,processor_socket
+,1388966031,Capacity,Multimedia Cards,memory_storage_capacity
+,1389370031,Wattage,Outdoor Speakers,wattage
+,1388967031,Capacity,PC Cards & PCMCIA,memory_storage_capacity
+,1375411031,Capacity,Pen Drives,memory_storage_capacity
+,1375450031,Connectivity,Photo Printers,connectivity_technology
+,1375450031,Maximum Media Size,Photo Printers,media_size_maximum
+,1375450031,Output Type,Photo Printers,printer_output
+,1375450031,Printing Speed,Photo Printers,max_printspeed_black_white
+,1375451031,Connectivity,Plotters,connectivity_technology
+,1375451031,Maximum Media Size,Plotters,media_size_maximum
+,1375451031,Output Type,Plotters,printer_output
+,1375451031,Printing Speed,Plotters,max_printspeed_black_white
+,1389180031,Display Size,Point & Shoot Digital Camera Bundles,display_size
+,1389180031,Image Stabilization,Point & Shoot Digital Camera Bundles,image_stabilization
+,1389180031,Optical Zoom,Point & Shoot Digital Camera Bundles,optical_zoom
+,1389180031,Resolution,Point & Shoot Digital Camera Bundles,optical_sensor_resolution
+,1389180031,Viewfinder Type,Point & Shoot Digital Camera Bundles,viewfinder_type
+,1389181031,Display Size,Point & Shoot Digital Cameras,display_size
+,1389181031,Image Stabilization,Point & Shoot Digital Cameras,image_stabilization
+,1389181031,Optical Zoom,Point & Shoot Digital Cameras,optical_zoom
+,1389181031,Resolution,Point & Shoot Digital Cameras,optical_sensor_resolution
+,1389181031,Viewfinder Type,Point & Shoot Digital Cameras,viewfinder_type
+,1389430031,Cell Phone Type,Prepaid Phones,form_factor
+,1389430031,Data Transfer,Prepaid Phones,connectivity_technology
+,1389430031,Features,Prepaid Phones,special_features
+,1389430031,Operating System,Prepaid Phones,operating_system
+,1389430031,Operator,Prepaid Phones,wireless_provider
+,1375443031,Connectivity,Printers,connectivity_technology
+,1375443031,Maximum Media Size,Printers,media_size_maximum
+,1375443031,Output Type,Printers,printer_output
+,1375443031,Printing Speed,Printers,max_printspeed_black_white
+,1388875031,Battery Cell Composition,Rechargeable Batteries,battery_cell_composition
+,1375368031,Capacity,SAS Hard Drives,hard_disk_size
+,1375369031,Capacity,SATA Hard Drives,hard_disk_size
+,1375370031,Capacity,SCSI Hard Drives,hard_disk_size
+,1389371031,Wattage,Satellite Speakers,wattage
+,1388968031,Capacity,SecureDigital Cards,memory_storage_capacity
+,1388969031,Capacity,SmartMedia Cards,memory_storage_capacity
+,1805560031,Camera Resolution,Smartphones,effective_still_resolution
+,1805560031,Cell Phone Type,Smartphones,form_factor
+,1805560031,Data Transfer,Smartphones,connectivity_technology
+,1805560031,Features,Smartphones,special_features
+,1805560031,Operating System,Smartphones,operating_system
+,1805560031,Operator,Smartphones,wireless_provider
+,1389432031,Camera Resolution,Smartphones & Basic Mobiles,effective_still_resolution
+,1389432031,Cell Phone Type,Smartphones & Basic Mobiles,form_factor
+,1389432031,Data Transfer,Smartphones & Basic Mobiles,connectivity_technology
+,1389432031,Features,Smartphones & Basic Mobiles,special_features
+,1389432031,Operating System,Smartphones & Basic Mobiles,operating_system
+,1389432031,Operator,Smartphones & Basic Mobiles,wireless_provider
+,1388970031,Capacity,Sony Memory Sticks,memory_storage_capacity
+,1389372031,Wattage,Soundbar Speakers,wattage
+,1389373031,Channels,Speaker Systems,output_channel_quantity
+,1389373031,Connectivity,Speaker Systems,speaker_connectivity
+,1389373031,Wattage,Speaker Systems,wattage
+,1389374031,Wattage,Subwoofers,wattage
+,1389396031,Aspect Ratio,Televisions,image_aspect_ratio
+,1389396031,Display Technology,Televisions,display_technology
+,1389396031,HD Format,Televisions,display_resolution_maximum
+,1389396031,Refresh Rate,Televisions,refresh_rate
+,1389396031,Screen Size,Televisions,display_size
+,1375325031,Cartridge Type,Toner Cartridges,compatibility_options
+,1389352031,Wattage,Transistor Amplifiers,wattage
+,1389353031,Wattage,Tube Amplifiers,wattage
+,1388971031,Capacity,miniSD Cards,memory_storage_capacity
+,1388972031,Capacity,xD-Picture Cards,memory_storage_capacity
+,1389376031,Channels,AV Receivers & Amplifiers,output_channel_quantity
+,1389376031,Wattage,AV Receivers & Amplifiers,wattage
+,1375444031,Connectivity,All-In-One Printers,connectivity_technology
+,1375444031,Maximum Media Size,All-In-One Printers,media_size_maximum
+,1375444031,Output Type,All-In-One Printers,printer_output
+,1375444031,Printing Speed,All-In-One Printers,max_printspeed_black_white
+,1805559031,Camera Resolution,Basic Mobiles,effective_still_resolution
+,1805559031,Cell Phone Type,Basic Mobiles,form_factor
+,1805559031,Data Transfer,Basic Mobiles,connectivity_technology
+,1805559031,Features,Basic Mobiles,special_features
+,1805559031,Operating System,Basic Mobiles,operating_system
+,1805559031,Operator,Basic Mobiles,wireless_provider
+,1389366031,Wattage,Bookshelf Speakers,wattage
+,1389367031,Wattage,Built-in Speakers,wattage
+,1389198031,Max. Focal Length,Camcorder Lenses,max_focal_length
+,1389198031,Min. Focal Length,Camcorder Lenses,min_focal_length
+,1389198031,Mounting Type,Camcorder Lenses,mounting_type
+,1389197031,Max. Focal Length,Camera Lenses,max_focal_length
+,1389197031,Min. Focal Length,Camera Lenses,min_focal_length
+,1389197031,Mounting Type,Camera Lenses,mounting_type
+,1389199031,Max. Focal Length,Camera Lenses,max_focal_length
+,1389199031,Min. Focal Length,Camera Lenses,min_focal_length
+,1389199031,Mounting Type,Camera Lenses,mounting_type
+,1389328031,Display Size,Car GPS,display_size
+,1389328031,Features,Car GPS,data_service
+,1389328031,Features,Car GPS,connectivity_technology
+,1389328031,Features,Car GPS,display_type
+,1389328031,Maps,Car GPS,map_type
+,1389368031,Wattage,Centre Speakers,wattage
+,1388964031,Capacity,Compact Flash Cards,memory_storage_capacity
+,1389384031,Hard Disk Size,DVD Recorders,hard_disk_size
+,1389175031,Display Size,Digital Cameras,display_size
+,1389175031,Image Stabilization,Digital Cameras,image_stabilization
+,1389175031,Optical Zoom,Digital Cameras,optical_zoom
+,1389175031,Resolution,Digital Cameras,optical_sensor_resolution
+,1389175031,Viewfinder Type,Digital Cameras,viewfinder_type
+,1389176031,Display Size,Digital SLR Camera Bundles,display_size
+,1389176031,Image Stabilization,Digital SLR Camera Bundles,image_stabilization
+,1389176031,Optical Zoom,Digital SLR Camera Bundles,optical_zoom
+,1389176031,Resolution,Digital SLR Camera Bundles,optical_sensor_resolution
+,1389176031,Viewfinder Type,Digital SLR Camera Bundles,viewfinder_type
+,1389177031,Display Size,Digital SLR Cameras,display_size
+,1389177031,Image Stabilization,Digital SLR Cameras,image_stabilization
+,1389177031,Optical Zoom,Digital SLR Cameras,optical_zoom
+,1389177031,Resolution,Digital SLR Cameras,optical_sensor_resolution
+,1389177031,Viewfinder Type,Digital SLR Cameras,viewfinder_type
+,1388874031,Battery Cell Composition,Disposable Batteries,battery_cell_composition
+,1375395031,Capacity,External Hard Drives,hard_disk_size
+,1375395031,Format,External Hard Drives,form_factor
+,1389369031,Wattage,Floorstanding Speakers,wattage
+,1388871031,Battery Cell Composition,General Purpose Batteries & Battery Chargers,battery_cell_composition
+,1388872031,Battery Cell Composition,General Purpose Battery & Charger Sets,battery_cell_composition
+,1388873031,Battery Cell Composition,General Purpose Battery Chargers,battery_cell_composition
+,1388876031,Battery Cell Composition,General Purpose Battery Spacers,battery_cell_composition
+,1388877031,Battery Cell Composition,General Purpose Battery Testers,battery_cell_composition
+,1389365031,Wattage,Hi-Fi & Home Audio Speakers,wattage
+,1389350031,Wattage,Hi-Fi Amplifiers,wattage
+,1389338031,Wattage,Hi-Fi Compact Stereo Systems,wattage
+,1389361031,Wattage,Hi-Fi Receivers,wattage
+,1389387031,Hard Disk Size,Home Cinema Systems,hard_disk_size
+,1389351031,Wattage,Hybrid Amplifiers,wattage
+,1375367031,Capacity,IDE Hard Drives,hard_disk_size
+,1375445031,Connectivity,Ink All-In-One Printers,connectivity_technology
+,1375445031,Maximum Media Size,Ink All-In-One Printers,media_size_maximum
+,1375445031,Output Type,Ink All-In-One Printers,printer_output
+,1375445031,Printing Speed,Ink All-In-One Printers,max_printspeed_black_white
+,1375323031,Cartridge Type,Ink Cartridges,compatibility_options
+,1375447031,Connectivity,Ink Printers,connectivity_technology
+,1375447031,Maximum Media Size,Ink Printers,media_size_maximum
+,1375447031,Output Type,Ink Printers,printer_output
+,1375447031,Printing Speed,Ink Printers,max_printspeed_black_white
+,1375366031,Capacity,Internal Hard Drives,hard_disk_size
+,1375467031,Casing,Laptop Roller Cases,shell_type
+,1375424031,CPU Manufacturer & Type,Laptops,computer_cpu_type
+,1375424031,Display Size,Laptops,display_size
+,1375424031,HDD Size,Laptops,hard_disk_size
+,1375424031,Memory Size,Laptops,computer_memory_size
+,1375424031,Operating System,Laptops,operating_system
+,1375446031,Connectivity,Laser All-In-One Printers,connectivity_technology
+,1375446031,Maximum Media Size,Laser All-In-One Printers,media_size_maximum
+,1375446031,Output Type,Laser All-In-One Printers,printer_output
+,1375446031,Printing Speed,Laser All-In-One Printers,max_printspeed_black_white
+,1375448031,Connectivity,Laser Printers,connectivity_technology
+,1375448031,Maximum Media Size,Laser Printers,media_size_maximum
+,1375448031,Output Type,Laser Printers,printer_output
+,1375448031,Printing Speed,Laser Printers,max_printspeed_black_white
+,1389458031,Storage Capacity,MP3/MP4 Players,digital_storage_capacity
+,1389458031,Supported Standards,MP3/MP4 Players,supported_audio_format
+,1375449031,Connectivity,Matrix Printers,connectivity_technology
+,1375449031,Maximum Media Size,Matrix Printers,media_size_maximum
+,1375449031,Output Type,Matrix Printers,printer_output
+,1375449031,Printing Speed,Matrix Printers,max_printspeed_black_white
+,1389178031,Display Size,Medium Format Digital Cameras,display_size
+,1389178031,Image Stabilization,Medium Format Digital Cameras,image_stabilization
+,1389178031,Optical Zoom,Medium Format Digital Cameras,optical_zoom
+,1389178031,Resolution,Medium Format Digital Cameras,optical_sensor_resolution
+,1389178031,Viewfinder Type,Medium Format Digital Cameras,viewfinder_type
+,1375384031,System RAM Type,Memory,system_ram_type
+,1388963031,Capacity,Memory Cards,memory_storage_capacity
+,1388965031,Capacity,Micro SD Cards,memory_storage_capacity
+,1389179031,Display Size,Mirrorless System Cameras,display_size
+,1389179031,Image Stabilization,Mirrorless System Cameras,image_stabilization
+,1389179031,Optical Zoom,Mirrorless System Cameras,optical_zoom
+,1389179031,Resolution,Mirrorless System Cameras,optical_sensor_resolution
+,1389179031,Viewfinder Type,Mirrorless System Cameras,viewfinder_type
+,1375425031,Connectivity,Monitors,connectivity_technology
+,1375425031,Resolution,Monitors,display_resolution_maximum
+,1375425031,Response Time,Monitors,response_time
+,1375425031,Screen Size,Monitors,display_size
+,1375425031,Tuner,Monitors,tuner
+,1375385031,Processor Socket,Motherboards,processor_socket
+,1388966031,Capacity,Multimedia Cards,memory_storage_capacity
+,1389370031,Wattage,Outdoor Speakers,wattage
+,1388967031,Capacity,PC Cards & PCMCIA,memory_storage_capacity
+,1375411031,Capacity,Pen Drives,memory_storage_capacity
+,1375450031,Connectivity,Photo Printers,connectivity_technology
+,1375450031,Maximum Media Size,Photo Printers,media_size_maximum
+,1375450031,Output Type,Photo Printers,printer_output
+,1375450031,Printing Speed,Photo Printers,max_printspeed_black_white
+,1375451031,Connectivity,Plotters,connectivity_technology
+,1375451031,Maximum Media Size,Plotters,media_size_maximum
+,1375451031,Output Type,Plotters,printer_output
+,1375451031,Printing Speed,Plotters,max_printspeed_black_white
+,1389180031,Display Size,Point & Shoot Digital Camera Bundles,display_size
+,1389180031,Image Stabilization,Point & Shoot Digital Camera Bundles,image_stabilization
+,1389180031,Optical Zoom,Point & Shoot Digital Camera Bundles,optical_zoom
+,1389180031,Resolution,Point & Shoot Digital Camera Bundles,optical_sensor_resolution
+,1389180031,Viewfinder Type,Point & Shoot Digital Camera Bundles,viewfinder_type
+,1389181031,Display Size,Point & Shoot Digital Cameras,display_size
+,1389181031,Image Stabilization,Point & Shoot Digital Cameras,image_stabilization
+,1389181031,Optical Zoom,Point & Shoot Digital Cameras,optical_zoom
+,1389181031,Resolution,Point & Shoot Digital Cameras,optical_sensor_resolution
+,1389181031,Viewfinder Type,Point & Shoot Digital Cameras,viewfinder_type
+,1389430031,Cell Phone Type,Prepaid Phones,form_factor
+,1389430031,Data Transfer,Prepaid Phones,connectivity_technology
+,1389430031,Features,Prepaid Phones,special_features
+,1389430031,Operating System,Prepaid Phones,operating_system
+,1389430031,Operator,Prepaid Phones,wireless_provider
+,1375443031,Connectivity,Printers,connectivity_technology
+,1375443031,Maximum Media Size,Printers,media_size_maximum
+,1375443031,Output Type,Printers,printer_output
+,1375443031,Printing Speed,Printers,max_printspeed_black_white
+,1388875031,Battery Cell Composition,Rechargeable Batteries,battery_cell_composition
+,1375368031,Capacity,SAS Hard Drives,hard_disk_size
+,1375369031,Capacity,SATA Hard Drives,hard_disk_size
+,1375370031,Capacity,SCSI Hard Drives,hard_disk_size
+,1389371031,Wattage,Satellite Speakers,wattage
+,1388968031,Capacity,SecureDigital Cards,memory_storage_capacity
+,1388969031,Capacity,SmartMedia Cards,memory_storage_capacity
+,1805560031,Camera Resolution,Smartphones,effective_still_resolution
+,1805560031,Cell Phone Type,Smartphones,form_factor
+,1805560031,Data Transfer,Smartphones,connectivity_technology
+,1805560031,Features,Smartphones,special_features
+,1805560031,Operating System,Smartphones,operating_system
+,1805560031,Operator,Smartphones,wireless_provider
+,1389432031,Camera Resolution,Smartphones & Basic Mobiles,effective_still_resolution
+,1389432031,Cell Phone Type,Smartphones & Basic Mobiles,form_factor
+,1389432031,Data Transfer,Smartphones & Basic Mobiles,connectivity_technology
+,1389432031,Features,Smartphones & Basic Mobiles,special_features
+,1389432031,Operating System,Smartphones & Basic Mobiles,operating_system
+,1389432031,Operator,Smartphones & Basic Mobiles,wireless_provider
+,1388970031,Capacity,Sony Memory Sticks,memory_storage_capacity
+,1389372031,Wattage,Soundbar Speakers,wattage
+,1389373031,Channels,Speaker Systems,output_channel_quantity
+,1389373031,Connectivity,Speaker Systems,speaker_connectivity
+,1389373031,Wattage,Speaker Systems,wattage
+,1389374031,Wattage,Subwoofers,wattage
+,1389396031,Aspect Ratio,Televisions,image_aspect_ratio
+,1389396031,Display Technology,Televisions,display_technology
+,1389396031,HD Format,Televisions,display_resolution_maximum
+,1389396031,Refresh Rate,Televisions,refresh_rate
+,1389396031,Screen Size,Televisions,display_size
+,1375325031,Cartridge Type,Toner Cartridges,compatibility_options
+,1389352031,Wattage,Transistor Amplifiers,wattage
+,1389353031,Wattage,Tube Amplifiers,wattage
+,1388971031,Capacity,miniSD Cards,memory_storage_capacity
+,1388972031,Capacity,xD-Picture Cards,memory_storage_capacity
+,1389376031,Channels,AV Receivers & Amplifiers,output_channel_quantity
+,1389376031,Wattage,AV Receivers & Amplifiers,wattage
+,1375444031,Connectivity,All-In-One Printers,connectivity_technology
+,1375444031,Maximum Media Size,All-In-One Printers,media_size_maximum
+,1375444031,Output Type,All-In-One Printers,printer_output
+,1375444031,Printing Speed,All-In-One Printers,max_printspeed_black_white
+,1805559031,Camera Resolution,Basic Mobiles,effective_still_resolution
+,1805559031,Cell Phone Type,Basic Mobiles,form_factor
+,1805559031,Data Transfer,Basic Mobiles,connectivity_technology
+,1805559031,Features,Basic Mobiles,special_features
+,1805559031,Operating System,Basic Mobiles,operating_system
+,1805559031,Operator,Basic Mobiles,wireless_provider
+,1389366031,Wattage,Bookshelf Speakers,wattage
+,1389367031,Wattage,Built-in Speakers,wattage
+,1389198031,Max. Focal Length,Camcorder Lenses,max_focal_length
+,1389198031,Min. Focal Length,Camcorder Lenses,min_focal_length
+,1389198031,Mounting Type,Camcorder Lenses,mounting_type
+,1389197031,Max. Focal Length,Camera Lenses,max_focal_length
+,1389197031,Min. Focal Length,Camera Lenses,min_focal_length
+,1389197031,Mounting Type,Camera Lenses,mounting_type
+,1389199031,Max. Focal Length,Camera Lenses,max_focal_length
+,1389199031,Min. Focal Length,Camera Lenses,min_focal_length
+,1389199031,Mounting Type,Camera Lenses,mounting_type
+,1389328031,Display Size,Car GPS,display_size
+,1389328031,Features,Car GPS,data_service
+,1389328031,Features,Car GPS,connectivity_technology
+,1389328031,Features,Car GPS,display_type
+,1389328031,Maps,Car GPS,map_type
+,1389368031,Wattage,Centre Speakers,wattage
+,1388964031,Capacity,Compact Flash Cards,memory_storage_capacity
+,1389384031,Hard Disk Size,DVD Recorders,hard_disk_size
+,1389175031,Display Size,Digital Cameras,display_size
+,1389175031,Image Stabilization,Digital Cameras,image_stabilization
+,1389175031,Optical Zoom,Digital Cameras,optical_zoom
+,1389175031,Resolution,Digital Cameras,optical_sensor_resolution
+,1389175031,Viewfinder Type,Digital Cameras,viewfinder_type
+,1389176031,Display Size,Digital SLR Camera Bundles,display_size
+,1389176031,Image Stabilization,Digital SLR Camera Bundles,image_stabilization
+,1389176031,Optical Zoom,Digital SLR Camera Bundles,optical_zoom
+,1389176031,Resolution,Digital SLR Camera Bundles,optical_sensor_resolution
+,1389176031,Viewfinder Type,Digital SLR Camera Bundles,viewfinder_type
+,1389177031,Display Size,Digital SLR Cameras,display_size
+,1389177031,Image Stabilization,Digital SLR Cameras,image_stabilization
+,1389177031,Optical Zoom,Digital SLR Cameras,optical_zoom
+,1389177031,Resolution,Digital SLR Cameras,optical_sensor_resolution
+,1389177031,Viewfinder Type,Digital SLR Cameras,viewfinder_type
+,1388874031,Battery Cell Composition,Disposable Batteries,battery_cell_composition
+,1375395031,Capacity,External Hard Drives,hard_disk_size
+,1375395031,Format,External Hard Drives,form_factor
+,1389369031,Wattage,Floorstanding Speakers,wattage
+,1388871031,Battery Cell Composition,General Purpose Batteries & Battery Chargers,battery_cell_composition
+,1388872031,Battery Cell Composition,General Purpose Battery & Charger Sets,battery_cell_composition
+,1388873031,Battery Cell Composition,General Purpose Battery Chargers,battery_cell_composition
+,1388876031,Battery Cell Composition,General Purpose Battery Spacers,battery_cell_composition
+,1388877031,Battery Cell Composition,General Purpose Battery Testers,battery_cell_composition
+,1389365031,Wattage,Hi-Fi & Home Audio Speakers,wattage
+,1389350031,Wattage,Hi-Fi Amplifiers,wattage
+,1389338031,Wattage,Hi-Fi Compact Stereo Systems,wattage
+,1389361031,Wattage,Hi-Fi Receivers,wattage
+,1389387031,Hard Disk Size,Home Cinema Systems,hard_disk_size
+,1389351031,Wattage,Hybrid Amplifiers,wattage
+,1375367031,Capacity,IDE Hard Drives,hard_disk_size
+,1375445031,Connectivity,Ink All-In-One Printers,connectivity_technology
+,1375445031,Maximum Media Size,Ink All-In-One Printers,media_size_maximum
+,1375445031,Output Type,Ink All-In-One Printers,printer_output
+,1375445031,Printing Speed,Ink All-In-One Printers,max_printspeed_black_white
+,1375323031,Cartridge Type,Ink Cartridges,compatibility_options
+,1375447031,Connectivity,Ink Printers,connectivity_technology
+,1375447031,Maximum Media Size,Ink Printers,media_size_maximum
+,1375447031,Output Type,Ink Printers,printer_output
+,1375447031,Printing Speed,Ink Printers,max_printspeed_black_white
+,1375366031,Capacity,Internal Hard Drives,hard_disk_size
+,1375467031,Casing,Laptop Roller Cases,shell_type
+,1375424031,CPU Manufacturer & Type,Laptops,computer_cpu_type
+,1375424031,Display Size,Laptops,display_size
+,1375424031,HDD Size,Laptops,hard_disk_size
+,1375424031,Memory Size,Laptops,computer_memory_size
+,1375424031,Operating System,Laptops,operating_system
+,1375446031,Connectivity,Laser All-In-One Printers,connectivity_technology
+,1375446031,Maximum Media Size,Laser All-In-One Printers,media_size_maximum
+,1375446031,Output Type,Laser All-In-One Printers,printer_output
+,1375446031,Printing Speed,Laser All-In-One Printers,max_printspeed_black_white
+,1375448031,Connectivity,Laser Printers,connectivity_technology
+,1375448031,Maximum Media Size,Laser Printers,media_size_maximum
+,1375448031,Output Type,Laser Printers,printer_output
+,1375448031,Printing Speed,Laser Printers,max_printspeed_black_white
+,1389458031,Storage Capacity,MP3/MP4 Players,digital_storage_capacity
+,1389458031,Supported Standards,MP3/MP4 Players,supported_audio_format
+,1375449031,Connectivity,Matrix Printers,connectivity_technology
+,1375449031,Maximum Media Size,Matrix Printers,media_size_maximum

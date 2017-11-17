@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+##############################################################################
+#    Copyright (c) 2015 - Present Teckzilla Software Solutions Pvt. All Rights Reserved
+#    Author: [Teckzilla Software Solutions]  <[ sales@teckzilla.net]>
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    A copy of the GNU General Public License is available at:
+#    <http://www.gnu.org/licenses/gpl.html>.
+#
+#    
+#
+##############################################################################
+-->
+
+
+
+
+<odoo>
+    <data>
+       
+        <record model="ir.ui.view" id="view_amazon_inbound_shipping_form">
+            <field name="name">view.amazon.inbound.shipping.form</field>
+            <field name="model">amazon.inbound.shipment</field>
+            <field name="arch" type="xml">
+                <form string="amazon shipping" version="7.0">
+                    <header>
+                           <button name="CreateInboundShipmentPlan" string="Create Inbound Shipment Plan" states="draft" type="object" class="oe_highlight"/> 
+                           <button name="ConfirmInboundshipment" string="Confirm" states="processing" type="object" class="oe_highlight"/> 
+                           <button name="action_put_transport_content" string="Transfer" states="confirm" type="object" class="oe_highlight"/> 
+                           <button name="action_confirm_transport_content" string="Transit" states="transfer" type="object" class="oe_highlight"/> 
+                           <button name="action_download_shipment_label" states="in_transit" string="Download Shipment Label" type="object" icon="gtk-go-forward"/>
+                           <button name="action_download_box_label" states="in_transit" string="Download Box Label" type="object" icon="gtk-go-forward"/>
+                           <button name="action_in_transit_shipment_status" string="Check Inventory Received" states="in_transit,done" type="object" class="oe_highlight"/> 
+                           <button name="cancel" states="draft,confirm,transfer" string="Cancel"/>
+                           <field name="state" widget="statusbar" statusbar_visible="draft,processing,confirm,transfer,in_transit,done"/>
+                     </header>
+                    <sheet>
+                        <h1>
+                            <label string="FBA / " class="oe_inline"/>
+                            <field name="name"  class="oe_inline" readonly="1"/>
+                         </h1>
+                         <group colspan="4" col="4">
+                            <field name="partner_id"/>
+                            <field name="shop_id" domain="[('instance_id.module_id','=','amazon_odoo_v11'),('amazon_fba_shop','=', True)]" widget="selection"/>
+                            <field name="inbound_shipment_id"/>
+                            <field name="plan_shipment_id"/> 
+                            <field name="shipment_charges"/>  
+                            <field name="origin" readonly="1"/>
+                          </group>
+                          <notebook>
+                              <page string="Products" >
+                                  <field name="shipping_product_ids" nolabel="1">
+                                   <tree string="Amazon" editable="bottom">
+                                       <field name="product_id" />
+                                       <field name="amazon_sku" domain="[('product_id','=',product_id)]"/>
+                                       <field name="qty" sum="qty" />
+                                       <field name="intransit_qty" sum="intransit_qty" readonly="1"/>
+                                       <field name="moved_qty" sum="move_qty" readonly="1"/>
+                                   </tree>
+                                </field>
+                              </page>
+                              <page string="Package Details For SPD And LTL (Amazon Partnered Only)">
+                                  <group>
+                                      <group>
+                                          <field name="shipment_type" />
+                                      </group>
+                                      <group>
+                                          <field name="spd_ltl_carrier" />
+                                      </group>
+                                  </group>
+                                 <field name="packaging_ids" nolabel="1">
+                                    <tree editable="bottom">
+                                        <field name="package_no"/>
+                                        <field name="weight"/>
+                                        <field name="length"/>
+                                        <field name="width"/>
+                                        <field name="height"/>
+                                        <field name="is_stacked"/>
+                                    </tree>
+                                 </field>
+                                 <group colspan='4' string="Non Partnered SPD Package Details">
+                                    <field name="nonpartnered_packaging_ids" nolabel="1" attrs="{'invisible':[('shipment_type','!=','SPD')]}">
+                                        <tree editable="bottom">
+                                            <field name="tracking_no"/>
+                                            <field name="package_no"/>
+                                        </tree>
+                                    </field>
+                                </group>
+                              </page>
+                              
+                          </notebook>
+                    </sheet>
+               </form>
+            </field>
+        </record>
+        
+         <record model="ir.ui.view" id="view_amazon_inbound_shipping_tree">
+            <field name="name">view.amazon.inbound.shipping.tree</field>
+            <field name="model">amazon.inbound.shipment</field>
+            <field name="arch" type="xml">
+                <tree string="Inbound Shipment">
+                    <field name="name"/>
+                    <field name="partner_id"/>
+                    <field name="inbound_shipment_id"/>
+                    <field name="plan_shipment_id"/>
+                    <field name="state" />
+                </tree>
+            </field>
+        </record>  
+        
+        <record model="ir.ui.view" id="view_amazon_inbound_shipping_search">
+            <field name="name">view.amazon.inbound.shipping.search</field>
+            <field name="model">amazon.inbound.shipment</field>
+            <field name="arch" type="xml">
+                <search string="Inbound Shipment">
+                    <field name="name"/>
+                    <field name="partner_id"/>
+                    <field name="inbound_shipment_id"/>
+                    <field name="plan_shipment_id"/>
+                    <field name="state" />
+                </search>
+            </field>
+        </record> 
+                      
+                      
+        <record model="ir.actions.act_window" id="action_amazon_inbound_shipment">
+            <field name="name">amazon shipment</field>
+            <field name="res_model">amazon.inbound.shipment</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>     
+                            
+        <menuitem name="Inbound Shipment(FBA)" id="menu_amazon_inboundshipment" action="action_amazon_inbound_shipment" parent="amazon_odoo_v11.menu_amazon_product_listing_root"/>
+    </data>
+</odoo>

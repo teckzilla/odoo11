@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+##############################################################################
+#    Copyright (c) 2015 - Present Teckzilla Software Solutions Pvt. All Rights Reserved
+#    Author: [Teckzilla Software Solutions]  <[ sales@teckzilla.net]>
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    A copy of the GNU General Public License is available at:
+#    <http://www.gnu.org/licenses/gpl.html>.
+#
+#    
+#
+##############################################################################
+-->
+<odoo>
+        <data>
+           
+           <!--Root Menu-->
+           <menuitem id="menu_ecommerce_root" sequence="0" name="Marketplaces" groups="group_ecommerce_manager"/>
+           
+           <!--Sales Channel Instance Menu-->
+           <menuitem id="menu_sale_channel_main" name="Sales Channels" icon="terp-sale" parent="menu_ecommerce_root" sequence="10"/>
+           <!--sales channel shop menu-->
+            <menuitem id="menu_sale_channel_shop" name="Channels" parent="menu_sale_channel_main" action="base_ecommerce_v11.action_sales_channel_shop" sequence="12"/>
+           
+           <!-- Attribute-->
+           <menuitem id="menu_attribute_root" name="Attribute" parent="menu_ecommerce_root"  sequence="40"/>
+           <menuitem id="menu_attribute_set" name="Attribute Set" parent="menu_attribute_root" action="action_attribute_set"  sequence="41"/>
+           <menuitem id="menu_attribute" name="Attributes" parent="menu_attribute_root" action="action_attribute"  sequence="42"/>
+           <menuitem id="menu_attribute_option" name="Attribute Options" parent="menu_attribute_root" action="action_attribute_option"  sequence="43"/>
+
+           <!-- Logs method menu-->
+           <menuitem id="menu_sales_channel_logs" name="Logs" parent="menu_ecommerce_root" sequence="900"/>
+           <menuitem id="menu_log_view" name="Logs" parent="menu_sales_channel_logs" action="action_log_view"  sequence="0"/>
+
+            <!--Configuration menu-->
+           <menuitem id="menu_sales_channel_config" name="Configuration" parent="menu_ecommerce_root" sequence="1000"/>
+           <menuitem id="menu_sale_channel_instance" name="Create a Channel" parent="menu_sales_channel_config" action="action_sales_channel_instance" sequence="50"/>
+           <menuitem id="menu_payment_method1" name="Payment Methods" parent="menu_sales_channel_config" action="action_payment_method1"  sequence="51"/>
+           <!--Sales Workflow method menu-->
+           <!--<menuitem id="menu_ecommerce_payment_method" name="Manage Order Workflow" parent="menu_sales_channel_config" action="action_ecommerce_payment_method"  sequence="52"/>-->
+
+    </data>
+</odoo>

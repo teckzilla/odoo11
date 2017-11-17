@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+##############################################################################
+#    Copyright (c) 2015 - Present Teckzilla Software Solutions Pvt. All Rights Reserved
+#    Author: [Teckzilla Software Solutions]  <[ sales@teckzilla.net]>
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    A copy of the GNU General Public License is available at:
+#    <http://www.gnu.org/licenses/gpl.html>.
+#
+#    
+#
+##############################################################################
+-->
+<odoo>
+    <!--<data>-->
+
+        <!--sales channel shop-->
+        <!--sales channel shop form view-->
+        <record id="view_shop_form" model="ir.ui.view">
+            <field name="name">sale.shop</field>
+            <field name="model">sale.shop</field>
+            <field name="arch" type="xml">
+                <form string="Sales Shop">
+                    <sheet>
+                        <group name='shop'>
+                            <group colspan="2" col="4">
+                                <separator colspan="4" string="Shop Information"/>
+                                <field name="name" select="1"/>
+                                <field name="warehouse_id" required="1" select="1" widget="selection"/>
+                                <field name="company_id" widget="selection" groups="base.group_multi_company"/>
+                            </group>
+                            <group colspan="2" col="4">
+                                <separator colspan="4" string="Accounting"/>
+                                <field name="payment_default_id"/>
+                                <field  name="pricelist_id" select="1" required="True" />
+                                <field name="project_id" select="1" groups="analytic.group_analytic_accounting"/>
+                            </group>
+                        </group>
+                        
+                        <group string='Sales Channel Shop Details' attrs="{'invisible':[('sale_channel_shop','=',False)]}" colspan="4">
+                    <group>
+                        <field name="instance_id"/>
+                        <field name="currency"/>
+                        <field name="is_shipped"/>
+                        <field name="tax_include" />
+                        <field name="sale_channel_shop" invisible="1"/>
+                    </group>
+                    <group>
+                        <!--<field name="sale_channel_shop" invisible="1"/>-->
+                        <field name="picking_policy" />
+                        <field name="order_policy" />
+                        <field name="shop_address" />
+                        <field name="use_debug" />
+                        <field name="exclude_product" />
+                    </group>
+                        <!--<separator string="Sent Email" colspan="4" col="2" />-->
+<!--                        <field name="sent_thankyou_email" />
+                        
+                            <field name="template_id" attrs="{'invisible':[('sent_thankyou_email','=',False)]}"/>-->
+                        </group>
+                        <notebook attrs="{'invisible':[('sale_channel_shop','=',False)]}">
+                            <page name="Actions" string="Actions">
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <table>
+                                                <tr>
+                                                    <td colspan="2">
+                                                        <separator string="Orders"/>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="padding-right:10px;padding-bottom:10px;font-weight: bold;">Last Imported Order Date : </td>
+                                                    <td style="padding-right:10px;padding-bottom:10px">
+                                                        <field name="last_import_order_date"/>
+                                                    </td>
+                                                    <td style="padding-right:10px;padding-bottom:10px">
+                                                        <button name="import_orders" string="Import Orders" type="object" class="btn-primary" style="margin-left:10px;"/>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="padding-right:10px;padding-bottom:10px;font-weight: bold;">Last Updated Order Status Date : </td>
+                                                    <td>
+                                                        <field name="last_update_order_status_date"/>
+                                                    </td>
+                                                    <td style="padding-right:10px;padding-bottom:10px">
+                                                        <button name="update_order_status" string="Update Order Status" type="object" class="btn-primary" style="margin-left:10px;"/>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                        <td>
+                                            <table>
+                                                <tr>
+                                                    <td colspan="2">
+                                                        <separator string="Product"/>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="padding-right:10px;padding-bottom:10px;font-weight: bold;">Last Exported Price Date : </td>
+                                                    <td>
+                                                        <field name="last_export_price_date"/>
+                                                    </td>
+                                                    <td style="padding-right:10px;padding-bottom:10px">
+                                                        <button name="export_price" string="Export Price" type="object" class="btn-primary" style="margin-left:10px;"/>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="padding-right:10px;padding-bottom:10px;font-weight: bold;">Last Exported Stock Date : </td>
+                                                    <td style="padding-right:10px;padding-bottom:10px">
+                                                        <field name="last_export_stock_date"/>
+                                                    </td>
+                                                    <td style="padding-right:10px;padding-bottom:10px">
+                                                        <button name="export_stock" string="Export Stock" type="object" class="btn-primary" style="margin-left:10px;"/>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </page>
+                            <!--                        
+                             <page string="Allocation" >
+                                <group>
+                                    <field name="alloc_type" />
+                                    <field name="alloc_value" />
+                                </group>
+                            </page>-->
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        
+        
+        
+   
+        <!--sales channel shop tree view-->
+        <record model="ir.ui.view" id="sales_channel_shop_tree_view">
+            <field name="name">sales.channel.shop.tree.view</field>
+            <field name="model">sale.shop</field>
+            <field name="arch" type="xml">
+                <tree string="Sales Channel Shop Details">
+                    <field name="name" />
+                    <field name="marketplace_image" widget="image"/>
+                    <!--<field name="instance_id"/>
+                    <field name="prefix"/>
+                    <field name="suffix"/>-->
+                </tree>
+            </field>
+        </record>
+
+        <!--sales channel shop action-->
+        <record id="action_sales_channel_shop" model="ir.actions.act_window">
+            <field name="name">Channels</field>
+            <field name="res_model">sale.shop</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="sales_channel_shop_tree_view"/>
+            <field name="domain">[('sale_channel_shop', '=', True)]</field>
+        </record>
+        
+        <!--sale shop tree view-->
+        <record id="view_shop_tree" model="ir.ui.view">
+            <field name="name">sale.shop</field>
+            <field name="model">sale.shop</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Sales Shop">
+                    <field name="name"/>
+                    <field name="warehouse_id"/>
+                    <field name="pricelist_id"/>
+                    <field name="project_id" groups="analytic.group_analytic_accounting"/>
+                </tree>
+            </field>
+        </record>
+        <record id="action_shop_form" model="ir.actions.act_window">
+            <field name="name">Shop</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sale.shop</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_shop_tree"/>
+            <field name="help">If you have more than one shop reselling your company products, you can create and manage that from here. Whenever you will record a new quotation or sales order, it has to be linked to a shop. The shop also defines the warehouse from which the products will be delivered for each particular sales.</field>
+        </record>
+
+        <menuitem action="action_shop_form" id="menu_action_shop_form" parent="sales_team.menu_sale_config" sequence="0"/>
+
+   
+        
+        <!--Payment Method(sale Order)-->
+        <record model="ir.ui.view" id="view_sale_order_form_for_payment_method">
+            <field name="name">view.sale.order.form.for.payment.method</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <data>
+                    <field name = "date_order" position = "after"> 
+                        <field name = "shop_id" readonly = "0"/> 
+                    </field>   
+                    <field name = "payment_term_id" position = "after"> 
+                        <field name = "carrier_tracking_ref"/> 
+                    </field>   
+                    <xpath expr="//field[@name='client_order_ref']" position="after">
+                        <field name="payment_method_id"/>
+                        <field name="unique_sales_rec_no" string="Market Place Order Number"/>
+                        <field name="sent_thanksemail"/>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_sale_order_form_for_delivery_method">
+            <field name="name">view.sale.order.form.for.delivery.method</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="delivery.view_order_form_with_carrier"/>
+            <field name="arch" type="xml">
+                <data>  
+                    <xpath expr="//field[@name='carrier_id']" position="replace">
+                        <field name="carrier_id" context="{'order_id': id}" class="oe_inline" options="{'no_create': True, 'no_open': True}" attrs="{'readonly':[('state','in',('done'))]}"/>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+        
+        
+        <record id="view_sale_order_marketplace_tree" model="ir.ui.view">
+            <field name="name">sale.order.tree.marketplace</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_tree"/>
+            <field name="arch" type="xml">
+                <data>
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="unique_sales_rec_no" string="Marketplace Reference"/>
+                    <field name="partner_id" string="Customer"/>
+                    <field name="products_name" string="Product"/>
+                    <field name="products_sku" string="SKU"/>
+                    <field name="products_image" widget='image' string="Image"/>
+                    <field name="marketplace_image" widget="image" string="Shop"/>
+                </xpath>
+                <!--<xpath expr="//field[@name='date_order']" position="after">-->
+                <xpath expr="//field[@name='confirmation_date']" position="after">
+                    <field name="channel_carrier" string="Delivery Method"/>
+                    <field name="carrier_tracking_ref" string="Courier Tracking Reference"/>
+                </xpath>
+                <field name="partner_id" position="attributes">
+                    <attribute name="invisible">True</attribute>
+                </field>
+                <field name="user_id" position="attributes">
+                    <attribute name="invisible">True</attribute>
+                </field>
+                </data>
+            </field>
+
+        </record>
+       
+        <record id="view_sale_quotation_marketplace_tree" model="ir.ui.view">
+            <field name="name">sale.quotation.tree.marketplace</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_quotation_tree"/>
+            <field name="arch" type="xml">
+               <field name="partner_id" position="attributes">
+                    <attribute name="invisible">True</attribute>
+                </field>
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="unique_sales_rec_no" string="Marketplace Reference"/>
+                    <field name="partner_id" string="Customer"/>
+                    <field name="products_name" string="Product"/>
+                    <field name="products_sku" string="SKU"/>
+                    <field name="products_image" widget='image' string="Image"/>
+                    <field name="marketplace_image" widget="image" string="Shop"/>
+                </xpath>
+                <xpath expr="//field[@name='date_order']" position="after">
+                    <field name="channel_carrier" string="Delivery Method"/>
+                    <field name="carrier_tracking_ref" string="Courier Tracking Reference"/>
+                </xpath>
+                <field name="user_id" position="attributes">
+                    <attribute name="invisible">True</attribute>
+                </field>
+            </field>
+        </record>
+       
+        <!--for Group By in Sales Order-->
+       
+        <!--        <record id="view_sales_order_group_by_shop" model="ir.ui.view">
+            <field name="name">view.sales.order.group.by.shop</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_sales_order_filter"/>
+            <field name="arch" type="xml">
+                <xpath expr="//filter[@string='Order Month']" position="after">
+                    <filter string="Shop" domain="[]" context="{'group_by':'shop_id'}"/>
+                </xpath>
+            </field>
+        </record>-->
+    <!--</data>-->
+</odoo>

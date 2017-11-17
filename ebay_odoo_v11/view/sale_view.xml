@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+##############################################################################
+#    Copyright (c) 2015 - Present Teckzilla Software Solutions Pvt Ltd. All Rights Reserved
+#    Author: [Teckzilla Software Solutions]  <[ sales@teckzilla.net]>
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    A copy of the GNU General Public License is available at:
+#    <http://www.gnu.org/licenses/gpl.html>.
+#
+#    
+#
+##############################################################################
+-->
+
+<odoo>
+	<data>
+            
+<!--        <record id="view_ebay_store_category_tree" model="ir.ui.view">
+            <field name="name">ebay.store.category.tree</field>
+            <field name="model">ebay.store.category</field>
+            <field name="arch" type="xml">
+                <tree string="Ebay Store Category">
+                    <field name="name" readonly = "1"/>
+                    <field name="shop_id" readonly = "1"/>
+                </tree>
+            </field>
+        </record>-->
+        
+        
+        <!--sales channel shop-->
+        <!--sales channel shop form view-->
+        <record model="ir.ui.view" id="sale_cahnnel_ebay_shop_view">
+            <field name="name">sale.cahnnel.ebay.shop.view</field>
+            <field name="model">sale.shop</field>
+            <field name="inherit_id" ref="base_ecommerce_v11.view_shop_form"/>
+            <field name="arch" type="xml">
+            <field name="instance_id" position="after">
+            </field>
+<!--             <xpath expr="//group[@name='price']" position="replace" >
+                    <group name="price" attrs="{'invisible': [('ebay_shop','!=',True)]}">
+                        <label for="id" string="Price"/>
+                             <div>
+                                <div name="price">
+                                    <field name="last_export_price_date" nolabel="1" class="oe_inline"/>
+                                    <button name="export_price" string="Export price" type="object" />
+                                </div>
+                             </div>
+                     </group>                    
+                </xpath>-->
+                <xpath expr="//field[@name='last_update_order_status_date']" position="after" >
+                    <label for="id" string="paid" attrs="{'invisible': [('ebay_shop','!=',True)]}"/>
+                    <field name="ebay_paid" class="oe_inline" attrs="{'invisible': [('ebay_shop','!=',True)]}"/>
+                </xpath>
+                
+<!--                Export stock and price button view commented
+                <xpath expr="//group[@name='stock']" position="replace" >
+                    <group name="stock">
+                            <label for="id" string="Stock"/>
+                            <div>
+                               <div name="stock">
+                                   
+                                   <button name="export_stock_and_price" string="Export Stock" type="object" context="{'val': 'stock'}"/>
+                                   <field name="last_export_stock_date" nolabel="1" class="oe_inline"/>
+                                   <button name="export_stock" string="Export Stock" type="object" attrs="{'invisible': [('ebay_shop','=',True)]}" />
+                                   <button name="export_stock" string="Export stock and price" type="object" attrs="{'invisible': [('ebay_shop','!=',True)]}" context="{'val': 'both'}"/>
+                               </div>
+                            </div>
+                    </group>                   
+                </xpath>-->
+                
+<!--                
+-->             <xpath expr="//page[@name='Actions']" position="after">
+                 <page string="eBay Actions" attrs="{'invisible':[('ebay_shop','!=',True)]}">
+                            <group name="listing">
+                                <field name="stock_update_on_time"/>
+                                <field name="ebay_shop" invisible="1" />
+                                 <label for="id" string="Listing"/>
+                                 <div>
+                                    <div name="Listing">
+                                        <field name="last_ebay_listing_import" nolabel="1"  class="oe_inline"/>
+                                        <button name="import_ebay_listing" string="Import eBay Listing" colspan="1" type="object" class="btn-primary" style="margin-left:10px;"/>
+                                    </div>
+                                 </div>
+                            </group>
+                            <group>
+                                 <label for="id" string="Carriers"/>
+                                 <div>
+                                    <div name="Carriers">
+                                        <button name="import_shipping_services" string="Import Carriers" colspan="1" type="object" class="btn-primary" style="margin-left:10px;"/>
+                                        <button name="import_listing_csv_ebay" string="Import Listing via CSV" type="object" icon="gtk-jump-to" class="btn-primary" style="margin-left:10px;"/>
+                                        
+                                    </div>
+                                 </div>
+                            </group>
+
+                            
+                        </page>
+                 <page string="eBay Store" attrs="{'invisible':[('ebay_shop','!=',True)]}">
+                           <button name="get_ebay_store_category" string="Import Store" type="object" icon="gtk-jump-to" class="btn-primary" style="margin-left:10px; margin-top:15px;"/>
+                            <group colspan="4" >
+                                <field name="store_name" readonly = "1"/>
+                                <field name="store_subscriplevel" readonly = "1"/>
+                                <field name="store_desc"/>
+                            </group>
+                            <group>
+                                 <separator string="Store Custom Category" colspan="4"/>
+                                 <field name="store_category_ids" nolabel="1" colspan="4" >
+                                    <tree string="Category" editable="bottom">
+                                        <field name="name"/>
+                                        <field name="category_id"/>
+                                    </tree>
+                                </field>
+                            </group>
+                            
+                        </page>
+                  </xpath>
+                <xpath expr="//page[@name='Actions']" position="after">
+                    <page string="eBay Information" attrs="{'invisible':[('ebay_shop','!=',True)]}">
+                    <group>
+                    <field name="postal_code" attrs="{'required':[('ebay_shop','=',True)]}" />
+                    <field name="payment_method" attrs="{'required':[('ebay_shop','=',True)]}" />
+                    <field name="paypal_email" attrs="{'required':[('ebay_shop','=',True)]}" />
+                    <field name="country_code" attrs="{'required':[('ebay_shop','=',True)]}" />
+                   </group>
+                    </page>
+                </xpath>
+               </field>   
+        </record>
+
+<!--        <record model="ir.ui.view" id="view_sale_order_for_ebay_transaction_id">
+            <field name="name">view.sale.order.for.ebay.transaction.id</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <field name = "date_order" position = "after">
+                    <field name="ebay_transaction_id" attrs="{'invisible': [('ebay_transaction_id','=', False)]}"/>
+                </field>
+            </field>
+        </record>  -->
+
+        <!--<record model="ir.ui.view" id="view_button_ebay_refund">-->
+            <!--<field name="name">view.button.ebay.refund</field>-->
+            <!--<field name="model">sale.order</field>-->
+            <!--<field name="inherit_id" ref="sale.view_order_form"/>-->
+            <!--<field name="arch" type="xml">-->
+                <!--<xpath expr="//header" position="inside">-->
+                    <!--<button name="get_user_returns" class="btn btn-info" string="Get User Returns" type="object" icon="fa-undo" attrs="{'invisible':[('ebay_order','=',False)]}"/>-->
+                <!--</xpath>-->
+                <!--<xpath expr="//field[@name='date_order']" position="after">-->
+                    <!--<field name="ebay_order" invisible="1"/>-->
+                <!--</xpath>-->
+            <!--</field>-->
+        <!--</record>-->
+
+
+        <record id="view_sale_order_line_ebay_tree" model="ir.ui.view">
+            <field name="name">sale.order.line.ebay.return</field>
+            <field name="model">sale.order.line</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Returns">
+                    <field name="product_id"/>
+                    <field name="price_unit"/>
+                    <field name="return_id"/>
+                    <field name="unique_sales_line_rec_no"/>
+                    <field name="return_status"/>
+                    <field name="return_qty"/>
+                    <!--<field name="returned"/>-->
+                    <field name="refunded"/>
+                </tree>
+            </field>
+        </record>
+        <record id="action_sale_order_line_ebay_form" model="ir.actions.act_window">
+            <field name="name">eBay Returns</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sale.order.line</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_sale_order_line_ebay_tree"/>
+            <field name="domain">[('returned', '=', True)]</field>
+        </record>
+
+        <menuitem action="action_sale_order_line_ebay_form" id="menu_action_ebay_returns_tree" parent="sales_team.menu_sales" sequence="0"/>
+
+
+
+
+    </data>
+</odoo>

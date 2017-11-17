@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+##############################################################################
+#    Copyright (c) 2015 - Present Teckzilla Software Solutions Pvt Ltd. All Rights Reserved
+#    Author: [Teckzilla Software Solutions]  <[ sales@teckzilla.net]>
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    A copy of the GNU General Public License is available at:
+#    <http://www.gnu.org/licenses/gpl.html>.
+#
+#
+#
+##############################################################################
+-->
+
+
+<odoo>
+        <data>
+            <template id="thankyou_oauth">
+                <t t-call="website.layout">
+                    <div id="wrap">
+                        <div class="oe_structure">
+                            <div class="container">
+                                <h1>Thank you!</h1>
+                                <p>
+                                    Your User Token is successfully added to the Ebay Instance
+                                </p>
+                            </div>
+                            <section class="oe_dark">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-md-12 text-center mt16 mb16">
+                                            <a href="/" class="btn btn-primary btn-lg">Continue To Your Homepage</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </t>
+            </template>
+
+
+            <template id="error">
+                <t t-call="website.layout">
+                    <div id="wrap">
+                        <div class="oe_structure">
+                            <div class="container">
+                                <h1>Sorry!!</h1>
+                                <p>
+                                    Something went wrong..Please Try again.
+                                </p>
+                            </div>
+                            <section class="oe_dark">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-md-12 text-center mt16 mb16">
+                                            <a href="/" class="btn btn-primary btn-lg">Continue To Your Homepage</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </t>
+            </template>
+        </data>
+</odoo>

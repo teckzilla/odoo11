@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+##############################################################################
+#    Copyright (c) 2015 - Present Teckzilla Software Solutions Pvt Ltd. All Rights Reserved
+#    Author: [Teckzilla Software Solutions]  <[ sales@teckzilla.net]>
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    A copy of the GNU General Public License is available at:
+#    <http://www.gnu.org/licenses/gpl.html>.
+#
+#    
+#
+##############################################################################
+-->
+
+<odoo>
+    <data>
+        <!-- Delivery Carriers -->
+       <record id="view_delivery_carrier_form_for_amazon" model="ir.ui.view">
+            <field name="name">delivery.carrier.form.for.amazon</field>
+            <field name="model">delivery.carrier</field>
+            <field name="inherit_id" ref="delivery.view_delivery_carrier_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//notebook" position="inside">
+                    <page string="Ebay Carrier Info">
+                        <group name="Ebay" string="Ebay">
+                            <field name="carrier_code" />
+                            <field name="ship_type" />
+                        </group>
+                    </page>
+                </xpath>
+                
+           </field>
+        </record>
+
+
+        <!-- res partner view to add ebay user ID -->
+        <record id="view_partner_for_ebay" model="ir.ui.view">
+            <field name="name">view_partner_for_ebay</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='email']" position="after">
+                        <field name="ebay_user_id" attrs="{'invisible': [('ebay_user_id','=', False)]}"/>
+                </xpath>
+           </field>
+        </record>
+        
+    </data>
+</odoo>

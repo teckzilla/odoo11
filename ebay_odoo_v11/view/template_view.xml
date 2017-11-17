@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+##############################################################################
+#    Copyright (c) 2015 - Present Teckzilla Software Solutions Pvt Ltd. All Rights Reserved
+#    Author: [Teckzilla Software Solutions]  <[ sales@teckzilla.net]>
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    A copy of the GNU General Public License is available at:
+#    <http://www.gnu.org/licenses/gpl.html>.
+#
+#    
+#
+##############################################################################
+-->
+
+
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="ebayerp_view_temp_form">
+            <field name="name">ebayerp.view.temp.form</field>
+            <field name="model">ebayerp.template</field>
+            <field name="arch" type="xml">
+                <form string="Ebay Template">
+                    <notebook colspan="4">
+                        <page string="Product Listing">
+                            <group colspan="4">
+                                <field name="template_type"/>
+                                <field name="name" select="1" colspan="2"/>
+                                <group colspan="8">
+                                 <field name="currency" required="0" colspan="2" attrs="{'invisible':[('template_type','=','description')],'required': [('template_type', '!=', 'description')]}"/>
+
+                                    <field name="price" required="0" colspan="2" attrs="{'invisible':[('template_type','=','description')],'required': [('template_type', '!=', 'description')]}"/>
+                                    <field name="best_offer" required="0" colspan="2" attrs="{'invisible':[('template_type','=','description')],'required': [('template_type', '!=', 'description')]}"/>
+                                </group>
+                                
+                                
+                                <field name="item_specifics_enabled_cat1" invisible="1"/>
+                                <group colspan="8" attrs="{'invisible':[('template_type','=','selling'),('template_type','=','description')]}">
+                                    <separator string="Description" colspan="8"/>
+<!--                                    <html>
+                                        <a onclick="javascript:toggle_ckeditor();" class="wysiwyg_button wysiwyg_button_off oe_button">WYSIWYG on</a>
+                                    </html>-->
+                                    <field name="description" nolabel="1" colspan="4" widget="html"/>
+                                </group>
+                              
+                                <field  name="plcs_holds_tmps" nolabel="1">
+                                    <tree string="PlaceHolder" editable="bottom">
+                                        <field name="name" />
+                                        <field name="tmplate_field_id"/>                                        
+                                        <field name="value"/>
+                                    </tree>
+                                </field>
+                                
+                            </group>
+                            <group colspan="4">
+                            <field name="add_to_decs" />
+                            </group>
+                       </page>
+                       
+
+                    <page string="Buyer Requirements" attrs="{'invisible':[('template_type','=','selling'),('template_type','=','description')]}">
+                            <group>
+                                <field name="check"/>
+                            </group>
+                            <group colspan="4" col="8" attrs="{'invisible':[('check','=',False)]}">
+                                <field name="pay_pal_accnt"/>
+                                <newline/>
+                                <field name="pri_ship"/>
+                                <newline/>
+                                <separator string="Unpaid Strike" colspan="4" />
+                                <newline/>
+                                <field name="have_rec"/>
+                                <field name="unpaid_str" attrs="{'readonly':[('have_rec','=',False)]}"/>
+                                <field name="unpaid_str_wthn" attrs="{'readonly':[('have_rec','=',False)]}"/>
+                                <separator string="Violation Policy" colspan="4" />
+                                <newline/>
+                                <field name="hv_policy_vio"/>
+                                <field name="policy_vio" attrs="{'readonly':[('hv_policy_vio','=',False)]}"/>
+                                <field name="policy_vio_wthn" attrs="{'readonly':[('hv_policy_vio','=',False)]}"/>
+                                <newline/>
+                                <separator string="Feedback" colspan="4" />
+                                <newline/>
+                                <field name="hv_feed_scr"/>
+                                <newline/>
+                                <field name="feed_scr" attrs="{'readonly':[('hv_feed_scr','=',False)]}"/>
+                                <newline/>
+                                <field name="hv_bid"/>
+                                <newline/>
+                                <field name="bid" attrs="{'readonly':[('hv_bid','=',False)]}"/>
+                                <newline/>
+                                <field name="only_feed_scr"/>
+                                <newline/>
+                                <field name="feed_scr_lwr" attrs="{'readonly':[('only_feed_scr','=',False)]}"/>
+                            </group>
+                            <group colspan="8">
+                                <newline/>
+                                <separator string="Private Listing" colspan="8"/>
+                                <field name="private_listing"/>
+                                <newline/>
+                            </group>
+                        </page>
+                 <page string="Return Policy" attrs="{'invisible':[('template_type','=','selling'),('template_type','=','description')]}">
+                            <group>
+                                <group >
+                                    <separator string="Return policy details"/>
+                                    <newline/>
+                                    <field name="retur_pol" />
+                                    <newline/>
+                                    <field name="retur_days" attrs="{'invisible':[('retur_pol','=','ReturnsNotAccepted')]}"/>
+                                    <newline/>
+                                    <field name="refund_giv_as" attrs="{'invisible':[('retur_pol','=','ReturnsNotAccepted')]}"/>
+                                    <newline/>
+                                    <field name="paid_by" attrs="{'invisible':[('retur_pol','=','ReturnsNotAccepted')]}"/>
+                                    <newline/>
+                                    
+                                    <field name="cost_paid_by" attrs="{'invisible':[('retur_pol','=','ReturnsNotAccepted')]}"/>
+                                    <field name="add_det" attrs="{'invisible':[('retur_pol','=','ReturnsNotAccepted')]}"/>
+                                    <newline/>
+                                </group>
+
+                                <separator string="Additional Instruction" colspan="4" />
+                                <newline/>
+                                <field name="add_inst" colspan="8"/>
+
+
+                            </group>
+
+                        </page>
+                        
+                        <page string="Shipping Type" attrs="{'invisible':[('template_type','=','selling'),('template_type','=','description')]}">
+                                  <group>  
+                                  <separator string="Handling time" colspan="4"/>
+                                      <group>
+                                           <field name="hand_time" />
+                                             <!--<newline/>-->
+                                            <field name="loc_pick"/>
+                                      </group>
+
+                                <separator string="Additional option" colspan="4"/>
+                                      <group>
+                                <field name="get_it_fast"/>
+                                <field name="handling_cost" required = "1"/>
+                                <field name="intr_pack_type"/>
+                                <field name="intr_irreg_pack"/>
+                                <field name="intr_max_weight"/>
+                                <field name="intr_min_weight"/>       
+                                  </group>
+                                 
+                                   <newline/>  
+                                                                                      
+                             <separator string="Domestic/International Shipping" colspan="8"/>
+                                      <group>
+                                          <field name="ship_type"/>
+                                          <field name="free_shipping"/>
+                                      </group>
+
+
+
+
+                    </group>                                               
+                <group attrs="{'invisible':[('ship_type','in',['Free','Calculated','Freight'])]}" >
+                <field  name="shipping_datas_falt" nolabel="1">
+                    <form string="Shipping Details" >
+
+                            <group>
+                                <group>
+                                    <field name="service_type"/>
+                                    <field name="tmp_shipping_service" />
+                                    <field name="ship_to"/>
+                                </group>
+
+        <!--                        <field name="free_shipping"/>-->
+
+                                <group>
+                                    <field name="shipping_cost" required = "1" />
+                                <field name="add_cost" required = "1"/>
+                                </group>
+
+
+                                <field colspan="4"  name="all_locs" nolabel="1"  attrs="{'invisible':[('ship_to','!=','customloc')]}">
+                                    <tree editable="bottom">
+                                    <field name="name" />
+                                    <field name="ship_code"/>
+                                    </tree>
+                                </field>
+                            </group>
+
+                    </form>
+                    <tree>
+                        <field name="service_type"/>
+                        <field name="tmp_shipping_service" />
+                        <field name="ship_to"/>
+                        <field name="shipping_cost" required = "1" />
+                    </tree>
+                    </field>
+                    </group>
+                       
+            <group attrs="{'invisible':[('ship_type','in',['Free','Flat','Freight'])]}" colspan="8">
+                <field  name="shipping_datas_calcualted" nolabel="1">
+                    <form string="Shipping Details" >
+                        <group>
+                            <group>
+                                 <field name="service_type"/>
+                                <field name="tmp_shipping_service" />
+                            </group>
+
+    <!--                        <field name="free_shipping"/>-->
+                            <group>
+                                 <field name="ship_to"/>
+                            </group>
+
+                            <field colspan="4"  name="all_locs" nolabel="1"  attrs="{'invisible':[('ship_to','!=','customloc')]}">
+                                <tree editable="bottom">
+                                <field name="name" />
+                                <field name="ship_code"/>
+                                </tree>
+                            </field>
+                        </group>
+                      </form>
+                    <tree>
+                        <field name="service_type"/>
+                        <field name="tmp_shipping_service" />
+                        <field name="ship_to"/>
+                    </tree>
+
+                    </field>
+                    </group>
+                                  
+                    
+
+                                
+                        </page>        
+                        </notebook>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="ebayerp_tree">
+            <field name="name">ebayerp.tree</field>
+            <field name="model">ebayerp.template</field>
+            <field name="arch" type="xml">
+                <tree  string="Ebay Template">
+                    <field name="name"/>
+
+                </tree>
+            </field>
+        </record>
+        <record id="action_ebayerp_template" model="ir.actions.act_window">
+            <field name="name">Ebay Template</field>
+            <field name="res_model">ebayerp.template</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+   
+    <menuitem action="action_ebayerp_template" id="menu_ebay_product_listing1" parent="menu_ebay_list"/>   
+         
+   
+        
+        
+    </data>
+</odoo>
