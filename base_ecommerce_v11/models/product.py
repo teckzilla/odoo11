@@ -73,7 +73,7 @@ class product_product(models.Model):
                 id.product_image = False
 
 
-    # image_ids = fields.One2many('product.images', 'product_id', string='Product Images')
+    image_ids = fields.One2many('product.images', 'product_id', string='Product Images')
     default_code = fields.Char(string='SKU', size=64, require='True')
 
 

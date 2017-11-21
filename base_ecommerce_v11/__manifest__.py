@@ -43,7 +43,7 @@
             'view/import_sequence.xml',
             'view/attribute_view.xml',
             'view/base_menu_view.xml',
-            # 'view/product_images_view.xml',
+            'view/product_images_view.xml',
             'view/attribute_view.xml',
             'wizard/update_marketplace_price_view.xml',
             'wizard/update_bulk_carrier_view.xml',
