@@ -20,6 +20,7 @@
 #from openerp.osv import osv
 #from openerp import models, fields, api, _
 import base64, urllib
+import urllib.request
 from odoo import api, fields, models, _
 from odoo.exceptions import UserError, ValidationError
 #from openerp.tools.translate import _
@@ -81,14 +82,17 @@ class product_images(models.Model):
         logger.info("==eacheacheacheacheacheacheacheacheacheacheacheacheach==>%s",each)
         each = each[0]
         if each['link']:
-            (filename, header) = urllib.urlretrieve(each['url'])
+            # (filename, header) = urllib.urlretrieve(each['url'])
+            (filename, header) = urllib.request.urlretrieve(each['url'])
             f = open(filename , 'rb')
             img = base64.encodestring(f.read())
             f.close()
         else:
             local_media_repository = self.env['res.company'].get_local_media_repository()
             if local_media_repository:
-                product_code = self.env['product.product'].read(each['product_id'][0], ['default_code'])['default_code']
+                # product_code = self.env['product.product'].read(each['product_id'][0], ['default_code'])['default_code']
+                product_id = self.env['product.product'].search([('id','=',each['product_id'][0])])
+                product_code = product_id.default_code
                 full_path = os.path.join(local_media_repository, product_code, '%s%s'%(each['name'], each['extention']))
                 if os.path.exists(full_path):
                     try:
