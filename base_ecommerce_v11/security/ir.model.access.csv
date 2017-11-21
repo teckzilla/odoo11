@@ -21,3 +21,6 @@ access_group_product_allocation_history_sale_manager,product.allocation.history,
 access_group_pproduct_allocation_history_sale_user,product.allocation.history,model_product_allocation_history,sales_team.group_sale_manager,1,1,1,1
 access_group_ecommerce_manager_ir_module_module,access.group.ecommerce.ir.module.module,base.model_ir_module_module,base_ecommerce_v11.group_ecommerce_manager,1,1,1,1
 access_group_sale_shop_sale_manager,sale.shop.ecommerce.manager,model_sale_shop,base_ecommerce_v11.group_ecommerce_manager,1,1,1,1
+access_group_product_images_sale_manager,access.group.product.images.sale.manager,model_product_images,sales_team.group_sale_manager,1,1,1,1
+access_group_product_images_sale_user,access.group.product.images.sale.user,model_product_images,sales_team.group_sale_manager,1,1,1,1
+access_group_product_images_stock_group,access.group.product.images.stock.group,model_product_images,stock.group_stock_manager,1,1,1,1
