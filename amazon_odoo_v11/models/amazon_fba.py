@@ -35,13 +35,13 @@ class amazon_shipping(models.Model):
         res = {}
         qty = 10
         for amazon_shipping_data in self:
-            print'amazon_shipping_data---',amazon_shipping_data
+
             res[amazon_shipping_data.id]=qty
             if amazon_shipping_data.shipping_product_ids:
                 for shipping_qtys in amazon_shipping_data.shipping_product_ids:
                     if shipping_qtys.qty:
                         qty += shipping_qtys.qty
-                print'qty----------------',qty
+
                 self.total_qty = qty
     
     @api.multi
@@ -136,7 +136,7 @@ class amazon_shipping(models.Model):
         parameters:
             No Parameters
         '''
-        print"CreateInboundShipmentPlan_Api"
+
         url_params = {}
         url_header = {}
         res_object=self.env['res.partner']
@@ -144,7 +144,7 @@ class amazon_shipping(models.Model):
         
         shopdata =self.env['sales.channel.instance'].search([('module_id','=','amazon_odoo_v11')])
         """ CreateInboundShipmentPlan------------ """
-        print'shopdata----',shopdata
+
         for amazon_shipping_data in self:
             if not amazon_shipping_data.partner_id:
 #                raise osv.except_osv(_('Error !'),_('Shop Address Mandatory'))

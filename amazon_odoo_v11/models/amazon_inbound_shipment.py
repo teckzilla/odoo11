@@ -131,7 +131,7 @@ class amazon_inbound_shipment(models.Model):
                     url_params['InboundShipmentItems.member.'+str(int(count))+'.SellerSKU'] =  line.amazon_sku.name.strip()
                     url_params['InboundShipmentItems.member.'+str(int(count))+'.QuantityShipped'] = int(line.qty)
                     count += 1
-            print'url_params-----',url_params
+
             
             results = amazon_api_obj.call(shopdata.instance_id, 'CreateInboundShipment',url_params)
         return results
@@ -151,7 +151,7 @@ class amazon_inbound_shipment(models.Model):
     
     @api.multi
     def create_dest_address(self,vals):
-        print"create_dest_address"
+
         partner_obj = self.env['res.partner']
         partner_ids = partner_obj.search([('ref','=',vals['CenterId'])])
         if not len(partner_ids):

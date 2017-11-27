@@ -21,8 +21,8 @@
 
 #import add_amazon_asin
 #import import_amazon_categ
-import update_marketplace_price
-import update_order
-import category_import
+from . import update_marketplace_price
+from . import update_order
+from . import category_import
 #import upload_product
 #import import_fba_order

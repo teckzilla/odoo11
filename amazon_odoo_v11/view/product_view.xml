@@ -62,7 +62,7 @@
                                 <page string="Amazon Attributes">
                                     <separator string="Amazon Attributes" colspan="4"/>
                                     <group>
-                                        <field name="amazon_category" domain="[('shop_id.instance_id.module_id','=','amazon_teckzilla')]"/>
+                                        <field name="amazon_category" domain="[('shop_id.instance_id.module_id','=','amazon_odoo_v11')]"/>
                                         <field name="item_type" domain="[('attr_type_id','=',amazon_category)]"/>
                                     </group>
                                     <field name="amazon_attribute_ids1" nolabel="1" colspan="4">
@@ -78,15 +78,15 @@
                                     <group>
                                         <field name="amzn_condtn" colspan="2" />
                                         <field name="amazon_cat" placeholder="Item Type e.g. Shirt, Sweater, Pants, Shorts, Skirt, Dress, Suit, Blazer, Outerwear, SocksHosiery"/>
-                                        <field name="amazon_brand"/>" />
-                                        <field name="department" placeholder="Department e.g. mens,womens etc"/>" />
+                                        <field name="amazon_brand"/>
+                                        <field name="department" placeholder="Department e.g. mens,womens etc"/>
                                         <field name="amazon_manufacturer"/>
-                                        <field name="amazon_description" colspan="2" />
+                                        <field name="amazon_description" colspan="2"/>
                                         <field name="style_keywords" placeholder="Style Keywords e.g. Style Keywords1,Style Keywords2,Style Keywords3,Style Keywords4,Style Keywords5"/>
                                         <field name="search_keywords" placeholder="Search Keywords e.g. Search Keywords1,Search Keywords2,Search Keywords3,Search Keywords4,Search Keywords5"/>
                                         <field name="platinum_keywords" placeholder="Platinum Keywords e.g. Platinum Keywords1,Platinum Keywords2,Platinum Keywords3,Platinum Keywords4,PlatinumKeywords5"/>
-                                        <field name="bullet_point" placeholder="Bullet Point e.g. Bullet Point1,Bullet Point2,Bullet Point3,Bullet Point4,Bullet Point5"/>    
-                                        <field name="code_type"/>                       
+                                        <field name="bullet_point" placeholder="Bullet Point e.g. Bullet Point1,Bullet Point2,Bullet Point3,Bullet Point4,Bullet Point5"/>
+                                        <field name="code_type"/>
                                         <!--<field name="amazon_category" colspan="2" invisible="1"/>-->
                                     </group>
                                 </page>
@@ -227,7 +227,8 @@
             <field name="view_id" ref="product_amazon_listing_tree_view"/>
         </record>
         
-        <menuitem id="menu_amazon_product_base" parent="sales_team.menu_base_partner" name="Amazon" groups="base_ecommerce_v11.group_ecommerce_manager"/>
+        <!--<menuitem id="menu_amazon_product_base" parent="sales_team.menu_base_partner" name="Amazon" groups="base_ecommerce_v11.group_ecommerce_manager"/>-->
+        <menuitem id="menu_amazon_product_base" parent="sale.sale_menu_root" name="Amazon" groups="base_ecommerce_v11.group_ecommerce_manager" sequence="3"/>
         <menuitem action="action_amazon_product_listing" id="menu_amazon_product_listing" parent="menu_amazon_product_base"  />
         
 <!--        amazon product listing rank view start-->
