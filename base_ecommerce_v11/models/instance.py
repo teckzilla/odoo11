@@ -19,9 +19,11 @@
 #
 ##############################################################################
 
-from odoo import api, fields, models, tools, _
+from odoo import api, fields, models,modules, tools, _
 import base64
-from odoo.modules import get_module_resource
+import io
+from odoo.modules.module import get_module_resource
+# from PIL import Image
 
 
 class sales_channel_instance(models.Model):
@@ -62,29 +64,27 @@ class sales_channel_instance(models.Model):
         if self.module_id == 'ebay_odoo_v11':
             image_path = get_module_resource('base_ecommerce_v11', 'static/images', 'EBay_logo.png')
 
-        # if shop_obj.instance_id.module_id == 'jet_teckzilla':
-        #     self.marketplace_image = "Text which will be replaced"
-
         if self.module_id == 'magento_odoo_v10':
             image_path = get_module_resource('base_ecommerce_v11', 'static/images', 'logomagento.png')
-
-        # if shop_obj.instance_id.module_id == 'groupon_teckzilla':
-        #     self.marketplace_image = "Text which will be replaced"
-
-        # if shop_obj.instance_id.module_id == 'woocommerce_odoo':
-        #     self.marketplace_image = "Text which will be replaced"
 
         if self.module_id == 'shopify_odoo_v10':
             image_path = get_module_resource('base_ecommerce_v11', 'static/images', 'shopify.png')
 
-        if image_path:
-            with open(image_path, 'rb') as f:
-                image = f.read()
-        if image and colorize:
-            image = tools.image_colorize(image)
+        # if image_path:
+        #     with open(image_path, 'rb') as f:
+        #         image = f.read()
+        # if image_path:
+        #     f = open(image_path, 'rb')
+        #     image = f.read()
+            # image=Image.open(image_path)
 
-        self.image = tools.image_resize_image_big(image.encode('base64'))
-    
+        # if image and colorize:
+        #     image = tools.image_colorize(image)
+
+        # self.image = tools.image_resize_image_big(image.encode('base64'))
+        # self.image = base64.b64encode(image).decode('ascii')
+        self.image=tools.image_resize_image_small(base64.b64encode(open(image_path, 'rb').read()))
+
     
     @api.multi
     def create_stores(self):
