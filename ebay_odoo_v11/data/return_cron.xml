@@ -6,8 +6,11 @@
         <field name="interval_type">hours</field>
         <field name="numbercall">-1</field>
         <field name="doall" eval="False"/>
-        <field name="model" eval="'sale.shop'"/>
-        <field name="function" eval="'run_get_user_returns_scheduler'"/>
+        <!--<field name="model" eval="'sale.shop'"/>-->
+        <field name="model_id" ref="model_sale_shop"/>
+        <!--<field name="function" eval="'run_get_user_returns_scheduler'"/>-->
+        <field name="state">code</field>
+        <field name="code">model.run_get_user_returns_scheduler()</field>
         <field name="args" eval="'()'" />
     </record>
 
@@ -18,18 +21,25 @@
         <field name="interval_type">hours</field>
         <field name="numbercall">-1</field>
         <field name="doall" eval="False"/>
-        <field name="model" eval="'sales.channel.instance'"/>
-        <field name="function" eval="'run_schedular_renew_token'"/>
+        <!--<field name="model" eval="'sales.channel.instance'"/>-->
+        <field name="model_id" ref="model_sales_channel_instance"/>
+        <!--<field name="function" eval="'run_schedular_renew_token'"/>-->
+        <field name="state">code</field>
+        <field name="code">model.run_schedular_renew_token()</field>
         <field name="args" eval="'()'" />
         </record>
+
      <record model="ir.cron" id="update_ebay_listing_cron">
         <field name="name">Update Ebay Listing</field>
         <field name="interval_number">1</field>
         <field name="interval_type">hours</field>
         <field name="numbercall">-1</field>
         <field name="doall" eval="False"/>
-        <field name="model" eval="'ebay.product.listing'"/>
-        <field name="function" eval="'update_listing_cron'"/>
+        <!--<field name="model" eval="'ebay.product.listing'"/>-->
+        <field name="model_id" ref="model_ebay_product_listing"/>
+        <!--<field name="function" eval="'update_listing_cron'"/>-->
+        <field name="state">code</field>
+        <field name="code">model.update_listing_cron()</field>
         <field name="args" eval="'()'" />
 
     </record>

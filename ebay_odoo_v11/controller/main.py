@@ -38,7 +38,7 @@ class ebay_oauth(http.Controller):
         logger.info("--------response----------- %s", resp.text)
         if resp.status_code == requests.codes.ok:
             post_data = json.loads(resp.text)
-            print "-------pos_data----------",post_data
+
 
             token = post_data.get('access_token',False)
             refresh_token = post_data.get('refresh_token',False)

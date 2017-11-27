@@ -80,7 +80,7 @@ class refund_order(models.TransientModel):
     @api.multi
     def make_entry(self):
 
-        print "-----",self._context['active_id']
+
         order_line_id = self.env['sale.order.line'].browse(self._context['active_id'])
         invoice_obj=self.env['account.invoice']
         # invoice_id=invoice_obj.search([('origin','=',order_line_id.order_id.name),('state','=','paid')])
@@ -178,7 +178,7 @@ class refund_order(models.TransientModel):
             refund['itemizedRefundDetail']=itemized_refund_detail
             data['refundDetail']=refund
             payload=json.dumps(data)
-            print payload
+
             response = requests.request("POST", url, data=payload, headers=headers)
             if response.status_code == 200:
                 result=json.loads(response.content)

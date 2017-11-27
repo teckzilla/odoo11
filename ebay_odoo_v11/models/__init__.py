@@ -21,16 +21,16 @@
 #----------------------------------------------------------
 # Init Amazon
 #----------------------------------------------------------
-import sale
-import product_images
-import template
-import ebayerp_osv
-import ebay
-import delivery
-import product
-import stock
-import attribute
-import list_item
-import res_partner
-import product_images
-import ebay_oauth
+from . import sale
+from . import product_images
+from . import template
+from . import ebayerp_osv
+from . import ebay
+from . import delivery
+from . import product
+from . import stock
+from . import attribute
+from . import list_item
+from . import res_partner
+from . import product_images
+from . import ebay_oauth

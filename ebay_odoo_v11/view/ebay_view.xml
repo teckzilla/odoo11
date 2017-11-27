@@ -63,7 +63,7 @@
                     </xpath>
                     <xpath expr="//sheet" position="before">
                             <header attrs="{'invisible':[('module_id','!=','ebay_odoo_v11')]}">
-                              <button name="get_authorization_code" type="object" string="Get User Token" class="oe_highlight" attrs="{'invisible':[('ebay_oauth','=',False)]}"/>
+                              <button name="get_authorization_code" type="object" string="Get User Token"  class="oe_highlight" attrs="{'invisible':[('ebay_oauth','=',False)]}"/>
                               <button name="renew_token" type="object" string="Refresh User Token" class="oe_highlight" attrs="{'invisible':[('ebay_oauth','=',False)]}"/>
                             </header>
                     </xpath>

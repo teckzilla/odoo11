@@ -105,7 +105,7 @@ class sales_channel_instance(models.Model):
             'scope': scope
         }
         resp = requests.post(url=request_url, data=payload, headers=headers)
-        print resp.text
+
         if resp.status_code == requests.codes.ok:
             post_data = json.loads(resp.text)
             token = post_data.get('access_token',False)

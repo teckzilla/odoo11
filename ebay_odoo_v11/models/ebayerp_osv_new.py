@@ -19,12 +19,16 @@
 ##############################################################################
 
 import sys
+from importlib import reload
 reload(sys)
 sys.setdefaultencoding( "latin-1" )
 sys.getdefaultencoding()
 from odoo import models, fields, api, _
 from odoo.exceptions import UserError, ValidationError
-import httplib, ConfigParser, urlparse
+# import httplib, ConfigParser, urlparse
+import configparser
+import http.client
+from urllib.parse import urlparse
 from xml.dom.minidom import parse, parseString
 import xml.etree.ElementTree     as etree
 import time
@@ -43,7 +47,7 @@ class Session:
     ServerURL = "https://api.sandbox.ebay.com/ws/api.dll"
 
     def Initialize(self, Developer, Application, Certificate, Token, ServerURL):
-        config = ConfigParser.ConfigParser()
+        config = configparser.ConfigParser()
         config.read("ebay.ini")
         """self.Developer = config.get("Developer Keys", "Developer")
         self.Application = config.get("Developer Keys", "Application")
@@ -55,7 +59,7 @@ class Session:
         self.Certificate = Certificate
         self.Token = Token
         self.ServerURL = ServerURL
-        urldat = urlparse.urlparse(self.ServerURL)
+        urldat = urlparse(self.ServerURL)
         """ e.g., api.sandbox.ebay.com """
         self.Server = urldat[1]   
         """ e.g., /ws/api.dll """
@@ -73,7 +77,7 @@ class Call:
         """specify the connection to the eBay Sandbox environment
         # TODO: Make this configurable in eBay.ini (sandbox/production)
         """
-        conn = httplib.HTTPSConnection(self.Session.Server)
+        conn = http.client.HTTPSConnection(self.Session.Server)
         if CallName =='UploadSiteHostedPictures':
             conn.request("POST", self.Session.Command, self.RequestData, self.GenerateHeaders_upload_picture(self.Session, CallName,len(self.RequestData)))
         else:
@@ -82,7 +86,7 @@ class Call:
         """store the response data and close the connection
         """
         data = response.read()
-#        #print"=====gggggggg========data",data
+
         conn.close()
         responseDOM = parseString(data)
 
@@ -92,7 +96,7 @@ class Call:
         tag = responseDOM.getElementsByTagName('Error')
         if (tag.count!=0):
             for error in tag:
-                print "\n"
+                print ("\n")
 
         return responseDOM
     
@@ -499,7 +503,7 @@ class GetSellerTransactions:
                             info['ShippingName'] = gcNode.childNodes[0].data
                         elif gcNode.nodeName == 'Street1':
                             info['ShippingAddressLine1'] = gcNode.childNodes and gcNode.childNodes[0].data or ''
-			elif gcNode.nodeName == 'Street2':
+                        elif gcNode.nodeName == 'Street2':
                             info['ShippingAddressLine2'] = gcNode.childNodes and gcNode.childNodes[0].data or ''
                         elif gcNode.nodeName == 'CityName':
                             info['ShippingCity'] = gcNode.childNodes and gcNode.childNodes[0].data or ''
@@ -575,7 +579,7 @@ class GetSellerTransactions:
         return info
 
     def getExternalTransactionInfo(self, node):
-        print"--------getExternalTransactionInfo----------"
+
         info = {}
         for cNode in node.childNodes:
             if cNode.nodeName == 'ExternalTransactionID':
@@ -1251,7 +1255,7 @@ class GetItem:
             for cNode in node.childNodes:
                 if cNode.nodeName in ['CategoryID']:
                     info.update({'categ_code' : cNode.childNodes[0].data})
-#                    print"0000000000info00000000000",info
+
                 if cNode.nodeName in ['CategoryName']:
                     info.update({'categ_name' : cNode.childNodes[0].data})
             data.append(info)
@@ -1265,7 +1269,7 @@ class GetItem:
             for cNode in node.childNodes:
                 if cNode.nodeName in ['StoreCategoryID']:
                     info.update({'store_categ1' : cNode.childNodes[0].data})
-#                    print"0000000000info00000000000",info
+
                 if cNode.nodeName in ['StoreCategory2ID']:
                     info.update({'store_categ2' : cNode.childNodes[0].data})
             data.append(info)
@@ -1523,167 +1527,7 @@ class ReviseItem:
  
         
         
-#class ReviseItem:
-#    Session = Session()
-#    def __init__(self, DevID, AppID, CertID, Token, ServerURL):
-#        self.Session.Initialize(DevID, AppID, CertID, Token, ServerURL)
-#
-#    def geterrors(self, nodelist):
-#       transDetails = []
-#       info = {}
-#       for cNode in nodelist.childNodes:
-#           if cNode.nodeName == 'LongMessage':
-#               if cNode.childNodes:
-#                    info[cNode.nodeName] = cNode.childNodes[0].data
-#           if cNode.nodeName == 'SeverityCode':
-#               if cNode.childNodes:
-#                    info[cNode.nodeName] = cNode.childNodes[0].data
-#       transDetails.append(info)
-#       return transDetails
-#   
-#    def Get_common_update(self, ids,itemlist,siteid):
-#        api = Call()
-#        api.Session = self.Session
-#        api.SiteID = siteid
-#        api.DetailLevel = "0"
-#        msg_id=0
-#        full_urls=[]
-#        cv=0
-#        
-#        name_val_str=''
-#        for item in itemlist:
-#            
-#          if   item['site_code']!='india':
-#              payment_method="""<PaymentMethods>%s</PaymentMethods>"""%(item['payment_method'])
-#          else:
-#              payment_method=''
-#              
-#          if item['attribute_array']!=False:
-#                for key, value in item['attribute_array'].iteritems():
-#
-#                    name_val_str+= """<NameValueList>
-#                                    <Name>%s</Name>
-#                                    <Value>%s</Value>
-#                                  </NameValueList>""" %(key,value)
-#            
-#          
-##          if item['attribute_array']!=False:
-##                for each_key in item['attribute_array']:
-##                    name_val_str+= """<NameValueList>
-##                                    <Name>%s</Name>
-##                                    <Value>%s</Value>
-##                                  </NameValueList>""" %(each_key['value'],each_key['name'])
-#    #            Itemspecifics =''
-#                Itemspecifics = "<ItemSpecifics>"+ name_val_str.encode('utf-8')+ "</ItemSpecifics>"
-#          else:
-#                Itemspecifics=''   
-#          images='<PhotoDisplay>SuperSize</PhotoDisplay>'
-#          for each_url in item['images']:
-#                # # print'each_url',each_url
-#             images += """<PictureURL>%s</PictureURL>"""%(each_url)
-#          images_url = ''
-#          images_url = """<PictureDetails>""" + images  + """</PictureDetails>"""
-#            # # print'images_url',images_url
-#
-#
-#          title_cd = "<![CDATA[" + item['listing_title'] + "]]>"
-#          description_cd = "<![CDATA[" + item['description'] + "]]>"
-#          itemspecific=''
-#          category=''
-#          bold_tag=''
-##            itemspecific=self.get_itemspecific(cr,uid,product_category,product_data,data)
-##            print'itemspecific',itemspecific
-#          product_cat = item['category_code']
-#          print'------store_category------',itemlist[0]['store_category']
-#          storecategory = ''
-#          if item['store_category']:
-#              store_category_count=1
-#              storecategory += """<Storefront>"""
-#              for store_category in item['store_category']:
-#                  if store_category_count ==1:
-#                       storecategory +="""<StoreCategoryID>%s</StoreCategoryID>
-#                      <StoreCategoryName>%s</StoreCategoryName>"""%(store_category['category_id'],store_category['name'])
-#
-#                  if store_category_count ==2:    
-#                      storecategory +="""<StoreCategory2ID>%s</StoreCategory2ID>
-#                      <StoreCategory2Name>%s</StoreCategory2Name>"""%(store_category['category_id'],store_category['name'])
-#
-#                  store_category_count += 1
-#              storecategory +="""</Storefront>"""
-#
-#          
-#          if product_cat:
-#                     category="""<PrimaryCategory><CategoryID>%s</CategoryID></PrimaryCategory>"""%(product_cat)
-#                     api.RequestData = """<?xml version="1.0" encoding="utf-8"?>
-#                                <ReviseItemRequest xmlns="urn:ebay:apis:eBLBaseComponents">
-#                                 <RequesterCredentials>
-#                                 <eBayAuthToken>%(ebay_token)s</eBayAuthToken>
-#                                 </RequesterCredentials>
-#                                 <Item>%(storecategory)s
-#                                    <ItemID>%(item_id)s</ItemID>
-#                                    <Title>%(title)s</Title>
-#                                     <Description>%(description)s</Description>""" +images_url+"""
-#                                     """+Itemspecifics+"""
-#                                     """+payment_method+"""
-#                                     """+category+"""
-#                                      <SubTitle>%(subtitle)s</SubTitle>
-#                                      """+bold_tag+"""
-#                                       <ConditionID>%(condition_id)s</ConditionID>
-#                                        <PrivateListing>%(private_listing)s</PrivateListing>
-#                                        <ListingType>%(listing_type)s</ListingType>
-#                                       <BestOfferDetails>
-#                                        <BestOfferEnabled>%(best_offer)s</BestOfferEnabled>
-#                                        </BestOfferDetails>
-#                                  </Item>
-#                                 </ReviseItemRequest>​​"""
-#
-#                     api.RequestData = api.RequestData % {
-#                                                  'storecategory':storecategory,
-#                                                  'item_id' : item['ebay_item_id'],
-#                                                  'title' :title_cd,
-#                                                  'description':description_cd.encode("utf-8"),
-#                                                  'ebay_token':self.Session.Token.encode("utf-8"),
-#                                                  'subtitle':item['sub_title'],
-#                                                  'condition_id':item['condition'],
-#                                                  'private_listing':item['private_listing'],
-#                                                  'listing_type':item['list_type'],
-#                                                  'best_offer':str(item['best_offer'])
-#
-#                                                  }
-##                     print "api.RequestData",api.RequestData
-#                     logger.info('api.RequestData %s',api.RequestData)
-#                     responseDOM = api.MakeCall("ReviseItem")
-##                     print'responseDOM',responseDOM.toprettyxml()
-#                     logger.info('api.RequestData %s',responseDOM.toprettyxml())
-#
-#                     Dictionary={}
-#                     if responseDOM.getElementsByTagName('Ack')[0].childNodes[0].data == 'Success':
-#                        ack = responseDOM.getElementsByTagName('Ack')[0].childNodes[0].data
-#                        Dictionary.update({'Ack': ack})
-#                        item_id = responseDOM.getElementsByTagName('ItemID')[0].childNodes[0].data
-##                        logger.notifyChannel('init', netsvc.LOG_WARNING, 'item_id %s' % (item_id))
-#                        Dictionary.update({'ItemID': item_id})
-#                     elif responseDOM.getElementsByTagName('Ack')[0].childNodes[0].data == 'Warning':
-#                        ack = responseDOM.getElementsByTagName('Ack')[0].childNodes[0].data
-#                        Dictionary.update({'Ack': ack})
-#                        item_id = responseDOM.getElementsByTagName('ItemID')[0].childNodes[0].data
-#                        Dictionary.update({'ItemID': item_id})
-#                        many_errors = []
-#                        for each_error in  responseDOM.getElementsByTagName('Errors'):
-#                           errors = self.geterrors(each_error)
-#                           many_errors.append(errors)
-#                        Dictionary.update({'LongMessage': many_errors})
-#                     elif responseDOM.getElementsByTagName('Ack')[0].childNodes[0].data == 'Failure':
-#                       ack = responseDOM.getElementsByTagName('Ack')[0].childNodes[0].data
-#                       Dictionary.update({'Ack': ack})
-#                       many_errors = []
-#                       for each_error in  responseDOM.getElementsByTagName('Errors'):
-#                           errors = self.geterrors(each_error)
-#                           many_errors.append(errors)
-#                       Dictionary.update({'LongMessage': many_errors})
-#                     responseDOM.unlink()
-#                     return Dictionary                     
-                     
+
         
 
 class RelistFixedPriceItem:
@@ -1700,7 +1544,7 @@ class RelistFixedPriceItem:
             str_xml += '<Quantity>%s</Quantity>' % int(qty)
         if price:
             str_xml += ' <StartPrice currencyID="%s">%s</StartPrice>' % (currency,price)
-        #print'str_xml--------', str_xml
+
         api.RequestData = """<?xml version="1.0" encoding="utf-8"?>
             <RelistFixedPriceItem xmlns="urn:ebay:apis:eBLBaseComponents">
             <RequesterCredentials>
@@ -1722,7 +1566,7 @@ class RelistFixedPriceItem:
         else:
             for each_node in responseDOM.getElementsByTagName('Errors'):
                 error += str(each_node.childNodes[0].childNodes[0].data) + '\n'
-#            print "RelistItem error---------: ",error
+
             raise osv.except_osv('Error RelistFixedPriceItem!',error)
             raise UserError('Error RelistFixedPriceItem!',error)
             raise Exception(error)
@@ -2132,7 +1976,7 @@ class AddFixedPriceItem:
                 store_category_count += 1
             storecategory +="""</Storefront>"""
               
-#        print'storecategory====>',storecategory  
+
         container="""<Item>%s
                 <Title>%s</Title>%s<Variations>%s</Variations>
                 <Description>%s</Description>%s<PrimaryCategory>
@@ -2361,7 +2205,7 @@ class ReviseFixedPriceItem:
         else:
                 subtitle=''
 
-#        print'------store_category------',itemlist[0]['store_category']
+
         storecategory = ''
         if itemlist[0]['store_category']:
             store_category_count=1
@@ -2378,7 +2222,7 @@ class ReviseFixedPriceItem:
                 store_category_count += 1
             storecategory +="""</Storefront>"""
               
-#        print'storecategory==============',storecategory     
+
         container="""<Item>%s
                 <Title>%s</Title>%s
                 <ItemID>%s</ItemID>
@@ -2673,7 +2517,7 @@ class UploadSiteHostedPictures:
         string17 = string16 + "--MIME_boundary--" + '\r\n'
         api.RequestData = string17
         responseDOM = api.MakeCall("UploadSiteHostedPictures")
-#        print "uploadsitehosted pictures api call: ",responseDOM.toprettyxml()
+
         Dictionary={}
         if responseDOM.getElementsByTagName('Ack')[0].childNodes[0].data == 'Success':
             ack = responseDOM.getElementsByTagName('Ack')[0].childNodes[0].data
@@ -2999,13 +2843,13 @@ class GetStore:
        subchildcategoryinfo = {}
        childcategoryinfo = {}
        CustomCategories =[]
-#       print'nodelist====',nodelist
+
        subchildcategory =[]
        storeinfo = {}
        for node in nodelist:
            for cNode in node.childNodes:
                 if cNode.nodeName == 'Name':
-                    #print'cNode.childNodes[0].data--',cNode.childNodes[0].data
+
                     storeinfo[cNode.nodeName] = cNode.childNodes[0].data
                 if cNode.nodeName == 'CategoryID':
                     storeinfo[cNode.nodeName] = cNode.childNodes[0].data

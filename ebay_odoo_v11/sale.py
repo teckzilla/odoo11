@@ -87,7 +87,7 @@ class sale_shop(models.Model):
             raise osv.except_osv(_('Warning !'), _("Please Select Currency For Shop - %s")%(shop_data.name))
         try:
             result = ebayerp_osv_obj.call(inst_lnk,'RelistFixedPriceItem',itemId,qty,price,currency)
-        except Exception, e:
+        except Exception as e:
             
             if context.get('raise_exception',False):
                 raise osv.except_osv(_('Error!'),_('%s' % (str(e),)))
@@ -119,7 +119,7 @@ class sale_shop(models.Model):
                 results = ebayerp_osv_obj.call(inst_lnk,'ReviseInventoryStatus',itemId,False,revise_qty,result_variation['SKU'])
                 
                 
-            except Exception, e:
+            except Exception as e:
                 continue
         return result
     
@@ -137,7 +137,7 @@ class sale_shop(models.Model):
         inst_lnk = self.browse(shop_id).instance_id
         try:
             result = ebayerp_osv_obj.call(inst_lnk, 'VerifyRelistItem',itemId)
-        except Exception, e:
+        except Exception as e:
             if context.get('raise_exception',False):
                 raise osv.except_osv(_('Error!'),_('%s' % (str(e),)))
             return False
@@ -402,7 +402,7 @@ class sale_shop(models.Model):
     
     @api.multi
     def createListing(self,shop_id, product_id, product_sku, itemID):
-        print"=====================product_id=====",product_id
+
         '''
         This function is used to Listing Product on Ebay
         parameters:
@@ -688,7 +688,7 @@ class sale_shop(models.Model):
 
                     missed_resultvals.remove(results)
                     
-                except Exception, e:
+                except Exception as e:
                     if str(e).lower().find('connection reset by peer') != -1:
                         time.sleep(10)
                         continue
@@ -861,7 +861,7 @@ class sale_shop(models.Model):
             if not end_listing:
                 try:
                     results = ebayerp_obj.call(shop.instance_id, 'ReviseInventoryStatus',item_id, start_price, qty,product_sku)
-                except Exception, e:
+                except Exception as e:
                     if not context.get('is_automation',False):
                         raise osv.except_osv(_('Error !'),e)
                     else:
@@ -980,7 +980,7 @@ class sale_shop(models.Model):
                                 
 #                                results = connection_obj.call(ebay_inst_data, 'ReviseInventoryStatus',ebay_list_data.name, price,stock,ebay_sku,context.get('val'))
 
-            except Exception, e:
+            except Exception as e:
                 if e in ('Item not found.','FixedPrice item ended.'):
                     pass
                 else:

@@ -26,7 +26,7 @@ import datetime
 from pytz import timezone
 import datetime
 from datetime import timedelta, datetime
-import libxml2
+# import libxml2
 import uuid
 from operator import itemgetter
 from itertools import groupby
@@ -70,7 +70,7 @@ class ebay_products(models.Model):
         '''
         if self.ebay_product:
             product = self.ebay_product
-            print"=============product.lst_price========",product.lst_price
+            
             self.ebay_price = product.lst_price
             self.ebay_title = product.name
         else:

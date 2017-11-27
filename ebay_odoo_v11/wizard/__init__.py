@@ -18,6 +18,6 @@
 #
 ##############################################################################
 
-import relist_item
-import refund_order
-import update_marketplace_price
+from . import relist_item
+from . import refund_order
+from . import update_marketplace_price

@@ -95,7 +95,7 @@ class product_attribute_set(models.Model):
                         concate_url = """ %sshopping?callname=GetCategoryInfo&appid=%s&siteid=%s&CategoryID=%s&version=743&responseencoding=XML"""%(server_url,app_id,siteid,category_code)
                         try:
                             urlopen = urllib.urlopen(concate_url)
-                        except Exception, e:
+                        except Exception as e:
                             urlopen = ''
                         if urlopen:
                             mystring = urlopen.read()
@@ -174,7 +174,7 @@ class product_attribute_set(models.Model):
                         concate_url = """ %sshopping?callname=GetCategoryInfo&appid=%s&siteid=%s&CategoryID=%s&version=743&responseencoding=XML"""%(server_url,app_id,siteid,category_code)
                         try:
                             urlopen = urllib.urlopen(concate_url)
-                        except Exception, e:
+                        except Exception as e:
                             urlopen = ''
                         if urlopen:
                             mystring = urlopen.read()
