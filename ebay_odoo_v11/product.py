@@ -366,17 +366,15 @@ class product_images(osv.osv):
 #                             , local_media_repository)
 
             if local_media_repository:
-                print'each====',each
-                print'----',each['product_id']
+
+
                 if each.get('product_id')==False:
                     img = each.get('file_db_store')
                     return img                    
                     
                 product_code = self.pool.get('product.product').read(cr, uid, each.get('product_id')[0], ['default_code'])['default_code']
-                print'dddd',local_media_repository
-                print'product_code',product_code
-                print'ss',each.get('name')
-                print'cc',each.get('extention')
+
+
                 if product_code==False:
                     full_path = os.path.join(local_media_repository, product_code, '%s%s'%(each.get('name'), each.get('extention')))
                     if os.path.exists(full_path):
@@ -384,7 +382,7 @@ class product_images(osv.osv):
                             f = open(full_path, 'rb')
                             img = base64.encodestring(f.read())
                             f.close()
-                        except Exception, e:
+                        except Exception as e:
                             return False
                 else:
                     return False

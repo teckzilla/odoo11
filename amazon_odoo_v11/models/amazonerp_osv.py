@@ -20,19 +20,24 @@
 import hashlib
 import hmac
 import urllib
-from urllib import urlencode
+# from urllib import urlencode
+from urllib.parse import urlencode
+
 from odoo import models, fields, api, _
 from odoo.exceptions import UserError, ValidationError
 import time
 import base64
-import httplib
-from xml.dom.minidom import parseString
-import md5
+# import httplib
+import http.client
+from xml.dom.minidom import parse, parseString
+
+# import md5
 from datetime import timedelta, datetime
 import datetime
 import logging
 
-httplib.HTTPConnection.debuglevel = 1
+# httplib.HTTPConnection.debuglevel = 1
+http.client.HTTPConnection.debuglevel = 1
 
 logging.basicConfig()  # you need to initialize logging, otherwise you will not see anything from requests
 logging.getLogger().setLevel(logging.DEBUG)
@@ -125,27 +130,33 @@ class Call:
 
         url_params['Timestamp'] = time.strftime("%Y-%m-%dT%H:%M:%S") + 'Z'
         keys = url_params.keys()
-        keys.sort()
+
+        # keys.sort()
+        keys=sorted(keys)
+
 
         """ Get the values in the same order of the sorted keys """
 
-        values = map(url_params.get, keys)
+        values = list(map(url_params.get, keys))
 
         """ Reconstruct the URL paramters and encode them """
 
-        url_string = urlencode(zip(keys, values))
+        url_string = urlencode(list(zip(keys, values)))
+
+
         url_string = url_string.replace('+', '%20')
         string_to_sign = 'POST\n%s\n%s\n%s' % (self.Session.domain, post_data, url_string)
-        signature = hmac.new(self.Session.secret_key.encode('utf-8'), string_to_sign, hashlib.sha256).digest()
+        signature = hmac.new(self.Session.secret_key.encode('utf-8'), string_to_sign.encode('utf-8'), hashlib.sha256).digest()
         url_params['Signature'] = base64.b64encode(signature)
 
         keys = url_params.keys()
-        keys.sort()
-        values = map(url_params.get, keys)
+        keys=sorted(keys)
+        values = list(map(url_params.get, keys))
 
         """ Reconstruct the URL paramters and encode them """
 
-        url_string = urlencode(zip(keys, values)).replace('%0A', '')
+
+        url_string = urlencode(list(zip(keys, values))).replace('%0A', '')
         return url_string
 
     def calc_signature_node_lookup(self, url_params, command):
@@ -156,40 +167,47 @@ class Call:
         # Get the values in the same order of the sorted keys
         values = map(url_params.get, keys)
         # Reconstruct the URL paramters and encode them
-        url_string = urlencode( zip(keys,values) )
+        url_string = urllib.urlencode( zip(keys,values) )
         string_to_sign = 'POST\n%s\n%s\n%s' % (self.Session.domain,post_data,url_string)'''
 
         url_params['Timestamp'] = time.strftime("%Y-%m-%dT%H:%M:%S") + 'Z'
         keys = url_params.keys()
-        keys.sort()
+        # keys.sort()
+        keys=sorted(keys)
 
         """ Get the values in the same order of the sorted keys """
 
-        values = map(url_params.get, keys)
+        values = list(map(url_params.get, keys))
 
         """ Reconstruct the URL paramters and encode them """
 
-        url_string = urlencode(zip(keys, values))
+        url_string = urlencode(list(zip(keys, values)))
         url_string = url_string.replace('+', '%20')
         string_to_sign = 'GET\n%s\n%s\n%s' % (self.Session.domain, command, url_string)
-        signature = hmac.new(self.Session.secret_key.encode('utf-8'), string_to_sign, hashlib.sha256).digest()
+        signature = hmac.new(self.Session.secret_key.encode('utf-8'), string_to_sign.encode('utf-8'), hashlib.sha256).digest()
         url_params['Signature'] = base64.b64encode(signature)
 
         keys = url_params.keys()
-        keys.sort()
-        values = map(url_params.get, keys)
+        # keys.sort()
+        keys=sorted(keys)
+        values = list(map(url_params.get, keys))
 
         """ Reconstruct the URL paramters and encode them """
 
-        url_string = urlencode(zip(keys, values)).replace('%0A', '')
+        url_string = urlencode(list(zip(keys, values))).replace('%0A', '')
         return url_string
 
     def cal_content_md5(self, request_xml):
-        m = md5.new()
+        # m = md5.new()
+        # m = hashlib.md5.new()
+        m = hashlib.new('sha1')
+        request_xml=request_xml.encode('utf-8')
         m.update(request_xml)
         value = m.digest()
-        hash_string = base64.encodestring(value)
-        hash_string = hash_string.replace('\n', '')
+        hash_string = base64.b64encode(value)
+        print("hash_string  bytes or str", type(hash_string))
+        hash_string = hash_string.replace(b'\n', b'')
+        print("hash_string", type(hash_string))
         return hash_string
 
     def MakeCall(self, callName):
@@ -199,36 +217,38 @@ class Call:
         self.url_param['Signature'] = signature_info[0]
         self.url_string  = str(self.command) + signature_info[1].replace('%0A','')+'&Signature='+urllib.quote(str(signature_info[0]))'''
         self.url_string = (self.url_string).replace('+', '%20')
-        conn = httplib.HTTPSConnection(self.Session.domain)
+        print ("url strring",self.url_string)
+        # conn = httplib.HTTPSConnection(self.Session.domain)
+        conn = http.client.HTTPSConnection(self.Session.domain)
         data = ''
-        print"callname", callName
+
         try:
-            print"try"
+
             if callName.startswith('POST_'):
-                print"callName.startswith('POST_')"
+
                 content_md5 = self.cal_content_md5(self.RequestData)
-                print"content_md5", content_md5
+
                 conn.request("POST", self.url_string, self.RequestData,
                              self.GenerateHeaders(len(self.RequestData), content_md5))
             elif callName == 'BrowseNodeLookup':
-                print"BrowseNodeLookup"
-                print "-----self.url_string---1---",self.url_string
+
+
                 logger.info("-----url_string=====---- %s", self.url_string)
                 conn.request("GET", self.url_string, self.RequestData, self.GenerateHeaders('', ''))
             else:
-                print"else(callName.startswith('POST_'))"
+
                 conn.request("POST", self.url_string, self.RequestData, self.GenerateHeaders('', ''))
             response = conn.getresponse()
-            print"response", response
+            print("-----------response-------",response)
             data = response.read()
-            print"data", data
+            print("------------data-------",data)
             logger.info("===data==2=====---- %s", data)
             conn.close()
-        except Exception, e:
-            print"Exception", e
+        except Exception as e:
+
             count = 1
             while (str(e).find('Connection timed') != -1 and count <= 5):
-                print"while"
+
                 count = count + 1
                 time.sleep(5)
                 calll = self.MakeCall(callName)
@@ -236,12 +256,12 @@ class Call:
         if callName == 'GetReport':
             return data
         else:
-            print"---------else------data",data
+            print("data",data)
             responseDOM = parseString(data)
             tag = responseDOM.getElementsByTagName('Error')
             if (tag.count != 0):
                 for error in tag:
-                    print "\n",
+                    print ("\n")
             return responseDOM
 
     def GenerateHeaders(self, length_request, contentmd5):
@@ -294,7 +314,8 @@ class ListMatchingProducts:
                     product_info.append(mydict)
                     mydict = {}
                 if flag:
-                    if not mydict.has_key(tag):
+                    # if not mydict.has_key(tag):
+                    if not tag in mydict:
                         mydict[tag] = elt.text.strip()
                 cnt = cnt + 1
         product_info.append(mydict)
@@ -384,8 +405,7 @@ class ListOrders:
         url_params = {'Action': method, 'SellerId': self.Session.merchant_id,
                       'MarketplaceId.Id.1': self.Session.marketplace_id, 'AWSAccessKeyId': self.Session.access_key,
                       'SignatureVersion': '2', 'SignatureMethod': 'HmacSHA256', 'Version': version}
-        print "timeto------------", timeto
-        print "timefrom------------", timefrom
+
         if timefrom:
             url_params['LastUpdatedAfter'] = timefrom
         if timeto:
@@ -404,7 +424,7 @@ class ListOrders:
         api.RequestData = ''
         url_string = api.calc_signature(url_params, post_data)
         logger.info("url_string==========---- %s", url_string)
-        print "url-------------", url_string
+
         api.url_string = str(command) + url_string
         responseDOM = api.MakeCall('ListOrders')
         getOrderdetails = {}
@@ -571,7 +591,7 @@ class ListOrderItems:
                                 info[gcNode.nodeName] = self.getItemTax(gcNode)
                             elif gcNode.nodeName == 'QuantityOrdered':
                                 info[gcNode.nodeName] = gcNode.childNodes[0].data
-                        if not info.has_key('ItemPriceTotal'):
+                        if not 'ItemPriceTotal' in info:
                             info['ItemPriceTotal'] = 1.0
                         if int(info['QuantityOrdered']) > 0:
                             info['ItemPrice'] = float(info['ItemPriceTotal']) / float(info['QuantityOrdered'])
@@ -1200,7 +1220,7 @@ class RequestReport:
                       'SignatureMethod': 'HmacSHA256', 'Version': version}
         post_data = '/'
         url_string = api.calc_signature(url_params, post_data)
-        print "url ------ ", url_string
+
         api.url_string = str(command) + url_string
         api.RequestData = requestData
         responseDOM = api.MakeCall('RequestReport')
@@ -1825,7 +1845,7 @@ class GetCompetitivePricingForSKU:
 
             for sku in sku_list:
                 sku_key = 'SellerSKUList.SellerSKU.' + str(count)
-                #                print 'm====='
+
                 count += 1
                 url_params[sku_key] = sku
                 if count == len(sku_list):
@@ -2202,7 +2222,7 @@ class BrowseNodeLookup:
         api.RequestData = ''
         method='BrowseNodeLookup'
         responseDOM = api.MakeCall(method)
-        print responseDOM.toprettyxml()
+
         logger.info("-----------xml response-----3-----%s",responseDOM.toprettyxml())
 
         responseDOM = api.MakeCallRepeat(responseDOM,url_params,post_data,command,method)
@@ -2215,13 +2235,12 @@ class amazonerp_osv(models.Model):
     _name = 'amazonerp.osv'
 
     def call(self, amazon_instance, method, *arguments):
-        print"amazon_instance", amazon_instance
-        print"method", method
+
         if method == 'ListOrders':
             lo = ListOrders(amazon_instance.aws_access_key_id, amazon_instance.aws_secret_access_key,
                             amazon_instance.aws_merchant_id, amazon_instance.aws_market_place_id, amazon_instance.site)
             result = lo.Get(arguments[0], arguments[1], arguments[2])
-            print"ListOrdersresult", result
+
             return result
         if method == 'GetOrder':
             go = GetOrderBYID(amazon_instance.aws_access_key_id, amazon_instance.aws_secret_access_key,
@@ -2230,7 +2249,7 @@ class amazonerp_osv(models.Model):
             result = go.Get(arguments[0])
             return result
         elif method == 'ListOrderItems':
-            print"arg[0", arguments[0]
+
             lo = ListOrderItems(amazon_instance.aws_access_key_id, amazon_instance.aws_secret_access_key,
                                 amazon_instance.aws_merchant_id, amazon_instance.aws_market_place_id,
                                 amazon_instance.site)

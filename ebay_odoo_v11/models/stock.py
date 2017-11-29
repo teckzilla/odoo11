@@ -45,13 +45,12 @@ class stock_move(models.Model):
                     if ebay_listing_data.id not in real_time_update_listing:
                         real_time_update_listing.append(ebay_listing_data.id)
         
-        print'real_time_update_listing',real_time_update_listing
-        print'context',context
+
         context = dict(context)
         context['update_stock']=True
         if len(real_time_update_listing):
             ebay_shop_id = shop_obj.search([('ebay_shop','=',True),('stock_update_on_time','=',True)])
-            print'ebay_shop_id',ebay_shop_id
+
             for shop_id in ebay_shop_id:
                 new_listing =[]
                 for list_data in ebay_list_obj.browse(real_time_update_listing):

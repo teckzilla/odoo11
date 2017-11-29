@@ -185,7 +185,7 @@ class ebay_product_listing(models.Model):
     def update_listing(self):
         if self.name and self.product_id.default_code:
             results = self.shop_id.import_ebay_product(self.name, self.product_id.default_code)
-            print "--------result-------", results
+
             result = results[0]
             if result:
                 listing_vals = {
@@ -193,7 +193,7 @@ class ebay_product_listing(models.Model):
                     'price': result['ItemPrice'],
                 }
                 result_id = self.write(listing_vals)
-                print "-----", result_id
+
                 return result_id
 
 
@@ -311,7 +311,7 @@ class product_images(models.Model):
                             f = open(full_path, 'rb')
                             img = base64.encodestring(f.read())
                             f.close()
-                        except Exception, e:
+                        except Exception as e:
                             return False
                 else:
                     return False

@@ -17,7 +17,7 @@
 #    <http://www.gnu.org/licenses/gpl.html>.
 #
 ##############################################################################
-import models
-import wizard
+from . import models
+from . import wizard
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

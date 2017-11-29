@@ -176,7 +176,7 @@ class existing_listing(models.Model):
         obj = self
         # prod_ids = product_obj.search([('default_code','=', obj.add_to_sku)])
         prod_ids = product_obj.search([('default_code','=', obj.sku)])
-        print'prod_ids---',prod_ids
+
         if prod_ids:
             list_ids = amazon_product_listing_obj.search([('asin', '=', obj.asin), ('product_id','=',prod_ids[0].id)])
             shop = obj.existing_list_id.shop_id

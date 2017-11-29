@@ -21,16 +21,16 @@
 # Init Amazon
 #----------------------------------------------------------
 #import product_images.
-import attribute
-import amazon
-import amazon_category
-import sale
-import amazonerp_osv
-import delivery
-import product
-import manage_amazon_listing
-import product_images
-import amazon_fba
-import amazon_inbound_shipment
-import existing_listing_amazon
+from . import attribute
+from . import amazon
+from . import amazon_category
+from . import sale
+from . import amazonerp_osv
+from . import delivery
+from . import product
+from . import manage_amazon_listing
+from . import product_images
+from . import amazon_fba
+from . import amazon_inbound_shipment
+from . import existing_listing_amazon
 

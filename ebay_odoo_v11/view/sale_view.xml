@@ -190,7 +190,8 @@
             <field name="domain">[('returned', '=', True)]</field>
         </record>
 
-        <menuitem action="action_sale_order_line_ebay_form" id="menu_action_ebay_returns_tree" parent="sales_team.menu_sales" sequence="0"/>
+        <!--<menuitem action="action_sale_order_line_ebay_form" id="menu_action_ebay_returns_tree" parent="sales_team.menu_sales" sequence="0"/>-->
+        <menuitem action="action_sale_order_line_ebay_form" id="menu_action_ebay_returns_tree" parent="sale.sale_order_menu" sequence="0"/>
 
 
 

@@ -45,7 +45,8 @@ class product_product(models.Model):
         if prod_obj.qty_available > 0:
             s = {}
             for rec in prod_obj.amazon_listing_ids:
-                if not s.has_key(rec.shop_id.id):
+                # if not s.has_key(rec.shop_id.id):
+                if not rec.shop_id.id in s:
                     s.update({rec.shop_id.id: 1})
                 else:
                     s.update({rec.shop_id.id: s[rec.shop_id.id] + 1})
@@ -157,25 +158,6 @@ class amazon_product_listing(models.Model):
                 res[id] = self.get_product_available(cr, data.name,[data.product_id.id])
         return res
 
-#    def _get_current_stock(self, cr, uid, ids, field_names=None, arg=False, context=None):
-#        print 'In Current Stock',ids
-#        if context is None:
-#            context = {}
-#        res = {}
-#        for id in ids:
-#            res[id] = 0
-#
-#        for id in ids:
-#            listing_id = self.search(cr,uid,[('id','=',id)])
-#            if listing_id:
-#                data = self.browse(cr,uid,id)
-##                last_sync_stock = data.stock_sync_id.last_sync_stock or 0
-#                total_sales = data.total_sales or 0
-#                if data.name:
-##                    print 'last_sync_stock',last_sync_stock
-#                    print 'total_sales',total_sales
-#                    res[id] = last_sync_stock - total_sales
-#        return res
 
 
     def _get_total_sales_mfn(self):
@@ -235,13 +217,15 @@ class amazon_product_listing(models.Model):
                 limit 7''' % (listing.id)
 
             self._cr.execute(get_last_seven_ranks)
-            amazon_ranks = filter(None, map(lambda x: x[0], self._cr.fetchall()))
+
+            amazon_ranks = list(filter(None, map(lambda x: x[0], self._cr.fetchall())))
+            print("type",type(amazon_ranks))
             if len(amazon_ranks) > 0:
                 total_rank = 0
                 for amazon_rank in amazon_ranks:
                     total_rank += amazon_rank
 
-                res.avg_seven_rank = total_rank / len(amazon_ranks)
+                listing.avg_seven_rank = total_rank / len(amazon_ranks)
 
     
     

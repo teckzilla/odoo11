@@ -101,7 +101,7 @@ class sale_shop(models.Model):
             raise UserError(_('Warning !'), _("Please Select Currency For Shop - %s")%(shop_data.name))
         try:
             result = ebayerp_osv_obj.call(inst_lnk,'RelistFixedPriceItem',itemId,qty,price,currency)
-        except Exception, e:
+        except Exception as e:
             
             if context.get('raise_exception',False):
 #                raise osv.except_osv(_('Error!'),_('%s' % (str(e),)))
@@ -134,7 +134,7 @@ class sale_shop(models.Model):
                 results = ebayerp_osv_obj.call(inst_lnk,'ReviseInventoryStatus',itemId,False,revise_qty,result_variation['SKU'])
                 
                 
-            except Exception, e:
+            except Exception as e:
                 continue
         return result
     
@@ -152,7 +152,7 @@ class sale_shop(models.Model):
         inst_lnk = self.browse(shop_id).instance_id
         try:
             result = ebayerp_osv_obj.call(inst_lnk, 'VerifyRelistItem',itemId)
-        except Exception, e:
+        except Exception as e:
             if context.get('raise_exception',False):
 #                raise osv.except_osv(_('Error!'),_('%s' % (str(e),)))
                 raise UserError(_('%s' % (str(e))))
@@ -263,7 +263,7 @@ class sale_shop(models.Model):
         
         while True:
             results = connection_obj.call(inst_lnk, 'GetOrders',currentTimeFrom,currentTimeTo,pageNumber)
-            print"========results==========",results
+
             has_more_trans = results[len(results)-1]
             del results[len(results)-1]
             resultFinal = resultFinal + results
@@ -382,15 +382,15 @@ class sale_shop(models.Model):
         shop_name = self
         path = os.path.dirname(os.path.abspath(__file__))
         path_csv = path + '/channel2.csv'
-        print"----------path_csv------------",path_csv
+
         if path_csv:
             with open(path_csv) as f_obj:
                 reader = csv.DictReader(f_obj, delimiter=',')
-#                print"-----------reader-----------"reader
+
                 for line in reader:
-#                    print"-----------line-----------"line
+
                     if line['StockSKU'] != "UNASSIGNED":
-#                        print"----------------------"
+
                         li.append(line['StockSKU'])
                         product_ids = prod_obj.search([('default_code','=',line['StockSKU'])])
                         if product_ids:
@@ -404,7 +404,7 @@ class sale_shop(models.Model):
                                             'active_ebay' : True
                                     }
                                     list_id = list_obj.create(vals)
-#                                    print"----------------------"
+
                                     self._cr.commit()
         return True
     
@@ -426,7 +426,7 @@ class sale_shop(models.Model):
     
     @api.multi
     def createListing(self,shop_id, product_id, product_sku, itemID):
-        print"=====================product_id=====",product_id
+
         '''
         This function is used to Listing Product on Ebay
         parameters:
@@ -492,7 +492,7 @@ class sale_shop(models.Model):
                             image_path = base64.encodestring(file_contain)
                             imag_id = product_data.write({'image_medium':image_path})
                             name_id = product_obj.browse(product_id)
-                            image_ids_avail = product_img_obj.search(cr, uid, [('name','=', name_id.name)('product_id','=',product_id)])
+                            image_ids_avail = product_img_obj.search([('name','=', name_id.name)('product_id','=',product_id)])
                             if not image_ids_avail:
                                 line_image_data = image_gallery_url[0].get('picture_url')
                                 for data_img in line_image_data:
@@ -725,7 +725,7 @@ class sale_shop(models.Model):
 
                     missed_resultvals.remove(results)
                     
-                except Exception, e:
+                except Exception as e:
                     if str(e).lower().find('connection reset by peer') != -1:
                         time.sleep(10)
                         continue
@@ -794,8 +794,7 @@ class sale_shop(models.Model):
                         result_list.append(results)
 
                     for each_result in result_list:
-                        # print"==============SellerSKU==============",each_result['SellerSKU']
-                        # titles.append(each_result.get('Title'))
+
                         product_ids = []
                         listing_ids = []
                         if each_result.get('SellerSKU',False):
@@ -803,7 +802,7 @@ class sale_shop(models.Model):
                             
                             product_ids = product_obj.search([('default_code','=',each_result['SellerSKU'])])
 
-                        print"==============product_ids==============",product_ids
+
 
                         today_time = datetime.datetime.strptime(time.strftime("%Y-%m-%d %H:%M:%S"),'%Y-%m-%d %H:%M:%S')
                         if len(product_ids):
@@ -947,7 +946,7 @@ class sale_shop(models.Model):
             if not end_listing:
                 try:
                     results = ebayerp_obj.call(shop.instance_id, 'ReviseInventoryStatus',item_id, start_price, qty,product_sku)
-                except Exception, e:
+                except Exception as e:
                     if not context.get('is_automation',False):
 #                        raise osv.except_osv(_('Error !'),e)
                         raise UserError(_('Error !'),e)
@@ -1070,7 +1069,7 @@ class sale_shop(models.Model):
                                 
                                 results = connection_obj.call(ebay_inst_data, 'ReviseInventoryStatus',ebay_list_data.name, price,stock,ebay_sku,context.get('val'))
 
-            except Exception, e:
+            except Exception as e:
                 if e in ('Item not found.','FixedPrice item ended.'):
                     pass
                 else:
@@ -1223,18 +1222,18 @@ class sale_shop(models.Model):
                 }
 
                 response = requests.request("GET", url, headers=headers, params=querystring)
-                print "--------------------", response
+
                 print(response.text)
 
                 # results = connection_obj.call(shop_obj.instance_id, 'getUserReturns', shop_obj.instance_id.site_id.site)
                 # results =response.text
                 results= json.loads(response.content)
-                print "-------------------",type(results)
+
                 result1=results.get('members',False)
-                print "-----results-------------",result1
+
                 if result1:
                     for result in result1:
-                        print "------------------------result",result
+
                         return_id = result.get('returnId', '')
                         status = result.get('status', '')
                         creationInfo=result.get('creationInfo',  )

@@ -72,7 +72,7 @@ class AmazonCategory(models.Model):
         #                               instance_id.aws_prod_advert_access_key, instance_id.aws_associate_tag,
         #                               instance_id.aws_prod_advert_secret_key)
         # if results:
-        print "---------main result----------------",results
+
         logger.info("==========main result==========---- %s", results)
 
 
@@ -82,7 +82,7 @@ class AmazonCategory(models.Model):
         # time.sleep(10)
         for result in results:
             created_categ_id = self.search([('btg_node', '=', result.get('BrowseNodeId', '')),('name','=',str(result.get('Name')))])
-            print "-------------re re result--", result
+
             logger.info("==========main result--2==========---- %s", result)
 
             if not created_categ_id:
@@ -95,7 +95,7 @@ class AmazonCategory(models.Model):
                 default_list.append({'node':created_categ_id.btg_node,'name':created_categ_id.name})
 
             logger.info("-----------default_list---------%s", default_list)
-            print "------------default_list----------------",default_list
+
             self.create_amazon_cat(instance_id,result.get('BrowseNodeId', ''),created_categ_id.id,root_parent_id,default_list)
 
         return default_list

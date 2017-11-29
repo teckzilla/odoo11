@@ -23,9 +23,11 @@ from odoo import models, fields, api, _
 from odoo.exceptions import UserError, ValidationError
 import base64, urllib
 import datetime
-import cStringIO
-import StringIO
-from urllib import urlencode
+# import cStringIO
+# import StringIO
+from io import StringIO
+# from urllib import urlencode
+from urllib.parse import urlencode
 #import Image
 import os
 from base64 import b64decode

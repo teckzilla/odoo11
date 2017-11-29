@@ -117,7 +117,7 @@ class sale_shop(models.Model):
 
 
                 update=with_context(context).self.write(cr, uid, ids, {'feed_report_id':getreportData[0]}, context)
-                print update
+
             else:
 #                raise osv.except_osv(_('Error !'), '%s' % _('Request Status Not Done'))
                 raise UserError(_('Error !'), '%s' % _('Request Status Not Done'))
@@ -363,106 +363,7 @@ class sale_shop(models.Model):
         self._cr.commit()
         return final_lis
        
-#    def request_order_report(self, cr, uid, ids, context=None):
-#        '''
-#        This function is used to request shop Reports from amazon
-#        parameters:
-#            No parameter
-#        '''
-#        print "inside----------"
-#        list_obj = self.pool.get('amazon.product.listing')
-#        prod_obj = self.pool.get('product.product')
-#        instance_data = self.browse(cr, uid, ids, context=context)
-#        amazon_api_obj = self.pool.get('amazonerp.osv')
-#        inst_id = instance_data.instance_id
-#        
-##        all_orders = self.request_all_order_report(cr, uid, ids, context)
-##        if instance_data.order_request_id:
-##            order_report_list = amazon_api_obj.call(inst_id, 'GetReportList', False, instance_data.order_request_id,False,False)
-##            if len(order_report_list):
-##                self.write(cr, uid, ids,{'order_report_id':order_report_list[0],})
-##            else:
-##                raise osv.except_osv(_('Error !'), '%s' % _('Order Report Not Ready!!!!'))
-##        cr.commit()
-#        
-##        if instance_data.order_report_id:
-#        response = amazon_api_obj.call(inst_id, 'GetReport',"58806308843")
-##            response = amazon_api_obj.call(inst_id, 'GetReport',instance_data.order_report_id)
-#        print "response---------",response
-#        if response:
-#            rownum = 1
-#            rows =    response.split('\n')
-#            final_lis = []
-#            result_dic = {}
-#            rownum = 1
-#            for row_data in rows:
-#                try:
-#                    if rownum==1:
-#                        title = row_data
-#                    else:
-#                        tmp = row_data.split('\t')
-#                        result_dic = {
-#                            'OrderId':tmp[0].strip(),
-#                            'unique_sales_line_rec_no':tmp[1].strip(),
-#                            'unique_sales_rec_no' : tmp[0].strip(),
-#                            'OrderItemId': tmp[1],
-#                            'PurchaseDate': tmp[2],
-#                            'BillingEmail' : tmp[4],
-#                            'BillingPhone': tmp[6],
-#                            'BillingAddressLine1':tmp[27],
-#                            'BillingAddressLine2':tmp[28],
-#                            'BillingPostalCode': tmp[22],
-#                            'BillingCity':tmp[30],
-#                            'BillingCountryCode':tmp[33],
-#                            'BillingCompanyName':tmp[5],
-#                            'BillingStateOrRegion':tmp[31],
-#                            'SellerSKU': tmp[7],
-#                            'Title': tmp[8],
-#                            'QuantityOrdered':tmp[9],
-#                            'ShippingName':tmp[18],
-#                            'ShippingPrice': 0.00,
-#                            'BillingName': tmp[5],
-#                            'ShippingAddressLine1':tmp[19],
-#                            'ShippingAddressLine2':tmp[20],
-#                            'ShippingCity':tmp[22],
-#                            'ShippingPostalCode':tmp[24],
-#                            'ShippingCountryCode':str(tmp[25]).replace('\r',''),
-#                            'ShippingPhone':tmp[26],
-#                            'ShippingStateOrRegion':tmp[23],
-#                            'ShippingCompanyName':tmp[18],
-#                            'OrderStatus': u'shipped',
-#                            'ItemTax': tmp[12],
-#                            'ItemPrice': tmp[11],
-#                            'PaymentMethod' : 'Other'
-#
-#                        }
-#                        print "-------",result_dic
-##                        item_dic = next(x for x in all_orders if x['orderid']==result_dic['OrderId'])
-##                        if item_dic:
-##                            result_dic.update({'ItemPrice':item_dic['price'],'ItemTax':item_dic['tax']})
-#                        list_id = list_obj.search(cr, uid, [('name','=',result_dic['SellerSKU']),('shop_id','=',instance_data.id)])
-#                        prod_id = False
-#                        if list_id:
-#                            list_id = list_id[0]
-#                            prod_id = list_obj.browse(cr, uid,list_id).product_id.id
-#                            result_dic.update({'product_id': prod_id})
-#                        else:
-#                           prod_id = prod_obj.search(cr, uid, [('default_code','=',result_dic['SellerSKU'])]) 
-#                           if not prod_id:
-#                               result_dic.update({'product_id': prod_id})
-#                           else:
-#                               result_dic.update({'product_id': prod_id[0]})
-#                        sequence = self.pool.get('ir.sequence').get(cr, uid, 'import.order.unique.id')
-#                        context['import_unique_id']= sequence
-#                        context['shipping_product_default_code'] = 'SHIP AMAZON'
-#                        context['default_product_category'] = 1
-#                        final_lis.append(result_dic)
-#                    rownum = rownum+1
-#                
-#                except Exception as e:
-#                    pass
-#        order_ids = self.createOrder(cr,uid, ids, instance_data.id,final_lis,context)
-#        return True
+
 
 
     @api.multi
@@ -503,7 +404,7 @@ class sale_shop(models.Model):
                             title = row_data
                         else:
                             tmp = row_data.split('\t')
-                            print "tmp---------",tmp
+
                             result_dic = {
                                 'OrderId':tmp[0].strip(),
                                 'unique_sales_line_rec_no':tmp[1].strip(),
@@ -662,7 +563,7 @@ class sale_shop(models.Model):
             No Parameter
         '''
         context = self._context.copy()
-            
+
         amazon_api_obj = self.env['amazonerp.osv']
         sale_order_obj = self.env['sale.order']
         pick_obj = self.env['stock.picking']
@@ -736,9 +637,7 @@ class sale_shop(models.Model):
                 createdAfter = str(createdAfter)+'Z'
         
         #log_obj.log_data(cr,uid,"createdAfter",createdAfter)
-        print"createdAfter",createdAfter
-        print"createdbefore",createdbefore
-        print"fulfillment",fulfillment
+
         results = amazon_api_obj.call(instance_obj.instance_id, 'ListOrders', createdAfter, createdbefore, fulfillment)
         
         #log_obj.log_data(cr,uid,"res",results)
@@ -746,7 +645,7 @@ class sale_shop(models.Model):
         result_next_token = False
         final_token_result = []
         sum = 0
-#        print "====results====",results
+
         if results:
             last_dictionary = results[-1]
             while last_dictionary.get('NextToken',False):
@@ -774,14 +673,14 @@ class sale_shop(models.Model):
                     #log_obj.log_data(cr,uid,"____NO MORE ORDERS_______","")
                     
                     #log_obj.log_data(cr,uid,"len(results)",len(results))
-                    print"last_dictionary.get('NextToken',False)"
+
                     self.order_details(results,amazon_api_obj,sale_order_obj,instance_obj,pick_obj,list_obj,prod_obj)
                     break
                     
             if not result_next_token:
                 
                 #log_obj.log_data(cr,uid,"______NO TOKEN========","")
-                print"not result_next_token"
+
                 self.order_details(results,amazon_api_obj,sale_order_obj,instance_obj,pick_obj,list_obj,prod_obj)
 #            else:
 #                self.order_details(cr, uid,ids,results,amazon_api_obj,sale_order_obj,instance_obj,pick_obj,list_obj,prod_obj, context)
@@ -792,7 +691,7 @@ class sale_shop(models.Model):
     @api.multi
     def order_details(self,results,amazon_api_obj,sale_order_obj,instance_obj,pick_obj,list_obj,prod_obj):
         stock_pick_obj = self.env['stock.picking']
-        print"results",results
+
         '''
         This function is used to import amazon orders
         parameters:
@@ -814,54 +713,34 @@ class sale_shop(models.Model):
         ctx = dict(self._context)
         ctx.update({'shipping_product_default_code': 'SHIP AMAZON','default_product_category':1})
         for result in results:
-            print"============result=======",result
-            print"result['OrderId']for",result['OrderId']
-            print"result['OrderStatus']for",result['OrderStatus']
-            print"instance_obj.is_shipped",instance_obj.is_shipped
-            print"instance_obj.id",instance_obj.id
+
+
             if instance_obj.is_shipped and result['OrderStatus']=='Shipped':
                 saleorderids = sale_order_obj.search([('unique_sales_rec_no','=',result['OrderId']),('shop_id','=',instance_obj.id)])
-                print"saleorderids====orderdetails",saleorderids
+
                 if saleorderids:
                     if saleorderids[0].state != 'draft':
-                        print"sale_order_obj.browse(saleorderids[0]).state != 'draft'"
+
                         continue
                 time.sleep(4)
                 result_vals = amazon_api_obj.call(instance_obj.instance_id,'ListOrderItems',result['OrderId'])
                 for result_val in result_vals:
                     if not result.get('PaymentMethod',False):
                         result['PaymentMethod'] = 'Other'
-#                    list_id = list_obj.search([('name','=',result_val['SellerSKU']),('asin','=',result_val['listing_id']),('shop_id','=',instance_obj.id)])
-#                    logger.error('list_id======= %s', list_id)
-#                    if list_id:
-#                        list_id = list_id[0]
-#                        prod_id = list_id.product_id
-#                        print"prod_id",prod_id
-#                        result.update({'product_id': prod_id})
-#                    else:
-#                       prod_id = prod_obj.search([('default_code','=',result_val['SellerSKU'])]) 
-#                       if instance_obj.exclude_product:
-#                           logger.error('Product With SKU======= %s', result_val['SellerSKU'])
-#                           continue
-#                       if not prod_id:
-#                           result.update({'product_id': prod_id.id})
-#                           
-#                       else:
-#                           result.update({'product_id': prod_id[0].id})
-                    
+
                     logger.error('result %s', result)
                     
                     result_val.update(result)
                     final_resultvals.append(result_val)
             elif not instance_obj.is_shipped and result['OrderStatus']=='Unshipped' or result['OrderStatus']=='PartiallyShipped':
-                print"result['OrderId']elseifnot",result['OrderId']
+
                 saleorderids = sale_order_obj.search([('unique_sales_rec_no','=',result['OrderId']),('shop_id','=',instance_obj.id)])
                 if saleorderids:
                     if saleorderids[0].state != 'draft':
                         continue
 
                 time.sleep(4)
-                print"result['OrderId']saleorderids",result['OrderId']
+
                 result_vals = amazon_api_obj.call(instance_obj.instance_id,'ListOrderItems',result['OrderId'])
                 for result_val in result_vals:
                     if not result.get('PaymentMethod',False):
@@ -883,18 +762,18 @@ class sale_shop(models.Model):
 #                            result.update({'product_id': prod_id[0]})
                     result_val.update(result)
                     final_resultvals.append(result_val)
-        print'###########final_resultvals---------',final_resultvals
+
         if final_resultvals:
-             print"final_resultvals",final_resultvals
+
              order_ids = self.with_context(ctx).createOrder(instance_obj,final_resultvals)
-             print'@@@@@@@@@@@@@@@@@@@@@@@@@@@order_ids--------------------',order_ids
+
              for browse_ids in order_ids:
                  wh_id = pick_obj.search([('origin','=',browse_ids.name)])
                  if wh_id:
                      wh_id[0].write({'shop_id':instance_obj.id})
              for saleorderid in order_ids:
                  sobj = saleorderid
-                 print"sobj",sobj
+
                  if instance_obj.amazon_fba_shop:
                     picking_ids = sobj.picking_ids
                     if picking_ids:
@@ -932,7 +811,7 @@ class sale_shop(models.Model):
             update_datetime_toshop=False
         else:    
             sale_ids = sale_order_obj.search([('track_exported','=',False),('carrier_tracking_ref','!=',False),('state','not in',['draft','cancel']),('shop_id','=',shop_obj.id)], offset, 100,'id')
-            print"================sale_ids",sale_ids
+
             update_datetime_toshop=True
         logger.error('++++sale_ids+++++++++++++ %s',sale_ids)
         today = datetime.datetime.now()
@@ -1152,22 +1031,10 @@ class sale_shop(models.Model):
                     self._cr.commit()
                     missed_resultvals.remove(results)
                 
-                except Exception, e:
-#                    print "Import Amazon Listing handleMissingItems: ",e
-#                    if str(e).find('concurrent update') != -1:
-#                        cr.rollback()
-#                        if count == 3:
-#                            vals_log = {
-#                                    'name':'Import ASIN Error',
-#                                    'shop_id':results['shop_id'],
-#                                    'action': 'individual',
-#                                    'note':str(missed_resultvals),
-#                                    'submission_id':False,
-#                                    'update_datetime':time.strftime('%Y-%m-%d %H:%M:%S')
-#                            }
-##                            self.pool.get('master.ecommerce.logs').create(cr,uid,vals_log)
+                except Exception as e:
+
                     time.sleep(10)
-#                        continue
+
 
         return True
     
@@ -1198,7 +1065,7 @@ class sale_shop(models.Model):
                         if single_asin.get('buy_box'):
                             list_id=list_obj.search([('asin','=',single_asin.get('ASIN',False))])
                             if len(list_id):
-                                if single_asin.has_key('Rank'):
+                                if 'Rank' in single_asin:
                                     list_write=list_id[0].write({'is_buybox':single_asin.get('buy_box'),'rank':single_asin.get('Rank')})
                                     update_vals = {'name':single_asin.get('Rank'),
                                    'rank_created_date':time.strftime('%Y-%m-%d %H:%M:%S'),
@@ -1463,7 +1330,7 @@ class sale_shop(models.Model):
                         self._cr.commit()
 
 
-                except Exception, e:
+                except Exception as e:
                     if str(e).find('concurrent update') != -1:
                         self._cr.rollback()
                         time.sleep(10)
@@ -1476,11 +1343,11 @@ class sale_shop(models.Model):
         
         amazon_listing_obj = self.env['amazon.product.listing']
         self._cr.execute('select id from amazon_product_listing where (last_sync_date < %s or last_sync_date is null) and shop_id = %s ', (data.report_update,data.id))
-        amazon_listing_ids = filter(None, map(lambda x: x[0], cr.fetchall()))
+        amazon_listing_ids = filter(None, list(map(lambda x: x[0], self._cr.fetchall())))
         for each_listing in amazon_listing_obj.browse(amazon_listing_ids):
             try:
                 each_listing.write({'last_sync_stock':0,'last_sync_date':data.report_update})
-            except Exception, e:
+            except Exception as e:
                 if str(e).find('concurrent update') != -1:
                     self._cr.rollback()
                     time.sleep(10)
@@ -1514,7 +1381,7 @@ class sale_shop(models.Model):
         stock_submission_id = False
         try:
             stock_submission_id = amazon_api_obj.call(instance_obj, 'POST_INVENTORY_AVAILABILITY_DATA',stock_data)
-        except Exception, e:
+        except Exception as e:
 #            raise osv.except_osv(_('Error !'), _('%s') % (e))
             raise UserError(_('Error !'), _('%s') % (e))
         
@@ -1530,7 +1397,7 @@ class sale_shop(models.Model):
         ctx.update({'from_date': datetime.datetime.now()})
         (data,) = self.browse(self._ids)
         amazon_inst_data = data.instance_id
-        if self._context.has_key('listing_ids'):
+        if 'listing_ids' in self._context:
             listing_ids = self._context.get('listing_ids')
         else:
             listing_ids = amazon_prod_list_obj.search([('active_amazon','=',True),('shop_id','=',data.id)])
@@ -1573,7 +1440,7 @@ class sale_shop(models.Model):
         price_submission_id = False
         try:
             price_submission_id = amazon_api_obj.call(instance_obj, 'POST_PRODUCT_PRICING_DATA',price_data)
-        except Exception, e:
+        except Exception as e:
 #            raise osv.except_osv(_('Error !'), _('%s') % (e))
             raise UserError(_('Error !'), _('%s') % (e))
         return True
@@ -1588,7 +1455,8 @@ class sale_shop(models.Model):
         context.update({'from_date': datetime.datetime.now()}) 
         (data,) = self
         instance_obj = data.instance_id
-        if context.has_key('listing_ids'):
+        # if context.has_key('listing_ids'):
+        if 'listing_ids' in context:
             listing_ids_int = context.get('listing_ids')
             listing_ids = amazon_prod_list_obj.browse(listing_ids_int)
         else:

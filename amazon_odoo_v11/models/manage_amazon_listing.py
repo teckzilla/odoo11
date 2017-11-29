@@ -27,11 +27,13 @@ import socket
 import time
 from datetime import timedelta,datetime
 import datetime
-import mx.DateTime as dt
+# import mx.DateTime as dt
 import odoo.netsvc
-import cStringIO
-import StringIO
-from urllib import urlencode
+# import cStringIO
+# import StringIO
+from io import StringIO
+# from urllib import urlencode
+from urllib.parse import urlencode
 import os
 from base64 import b64decode
 import urllib
@@ -47,213 +49,6 @@ logger = logging.getLogger('manage_amazon_listing')
 class  upload_amazon_products(models.Model):
     _name = "upload.amazon.products"
 
-#     @api.multi
-#     def upload_amazon_products(self):
-#        amazon_api_obj = self.env['amazonerp.osv']
-#        sale_shop_obj=self.env['sale.shop']
-#        release_date = datetime.datetime.now()
-#        release_date = release_date.strftime("%Y-%m-%dT%H:%M:%S")
-#        date_string = """<LaunchDate>%s</LaunchDate>
-#                         <ReleaseDate>%s</ReleaseDate>"""%(release_date,release_date)
-# #
-#        for product in self:
-#            merchant_string = ''
-#            standard_product_string = ''
-#            desc = ''
-#            log_id = 0
-#            instance_obj = product.shop_id.instance_id
-#            location_id = product.shop_id.warehouse_id.lot_stock_id.id
-#            merchant_string ="<MerchantIdentifier>%s</MerchantIdentifier>"%(instance_obj.aws_merchant_id)
-#            message_information = ''
-#            message_id = 1
-#            use_id=product.id
-#            for each_product in product.prod_listing_ids:
-#                product_id=each_product.product_id
-#                item_type=each_product.product_id.amazon_cat
-#                product_nm = each_product.product_id.name_template
-#                product_sku = each_product.product_asin.name.strip(" ")
-# #                function_call = sale_shop_obj._my_value(cr, uid,location_id,each_product.id,context={})
-# #                quantity = str(function_call).split('.')
-#
-#                if each_product.product_asin.title:
-#                    title=each_product.product_asin.title
-#                else:
-#                    title = each_product.product_id.name_template
-#                if each_product.product_asin.prod_dep:
-#                    sale_description = each_product.product_asin.prod_dep
-#                else:
-#                    sale_description = each_product.product_id.amazon_description
-#                if sale_description:
-#                    desc = "<Description><![CDATA[%s]]></Description>"%(sale_description)
-#
-#                product_asin = each_product.product_asin.asin
-#
-#                if each_product.is_new_listing:
-#                    if not each_product.product_asin.code_type:
-#                        raise UserError(_("Error"), _('UPC Required!!'))
-#                        # raise osv.except_osv(_('Error'), _('UPC Required!!'))
-#
-#                    standard_product_string = """
-#                    <StandardProductID>
-#                    <Type>UPC</Type>
-#                    <Value>%s</Value>
-#                    </StandardProductID>
-#                    """%(each_product.product_asin.code_type)
-#                else:
-#                    if not product_asin:
-#                        raise UserError(_("Error"), _('ASIN Required!!'))
-#                    standard_product_string = """
-#                    <StandardProductID>
-#                    <Type>ASIN</Type>
-#                    <Value>%s</Value>
-#                    </StandardProductID>
-#                    """%(product_asin)
-#
-#                platinum_keywords = ''
-#                if each_product.product_id.platinum_keywords:
-#                    platinum_keyword_list = each_product.product_id.platinum_keywords.split('|')
-#                    for keyword in platinum_keyword_list:
-#                        platinum_keywords += '<PlatinumKeywords><![CDATA[%s]]></PlatinumKeywords>'%(keyword)
-#                if platinum_keywords == '':
-#                    platinum_keywords = '<PlatinumKeywords>No Keywords</PlatinumKeywords>'
-#
-#                search_term = ''
-#                if each_product.product_id.search_keywords:
-#                    search_term_list = each_product.product_id.search_keywords.split('|')
-#                    for keyword_search in search_term_list:
-#                      search_term += '<SearchTerms><![CDATA[%s]]></SearchTerms>'%(keyword_search)
-#
-#
-#                style_keywords = ''
-#                if each_product.product_id.style_keywords:
-#                    style_keyword_list = each_product.product_id.style_keywords.split('|')
-#                    for keyword_style in style_keyword_list:
-#                            style_keywords += '<StyleKeywords><![CDATA[%s]]></StyleKeywords>'%(keyword_style)
-#                if style_keywords == '':
-#                    style_keywords = '<StyleKeywords>No Keywords</StyleKeywords>'
-#
-#                message_information += """<Message><MessageID>%s</MessageID>
-#                                            <OperationType>Update</OperationType>
-#                                            <Product>
-#                                            <SKU>%s</SKU>%s
-#                                            <ProductTaxCode>A_GEN_NOTAX</ProductTaxCode>
-#                                            %s<DescriptionData>
-#                                            <Title><![CDATA[%s]]></Title>"""%(message_id,product_sku,standard_product_string,date_string,title)
-#
-#                if not each_product.product_id.bullet_point:
-#                    raise UserError(_("Error"), _('Plz Enter Bullet Points!!'))
-#
-#                bullet_points = ''
-#                bullets=each_product.product_id.bullet_point.split('|')
-#                for bullet in bullets:
-#                    bullet_points +="""<BulletPoint><![CDATA[%s]]></BulletPoint>"""%(bullet)
-#
-#
-#                if not each_product.product_id.amazon_brand:
-#                    raise UserError(_("Error"), _('Plz Enter Brand!!'))
-#                message_information += """<Brand><![CDATA[%s]]></Brand>"""%(each_product.product_id.amazon_brand)
-#                message_information += desc
-#                message_information += bullet_points
-# #                    message_information +="""<MSRP currency="USD">%s</MSRP>"""%(each_product.product_asin.price)
-#                message_information +="""<Manufacturer><![CDATA[%s]]></Manufacturer>"""%(each_product.product_id.amazon_manufacturer)
-#                message_information +="""<MfrPartNumber>LE</MfrPartNumber>"""
-#                message_information += search_term
-#                message_information += platinum_keywords
-#
-#
-#                if not each_product.product_id.amazon_manufacturer:
-#                    raise UserError(_("Error"), _('Plz Enter manufacturer!!'))
-#
-#                xml_product_type =''
-#                c = ''
-#                val = ''
-#                if product.amazon_category.name:
-#                  if product.amazon_attribute_ids1:
-#                    c_len = len(product.amazon_attribute_ids1)
-#                    for rec in product.amazon_attribute_ids1:
-#                        cnt = 0
-#                        attrs = rec.name
-#                        val += c
-#                        print "-----------------val-->",val
-#                        c = ''
-#                        while attrs:
-#                            cnt = cnt + 1
-#                            if cnt == 1:
-#                                if attrs.parent_id.attribute_code is None:
-#                                    if rec.name.complete_name=='ProductType' or rec.name.complete_name=='ClothingType':
-#                                        print'hhhhhhhhhhhhhhhhhhhh',rec.value.name
-#                                        c=self.getmycategory(cr,uid,ids,rec.name.pattern,rec.value.name,context)
-#                                        print'c' ,c
-#                                        val += c
-#                                else:
-#                                    logger.error('attrs ---------%s', attrs)
-#                                    logger.error('attrs.parent_id ---------%s', attrs.parent_id)
-#                                    logger.error('attrs.attribute_code ---------%s', attrs.attribute_code)
-#                                    p = val.find(attrs.attribute_code)
-#                                    l_tag = p + len(attrs.attribute_code) + 1
-#                                    if p > 0:
-#                                        val = val[:l_tag] +'''<%s>%s</%s>'''%(attrs.attribute_code,rec.value and rec.value.value or rec.value_text,attrs.attribute_code)+ val[l_tag:]
-#                                        attrs = False
-#                                    else:
-#                                        print "=in else-----------vals-------------",val
-#                                        c = '''<%s>%s</%s>'''%(attrs.attribute_code,rec.value and rec.value.value or rec.value_text,attrs.attribute_code)
-#                            else:
-#                                c = '''<%s>%s</%s>'''%(attrs.attribute_code,c,attrs.attribute_code)
-#                            if not attrs:
-#                                continue
-#                            if attrs.parent_id:
-#                                attrs = attrs.parent_id
-#                            else:
-#                                attrs = False
-# #                                if c_len == 1:
-# #                                    val += c
-#                xml_product_type = val
-#                print 'style_keywords',style_keywords
-#
-# #                if product.amazon_category.name=='Clothing':
-# #                    message_information +=""" <ItemType><![CDATA[%s]]></ItemType>
-# #                                                <RecommendedBrowseNode>%s</RecommendedBrowseNode>
-# #                                                </DescriptionData>
-# #                                                <ProductData>
-# #                                                <%s>
-# #                                               <ClassificationData><ClothingType>%s</ClothingType></ClassificationData>
-# #                                              </%s></ProductData>"""%(product.item_type.code_type,product.item_type.node,product.amazon_category.name,xml_product_type,product.amazon_category.name)
-# #                else:
-#                message_information +=""" <ItemType><![CDATA[%s]]></ItemType>
-#                                            <RecommendedBrowseNode>%s</RecommendedBrowseNode>
-#                                            </DescriptionData>
-#                                            <ProductData>
-#                                            <%s>
-#                                           <ProductType>%s</ProductType>
-#                                          </%s></ProductData>"""%(product.item_type.code_type,product.item_type.node,product.amazon_category.name,xml_product_type,product.amazon_category.name)
-#                message_information += """</Product>
-#                                            </Message>"""
-#                print product_sku
-#                print title
-#                print message_id
-#                message_id = message_id + 1
-#                print"___________",message_information
-#                product_str = """<MessageType>Product</MessageType>
-#                                <PurgeAndReplace>false</PurgeAndReplace>"""
-#                product_data = sale_shop_obj.xml_format(product_str,merchant_string,message_information)
-#                logger.error('product_data ---------%s', product_data)
-#
-#            product_data = sale_shop_obj.xml_format(product_str,merchant_string,message_information)
-#            if product_data:
-#                product_submission_id = amazon_api_obj.call(instance_obj, 'POST_PRODUCT_DATA',product_data)
-#                logger.error('product_submission_id---------%s', product_submission_id)
-#                if product_submission_id.get('FeedSubmissionId',False):
-#                    time.sleep(100)
-#                    submission_results = amazon_api_obj.call(instance_obj, 'GetFeedSubmissionResult',product_submission_id.get('FeedSubmissionId',False))
-#                    print"+++++++++++++=", submission_results.get('getsubmitfeedresult')
-#                    print product.id,use_id
-#                    logger.error('submission_results---------%s', submission_results)
-#                    update=self.write(cr,uid,product.id,{'feed_result':product_submission_id.get('FeedSubmissionId'),'feed_data': submission_results})
-#                    if submission_results.get('MessagesWithError',False) == '0':
-#                            product_long_message = ('%s: Updated Successfully on Amazon') % (product_nm)
-#                            sale_shop_obj.log(cr, uid,log_id, product_long_message)
-#                            log_id += 1
-#        return True
 
 
 
@@ -626,116 +421,13 @@ class  upload_amazon_products(models.Model):
             # child_product_data += self.format_childproduct_feed_xml(message_count)
             child_product_data += self.format_feed_xml(message_count)
         # body += child_product_data
-        print child_product_data
-        product_xml_upload_data = self.xml_format(merchant_string,child_product_data)
-        print product_xml_upload_data
-        # opening_tag = '''
-        #              <?xml version="1.0" encoding="iso-8859-1"?>
-        #             <AmazonEnvelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="amzn-envelope.xsd">
-        #                 <Header>
-        #                     <DocumentVersion>1.01</DocumentVersion>''' + merchant_string + '''
-        #                 </Header>
-        #                 <MessageType>Product</MessageType>
-        #                 <PurgeAndReplace>false</PurgeAndReplace>
-        #                 <Message>
-        #        '''
-        # closing_tag = '''
-        #             </Message>
-        #         </AmazonEnvelope>
-        #     '''
-        # data = opening_tag +child_product_data+ closing_tag
-#             data = '''
-#                        <?xml version="1.0" encoding="iso-8859-1"?>
-#                 <AmazonEnvelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="amzn-envelope.xsd">
-#                     <Header>
-#                         <DocumentVersion>1.01</DocumentVersion>
-#                         <MerchantIdentifier>A1J3YKLXUUA8OJ</MerchantIdentifier>
-#                     </Header>
-#                     <MessageType>Product</MessageType>
-#                     <PurgeAndReplace>false</PurgeAndReplace>
-#                     <Message>
-#                         <MessageID>1</MessageID>
-#                         <OperationType>Update</OperationType>
-#                         <Product>
-#                             <SKU>RO7WA11930KB1CYYY</SKU>
-#                             <StandardProductID>
-#                                 <Type>UPC</Type>
-#                                 <Value>40156431038778</Value>
-#                              </StandardProductID>
-#                             <ProductTaxCode>A_GEN_NOTAX</ProductTaxCode>
-#                             <DescriptionData>
-#                                 <Title>IODEX New</Title>
-#                                 <Brand>Patanjali</Brand>
-#                                 <Description>Made by Natural</Description>
-#                                 <BulletPoint>Easy to Use</BulletPoint>
-#                                 <BulletPoint>Fast Relif</BulletPoint>
-#                                 <MSRP currency="GBP">0.01</MSRP>
-#                                 <Manufacturer>Patanjali</Manufacturer>
-#                                 <ItemType>Relif Bam</ItemType>
-#                             </DescriptionData>
-#                             <ProductData>
-#                                 <Health>
-#                                     <ProductType>
-#                                         <HealthMisc>
-#                                             <Ingredients>Root of Tree</Ingredients>
-#                                             <Directions>Before Sleep</Directions>
-#                                         </HealthMisc>
-#                                     </ProductType>
-#                                 </Health>
-#                             </ProductData>
-#                         </Product>
-#                     </Message>
-#                 </AmazonEnvelope>
-#             '''
-        # print "-================data================--",data
 
-        # data = '''
-        # <?xml version="1.0" encoding="iso-8859-1"?>
-        # <AmazonEnvelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="amzn-envelope.xsd">
-        # <Header>
-        #     <DocumentVersion>1.01</DocumentVersion>
-        #     <MerchantIdentifier>A1J3YKLXUUA8OJ</MerchantIdentifier>
-        # </Header>
-        #         <MessageType>Product</MessageType>
-        #         <PurgeAndReplace>false</PurgeAndReplace>
-        #         <Message>
-        #           <MessageID>2</MessageID>
-        #           <OperationType>Update</OperationType>
-        #           <Product>
-        #               <SKU>1234567890121</SKU>
-        #               <StandardProductID>
-        #                     <Type>UPC</Type>
-        #                     <Value>478545781124</Value>
-        #               </StandardProductID>
-        #               <ProductTaxCode>A_GEN_NOTAX</ProductTaxCode>
-        #               <DescriptionData>
-        #                             <Title>Sweet Apple</Title>
-        #                             <Brand>Teckzilla</Brand>
-        #                             <Description>Made by Natural</Description>
-        #                              <BulletPoint>Easy to Use</BulletPoint>
-        #                             <BulletPoint>Fast Relif</BulletPoint>
-        #                              <MSRP currency="GBP">0.01</MSRP>
-        #                             <ItemType>HealthMisc</ItemType>
-        #               </DescriptionData>
-        #               <ProductData>
-        #                     <Health>
-        #                         <ProductType>
-        #                             <HealthMisc>
-        #                                 <Ingredients>Root of Tree</Ingredients>
-        #                                 <Directions>Before Sleep</Directions>
-        #                             </HealthMisc>
-        #                         </ProductType>
-        #                     </Health>
-        #                 </ProductData>
-        #     </Product>
-        #     </Message>
-        # </AmazonEnvelope>
-        #
-        # '''
-        print "------------product_xml_upload_data-------------",product_xml_upload_data
+        product_xml_upload_data = self.xml_format(merchant_string,child_product_data)
+
+
         product_submission_id = amazon_api_obj.call(listing_data.shop_id.instance_id, 'POST_PRODUCT_DATA',product_xml_upload_data)
         # product_submission_id = amazon_api_obj.call(listing_data.shop_id.instance_id, 'POST_PRODUCT_DATA',data)
-        print product_submission_id
+
         log_obj.log_data("product_submission_id",product_submission_id)
 
         if product_submission_id.get('FeedSubmissionId',False):
@@ -749,10 +441,11 @@ class  upload_amazon_products(models.Model):
             <AmazonEnvelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="amzn-envelope.xsd">
             <Header>
             <DocumentVersion>1.01</DocumentVersion>
-            """+merchant_string.encode("utf-8") +"""
+            """+merchant_string +"""
             </Header>
-            """+message_data.encode("utf-8") + """
+            """+message_data + """
             </AmazonEnvelope>"""
+        print ("str",str)
         return str
     
     def format_childproduct_feed_xml_new(self, message_count, variant):
@@ -879,24 +572,11 @@ class  upload_amazon_products(models.Model):
         log_obj = self.env['ecommerce.logs']
         (listing_data,) = self
         site = listing_data.shop_id.instance_id.site
-#        if len(listing_data.amazon_attribute_ids1):
-#            variation_theme = 'SizeColor'
-#            for variation_theme in listing_data.amazon_attribute_ids1 :
-#                if variation_theme.value == 'SizeColor':
-#                    variation_theme = 'SizeColor'
-#                    break
-#                if variation_theme.value == 'Size':
-#                    variation_theme = 'Size'
-#                if variation_theme.value == 'Color':
-#                    variation_theme = 'Color'
-#        else:
-#             raise osv.except_osv(_('Error'), _('Please enter variation theme'))
-#        print'listing_data.prod_listing_ids',listing_data.prod_listing_ids 
+
         body = ''
         for child_data in listing_data.prod_listing_ids :
             message_count += 1
-#            new_product = child_data.is_new_listing
-#            new_product = child_data.is_new_listing
+
             if listing_data.is_parent :
                 size = ''
                 if child_data.product_asin.size:
@@ -1007,18 +687,7 @@ class  upload_amazon_products(models.Model):
                 for keyword_search in search_term_list:
                   search_term += '<SearchTerms><![CDATA[%s]]></SearchTerms>'%(keyword_search)
             package_dimension = ''
-#            if listing_data.amazon_category.name=='ClothingAccessories':
-#                package_dimension += '<PackageDimensions>'
-#                package_dimension += '<Length unitOfMeasure="IN">8</Length>'
-#                package_dimension += '<Width unitOfMeasure="IN">6</Width>'
-#                package_dimension += '<Height unitOfMeasure="IN">3</Height>'
-#                if child_data.product_id.package_weight_uom and child_data.product_id.package_weight:
-#                    package_dimension += '<Weight unitOfMeasure="%s">%s</Weight>'%(child_data.product_id.package_weight_uom,child_data.product_id.package_weight)
-#                package_dimension += '</PackageDimensions>'
-                
-#                body += package_dimension
-                
-#            package_weight = '<PackageWeight unitOfMeasure="OZ">.2</PackageWeight>'
+
 
 
             description_data = '''<DescriptionData>
@@ -1029,7 +698,7 @@ class  upload_amazon_products(models.Model):
                                 '''%(name,brand,description)
 
             if not child_data.product_id.bullet_point:
-#                raise osv.except_osv(_('Error'), _('Plz Enter Bullet Points!!'))
+
                 raise UserError(_('Plz Enter Bullet Points!!'))
             bullet_points = ''
             bullets= child_data.product_id.bullet_point.split('|')
@@ -1062,67 +731,9 @@ class  upload_amazon_products(models.Model):
                 recomend =  '''<RecommendedBrowseNode>%s</RecommendedBrowseNode>'''%(listing_data.item_type.node)
             body += description_data  + bullet_points + search_term + platinum_keywords + item_type +recomend+other_option+'</DescriptionData>'
             product_type_data = self.amazon_category_data(listing_data.amazon_category, listing_data.amazon_subcategory)
-    #            if not product_data.producttypename:
-    #                raise osv.except_osv(_('Error'), _('Please enter Product TYPE for %s'% (product_data.name)))
-    #            if not product_data.department:
-    #                raise osv.except_osv(_('Error'), _('Please enter Product DEPARTMENT for %s'% (product_data.name)))
-            
-            
-            
-            
-    #         if listing_data.amazon_category=='ClothingAccessories':
-    #             product_type_data = '''
-    #                                 <ProductData>
-    #                                 <%s>
-    #                                 %s
-    #                                 <ClassificationData>
-    #                                 <%sType>%s</%sType>
-    #                                 <Department>%s</Department>
-    #                                 %s
-    #                                 </ClassificationData>
-    #                                 </%s>
-    #                                 </ProductData>
-    #                                 </Product>
-    #                                 </Message>
-    #                                 '''% ('Clothing',variant_xml,'Clothing',str(child_data.product_asin.producttypename),'Clothing',str(child_data.product_asin.department),style_keywords,'Clothing')
-    #
-    #         else:
-    #             if listing_data.amazon_category == 'Toys' and len(listing_data.amazon_attribute_ids1) != 0 and len(listing_data.amazon_attribute_ids1) == 2:
-    #                 for typename in listing_data.amazon_attribute_ids1:
-    #                     if typename.sequence == '1' or typename.name.attribute_code == 'ProductType':
-    #                         type_name = typename.value.name
-    #                         product_type_data ='''<ProductData>
-    #                                 <%s>
-    #                                 <ProductType>
-    #                                 <%s>
-    #                                     <ColorMap>black</ColorMap>
-    #                                 </%s>
-    #                                 </ProductType>
-    #                         <AgeRecommendation>
-    #                         '''%(listing_data.amazon_category,type_name,type_name)
-    #                     if typename.sequence in ['2','3'] and listing_data.amazon_category == "Toys":
-    #                         if str(typename.value.name) == 'months':
-    #                             product_type_data += '''<MaximumManufacturerAgeRecommended unitOfMeasure="%s">%s</MaximumManufacturerAgeRecommended>'''%(typename.value.name,typename.value.value)
-    #                         if str(typename.value.name) == 'years':
-    #                             product_type_data += '''<MaximumManufacturerAgeRecommended unitOfMeasure="%s">%s</MaximumManufacturerAgeRecommended>'''%(typename.value.name,typename.value.value)
-    #                 product_type_data +='''</AgeRecommendation>
-    #                 </%s>
-    #                 </ProductData>
-    #                 </Product>
-    #                 </Message>'''%(listing_data.amazon_category)
-    # #                        product_type_data ='''
-    # #                                        <ProductData>
-    # #                                        <%s>
-    # #                                        <ProductType><CEBattery><Efficiency>100</Efficiency></CEBattery></ProductType>
-    # #                                        </%s>
-    # #                                        </ProductData>
-    # #                                        </Product>
-    # #                                        </Message>
-    # #                                        '''% (listing_data.amazon_category.name,listing_data.amazon_category.name)
+
             body += product_type_data+"</Message>"
-#                 else:
-# #                    raise osv.except_osv(_('Error'), _('Please select minimum 2 attributes'))
-#                     raise UserError(_('Please select minimum 2 attributes'))
+
         log_obj.log_data("body+++++++=",body)
         
         return body
@@ -1442,7 +1053,7 @@ class  upload_amazon_products(models.Model):
 #                time.sleep(80)
                 submission_results = amazon_api_obj.call(instance_obj, 'GetFeedSubmissionResult',product_submission_id.get('FeedSubmissionId',False))
                 sub_id+=product_submission_id.get('FeedSubmissionId')
-                print self.write({'feed_result':sub_id,'feed_data': submission_results})
+
         return True
 
     @api.multi
@@ -1486,23 +1097,17 @@ class  upload_amazon_products(models.Model):
                     node_list = amazon_api_obj.call(instance_obj, 'GetCompetitivePricingForSKU',sku_list)
                 if len(node_list):
                     for dic in node_list:
-                        if dic.has_key('SellerSKU'):
+                        # if dic.has_key('SellerSKU'):
+                        if 'SellerSKU' in dic:
                             find_sku=amazon_list_obj.search([('name','=', dic['SellerSKU'])])
                         if len(find_sku):
-                            if dic.has_key('ASIN'):
+                            if 'ASIN' in dic:
                                 find_sku[0].write({'asin':dic['ASIN']}) 
                                 
         return True
     
     
-#    def on_category_change(self, cr, uid, ids, shop_id, context={}):
-#        shop_obj = self.pool.get('sale.shop').browse(cr, uid, shop_id)
-#        print "shop_obj=======",shop_obj
-#        if shop_obj:
-#            return {'value': {'categ_shop': True}}
-#        else:
-#            return {'value': {'categ_shop': False}}
-#        cr.commit()
+
     
     name = fields.Char(string='Name',size=64,required=True)
     is_parent = fields.Boolean(string='Is Variant')
