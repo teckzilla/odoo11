@@ -225,7 +225,7 @@ class amazon_product_listing(models.Model):
                 for amazon_rank in amazon_ranks:
                     total_rank += amazon_rank
 
-                res.avg_seven_rank = total_rank / len(amazon_ranks)
+                listing.avg_seven_rank = total_rank / len(amazon_ranks)
 
     
     

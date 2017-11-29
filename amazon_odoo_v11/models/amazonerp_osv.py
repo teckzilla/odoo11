@@ -29,7 +29,8 @@ import time
 import base64
 # import httplib
 import http.client
-from xml.dom.minidom import parseString
+from xml.dom.minidom import parse, parseString
+
 # import md5
 from datetime import timedelta, datetime
 import datetime
@@ -198,11 +199,15 @@ class Call:
 
     def cal_content_md5(self, request_xml):
         # m = md5.new()
-        m = hashlib.md5.new()
+        # m = hashlib.md5.new()
+        m = hashlib.new('sha1')
+        request_xml=request_xml.encode('utf-8')
         m.update(request_xml)
         value = m.digest()
-        hash_string = base64.encodestring(value)
-        hash_string = hash_string.replace('\n', '')
+        hash_string = base64.b64encode(value)
+        print("hash_string  bytes or str", type(hash_string))
+        hash_string = hash_string.replace(b'\n', b'')
+        print("hash_string", type(hash_string))
         return hash_string
 
     def MakeCall(self, callName):
@@ -212,6 +217,7 @@ class Call:
         self.url_param['Signature'] = signature_info[0]
         self.url_string  = str(self.command) + signature_info[1].replace('%0A','')+'&Signature='+urllib.quote(str(signature_info[0]))'''
         self.url_string = (self.url_string).replace('+', '%20')
+        print ("url strring",self.url_string)
         # conn = httplib.HTTPSConnection(self.Session.domain)
         conn = http.client.HTTPSConnection(self.Session.domain)
         data = ''
@@ -250,7 +256,7 @@ class Call:
         if callName == 'GetReport':
             return data
         else:
-
+            print("data",data)
             responseDOM = parseString(data)
             tag = responseDOM.getElementsByTagName('Error')
             if (tag.count != 0):

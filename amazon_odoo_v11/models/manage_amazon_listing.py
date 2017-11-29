@@ -441,10 +441,11 @@ class  upload_amazon_products(models.Model):
             <AmazonEnvelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="amzn-envelope.xsd">
             <Header>
             <DocumentVersion>1.01</DocumentVersion>
-            """+merchant_string.encode("utf-8") +"""
+            """+merchant_string +"""
             </Header>
-            """+message_data.encode("utf-8") + """
+            """+message_data + """
             </AmazonEnvelope>"""
+        print ("str",str)
         return str
     
     def format_childproduct_feed_xml_new(self, message_count, variant):
