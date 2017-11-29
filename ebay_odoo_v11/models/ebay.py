@@ -70,7 +70,7 @@ class sales_channel_instance(models.Model):
             'url': callbck_url
         }
         state_json = json.dumps(state_dict)
-        encoded_params = base64.urlsafe_b64encode(state_json)
+        encoded_params = base64.urlsafe_b64encode(state_json.encode('utf-8'))
         ebay_outh = self.env['ebay.oauth'].search([])
         if not ebay_outh:
             raise UserError(_("eBay App credentials not found"))
