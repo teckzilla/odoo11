@@ -22,7 +22,7 @@
 {
     "name" : "Base Ecommerce TeckZilla--v11",
     "version" : "1.1",
-    "depends" : ['base','sale','product','stock','sale_stock','delivery','account_voucher', 'base_shipping_v10'],
+    "depends" : ['base','sale','product','stock','sale_stock','delivery','account_voucher', 'base_shipping_v11'],
     "author" : "TeckZilla",
     "description": """
     Base Module for All MarketPlaces Management\n

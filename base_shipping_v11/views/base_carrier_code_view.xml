@@ -62,6 +62,6 @@
         </record>
 
 
-        <menuitem action="action_base_carrier_code_form" id="menu_base_carrier_code_form" parent="delivery.menu_delivery" groups="base_shipping_v10.group_base_shipping_manager"/>
+        <menuitem action="action_base_carrier_code_form" id="menu_base_carrier_code_form" parent="delivery.menu_delivery" groups="base_shipping_v11.group_base_shipping_manager"/>
     </data>
 </odoo>

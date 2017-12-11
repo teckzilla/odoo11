@@ -1,2 +1,2 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_group_netdespatch_config_group_base_shipping_manager,netdespatch.config.access,model_netdespatch_config,base_shipping_v10.group_base_shipping_manager,1,1,1,1
+access_group_netdespatch_config_group_base_shipping_manager,netdespatch.config.access,model_netdespatch_config,base_shipping_v11.group_base_shipping_manager,1,1,1,1

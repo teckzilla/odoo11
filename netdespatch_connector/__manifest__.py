@@ -21,7 +21,7 @@
 {
     "name" : "Netdespatch Connector",
     "version" : "1.1.1",
-    "depends" : ["base","product","sale","stock","delivery","base_shipping_v10","document"],
+    "depends" : ["base","product","sale","stock","delivery","base_shipping_v11","document"],
     "author" : "TeckZilla",
     "description": """
 
