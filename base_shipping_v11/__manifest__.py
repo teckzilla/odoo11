@@ -19,19 +19,19 @@
 ##############################################################################
 
 {
-    "name" : "Base Shipping V10",
+    "name" : "Base Shipping V11",
     "version" : "1.1.1",
     "depends" : ["base", "product","sale","stock","delivery"],
     "author" : "TeckZilla",
     "description": """
-        Base Shipping V10\n
+        Base Shipping V11\n
         Create Shipments\n
         Print Labels\n
     """,
     "website" : "www.teckzilla.net",
     'images': [],
     "category" : "Shipping",
-    'summary': 'Base Shipping V10',
+    'summary': 'Base Shipping V11',
     "demo" : [],
 	'currency': 'GBP',
     "data" : [
