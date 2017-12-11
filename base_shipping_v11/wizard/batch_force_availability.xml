@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_stock_picking_mass_action_form" model="ir.ui.view">
+          <field name="model">stock.picking.mass.action</field>
+          <field name="arch" type="xml">
+            <form string="Force Stock Availability">
+                  <group>
+                      <field name="force_availability"/>
+                  </group>
+              <footer>
+                <button name="mass_action" string="Apply" type="object" class="oe_highlight"/>
+                <button string="Cancel" class="oe_link" special="cancel"/>
+              </footer>
+            </form>
+          </field>
+        </record>
+
+        <!--<record id="action_force_availability" model="ir.actions.act_window">-->
+          <!--<field name="name">Force Availability</field>-->
+          <!--<field name="res_model">stock.picking.mass.action</field>-->
+          <!--<field name="view_type">form</field>-->
+          <!--<field name="view_mode">form</field>-->
+          <!--<field name="target">new</field>-->
+          <!--<field name="context">{'force_availability': 1}</field>-->
+        <!--</record>-->
+
+        <!--<record id="value_force_availability" model="ir.values">-->
+          <!--<field name="model_id" ref="stock.model_stock_picking" />-->
+          <!--<field name="name">Force Availability</field>-->
+          <!--<field name="key2">client_action_multi</field>-->
+          <!--<field name="value" eval="'ir.actions.act_window,' + str(ref('action_force_availability'))"/>-->
+          <!--<field name="key">action</field>-->
+          <!--<field name="model">stock.picking</field>-->
+        <!--</record>-->
+
+
+        <act_window id="action_force_availability"
+            name="Force Stock Avail."
+            src_model="stock.picking"
+            res_model="stock.picking.mass.action"
+            view_mode="form"
+            target="new"
+            key2="client_action_multi"
+            context="{'force_availability': 1}"/>
+    </data>
+</odoo>

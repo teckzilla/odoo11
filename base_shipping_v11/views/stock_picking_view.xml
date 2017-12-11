@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+##############################################################################
+#    Copyright (c) 2015 - Present Teckzilla Software Solutions Pvt. All Rights Reserved
+#    Author: [Teckzilla Software Solutions]  <[ sales@teckzilla.net]>
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    A copy of the GNU General Public License is available at:
+#    <http://www.gnu.org/licenses/gpl.html>.
+#
+#
+#
+##############################################################################
+-->
+<odoo>
+    <data>
+
+        <record id="view_picking_out_base_shipping_form" model="ir.ui.view">
+            <field name="name">stock.picking.out.form.inherit.base_shipping</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form" />
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <!--<xpath expr="//field[@name='move_type']" position="before">-->
+
+                    <!--<field name="label_printed" />-->
+                    <!--<field name="shipment_created" />-->
+
+                <!--</xpath>-->
+                <xpath expr="//notebook" position="inside">
+                    <page string="Shipping Settings">
+                        <group>
+                            <group>
+                                <field name="label_generated" />
+                                <field name="label_generated_date" />
+                                <field name="label_generated_uid" />
+                                <field name="label_printed" />
+                                 <field name="label_printed_date" />
+                                <field name="label_printed_uid" />
+
+                                <field name="manifested" />
+
+                            </group>
+                            <group>
+                                <field name="picklist_printed" />
+                                <field name="shipment_created" />
+                                <field name="shipment_created_uid" />
+                                <field name="shipment_created_date" />
+                                <field name="faulty" />
+                            </group>
+
+
+                            <field name="error_log" />
+                        </group>
+                    </page>
+
+
+
+                </xpath>
+            </field>
+        </record>
+
+        <record id="shipping_delivery_orders_awaiting_dispatch" model="ir.ui.view">
+            <field name="name">shipping.delivery</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.vpicktree"/>
+            <field name="arch" type="xml">
+                    <field name="partner_id" position="replace">
+                        <field name="products_sku" string="SKU" />
+                        <field name="products_name" string="Product"/>
+                    </field>
+                    <field name="location_dest_id" position="replace">
+                        <field name="partner_id" string="Customer"/>
+                    </field>
+                    <field name="origin" invisible="1"/>
+                    <field name="backorder_id" invisible="1"/>
+                    <field name="group_id" position="replace">
+                        <field name="customer_postcode" string="Postcode"/>
+                        <field name="customer_country" string="Country"/>
+                    </field>
+
+                    <!--<xpath expr="//field[@name='location_dest_id']" position="after">-->
+                        <!--<field name="product_sku" string="SKU" />-->
+                    <!--</xpath>-->
+            </field>
+        </record>
+
+         <record id="view_picking_withcarrier_inherit_form" model="ir.ui.view">
+            <field name="name">stock.picking.out.form.inherit.netdespatch</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="delivery.view_picking_withcarrier_out_form" />
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='number_of_packages']" position="after">
+                    <!--<field name="product_weight"/>-->
+                    <label for="length" string="Dimension"/>
+                    <table>
+                        <tr>
+
+                            <td>Length<field name="length"/>(mm)</td>
+                            <td>Width<field name="width"/>(mm)</td>
+                            <td>Height<field name="height"/>(mm)</td>
+                        </tr>
+                    </table>
+
+
+                </xpath>
+            </field>
+         </record>
+
+
+        <record id="action_base_shipping_delivery_orders" model="ir.actions.act_window">
+            <field name="name">Awaiting Dispatch</field>
+            <field name="res_model">stock.picking</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="shipping_delivery_orders_awaiting_dispatch"/>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('label_printed', '=', False),('label_generated', '=', False),('faulty', '=', False),('state','!=','done'),('state','!=','cancel')]</field>
+        </record>
+
+        <record id="action_base_shipping_delivery_orders_printed" model="ir.actions.act_window">
+            <field name="name">To be Pick'n'Packed</field>
+            <field name="picknpackCount"/>
+            <field name="res_model">stock.picking</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('label_generated', '=', True),('label_printed', '=', False),('manifested', '=', False),('faulty', '=', False)]</field>
+        </record>
+
+        <record id="action_base_shipping_delivery_orders_shipped" model="ir.actions.act_window">
+            <field name="name">Ready to Dispatch</field>
+            <field name="res_model">stock.picking</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('label_printed', '=', True),('manifested', '=', False),('faulty', '=', False)]</field>
+        </record>
+        <record id="action_base_shipping_delivery_orders_processed" model="ir.actions.act_window">
+            <field name="name">Dispatched Orders</field>
+            <field name="res_model">stock.picking</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('manifested', '=', True)]</field>
+        </record>
+
+        <record id="action_base_shipping_delivery_orders_faulty" model="ir.actions.act_window">
+            <field name="name">Label Faults</field>
+            <field name="res_model">stock.picking</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('faulty', '=', True)]</field>
+        </record>
+
+        <!--stock.menu_stock_root-->
+        <menuitem id="menu_base_shipping_delivery_orders_label" name="Order Fulfilment" parent="sale.sale_menu_root" groups="base_shipping_v10.group_base_shipping_manager" sequence="1"/>
+        <menuitem action="action_base_shipping_delivery_orders" id="menu_base_shipping_delivery1" parent="menu_base_shipping_delivery_orders_label"/>
+        <menuitem action="action_base_shipping_delivery_orders_printed" id="menu_base_shipping_delivery_printed" parent="menu_base_shipping_delivery_orders_label"/>
+        <menuitem action="action_base_shipping_delivery_orders_shipped" id="menu_base_shipping_delivery_shipped" parent="menu_base_shipping_delivery_orders_label"/>
+        <menuitem action="action_base_shipping_delivery_orders_processed" id="menu_base_shipping_delivery_processed" parent="menu_base_shipping_delivery_orders_label"/>
+        <menuitem action="action_base_shipping_delivery_orders_faulty" id="menu_base_shipping_delivery_faulty" parent="menu_base_shipping_delivery_orders_label"/>
+
+
+        <menuitem id="menu_shipping_services_settings" name="Shipping Services" parent="stock.menu_stock_config_settings" groups="base_shipping_v10.group_base_shipping_manager"/>
+
+
+
+
+
+
+
+    </data>
+</odoo>
