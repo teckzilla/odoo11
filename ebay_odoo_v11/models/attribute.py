@@ -17,7 +17,8 @@
 #    <http://www.gnu.org/licenses/gpl.html>.
 #
 ##############################################################################
-import urllib
+
+import urllib.request
 import logging
 logger = logging.getLogger('attribute')
 from xml.dom.minidom import parse, parseString
@@ -70,10 +71,11 @@ class product_attribute_set(models.Model):
         attribute = False
         
         if self:
+            print("-------self._ids----",self._ids)
             if isinstance(self, int):
-                ids = [ids]
-            if isinstance(self, long):
-                ids = [ids]
+                ids = [self._ids]
+            # if isinstance(self, int):
+            #     ids = [ids]
             attr_set_obj= self
             site_id_value = attr_set_obj.shop_id
             if site_id_value:
@@ -94,7 +96,7 @@ class product_attribute_set(models.Model):
                     if app_id and server_url and siteid and category_code:
                         concate_url = """ %sshopping?callname=GetCategoryInfo&appid=%s&siteid=%s&CategoryID=%s&version=743&responseencoding=XML"""%(server_url,app_id,siteid,category_code)
                         try:
-                            urlopen = urllib.urlopen(concate_url)
+                            urlopen = urllib.request.urlopen(concate_url)
                         except Exception as e:
                             urlopen = ''
                         if urlopen:
@@ -107,18 +109,14 @@ class product_attribute_set(models.Model):
                                             if response.getElementsByTagName('LeafCategory'):
                                                leafcategory = response.getElementsByTagName('LeafCategory')[0].childNodes[0].data
                                                if leafcategory == 'false':
-#                                                    raise osv.except_osv(_('Warning !'), _("Category is not a Leaf Category"))
-#                                                     raise UserError(_('Warning !'), _("Category is not a Leaf Category"))
                                                     raise UserError("Warning ! Category is not a Leaf Category")
                                                elif leafcategory == 'true':
                                                    leafcategory = 'true'
                                             else:
-#                                                   raise osv.except_osv(_('Warning !'), _("Category is Invalid on Current Site"))
-                                                   raise UserError(_('Warning !'), _("Category is Invalid on Current Site"))
+                                                raise Warning(_('Category is Invalid on Current Site'))
                                         elif response.getElementsByTagName('Ack')[0].childNodes[0].data == 'Failure':
                                             long_message = response.getElementsByTagName('LongMessage')[0].childNodes[0].data
-#                                            raise osv.except_osv(_('Warning !'), _('%s')%(long_message))
-                                            raise UserError(_('Warning !'), _('%s')%(long_message))
+                                            raise Warning(_('%s')% long_message)
                     if leafcategory == 'true':
                         results = connection_obj.call(inst_lnk, 'GetCategory2CS',category_code,siteid)
                         
@@ -154,9 +152,9 @@ class product_attribute_set(models.Model):
         
         if self:
             if isinstance(self, int ):
-                ids = [ids]
-            if isinstance(self, long ):
-                ids = [ids]
+                ids = [self._ids]
+            # if isinstance(self, long ):
+            #     ids = [ids]
             attr_set_obj =  self
             siteid = attr_set_obj.shop_id.instance_id.site_id.site
             category_code = attr_set_obj.code
@@ -173,7 +171,7 @@ class product_attribute_set(models.Model):
                     if app_id and server_url and siteid and category_code:
                         concate_url = """ %sshopping?callname=GetCategoryInfo&appid=%s&siteid=%s&CategoryID=%s&version=743&responseencoding=XML"""%(server_url,app_id,siteid,category_code)
                         try:
-                            urlopen = urllib.urlopen(concate_url)
+                            urlopen = urllib.request.urlopen(concate_url)
                         except Exception as e:
                             urlopen = ''
                         if urlopen:
@@ -186,17 +184,14 @@ class product_attribute_set(models.Model):
                                             if response.getElementsByTagName('LeafCategory'):
                                                leafcategory = response.getElementsByTagName('LeafCategory')[0].childNodes[0].data
                                                if leafcategory == 'false':
-#                                                    raise osv.except_osv(_('Warning !'), _("Category is not a Leaf Category"))
-                                                    raise UserError(_('Warning !'), _("Category is not a Leaf Category"))
+                                                   raise Warning(_("Category is not a Leaf Category"))
                                                elif leafcategory == 'true':
                                                    leafcategory = 'true'
                                             else:
-#                                                   raise osv.except_osv(_('Warning !'), _("Category is Invalid on Current Site"))
-                                                   raise UserError(_('Warning !'), _("Category is Invalid on Current Site"))
+                                                raise Warning(_("Category is Invalid on Current Site"))
                                         elif response.getElementsByTagName('Ack')[0].childNodes[0].data == 'Failure':
                                             long_message = response.getElementsByTagName('LongMessage')[0].childNodes[0].data
-#                                            raise osv.except_osv(_('Warning !'), _('%s')%(long_message))
-                                            raise UserError(_('Warning !'), _('%s')%(long_message))
+                                            raise Warning(_("%s") %long_message)
                     if leafcategory == 'true':
                         results = connection_obj.call(inst_lnk,'GetCategorySpecifics',category_code,siteid)
                         for item in results:

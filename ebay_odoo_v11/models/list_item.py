@@ -25,12 +25,12 @@ import pytz
 import datetime
 from pytz import timezone
 import datetime
-from datetime import timedelta, datetime
+from datetime import timedelta
 # import libxml2
 import uuid
 from operator import itemgetter
 from itertools import groupby
-import openerp.netsvc
+import odoo.netsvc
 import logging
 logger = logging.getLogger(__name__)
 from time import gmtime, strftime
@@ -140,12 +140,12 @@ class ebay_products(models.Model):
     category_name = fields.Many2one('product.attribute.set', string='Category', store=True, default=default_category_id)
 
 
-    @api.multi
-    def get_ebay_url(self):
-        data = self.item_id
-        data
-        return {'type': 'ir.actions.act_url', 'url': url,
-                'target': 'new'}
+    # @api.multi
+    # def get_ebay_url(self):
+    #     data = self.item_id
+    #     data
+    #     return {'type': 'ir.actions.act_url', 'url': url,
+    #             'target': 'new'}
 
 
 ebay_products()
@@ -596,16 +596,17 @@ class list_item(models.Model):
             cnt = 1
             if tmp.get('main_imgs', False):
                 for img in tmp['main_imgs']:
-                    description = description.replace('%image-'  + str(cnt) + '%', img)
+                    description = description.replace(b'%image-' + bytes(cnt) + b'%'+ img.encode('utf-8'))
                     cnt = cnt + 1
 
             for img in tmp['images']:
-                description = description.replace('%image-' + str(cnt)
-                        + '%', img)
+
+                description = description.replace(b'%image-' + bytes(cnt)
+                        + b'%', img.encode('utf-8'))
                 cnt = cnt + 1
         if attributes != False:
 
-            for (key, value) in attributes.iteritems():
+            for (key, value) in attributes.items():
 
                 if key == False:
                     continue
@@ -613,10 +614,11 @@ class list_item(models.Model):
                 if value == False:
                     continue
 
-                description = description.replace(k, value)
+                description = description.replace(k.encode('utf-8'), value.encode('utf-8'))
 
         if placeholder != False:
-            for (key, value) in placeholder.iteritems():
+            # for (key, value) in placeholder.iteritems():
+            for (key, value) in placeholder.items():
                 key = key
                 if key == False:
                     continue
@@ -636,6 +638,7 @@ class list_item(models.Model):
         msg = True
         place_holder_dic = {}
         product_obj = self.env['product.product']
+        log_obj = self.env['ecommerce.logs']
         tmp_obj = self.env['ebayerp.template']
         for hold in place_holders:
             if hold.name:
@@ -670,7 +673,7 @@ class list_item(models.Model):
                             eval('product_obj.browse(product_id).'
                                   + new_field + '.name')
                                 
-                        log_obj.log_data(cr,uid,"fields_value",fields_value)
+                        log_obj.log_data("fields_value",fields_value)
                         
                     elif hold.tmplate_field_id.ttype == 'one2many':
 
@@ -748,41 +751,46 @@ class list_item(models.Model):
         if imagedata.url == False:
             imname = imagedata.name.replace(' ', '_')
             file = str(img_id) + imagedata.extention
-            f = open('/tmp/' + file, 'w')
-            f.write(base64.b64decode(imagedata.file_db_store))
-            f.close()
-            full_url = False
-            img = '/tmp/' + file
-            results = connection_obj.call(shop_instance, 'UploadSiteHostedPictures', img, site_id)
-            ack = results.get('Ack', False)
-            if ack == 'Failure':
-                if results.get('LongMessage', False):
-                    long_message = results['LongMessage']
-                    for each_messsge in long_message:
-                        severity_code = each_messsge[0]['SeverityCode']
-                        if severity_code == 'Error':
-                            Longmessage = each_messsge[0]['LongMessage']
-                            product_long_message = 'Error : %s' \
-                                % Longmessage
-                    self.write({'req_err': '*'  + Longmessage})
-            elif ack == 'Warning':
-                full_url_array = results.get('FullURL', False)
-                if full_url_array:
-                    full_url = full_url_array[0]['FullURL']
-                    imagedata.write({'url': full_url, 'link': True})
-                if results.get('LongMessage', False):
-                    long_message = results['LongMessage']
-                    for each_messsge in long_message:
-                        severity_code = each_messsge[0]['SeverityCode']
-                        if severity_code == 'Warning':
-                            Longmessage = each_messsge[0]['LongMessage']
-            else:
-                full_url_array = results.get('FullURL', False)
-                if full_url_array:
-                    full_url = full_url_array[0]['FullURL']
-                    imagedata.write({'url': full_url, 'link': True})
-            self._cr.commit()
-            loc = full_url
+            # f = open('/tmp/' + file, 'w')
+            with open('/tmp/' + file, 'wb') as f:
+                print ("type",type(imagedata.file_db_store))
+                # f.write(base64.decodestring(imagedata.file_db_store))
+                # f.write(base64.b64decode(imagedata.file_db_store))
+                f.write(imagedata.file_db_store)
+
+                f.close()
+                full_url = False
+                img = '/tmp/' + file
+                results = connection_obj.call(shop_instance, 'UploadSiteHostedPictures', img, site_id)
+                ack = results.get('Ack', False)
+                if ack == 'Failure':
+                    if results.get('LongMessage', False):
+                        long_message = results['LongMessage']
+                        for each_messsge in long_message:
+                            severity_code = each_messsge[0]['SeverityCode']
+                            if severity_code == 'Error':
+                                Longmessage = each_messsge[0]['LongMessage']
+                                product_long_message = 'Error : %s' \
+                                    % Longmessage
+                        self.write({'req_err': '*'  + Longmessage})
+                elif ack == 'Warning':
+                    full_url_array = results.get('FullURL', False)
+                    if full_url_array:
+                        full_url = full_url_array[0]['FullURL']
+                        imagedata.write({'url': full_url, 'link': True})
+                    if results.get('LongMessage', False):
+                        long_message = results['LongMessage']
+                        for each_messsge in long_message:
+                            severity_code = each_messsge[0]['SeverityCode']
+                            if severity_code == 'Warning':
+                                Longmessage = each_messsge[0]['LongMessage']
+                else:
+                    full_url_array = results.get('FullURL', False)
+                    if full_url_array:
+                        full_url = full_url_array[0]['FullURL']
+                        imagedata.write({'url': full_url, 'link': True})
+                self._cr.commit()
+                loc = full_url
         else:
             loc = imagedata.url
         return loc
@@ -896,7 +904,7 @@ class list_item(models.Model):
         if data.shop_id.country_code:
             item_dic['country_code'] = data.shop_id.country_code.country_id.code
         if data.shop_id.payment_method:
-            item_dic['payment_method'] = data.shop_id.payment_method
+            item_dic['payment_method'] = data.shop_id.payment_method.name
         if data.shop_id.instance_id.site_id.site:
             item_dic['site_id'] = data.shop_id.instance_id.site_id.site
         if data.shop_id.instance_id.site_id:
@@ -918,16 +926,21 @@ class list_item(models.Model):
         if data.inst_list_chk == True:
             schedule_time = False
         else:
-            utc_tm = datetime.utcnow()
+            utc_tm = datetime.datetime.utcnow()
             utc_trunk = str(utc_tm)[:19]
-            difft_time = datetime.utcnow() - datetime.now()
+            difft_time = datetime.datetime.utcnow() - datetime.datetime.now()
             schedule_time = False
             scheduled_time = self.schedule_time
             if scheduled_time:
-                schedule_time2 = datetime.strptime(scheduled_time, FMT) + difft_time
-                schedule_time3 = str(schedule_time2)[:19]
-                schedule_time5 = schedule_time3
-                schedule_time = datetime.strptime(schedule_time5, FMT)
+                scheduled_time = time.strptime(scheduled_time[:19], "%Y-%m-%d %H:%M:%S")
+                scheduled_time = time.strftime("%Y-%m-%dT%H:%M:%S.000Z", scheduled_time)
+                diff = timedelta(minutes=10);
+                # schedule_time2 = datetime.strptime(scheduled_time, FMT) + difft_time
+                print("---------difft_time------",difft_time)
+                schedule_time2 = datetime.datetime.strptime(scheduled_time, "%Y-%m-%dT%H:%M:%S.000Z") + difft_time
+                schedule_time3 = time.strptime(str(schedule_time2)[:19], "%Y-%m-%d %H:%M:%S")
+                schedule_time5 = time.strftime("%Y-%m-%dT%H:%M:%S.000Z", schedule_time3)
+                schedule_time = datetime.datetime.strptime(schedule_time5, "%Y-%m-%dT%H:%M:%S.000Z")
         item_dic['listing_time'] = schedule_time
 
         if data.variation_product == True:
@@ -989,7 +1002,8 @@ class list_item(models.Model):
                 tmp['get_placehoders'] = template_placeholder
             else:
                 tmp['get_placehoders'] = ''
-            default_code = product.ebay_product.default_code or product.ebay_product.ean13
+            # default_code = product.ebay_product.default_code or product.ebay_product.ean13
+            default_code = product.ebay_product.default_code or product.ebay_product.barcode
             if not default_code:
                 self.write({'req_err': '*' + 'Please Enter Product Reference -' + str(product.ebay_product.name)})
 
@@ -1097,8 +1111,8 @@ class list_item(models.Model):
                     msg = 'For Uploading Product In Ebay Atleast 1 Image Is Required'
                     self.write({'req_err': '*' + msg})
                     return False
-                
-                
+
+
             else:
                 msg = 'For Uploading Product In Ebay Atleast 1 Image Is Required'
                 self.write({'req_err': '*' + msg})
@@ -1110,12 +1124,14 @@ class list_item(models.Model):
                     self.write({'req_err': '*'  + att_id})
                     return False
 
-                if isinstance(template_attribute, unicode):
-                    self.write({'req_err': '*' + 'Template has unicode object'})
+                # if isinstance(template_attribute, unicode):
+                if isinstance(template_attribute, str):
+                    self.write({'req_err': '*' + 'Template has string object'})
                     return False
 
-                if isinstance(att_id, unicode):
-                    self.write({'req_err': '*' + product.name + 'has unicode object'})
+                # if isinstance(att_id, unicode):
+                if isinstance(att_id, str):
+                    self.write({'req_err': '*' + product.name + 'has string object'})
                     return False
 
                 final_att_id = self.get_uncommon_attributes(template_attribute, att_id)
@@ -1142,9 +1158,11 @@ class list_item(models.Model):
                 else:
                     tmp['place_holder'] = False
 
-            if not product.default_code and product.ean13:
+            # if not product.default_code and product.ean13:
+            if not product.default_code and product.barcode:
                 self.write({'req_err': '*' + 'Please Enter Product Reference -' + str(product.name)})
-            tmp['default_code'] = product.default_code or product.ean13
+            # tmp['default_code'] = product.default_code or product.ean13
+            tmp['default_code'] = product.default_code or product.barcode
 
 
             valid = self.check_validations(tmp)
@@ -1155,7 +1173,7 @@ class list_item(models.Model):
                 return False
             
             description = self.replaced_description(tmp)
-            description = description.encode('latin-1', 'ignore')
+            # description = description.encode('latin-1', 'ignore')
             description = description.decode('utf8', 'ignore')
 
             tmp.update({'description': description})
@@ -1236,7 +1254,7 @@ class list_item(models.Model):
                             'is_variant': True,
                             })
                         self._cr.commit()
-            self.write({'common_err': product_long_message.decode('utf8', 'ignore')})
+            self.write({'common_err': product_long_message})
             
         else:
             results = connection_obj.call(data.shop_id.instance_id, 'ReviseItem',final_list, data.shop_id.instance_id.site_id.site)
@@ -1264,7 +1282,7 @@ class list_item(models.Model):
             elif ack == 'Success':
                 product_long_message = 'successfully  %s updated' % product_name
                 
-            self.write({'common_err': product_long_message.decode('utf8', 'ignore')})
+            self.write({'common_err': product_long_message})
 
         return True
 
@@ -1447,7 +1465,8 @@ class list_item(models.Model):
         if data.shop_id.country_code:
             item_dic['country_code'] = data.shop_id.country_code.country_id.code
         if data.shop_id.payment_method:
-            item_dic['payment_method'] = data.shop_id.payment_method
+            # item_dic['payment_method'] = data.shop_id.payment_method
+            item_dic['payment_method'] = data.shop_id.payment_method.name
         if data.shop_id.instance_id.site_id.site:
             item_dic['site_id'] = data.shop_id.instance_id.site_id.site
         if data.shop_id.instance_id.site_id:
@@ -1472,16 +1491,23 @@ class list_item(models.Model):
         if data.inst_list_chk == True:
             schedule_time = False
         else:
-            utc_tm = datetime.utcnow()
+            utc_tm = datetime.datetime.utcnow()
             utc_trunk = str(utc_tm)[:19]
-            difft_time = datetime.utcnow() - datetime.now()
+            difft_time = datetime.datetime.utcnow() - datetime.datetime.now()
             schedule_time = False
             scheduled_time = self.schedule_time
+            print("-0---scheduled_time--",scheduled_time)
             if scheduled_time:
-                schedule_time2 = datetime.strptime(scheduled_time, FMT) + difft_time
-                schedule_time3 = str(schedule_time2)[:19]
-                schedule_time5 = schedule_time3
-                schedule_time = datetime.strptime(schedule_time5, FMT)
+                scheduled_time = time.strptime(scheduled_time[:19], "%Y-%m-%d %H:%M:%S")
+                scheduled_time = time.strftime("%Y-%m-%dT%H:%M:%S.000Z", scheduled_time)
+                diff = timedelta(minutes=10);
+                # schedule_time2 = datetime.strptime(scheduled_time, FMT) + difft_time
+                print("---------difft_time------", difft_time)
+                schedule_time2 = datetime.datetime.strptime(scheduled_time, "%Y-%m-%dT%H:%M:%S.000Z") + difft_time
+
+                schedule_time3 = time.strptime(str(schedule_time2)[:19], "%Y-%m-%d %H:%M:%S")
+                schedule_time5 = time.strftime("%Y-%m-%dT%H:%M:%S.000Z", schedule_time3)
+                schedule_time = datetime.datetime.strptime(schedule_time5, "%Y-%m-%dT%H:%M:%S.000Z")
         item_dic['listing_time'] = schedule_time
 
         if data.variation_product == True:
@@ -1524,8 +1550,8 @@ class list_item(models.Model):
             else:
                 tmp['get_placehoders'] = ''
 
-            default_code = product.ebay_product.default_code or product.ebay_product.ean13
-
+            # default_code = product.ebay_product.default_code or product.ebay_product.ean13
+            default_code = product.ebay_product.default_code or product.ebay_product.barcode
 
             if not default_code:
                 self.write({'req_err': '*' + 'Please Enter Product Reference -' + str(product.ebay_product.name)})
@@ -1554,8 +1580,8 @@ class list_item(models.Model):
 
             tmp['price'] = product.ebay_price
 
-            tmp['qnt'] = int(100)
-#            tmp['qnt'] = int(product.ebay_product.qty_available)
+            # tmp['qnt'] = int(100)
+            tmp['qnt'] = int(product.ebay_product.qty_available)
 
             if product.ebay_subtitle:
                 tmp['sub_title'] = product.ebay_subtitle
@@ -1658,12 +1684,17 @@ class list_item(models.Model):
                     self.write({'req_err': '*' + att_id})
                     return False
 
-                if isinstance(template_attribute, unicode):
-                    self.write({'req_err': '*' + 'Template has unicode object'})
+
+                print("--------template_attribute--------",type(template_attribute))
+                print("--------template_attribute--------",template_attribute)
+                # if isinstance(template_attribute, unicode):
+                if isinstance(template_attribute, str):
+                    self.write({'req_err': '*' + 'Template has string object'})
                     return False
 
-                if isinstance(att_id, unicode):
-                    self.write({'req_err': '*'  + product.name + 'has unicode object'})
+                # if isinstance(att_id, unicode):
+                if isinstance(att_id, str):
+                    self.write({'req_err': '*'  + product.name + 'has string object'})
                     return False
 
                 final_att_id = self.get_uncommon_attributes(template_attribute, att_id)
@@ -1689,7 +1720,8 @@ class list_item(models.Model):
                 else:
                     tmp['place_holder'] = False
                     
-            default_code = product.default_code or product.ean13
+            # default_code = product.default_code or product.ean13
+            default_code = product.default_code or product.barcode
             if not default_code:
                 self.write({'req_err': '*' + 'Please Enter Product Reference -' + str(product.name)})
             tmp['default_code'] = default_code
@@ -1701,7 +1733,7 @@ class list_item(models.Model):
                 return False
             
             description = self.replaced_description(tmp)
-            description = description.encode('latin-1', 'ignore')
+            # description = description.encode('latin-1', 'ignore')
             description = description.decode('utf8', 'ignore')
             tmp.update({'description': description})
             final_list.append(tmp)

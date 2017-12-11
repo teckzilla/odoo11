@@ -85,7 +85,8 @@ class product_images(models.Model):
             # (filename, header) = urllib.urlretrieve(each['url'])
             (filename, header) = urllib.request.urlretrieve(each['url'])
             f = open(filename , 'rb')
-            img = base64.encodestring(f.read())
+            # img = base64.encodestring(f.read())
+            img = base64.b64encode(f.read())
             f.close()
         else:
             local_media_repository = self.env['res.company'].get_local_media_repository()
@@ -97,7 +98,9 @@ class product_images(models.Model):
                 if os.path.exists(full_path):
                     try:
                         f = open(full_path, 'rb')
-                        img = base64.encodestring(f.read())
+                        print("--------wot-link----")
+                        # img = base64.encodestring(f.read())
+                        img = base64.b64encode(f.read())
                         f.close()
                     except Exception as e:
 #                        logger = netsvc.Logger()
@@ -140,7 +143,8 @@ class product_images(models.Model):
         self._check_filestore(path)
         ofile = open(full_path, 'w')
         try:
-            ofile.write(base64.decodestring(b64_file))
+            # ofile.write(base64.decodestring(b64_file))
+            ofile.write(base64.b64encode(b64_file))
         finally:
             ofile.close()
         return True
