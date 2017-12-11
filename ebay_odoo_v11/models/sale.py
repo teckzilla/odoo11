@@ -22,8 +22,8 @@ from odoo import models, fields, api, _
 from odoo.exceptions import UserError, ValidationError, Warning
 import time
 import random
-import datetime
-import base64, urllib
+
+import base64, urllib.request
 from base64 import b64decode
 import datetime
 from datetime import timedelta
@@ -105,7 +105,8 @@ class sale_shop(models.Model):
             
             if context.get('raise_exception',False):
 #                raise osv.except_osv(_('Error!'),_('%s' % (str(e),)))
-                raise UserError(_('Error!'),_('%s' % (str(e),)))
+                raise UserError(_('%s' % (str(e))))
+
             return False
 
         if context.get('activity_log',False):
@@ -488,7 +489,7 @@ class sale_shop(models.Model):
                     img = image_gallery_url[0].get('gallery_img')
                     if img:
                         try:
-                            file_contain = urllib.urlopen(img).read()
+                            file_contain = urllib.request.urlopen(img).read()
                             image_path = base64.encodestring(file_contain)
                             imag_id = product_data.write({'image_medium':image_path})
                             name_id = product_obj.browse(product_id)
@@ -587,7 +588,8 @@ class sale_shop(models.Model):
         stock_obj = self.env['stock.picking']
         sale_obj = self.env['sale.order']
         ebayerp_obj = self.env['ebayerp.osv']
-        sale_ids = sale_obj.search([('track_exported','=',False),('state','not in',['draft','cancel']),('carrier_tracking_ref','!=',False),('shop_id','=',shop_obj.id)], offset, 100,'id')
+        sale_ids = sale_obj.search([('track_exported','=',False),('state','not in',['draft','cancel']),('carrier_tracking_ref','!=',False),('shop_id','=',shop_obj.id)], offset, 100)
+
         shop_data = self
         logger.info("test--------sale_ids---tax---- %s",sale_ids)
         for sale_data in sale_ids:
@@ -648,11 +650,11 @@ class sale_shop(models.Model):
                     picking_data.action_confirm()
                     if picking_data.state != 'assigned':
                         picking_data.action_assign()
-                for pack in picking_data.pack_operation_ids:
-                    if pack.product_qty > 0:
-                        pack.write({'qty_done': pack.product_qty})
-                    else:
-                        pack.unlink()
+                # for pack in picking_data.pack_operation_ids:
+                #     if pack.product_qty > 0:
+                #         pack.write({'qty_done': pack.product_qty})
+                #     else:
+                #         pack.unlink()
                 picking_data.do_transfer()    
                 
                 invoice_ids = sale_data.mapped('invoice_ids')
@@ -1203,6 +1205,7 @@ class sale_shop(models.Model):
     # scheduler for return items
     @api.model
     def run_get_user_returns_scheduler(self, ids=None):
+        start_datetime = fields.datetime.now()
         context = self._context.copy()
         shop_ids = self.search([('ebay_shop', '=', True)])
         for shop_obj in shop_ids:
@@ -1213,7 +1216,7 @@ class sale_shop(models.Model):
                 querystring = {"return_state": "RETURN_STARTED"}
 
                 # payload = "\n}\n"
-                token = "TOKEN "+shop_obj.instance_id.auth_token
+                token = "TOKEN "+shop_obj.instance_id.auth_n_auth_token
                 headers = {
                     'authorization': token,
                     'x-ebay-c-marketplace-id': "EBAY_GB",
@@ -1223,33 +1226,47 @@ class sale_shop(models.Model):
 
                 response = requests.request("GET", url, headers=headers, params=querystring)
 
-                print(response.text)
+                # print("-----response----",response.text)
 
                 # results = connection_obj.call(shop_obj.instance_id, 'getUserReturns', shop_obj.instance_id.site_id.site)
                 # results =response.text
-                results= json.loads(response.content)
+                # print("------v--response.content.encode('utf-8')------",response.content.decode('utf-8'))
+                if response.status_code == requests.codes.ok:
+                    results= json.loads(response.content.decode('utf-8'))
+                    result1=results.get('members',False)
 
-                result1=results.get('members',False)
+                    if result1:
+                        for result in result1:
 
-                if result1:
-                    for result in result1:
-
-                        return_id = result.get('returnId', '')
-                        status = result.get('status', '')
-                        creationInfo=result.get('creationInfo',  )
-                        item=creationInfo.get('item','')
-                        # item_list = result.get('ns1:returnRequest', [])
-                        # for item_details in item_list:
-                        transaction_id = item.get('transactionId','')
-                        return_qty = item.get('returnQuantity','')
-                        sale_line = self.env['sale.order.line'].search([('unique_sales_line_rec_no','ilike',transaction_id)])
-                        if sale_line:
-                            sale_line.write({
-                                'return_id':return_id,
-                                'return_status': status,
-                                'returned': True,
-                                'return_qty':int(return_qty)
-                            })
+                            return_id = result.get('returnId', '')
+                            status = result.get('status', '')
+                            creationInfo=result.get('creationInfo',  )
+                            item=creationInfo.get('item','')
+                            # item_list = result.get('ns1:returnRequest', [])
+                            # for item_details in item_list:
+                            transaction_id = item.get('transactionId','')
+                            return_qty = item.get('returnQuantity','')
+                            sale_line = self.env['sale.order.line'].search([('unique_sales_line_rec_no','ilike',transaction_id)])
+                            if sale_line:
+                                sale_line.write({
+                                    'return_id':return_id,
+                                    'return_status': status,
+                                    'returned': True,
+                                    'return_qty':int(return_qty)
+                                })
+                else:
+                    # if response.status_code == 400:
+                    res_error = json.loads(response.content.decode('utf-8'))
+                    if res_error.get('error', False)[0].get('parameter', False)[0].get('value', False):
+                        log_obj = self.env['ecommerce.logs']
+                        log_vals = {
+                            'start_datetime': start_datetime,
+                            'end_datetime': fields.datetime.now(),
+                            'shop_id': shop_obj.id,
+                            'message': str(
+                                res_error.get('error', False)[0].get('parameter', False)[0].get('value', False))
+                        }
+                        log_obj.create(log_vals)
             except Exception as e:
                 logger.info("--------Exception----------- %s", e)
                 continue

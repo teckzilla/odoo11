@@ -23,7 +23,7 @@ from odoo import models, fields, api, _
 import time
 import random
 import datetime
-import base64, urllib
+import base64, urllib.request
 from base64 import b64decode
 import datetime
 from datetime import timedelta
@@ -463,11 +463,11 @@ class sale_shop(models.Model):
                     img = image_gallery_url[0].get('gallery_img')
                     if img:
                         try:
-                            file_contain = urllib.urlopen(img).read()
+                            file_contain = urllib.request.urlopen(img).read()
                             image_path = base64.encodestring(file_contain)
                             imag_id = product_data.write({'image_medium':image_path})
                             name_id = product_obj.browse(product_id)
-                            image_ids_avail = product_img_obj.search([('name','=', name_id.name)('product_id','=',product_id)])
+                            image_ids_avail = product_img_obj.search([('name','=', name_id.name),('product_id','=',product_id)])
                             if not image_ids_avail:
                                 line_image_data = image_gallery_url[0].get('picture_url')
                                 for data_img in line_image_data:

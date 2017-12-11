@@ -18,17 +18,17 @@
 #
 ##############################################################################
 
-from openerp.osv import osv
-from openerp import models, fields, api, _
+from odoo.osv import osv
+from odoo import models, fields, api, _
 import time
 import random
 import datetime
-import base64, urllib
+import base64, urllib.request
 from base64 import b64decode
 import datetime
 from datetime import timedelta
-from openerp.tools.translate import _
-import openerp.netsvc
+from odoo.tools.translate import _
+import odoo.netsvc
 import os
 import csv
 import logging
@@ -84,7 +84,8 @@ class sale_shop(models.Model):
         inst_lnk = shop_data.instance_id
         currency = shop_data.currency.name
         if not currency:
-            raise osv.except_osv(_('Warning !'), _("Please Select Currency For Shop - %s")%(shop_data.name))
+
+            raise Warning(_('Please Select Currency For Shop - %s') % shop_data.name)
         try:
             result = ebayerp_osv_obj.call(inst_lnk,'RelistFixedPriceItem',itemId,qty,price,currency)
         except Exception as e:
@@ -165,12 +166,13 @@ class sale_shop(models.Model):
         store_name = shop_obj.store_name
         inst_name = inst_lnk.name
         if not user_id:
-            raise osv.except_osv(_('Warning !'), _("Please Enter User ID For Instance %s")%(inst_name))
+
+            raise Warning(_("Please Enter User ID For Instance %s") % inst_name)
         if not store_name:
-            store_datas=connection_obj.call(inst_lnk,'GetStore',ids,user_id,site_id)
+            store_datas=connection_obj.call(inst_lnk,'GetStore',self._ids,user_id,site_id)
             
             if not store_datas:
-                raise osv.except_osv(_('Warning !'), _("No Store For Shop %s")%(shop_name))
+                raise Warning(_("No Store For Shop %s") % shop_name)
 
             for store_dic in store_datas:
                 for store_info in store_dic['StoreInfo']:
@@ -222,7 +224,8 @@ class sale_shop(models.Model):
         if site_id:
             siteid = site_id
         else:
-            raise osv.except_osv(_('Warning !'), _("Please Select Site ID in %s shop")%(shop_name))
+            raise Warning(_("Please Select Site ID in %s shop") % shop_name)
+
         currentTimeTo = datetime.datetime.utcnow()
         currentTimeTo = time.strptime(str(currentTimeTo), "%Y-%m-%d %H:%M:%S.%f")
         currentTimeTo = time.strftime("%Y-%m-%dT%H:%M:%S.000Z",currentTimeTo)
@@ -463,11 +466,11 @@ class sale_shop(models.Model):
                     img = image_gallery_url[0].get('gallery_img')
                     if img:
                         try:
-                            file_contain = urllib.urlopen(img).read()
+                            file_contain = urllib.request.urlopen(img).read()
                             image_path = base64.encodestring(file_contain)
                             imag_id = product_data.write({'image_medium':image_path})
                             name_id = product_obj.browse(product_id)
-                            image_ids_avail = product_img_obj.search(cr, uid, [('name','=', name_id.name)('product_id','=',product_id)])
+                            image_ids_avail = product_img_obj.search([('name','=', name_id.name),('product_id','=',product_id)])
                             if not image_ids_avail:
                                 line_image_data = image_gallery_url[0].get('picture_url')
                                 for data_img in line_image_data:

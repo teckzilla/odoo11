@@ -336,6 +336,7 @@ class sale_shop(models.Model):
         order_ids = order_obj.search([('sent_thanksemail','=',False),('shop_id','=',shop_obj.id)])
         for data in order_obj.browse(order_ids):
             if data.partner_id.email:
+                shop_obj = self.browse(self._ids[0])
                 mail=email_template_obj.send_mail(shop_obj.template_id,data.partner_id.id,True)
         return True
     
@@ -599,7 +600,8 @@ class sale_shop(models.Model):
         log_obj = self.env['ecommerce.logs']
         saleorderlineid = False
         product=''
-        if resultval.has_key('product_id'):
+        # if resultval.has_key('product_id'):
+        if 'product_id' in resultval:
             if not resultval['product_id']:
                 print("IF not resultval['product_id']")
                 product = self.with_context(ctx).createProduct(shop_id,resultval)
@@ -647,7 +649,8 @@ class sale_shop(models.Model):
             price_unit = includetax/float(resultval['QuantityOrdered'])
         
         _logger.info('tax_id==== %s', tax_id)
-        if tax_id and isinstance(tax_id[0][2], (int, long)):
+        # if tax_id and isinstance(tax_id[0][2], (int, long)):
+        if tax_id and isinstance(tax_id[0][2], (int)):
             tax_id = [(tax_id[0][0],tax_id[0][1],[tax_id[0][2]])]
         orderlinevals = {
             'order_id' : saleorderid.id,
@@ -667,7 +670,8 @@ class sale_shop(models.Model):
         if ctx.get('shoporderlinevals',False):
             orderlinevals.update(ctx['shoporderlinevals'])
 
-        if resultval.has_key('product_id'):
+        # if resultval.has_key('product_id'):
+        if 'product_id' in resultval:
             product_id = resultval['product_id']
             if resultval.get('listing_id',False):
                 self.import_listing(shop_id, product_id,resultval)

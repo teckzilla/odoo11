@@ -52,14 +52,15 @@ class sales_channel_instance(models.Model):
     dev_id = fields.Char(string='Dev ID', size=256, help="eBay Dev ID")
     app_id = fields.Char(string='App ID', size=256, help="eBay App ID")
     cert_id = fields.Char(string='Cert ID', size=256, help="eBay Cert ID")
-    auth_token = fields.Text(string='Token', help="eBay Token")
+    auth_token = fields.Text(string='OAuth Token', help="eBay Token")
     site_id = fields.Many2one('ebay.site', string='Site')
     sandbox = fields.Boolean(string='Sandbox')
     server_url = fields.Char(string='Server Url', size=255)
     ebay_oauth = fields.Boolean(string='Use eBay Oauth', default=1)
     refresh_token = fields.Char(string='Refresh Token')
-    auth_token_expiry = fields.Datetime('Auth Token Expiry Date')
+    auth_token_expiry = fields.Datetime('OAuth Token Expiry Date')
     refresh_token_expiry = fields.Datetime('Refresh Token Expiry Date')
+    auth_n_auth_token=fields.Char('Auth Token')
 
     @api.multi
     def get_authorization_code(self):
@@ -91,13 +92,16 @@ class sales_channel_instance(models.Model):
         client_id = self.app_id
         client_secret = self.cert_id
         outh = client_id + ':' + client_secret
-        basic = base64.b64encode(outh)
+        # basic=outh.encode("utf-8")
+        basic=outh
+        # basic = base64.b64encode(outh)
         scope = "https://api.ebay.com/oauth/api_scope https://api.ebay.com/oauth/api_scope/sell.marketing.readonly https://api.ebay.com/oauth/api_scope/sell.marketing https://api.ebay.com/oauth/api_scope/sell.inventory.readonly https://api.ebay.com/oauth/api_scope/sell.inventory https://api.ebay.com/oauth/api_scope/sell.account.readonly https://api.ebay.com/oauth/api_scope/sell.account https://api.ebay.com/oauth/api_scope/sell.fulfillment.readonly https://api.ebay.com/oauth/api_scope/sell.fulfillment https://api.ebay.com/oauth/api_scope/sell.analytics.readonly"
-        final_scope = urllib.quote(scope)
+        # final_scope = urllib.quote(scope)
+        final_scope=urllib.parse.quote_plus(scope)
         request_url = 'https://api.ebay.com/identity/v1/oauth2/token'
         headers = {
             'Content-Type': 'application/x-www-form-urlencoded',
-            'Authorization': 'Basic ' + basic,
+            'Authorization': 'Basic ' + str(basic),
         }
         payload = {
             'grant_type': 'refresh_token',

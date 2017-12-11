@@ -149,7 +149,7 @@ class refund_order(models.TransientModel):
         # written by manisha
         try:
             url = "https://api.ebay.com/post-order/v2/return/"+self.name+"/issue_refund"
-            token = "TOKEN " + shop_obj.instance_id.auth_token
+            token = "TOKEN " + shop_obj.instance_id.auth_n_auth_token
             headers = {
                 'authorization': token,
                 'x-ebay-c-marketplace-id': "EBAY_GB",
@@ -180,15 +180,18 @@ class refund_order(models.TransientModel):
             payload=json.dumps(data)
 
             response = requests.request("POST", url, data=payload, headers=headers)
-            if response.status_code == 200:
-                result=json.loads(response.content)
+            # if response.status_code == 200:
+            if response.status_code == requests.codes.ok:
+                result=json.loads(response.content.decode('utf-8'))
                 if result.get('refundStatus',False) == 'SUCCESS':
                     self.write({'refund_status': result.get('refundStatus',''),
                             'state': 'done'})
                     line_obj.write({'refunded':True})
                     entry = self.make_entry()
-            if response.status_code == 400:
-                res_error = json.loads(response.content)
+            #
+            else:
+                # if response.status_code == 400:
+                res_error = json.loads(response.content.decode('utf-8'))
                 if res_error.get('error',False)[0].get('parameter',False)[0].get('value',False):
                     log_obj=self.env['ecommerce.logs']
                     log_vals = {

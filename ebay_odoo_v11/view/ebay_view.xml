@@ -44,7 +44,7 @@
                     </xpath>
                     <xpath expr="//group[@name='module']" position="after">
                         <group>
-                            <field name="ebay_oauth" attrs="{'invisible':[('module_id','!=','ebay_odoo_v11')]}"/>
+                            <field name="ebay_oauth" readonly="1" attrs="{'invisible':[('module_id','!=','ebay_odoo_v11')]}"/>
                         </group>
                         <group  attrs="{'invisible':[('module_id','!=','ebay_odoo_v11')]}">
 
@@ -58,6 +58,7 @@
                                 <field name="dev_id" attrs="{'required': [('module_id','=','ebay_odoo_v11'),('ebay_oauth','=',False)]}"/>
                                 <field name="refresh_token"/>
                                 <field name="refresh_token_expiry" readonly="1"/>
+                                <field name="auth_n_auth_token"/>
                             </group>
                                 <group>
                                     <field name="app_id" attrs="{'required': [('module_id','=','ebay_odoo_v11'),('ebay_oauth','=',False)]}"/>

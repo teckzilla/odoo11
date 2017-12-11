@@ -130,7 +130,7 @@ class update_order_wizard(models.TransientModel):
     
     order_id = fields.Many2one('sale.order', 'Order', required=True)
     carrier_id = fields.Many2one('delivery.carrier', 'Carrier', required=True)
-    shop_id = fields.Many2one('sale.shop', 'Shop',readonly=True)
+    shop_id = fields.Many2one('sale.shop', 'Shop',store=True)
     carrier_tracking_ref = fields.Char(string="Carrier Tracking Ref",size=100,required=True)
     bulk_carrier_id =fields.Many2one('update.bulk.carrier.marketplace', 'Product Line Items')
     

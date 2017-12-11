@@ -1437,7 +1437,7 @@ class ReviseItem:
             name_val_str = ''
             
             if item['attribute_array']!=False:
-                for key, value in item['attribute_array'].iteritems():
+                for key, value in item['attribute_array'].items():
                     if key==False:
                         continue
                     if value==False:
@@ -1946,7 +1946,7 @@ class AddFixedPriceItem:
         
        
         if itemlist[0]['attribute_array']!=False:
-            for key, value in itemlist[0]['attribute_array'].iteritems():
+            for key, value in itemlist[0]['attribute_array'].items():
                 name_val_str+= """<NameValueList>
                                 <Name>%s</Name>
                                 <Value>%s</Value>
@@ -2191,7 +2191,7 @@ class ReviseFixedPriceItem:
         
        
         if itemlist[0]['attribute_array']!=False:
-            for key, value in itemlist[0]['attribute_array'].iteritems():
+            for key, value in itemlist[0]['attribute_array'].items():
                 name_val_str+= """<NameValueList>
                                 <Name>%s</Name>
                                 <Value>%s</Value>
@@ -2293,7 +2293,8 @@ class ReviseFixedPriceItem:
 
 
 
-class ebayerp_osv(osv.osv):
+# class ebayerp_osv(osv.osv):
+class ebayerp_osv(models.Model):
     _name = 'ebayerp.osv'
     
     def call(self, cr, uid, referential, method, *arguments):
@@ -2724,7 +2725,7 @@ class AddEbayItems:
             name_val_str = ''
             
             if item['attribute_array']!=False:
-                for key, value in item['attribute_array'].iteritems():
+                for key, value in item['attribute_array'].items():
                     if key==False:
                         continue
                     if value==False:

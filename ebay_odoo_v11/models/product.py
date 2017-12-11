@@ -228,7 +228,8 @@ class product_product(models.Model):
         if prod_obj.qty_available > 0:
             s = {}
             for rec in prod_obj.prodlisting_ids:
-                if not s.has_key(rec.shop_id.id):
+                # if not s.has_key(rec.shop_id.id):
+                if not rec.shop_id.id in s:
                     s.update({rec.shop_id.id: 1})
                 else:
                     s.update({rec.shop_id.id: s[rec.shop_id.id] + 1})

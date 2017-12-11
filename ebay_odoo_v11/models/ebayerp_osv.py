@@ -20,6 +20,7 @@
 
 import sys
 from importlib import reload
+import base64
 reload(sys)
 # not neede in python3 setdefaultencoding(latin)
 # sys.setdefaultencoding( "latin-1" )
@@ -110,6 +111,7 @@ class Call:
                   "Content-Length":length,
                   "X-EBAY-API-COMPATIBILITY-LEVEL": "747",
                   "X-EBAY-API-DEV-NAME": Session.Developer,
+                  # "X-EBAY-API-IAF-TOKEN": Session.Token,
                   "X-EBAY-API-APP-NAME": Session.Application,
                   "X-EBAY-API-CERT-NAME": Session.Certificate,
                   "X-EBAY-API-CALL-NAME": CallName,
@@ -1219,12 +1221,12 @@ class CompleteSale:
             
         api.RequestData = api.RequestData % {
                                               # 'token': self.Session.Token.encode("utf-8"),
-                                              'item_id' :  order_data['ItemID'].encode("utf-8"),
-                                              'ebay_order_id' :  order_data['TransactionID'].encode("utf-8"),
+                                              'item_id' :  order_data['ItemID'],
+                                              'ebay_order_id' :  order_data['TransactionID'],
                                               'paid' :  order_data.get('Paid',False),
                                               'listing_type' :  order_data['ListingType'],
-                                              'order_id' :  order_data['ItemID'].encode("utf-8") + '-' + order_data['TransactionID'].encode("utf-8"),
-                                              'order_line_item_id' :  order_data['ItemID'].encode("utf-8") + '-' + order_data['TransactionID'].encode("utf-8"),
+                                              'order_id' :  order_data['ItemID'] + '-' + order_data['TransactionID'],
+                                              'order_line_item_id' :  order_data['ItemID'] + '-' + order_data['TransactionID'],
                                             }
 
         responseDOM = api.MakeCall("CompleteSale")
@@ -1577,7 +1579,7 @@ class ReviseItem:
             name_val_str = ''
             
             if item['attribute_array']!=False:
-                for key, value in item['attribute_array'].iteritems():
+                for key, value in item['attribute_array'].items():
                     if key==False:
                         continue
                     if value==False:
@@ -1586,7 +1588,7 @@ class ReviseItem:
                                     <Name>%s</Name>
                                     <Value>%s</Value>
                                   </NameValueList>""" %("<![CDATA["+key+"]]>","<![CDATA["+value+"]]>")
-                Itemspecifics = "<ItemSpecifics>"+ name_val_str.encode('utf-8')+ "</ItemSpecifics>"
+                Itemspecifics = "<ItemSpecifics>"+ str(name_val_str)+ "</ItemSpecifics>"
             else:
                 Itemspecifics=''
             
@@ -1632,7 +1634,7 @@ class ReviseItem:
                     <PaymentMethods>%s</PaymentMethods>
                     <PayPalEmailAddress>%s</PayPalEmailAddress> 
                     <PictureDetails>%s</PictureDetails>
-                    </Item>"""% (storecategory,"<![CDATA["+item['listing_title']+ "]]>",item['ebay_item_id'],"<![CDATA[" +item['description'].encode("utf-8")+ "]]>",subtitle,item['category_code'],Itemspecifics,str(item['best_offer']),item['site_code'], sku_str,item['qnt'],item['price'],buy_it_now,item['condition'],item['duration'],item['location'],pickupinstore,item['list_type'],shipping_str,return_policy,item['country_code'],item['private_listing'],item['hand_time'],item['currency'],s_time,item['postal_code'],item['payment_method'],item['paypal_email'],ebay_images)
+                    </Item>"""% (storecategory,"<![CDATA["+item['listing_title']+ "]]>",item['ebay_item_id'],"<![CDATA[" +str(item['description'])+ "]]>",subtitle,item['category_code'],Itemspecifics,str(item['best_offer']),item['site_code'], sku_str,item['qnt'],item['price'],buy_it_now,item['condition'],item['duration'],item['location'],pickupinstore,item['list_type'],shipping_str,return_policy,item['country_code'],item['private_listing'],item['hand_time'],item['currency'],s_time,item['postal_code'],item['payment_method'],item['paypal_email'],ebay_images)
         
         # api.RequestData="""<?xml version="1.0" encoding="utf-8" ?>
         #     <ReviseItemRequest xmlns="urn:ebay:apis:eBLBaseComponents">
@@ -1738,7 +1740,7 @@ class ReviseInventoryStatus:
         api.RequestData = """<?xml version="1.0" encoding="utf-8"?>
                     <ReviseInventoryStatusRequest xmlns="urn:ebay:apis:eBLBaseComponents">
                     <InventoryStatus ComplexType="InventoryStatusType">
-                    <ItemID>%s</ItemID><SKU>%s</SKU>""" % (str(itemId).encode("utf-8"), str(sku))
+                    <ItemID>%s</ItemID><SKU>%s</SKU>""" % (str(itemId), str(sku))
         
         #logger.info('self.var_update=====ReviseInventoryStatus=======%s', self.var_update)
         if startPrice:
@@ -1845,11 +1847,12 @@ class EndItem:
         api.RequestData = """<?xml version="1.0" encoding="utf-8"?>
                     <EndItemRequest xmlns="urn:ebay:apis:eBLBaseComponents">
                     <EndingReason>NotAvailable</EndingReason>
-                    <ItemID>%(item_id)s</ItemID>
-                  </EndItemRequest>​​"""
-        api.RequestData = api.RequestData % {
-                                             'item_id': item_id.encode("utf-8"),
-                                             }
+                    <ItemID>%s</ItemID>
+                  </EndItemRequest>​​""" %(item_id)
+        # api.RequestData = api.RequestData % {
+        #                                      'item_id': str(item_id),
+        #                                      }
+        api.RequestData=api.RequestData.encode('utf-8')
         responseDOM = api.MakeCall("EndItem")
         #logger.info('api.RequestData ======%s',responseDOM.toprettyxml())
         
@@ -1911,6 +1914,7 @@ class RelistItem:
                 error += str(each_node.childNodes[0].childNodes[0].data) + '\n'
 #            raise osv.except_osv('Error !',error+' '+str(itemId))
             raise UserError('Error !',error+' '+str(itemId))
+            # raise UserError(_('Error ! %s'% (error)+))
         
 class VerifyRelistItem:
     Session = Session()
@@ -1937,7 +1941,7 @@ class VerifyRelistItem:
                   <Item>
                     <ItemID>%s</ItemID>
                   </Item>
-                """ % (str(itemId).encode("utf-8"))
+                """ % (str(itemId))
 
         api.RequestData += """</VerifyRelistItemRequest>"""
 
@@ -2131,7 +2135,7 @@ class AddFixedPriceItem:
         
        
         if itemlist[0]['attribute_array']!=False:
-            for key, value in itemlist[0]['attribute_array'].iteritems():
+            for key, value in itemlist[0]['attribute_array'].items():
                 name_val_str+= """<NameValueList>
                                 <Name>%s</Name>
                                 <Value>%s</Value>
@@ -2382,7 +2386,7 @@ class ReviseFixedPriceItem:
         
        
         if itemlist[0]['attribute_array']!=False:
-            for key, value in itemlist[0]['attribute_array'].iteritems():
+            for key, value in itemlist[0]['attribute_array'].items():
                 name_val_str+= """<NameValueList>
                                 <Name>%s</Name>
                                 <Value>%s</Value>
@@ -2616,7 +2620,8 @@ class ebayerp_osv(models.Model):
             return result
         
         elif method == 'UploadSiteHostedPictures':
-           upload = UploadSiteHostedPictures(referential.dev_id, referential.app_id, referential.cert_id, referential.auth_token, referential.server_url)
+           # upload = UploadSiteHostedPictures(referential.dev_id, referential.app_id, referential.cert_id, referential.auth_token, referential.server_url)
+           upload = UploadSiteHostedPictures(referential.dev_id, referential.app_id, referential.cert_id, referential.auth_n_auth_token, referential.server_url)
            result = upload.Get(arguments[0],arguments[1])
            return result      
         
@@ -2716,9 +2721,11 @@ class UploadSiteHostedPictures:
     def Get(self,filename,siteid):
         api = Call()
         api.Session = self.Session
+        print("----api.session------",api.session)
         api.SiteID = siteid
         uploading_image = open(filename,'rb')
         multiPartImageData = uploading_image.read()
+        print("-----multiPartImageData",multiPartImageData)
         uploading_image.close()
         string1 = "--MIME_boundary"
         string2 = "Content-Disposition: form-data; name=\"XML Payload\""
@@ -2729,16 +2736,17 @@ class UploadSiteHostedPictures:
         string7=  string6 + "<UploadSiteHostedPicturesRequest xmlns=\"urn:ebay:apis:eBLBaseComponents\">"+'\r\n'
         string8 = string7 + "<Version>747</Version>"+'\r\n'
         string9 = string8 + "<PictureName>my_pic</PictureName>"+'\r\n'
-        # string10 = string9 + "<RequesterCredentials><eBayAuthToken>" + self.Session.Token.encode("utf-8") + "</eBayAuthToken></RequesterCredentials>"+'\r\n'
+        # string17 = string9 + "<RequesterCredentials><eBayAuthToken>" + str(self.Session.auth_n_auth_token.encode("utf-8")) + "</eBayAuthToken></RequesterCredentials>"+'\r\n'
         # string11 = string10 + "</UploadSiteHostedPicturesRequest>"+'\r\n'
-        string11 = string9 + "</UploadSiteHostedPicturesRequest>"+'\r\n'
-        string12 = string11 + "--MIME_boundary" +'\r\n'
-        string13 = string12 + "Content-Disposition: form-data; name='dummy'; filename='dummy'" +'\r\n'
-        string14 = string13 + "Content-Transfer-Encoding: binary" + '\r\n'
-        string15 = string14 + "Content-Type: application/octet-stream" + '\r\n'+'\r\n'
-        string16 = string15 + multiPartImageData + '\r\n'
-        string17 = string16 + "--MIME_boundary--" + '\r\n'
-        api.RequestData = string17
+        string10 = string9 + "</UploadSiteHostedPicturesRequest>"+'\r\n'
+        string11 = string10 + "--MIME_boundary" +'\r\n'
+        string12 = string11 + "Content-Disposition: form-data; name='dummy'; filename='dummy'" +'\r\n'
+        string13 = string12 + "Content-Transfer-Encoding: binary" + '\r\n'
+        string14 = string13 + "Content-Type: application/octet-stream" + '\r\n'+'\r\n'
+        # string16 = string15 + multiPartImageData + '\r\n'
+        string15 = string14+'<PictureData contentType="string">' + str(multiPartImageData) + '\r\n'+'</PictureData>'
+        string16 = string15 + "--MIME_boundary--" + '\r\n'
+        api.RequestData = string16
         responseDOM = api.MakeCall("UploadSiteHostedPictures")
 
         Dictionary={}
@@ -2950,7 +2958,7 @@ class AddEbayItems:
             name_val_str = ''
             
             if item['attribute_array']!=False:
-                for key, value in item['attribute_array'].iteritems():
+                for key, value in item['attribute_array'].items():
                     if key==False:
                         continue
                     if value==False:
@@ -2959,7 +2967,7 @@ class AddEbayItems:
                                     <Name>%s</Name>
                                     <Value>%s</Value>
                                   </NameValueList>""" %("<![CDATA["+key+"]]>","<![CDATA["+value+"]]>")
-                Itemspecifics = "<ItemSpecifics>"+ name_val_str.encode('utf-8')+ "</ItemSpecifics>"
+                Itemspecifics = "<ItemSpecifics>"+ str(name_val_str)+ "</ItemSpecifics>"
             else:
                 Itemspecifics=''
 
@@ -3010,7 +3018,7 @@ class AddEbayItems:
                     <PictureDetails>%s</PictureDetails>
                     <ProductListingDetails>%s</ProductListingDetails>
                     </Item>
-                    </AddItemRequestContainer>"""% (storecategory,"<![CDATA["+item['listing_title']+ "]]>","<![CDATA[" +item['description'].encode("utf-8")+ "]]>",subtitle,item['category_code'],Itemspecifics,str(item['best_offer']),item['site_code'], sku_str,item['qnt'],item['price'],buy_it_now,item['condition'],item['duration'],item['location'],pickupinstore,item['list_type'],shipping_str,return_policy,item['country_code'],item['private_listing'],item['hand_time'],item['currency'],s_time,item['postal_code'],item['payment_method'],item['paypal_email'],ebay_images,ProductListing)
+                    </AddItemRequestContainer>"""% (storecategory,"<![CDATA["+item['listing_title']+ "]]>","<![CDATA[" +str(item['description'])+ "]]>",subtitle,item['category_code'],Itemspecifics,str(item['best_offer']),item['site_code'], sku_str,item['qnt'],item['price'],buy_it_now,item['condition'],item['duration'],item['location'],pickupinstore,item['list_type'],shipping_str,return_policy,item['country_code'],item['private_listing'],item['hand_time'],item['currency'],s_time,item['postal_code'],item['payment_method'],item['paypal_email'],ebay_images,ProductListing)
 
         # api.RequestData="""<?xml version="1.0" encoding="utf-8" ?>
         #     <AddItemsRequest xmlns="urn:ebay:apis:eBLBaseComponents">
@@ -3026,6 +3034,7 @@ class AddEbayItems:
 
         logger.info('api.RequestData=======%s', api.RequestData.encode('utf-8'))
         responseDOM=api.MakeCall("AddItems")
+
         logger.info('api.RequestData=======%s', responseDOM.toprettyxml())
         return responseDOM
     
@@ -3352,7 +3361,7 @@ class GetCategory2CS:
                 <WarningLevel>High</WarningLevel>
                 </GetCategory2CSRequest>"""
         api.RequestData = api.RequestData % {
-                                             'detail': api.DetailLevel.encode("utf-8"),
+                                             'detail': api.DetailLevel,
                                              'category_id': categoryid}
         Dictionary = {}
         responseDOM = api.MakeCall("GetCategory2CS")

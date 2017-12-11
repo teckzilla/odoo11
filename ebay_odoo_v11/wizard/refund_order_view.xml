@@ -67,7 +67,7 @@
                         <button name="provide_seller_info" string="Send RMA" type="object" icon="fa-share" invisible="1"/>
                         <button name="getReturnDetail" string="Get Return Status" type="object" icon="fa-share" invisible="1"/>
                         <button special="cancel" string="_Cancel" icon="fa-ban" invisible="1"/>
-                        <button name="make_entry" string="Make Entry" type="object"/>
+                        <!--<button name="make_entry" string="Make Entry" type="object"/>-->
                     </group>
                 </form>
             </field>

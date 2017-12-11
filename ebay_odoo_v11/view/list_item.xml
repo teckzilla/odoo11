@@ -68,18 +68,18 @@
             </field>
         </record>
 
-        <!--<record id="view_list_item_tree" model="ir.ui.view">-->
-            <!--<field name="name">view.list.item.tree</field>-->
-            <!--<field name="model">list.item</field>-->
-            <!--<field name="arch" type="xml">-->
-                <!--<tree string="Product Listing">-->
-                    <!---->
-                    <!--<field name="name" />-->
-                    <!--<field name="shop_id" />-->
-                    <!--<field name="template_id"/>-->
-                <!--</tree>-->
-            <!--</field>-->
-        <!--</record>-->
+        <record id="view_list_item_tree" model="ir.ui.view">
+            <field name="name">view.list.item.tree</field>
+            <field name="model">list.item</field>
+            <field name="arch" type="xml">
+                <tree string="Product Listing">
+
+                    <field name="name" />
+                    <field name="shop_id" />
+                    <field name="template_id"/>
+                </tree>
+            </field>
+        </record>
         
         <record id="view_list_item_form" model="ir.ui.view">
             <field name="name">view.list.item.form</field>
@@ -249,7 +249,8 @@
             <field name="name">Create an eBay Listing</field>
             <field name="res_model">list.item</field>
             <field name="view_type">form</field>
-            <field name="view_mode">form</field>
+            <field name="view_mode">tree,form</field>
+
             
         
 <!--            <field name="domain">[('type','!=','Chinese')]</field>-->
