@@ -149,6 +149,6 @@
             <field name="view_id" ref="netdespatch_config_tree_view"/>
         </record>`
 
-        <menuitem action="action_netdespatch_config" id="menu_netdespatch_config_form" parent="base_shipping_v10.menu_shipping_services_settings" groups="base_shipping_v10.group_base_shipping_manager"/>
+        <menuitem action="action_netdespatch_config" id="menu_netdespatch_config_form" parent="base_shipping_v11.menu_shipping_services_settings" groups="base_shipping_v11.group_base_shipping_manager"/>
 </data>
     </odoo>
