@@ -99,8 +99,8 @@ class product_images(models.Model):
                     try:
                         f = open(full_path, 'rb')
                         print("--------wot-link----")
-                        # img = base64.encodestring(f.read())
-                        img = base64.b64encode(f.read())
+                        img = base64.encodestring(f.read())
+                        # img = base64.b64encode(f.read())
                         f.close()
                     except Exception as e:
 #                        logger = netsvc.Logger()
@@ -132,8 +132,7 @@ class product_images(models.Model):
             if not os.path.isdir(image_filestore):
                 os.makedirs(image_filestore)
         except Exception as e:
-#            raise osv.except_osv(_('Error'), _('The image filestore can not be created, %s'%e))
-            raise UserError(_("Error"), _('The image filestore can not be created, %s'%e))
+            raise UserError(_('The image filestore can not be created, %s'%e))
         return True
         
     @api.multi    
