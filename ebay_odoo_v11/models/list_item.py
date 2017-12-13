@@ -212,6 +212,7 @@ class list_item(models.Model):
         ('1750', 'New with defects'),
         ('2000', 'Manufacturer refurbished'),
         ('2500', 'Seller refurbished'),
+        ('2750', 'Like New'),
         ('3000', 'Used'),
         ('4000', 'Very Good'),
         ('5000', 'Good'),
@@ -754,13 +755,16 @@ class list_item(models.Model):
             # f = open('/tmp/' + file, 'w')
             with open('/tmp/' + file, 'wb') as f:
                 print ("type",type(imagedata.file_db_store))
+                print("-----------base64.decodestring(imagedata.file_db_store)",base64.decodestring(imagedata.file_db_store))
                 # f.write(base64.decodestring(imagedata.file_db_store))
-                # f.write(base64.b64decode(imagedata.file_db_store))
-                f.write(imagedata.file_db_store)
+                f.write(base64.b64decode(imagedata.file_db_store))
+                # f.write(imagedata.file_db_store)
 
                 f.close()
                 full_url = False
                 img = '/tmp/' + file
+                # img = '/opt/on_copy.jpg'
+
                 results = connection_obj.call(shop_instance, 'UploadSiteHostedPictures', img, site_id)
                 ack = results.get('Ack', False)
                 if ack == 'Failure':
@@ -770,9 +774,8 @@ class list_item(models.Model):
                             severity_code = each_messsge[0]['SeverityCode']
                             if severity_code == 'Error':
                                 Longmessage = each_messsge[0]['LongMessage']
-                                product_long_message = 'Error : %s' \
-                                    % Longmessage
-                        self.write({'req_err': '*'  + Longmessage})
+                                product_long_message = 'Error : %s' % Longmessage
+                                self.write({'req_err': '*'+ Longmessage})
                 elif ack == 'Warning':
                     full_url_array = results.get('FullURL', False)
                     if full_url_array:
@@ -1192,8 +1195,7 @@ class list_item(models.Model):
                     for each_messsge in long_message:
                         severity_code = each_messsge[0]['SeverityCode']
                         if severity_code == 'Error':
-                            Longmessage += each_messsge[0]['LongMessage'
-                                    ]
+                            Longmessage += each_messsge[0]['LongMessage']
                     product_long_message = 'Error : This %s product cannot be Updated because:' % product_name + ' ' + Longmessage
                     
                     
@@ -1230,7 +1232,7 @@ class list_item(models.Model):
                             })
                         self._cr.commit()
             elif ack == 'Success':
-                product_long_message = 'successfully  %s updated'  % product_name
+                product_long_message = 'successfully  %s updated' % product_name
                 item_id = results.get('ItemID', False)
                 start_time = results.get('StartTime', False)
                 end_Time = results.get('EndTime', False)

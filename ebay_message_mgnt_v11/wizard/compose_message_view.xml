@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="compose_messages_on_ebay_wiz" model="ir.ui.view">
+            <field name="name">compose.messages.on.ebay.wiz</field>
+            <field name="model">compose.message</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Compose Message" version="7.0">
+                    <group>
+                        <field name="name" required="1"/>
+                        <field name="recipients" required="1"/>
+                        <field name="msg_id" invisible="1" />
+                        <field name="recipient_user_id" invisible="1" />
+                        <field name="item_id" invisible="1" />
+                        <field name="ebay_msg_id" invisible="1" />
+                    </group>
+                    <field name="body"/>
+                    <group>
+                        <field name="template_id" />
+                        <!--<field name="template_id" domain="[('model_id.name','=', 'ebay.messages')]" on_change="get_template(template_id, ebay_msg_id)" />-->
+                    </group>
+                    <footer>
+                        <button name="send" type="object" string="Send" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+                
+            </field>
+        </record>
+
+       
+    </data>
+</openerp>

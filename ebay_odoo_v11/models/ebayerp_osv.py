@@ -21,6 +21,7 @@
 import sys
 from importlib import reload
 import base64
+
 reload(sys)
 # not neede in python3 setdefaultencoding(latin)
 # sys.setdefaultencoding( "latin-1" )
@@ -35,12 +36,12 @@ from xml.dom.minidom import parse, parseString
 import xml.etree.ElementTree as etree
 import time
 import logging
-logger= logging.getLogger('ebayerp_osv')
 
+logger = logging.getLogger('ebayerp_osv')
 
 
 class Session:
-    """Plug the following values into ebay.ini 
+    """Plug the following values into ebay.ini
     (not here) """
     Developer = "YOUR_DEVELOPER_KEY"
     Application = "YOUR_APPLICATION_KEY"
@@ -54,7 +55,7 @@ class Session:
         config.read("ebay.ini")
         """self.Developer = config.get("Developer Keys", "Developer")
         self.Application = config.get("Developer Keys", "Application")
-        self.Certificate = c1640,onfig.get("Developer Keys", "Certificate")
+        self.Certificate = config.get("Developer Keys", "Certificate")
         self.Token = config.get("Authentication", "Token")
         self.ServerURL = config.get("Server", "URL")"""
         self.Developer = Developer
@@ -65,15 +66,18 @@ class Session:
         # urldat = urlparse.urlparse(self.ServerURL)
         urldat = urlparse(self.ServerURL)
         """ e.g., api.sandbox.ebay.com """
-        self.Server = urldat[1]   
+        self.Server = urldat[1]
         """ e.g., /ws/api.dll """
-        self.Command = urldat[2]  
+        self.Command = urldat[2]
+
 
 """ To Make Call to the Ebay Trading Api's
 """
+
+
 class Call:
     """ # just a stub """
-    RequestData = "<xml />"  
+    RequestData = "<xml />"
     DetailLevel = "0"
     SiteID = "0"
 
@@ -83,15 +87,16 @@ class Call:
         """
         # conn = httplib.HTTPSConnection(self.Session.Server)
         conn = http.client.HTTPSConnection(self.Session.Server)
-        if CallName =='UploadSiteHostedPictures':
-            conn.request("POST", self.Session.Command, self.RequestData, self.GenerateHeaders_upload_picture(self.Session, CallName,len(self.RequestData)))
+        if CallName == 'UploadSiteHostedPictures':
+            conn.request("POST", self.Session.Command, self.RequestData,
+                         self.GenerateHeaders_upload_picture(self.Session, CallName, len(self.RequestData)))
         else:
             conn.request("POST", self.Session.Command, self.RequestData, self.GenerateHeaders(self.Session, CallName))
         response = conn.getresponse()
         """store the response data and close the connection
         """
         data = response.read()
-
+        print("----------data------", data)
         conn.close()
         responseDOM = parseString(data)
 
@@ -99,37 +104,36 @@ class Call:
         TODO: Return a real exception and log when this happens
         """
         tag = responseDOM.getElementsByTagName('Error')
-        if (tag.count!=0):
+        if (tag.count != 0):
             for error in tag:
-                print ("\n")
+                print("\n")
 
         return responseDOM
-    
-    def GenerateHeaders_upload_picture(self, Session, CallName,length):
+
+    def GenerateHeaders_upload_picture(self, Session, CallName, length):
         headers = {
-                  "Content-Type": "multipart/form-data; boundary=MIME_boundary",
-                  "Content-Length":length,
-                  "X-EBAY-API-COMPATIBILITY-LEVEL": "747",
-                  "X-EBAY-API-DEV-NAME": Session.Developer,
-                  # "X-EBAY-API-IAF-TOKEN": Session.Token,
-                  "X-EBAY-API-APP-NAME": Session.Application,
-                  "X-EBAY-API-CERT-NAME": Session.Certificate,
-                  "X-EBAY-API-CALL-NAME": CallName,
-                  "X-EBAY-API-SITEID": self.SiteID,
-                 
-                  }
+            "Content-Type": "multipart/form-data; boundary=MIME_boundary",
+            "Content-Length": length,
+            "X-EBAY-API-COMPATIBILITY-LEVEL": "747",
+            "X-EBAY-API-DEV-NAME": Session.Developer,
+            "X-EBAY-API-IAF-TOKEN": Session.Token,
+            "X-EBAY-API-APP-NAME": Session.Application,
+            "X-EBAY-API-CERT-NAME": Session.Certificate,
+            "X-EBAY-API-CALL-NAME": CallName,
+            "X-EBAY-API-SITEID": self.SiteID,
+
+        }
         logger.info('headers====GenerateHeaders_upload_picture====%s', headers)
         return headers
-    
-    
+
     def GenerateHeaders(self, Session, CallName):
         if CallName.find('DSR') != -1:
-            headers = {"X-EBAY-SOA-OPERATION-NAME":CallName,
-                    "X-EBAY-SOA-SERVICE-VERSION":'1.2.2',
-                    "X-EBAY-SOA-SECURITY-TOKEN":Session.Token,
-                    "X-EBAY-SOA-SERVICE-NAME":'FeedbackService'
-                    }
-        elif CallName in ['getUserReturns','issueRefund','getActivityOptions']:
+            headers = {"X-EBAY-SOA-OPERATION-NAME": CallName,
+                       "X-EBAY-SOA-SERVICE-VERSION": '1.2.2',
+                       "X-EBAY-SOA-SECURITY-TOKEN": Session.Token,
+                       "X-EBAY-SOA-SERVICE-NAME": 'FeedbackService'
+                       }
+        elif CallName in ['getUserReturns', 'issueRefund', 'getActivityOptions']:
             headers = {"X-EBAY-SOA-OPERATION-NAME": CallName,
                        "X-EBAY-SOA-SERVICE-VERSION": '1.1.0',
                        "X-EBAY-SOA-SECURITY-TOKEN": Session.Token,
@@ -150,23 +154,26 @@ class Call:
                        "Content-Type": "text/xml"
                        }
 
-        #logger.info('headers====GenerateHeaders====%s', headers)
+        # logger.info('headers====GenerateHeaders====%s', headers)
         return headers
+
 
 """  GetToken For the Ebay Trading API call 
 """
+
+
 class Token:
     Session = Session()
-    
+
     def __init__(self, DevID, AppID, CertID, Token, ServerURL):
         self.Session.Initialize(DevID, AppID, CertID, Token, ServerURL)
         self.RequestUserId = 'TESTUSER_aasim.ansari'
         self.RequestPassword = 'Makaami_5kaam'
-        
+
     def Get(self):
         api = Call()
         api.Session = self.Session
-        api.DetailLevel = "0" 
+        api.DetailLevel = "0"
         api.RequestData = """<?xml version='1.0' encoding='utf-8'?>
         <request>
             <RequestToken></RequestToken>
@@ -177,10 +184,10 @@ class Token:
             <SiteId>0</SiteId>
             <Verb>GetToken</Verb>
         </request>"""
-        
-        api.RequestData = api.RequestData % { 'detail': api.DetailLevel,
-                                              'userid': self.RequestUserId,
-                                              'password': self.RequestPassword}
+
+        api.RequestData = api.RequestData % {'detail': api.DetailLevel,
+                                             'userid': self.RequestUserId,
+                                             'password': self.RequestPassword}
         self.Xml = api.MakeCall("GetToken")
 
 
@@ -201,16 +208,16 @@ class eBayTime:
                 <Verb>GeteBayOfficialTime</Verb>
                 <SiteId>0</SiteId>
             </request>"""
-        api.RequestData = api.RequestData % { 'token': self.Session.Token,
-                                              'detail': api.DetailLevel }
+        api.RequestData = api.RequestData % {'token': self.Session.Token,
+                                             'detail': api.DetailLevel}
 
         responseDOM = api.MakeCall("GeteBayOfficialTime")
         timeElement = responseDOM.getElementsByTagName('EBayTime')
         if (timeElement != []):
             return timeElement[0].childNodes[0].data
-        
+
         """ force garbage collection of the DOM object """
-        responseDOM.unlink() 
+        responseDOM.unlink()
 
 
 def getText(nodelist):
@@ -236,8 +243,8 @@ class GetSellerList:
         self.Token = Token
         self.ServerURL = ServerURL
         self.Session.Initialize(DevID, AppID, CertID, Token, ServerURL)
-        
-    def Get(self, timeFrom, timeTo ,pageNo):
+
+    def Get(self, timeFrom, timeTo, pageNo):
         api = Call()
         api.Session = self.Session
         # api.RequestData = """<?xml version="1.0" encoding="utf-8"?>
@@ -284,7 +291,8 @@ class GetSellerList:
         """ force garbage collection of the DOM object """
         responseDOM.unlink()
         return sellerListInfo
-        
+
+
 class GetItemTransactions:
     Session = Session()
 
@@ -317,6 +325,7 @@ class GetItemTransactions:
         responseDOM = api.MakeCall("GetItemTransactions")
         """ force garbage collection of the DOM object """
         responseDOM.unlink()
+
 
 class GetOrderTransactions:
     Session = Session()
@@ -364,24 +373,28 @@ class GetOrderTransactions:
         gSellerTrans = GetSellerTransactions(self.DevID, self.AppID, self.CertID, self.Token, self.ServerURL)
 
         shipping_details_tag = responseDOM.getElementsByTagName('ShippingDetails')
-        shippingInfo = gSellerTrans.getShipDetailsInfo(shipping_details_tag[0]) ### 0th bcoz there are also other ShippingDetails tag
+        shippingInfo = gSellerTrans.getShipDetailsInfo(
+            shipping_details_tag[0])  ### 0th bcoz there are also other ShippingDetails tag
 
-        shippingserviceInfo = gSellerTrans.getShippingServiceInfo(responseDOM.getElementsByTagName('ShippingServiceSelected')[0]) ### 0th bcoz there are also other ShippingDetails tag
+        shippingserviceInfo = gSellerTrans.getShippingServiceInfo(
+            responseDOM.getElementsByTagName('ShippingServiceSelected')[
+                0])  ### 0th bcoz there are also other ShippingDetails tag
 
-        exttransactionInfo = gSellerTrans.getExternalTransactionInfo(responseDOM.getElementsByTagName('ExternalTransaction')[0]) ### 0th bcoz there are also other ShippingDetails tag
+        exttransactionInfo = gSellerTrans.getExternalTransactionInfo(
+            responseDOM.getElementsByTagName('ExternalTransaction')[
+                0])  ### 0th bcoz there are also other ShippingDetails tag
 
         transInfo = gSellerTrans.getTransaction(responseDOM.getElementsByTagName('Transaction'))
         for tInfo in transInfo:
-            tInfo.update({'ShippingDetails':shippingInfo})
-            tInfo.update({'ShippingServiceSelected':shippingserviceInfo})
-            tInfo.update({'ExternalTransaction':exttransactionInfo})
+            tInfo.update({'ShippingDetails': shippingInfo})
+            tInfo.update({'ShippingServiceSelected': shippingserviceInfo})
+            tInfo.update({'ExternalTransaction': exttransactionInfo})
 
         """ force garbage collection of the DOM object """
         responseDOM.unlink()
         return transInfo
-    
-    
-    
+
+
 class GetMemberMessages:
     Session = Session()
 
@@ -393,9 +406,8 @@ class GetMemberMessages:
         self.ServerURL = ServerURL
         self.Session.Initialize(DevID, AppID, CertID, Token, ServerURL)
 
+    #
 
-#    
-    
     def getMemberDetails(self, nodes):
         msgs = []
         for node in nodes:
@@ -409,12 +421,11 @@ class GetMemberMessages:
                             info[child_node.nodeName] = child_node.childNodes[0].data
                     msgs.append(info)
         return msgs
-    
-    
-    def Get(self, timeFrom, timeTo ,pageNo):
+
+    def Get(self, timeFrom, timeTo, pageNo):
         api = Call()
         api.Session = self.Session
-        
+
         # api.RequestData = """
         #     <?xml version="1.0" encoding="utf-8"?>
         #     <GetMemberMessagesRequest xmlns="urn:ebay:apis:eBLBaseComponents">
@@ -459,31 +470,30 @@ class GetMemberMessages:
 
         responseDOM = api.MakeCall("getmembermessages")
         Sender_msg_data = self.getMemberDetails(responseDOM.getElementsByTagName('MemberMessageExchange'))
-        
+
         """ force garbage collection of the DOM object """
         responseDOM.unlink()
         return Sender_msg_data
-    
-    
-    
+
+
 class getDSRSummaryRequest:
     Session = Session()
 
     def getSummaryDetails(self, node):
         info = {}
         itemDetails = []
-        vals = ['DSRType','DSRAverage','totalRatingCount','rating1Count','rating2Count','rating3Count','rating4Count','rating5Count']
-     
+        vals = ['DSRType', 'DSRAverage', 'totalRatingCount', 'rating1Count', 'rating2Count', 'rating3Count',
+                'rating4Count', 'rating5Count']
 
         for nodeList in node:
             for cNode in nodeList.childNodes:
                 if cNode.nodeName in vals:
                     info[cNode.nodeName] = cNode.childNodes[0].data
-                
+
             itemDetails.append(info)
             info = {}
         return itemDetails
-    
+
     def __init__(self, DevID, AppID, CertID, Token, ServerURL):
         self.DevID = DevID
         self.AppID = AppID
@@ -500,20 +510,20 @@ class getDSRSummaryRequest:
             <jobId>%(job_id)s</jobId>
             </getDSRSummaryRequest>"""
 
-        api.RequestData = api.RequestData % { 'job_id': jobID }
-                                              
+        api.RequestData = api.RequestData % {'job_id': jobID}
+
         responseDOM = api.MakeCall("getDSRSummary")
-        
+
         if responseDOM.getElementsByTagName('error'):
             raise Exception(responseDOM.getElementsByTagName('message')[0].childNodes[0].data)
-            
+
         if responseDOM.getElementsByTagName('ack')[0].childNodes[0].data == 'Failure':
             raise Exception(responseDOM.getElementsByTagName('Errors')[0].childNodes[0].childNodes[0].data)
 
         transInfo = self.getSummaryDetails(responseDOM.getElementsByTagName('DSRSummary'))
         return transInfo
 
-        
+
 class CreateDSRSummaryByPeriodRequest:
     Session = Session()
 
@@ -536,24 +546,24 @@ class CreateDSRSummaryByPeriodRequest:
                     </dateRange>
                     </createDSRSummaryByPeriodRequest>"""
 
-        api.RequestData = api.RequestData % { 'dateFrom': dateFrom,
-                                              'dateTo': dateTo }
+        api.RequestData = api.RequestData % {'dateFrom': dateFrom,
+                                             'dateTo': dateTo}
 
         responseDOM = api.MakeCall("createDSRSummaryByPeriod")
-        
+
         job_id = responseDOM.getElementsByTagName('jobId')
         if (job_id != []):
             return job_id[0].childNodes[0].data
         else:
             return False
 
-        
+
 class GetSellerTransactions:
     Session = Session()
 
     def __init__(self, DevID, AppID, CertID, Token, ServerURL):
         self.Session.Initialize(DevID, AppID, CertID, Token, ServerURL)
-    
+
     def getBuyerInfo(self, node):
         cNodes = node.childNodes
         info = {}
@@ -664,14 +674,12 @@ class GetSellerTransactions:
                 info[cNode.nodeName] = cNode.childNodes[0].data
         return info
 
-
     def getShippingServiceInfo(self, node):
         shipping_service = False
         for cNode in node.childNodes:
             if cNode.nodeName == 'ShippingService':
                 shipping_service = cNode.childNodes and cNode.childNodes[0].data or ''
         return shipping_service
-
 
     def getShipDetailsInfo(self, node):
         info = {}
@@ -687,7 +695,6 @@ class GetSellerTransactions:
                     elif gcNode.nodeName == 'ShippingIncludedInTax':
                         info[gcNode.nodeName] = gcNode.childNodes[0] and gcNode.childNodes[0].data or ''
         return info
-
 
     def getTransaction(self, nodelist):
         transDetails = []
@@ -708,7 +715,9 @@ class GetSellerTransactions:
                     info.update(buyer_info)
                 elif cNode.nodeName == 'ShippingDetails':
                     ship_details_info = self.getShipDetailsInfo(cNode)
-                    info.update({'ItemTax': ship_details_info['ItemTax'], 'ItemTaxPercentage': ship_details_info['SalesTaxPercent'], 'ShippingIncludedInTax': ship_details_info['ShippingIncludedInTax']})
+                    info.update({'ItemTax': ship_details_info['ItemTax'],
+                                 'ItemTaxPercentage': ship_details_info['SalesTaxPercent'],
+                                 'ShippingIncludedInTax': ship_details_info['ShippingIncludedInTax']})
                 elif cNode.nodeName == 'ConvertedAmountPaid':
                     info[cNode.nodeName] = cNode.childNodes[0].data
                 elif cNode.nodeName == 'ConvertedTransactionPrice':
@@ -743,10 +752,10 @@ class GetSellerTransactions:
                     info['paid'] = True
                 elif cNode.nodeName == 'ShippedTime':
                     info[cNode.nodeName] = cNode.childNodes[0].data
-                elif cNode.nodeName == 'OrderLineItemID': # ItemID-TransactionID
+                elif cNode.nodeName == 'OrderLineItemID':  # ItemID-TransactionID
                     info[cNode.nodeName] = cNode.childNodes[0].data
                     info['unique_sales_line_rec_no'] = cNode.childNodes[0].data
-                elif cNode.nodeName == 'ContainingOrder': # Combined Payment
+                elif cNode.nodeName == 'ContainingOrder':  # Combined Payment
                     info[cNode.nodeName] = cNode.childNodes[0].childNodes[0].data
             if not info['paid']:
                 continue
@@ -754,7 +763,7 @@ class GetSellerTransactions:
             info['ShippingPrice'] = str(float(actual_shipping_cost) + float(actual_handling_cost))
             transDetails.append(info)
         return transDetails
-        
+
     def Get(self, timeFrom, timeTo, pageNo):
         api = Call()
         api.Session = self.Session
@@ -799,17 +808,19 @@ class GetSellerTransactions:
                                              'endTime': timeTo,
                                              'pageNo': pageNo,
                                              }
-                                              
+
         responseDOM = api.MakeCall("GetSellerTransactions")
-        
+
         if responseDOM.getElementsByTagName('Ack')[0].childNodes[0].data == 'Failure':
             raise Exception(responseDOM.getElementsByTagName('Errors')[0].childNodes[0].childNodes[0].data)
         transInfo = self.getTransaction(responseDOM.getElementsByTagName('Transaction'))
-        transInfo = transInfo + [{'HasMoreTransactions':responseDOM.getElementsByTagName('HasMoreTransactions')[0].childNodes[0].data}]
+        transInfo = transInfo + [
+            {'HasMoreTransactions': responseDOM.getElementsByTagName('HasMoreTransactions')[0].childNodes[0].data}]
 
         """ force garbage collection of the DOM object """
         responseDOM.unlink()
         return transInfo
+
 
 class GetOrders:
     Session = Session()
@@ -834,7 +845,7 @@ class GetOrders:
     def getItemInfo(self, node):
         info = {}
         for cNode in node.childNodes:
-            
+
             if cNode.nodeName == 'ItemID':
                 info[cNode.nodeName] = cNode.childNodes[0].data
                 info['listing_id'] = cNode.childNodes[0].data
@@ -950,11 +961,10 @@ class GetOrders:
                 info[cNode.nodeName] = cNode.childNodes[0].data
             elif cNode.nodeName == 'TransactionPrice':
                 info['ItemPrice'] = cNode.childNodes[0].data
-            elif cNode.nodeName == 'OrderLineItemID': # ItemID-TransactionID
+            elif cNode.nodeName == 'OrderLineItemID':  # ItemID-TransactionID
                 info[cNode.nodeName] = cNode.childNodes[0].data
                 info['unique_sales_line_rec_no'] = cNode.childNodes[0].data
         return info
-    
 
     def getOrders(self, nodelist):
         orderDetails = []
@@ -983,7 +993,7 @@ class GetOrders:
                     orderInfo.update(ship_details_info)
                 elif cNode.nodeName == 'ExternalTransaction':
                     external_transaction_id = self.getExternalTransactionInfo(cNode)
-                    orderInfo.update(external_transaction_id)    
+                    orderInfo.update(external_transaction_id)
                 elif cNode.nodeName == 'ShippingAddress':
                     ship_addr_info = self.getShippingAddressInfo(cNode)
                     orderInfo.update(ship_addr_info)
@@ -1010,7 +1020,6 @@ class GetOrders:
         if responseDOM.getElementsByTagName('Ack')[0].childNodes[0].data == 'Failure':
             status = responseDOM.getElementsByTagName('Errors')[0].childNodes[0].childNodes[0].data
         return status
-    
 
     def Get(self, timeFrom, timeTo, pageNo):
         api = Call()
@@ -1043,18 +1052,20 @@ class GetOrders:
                     </Pagination>
                     </GetOrdersRequest>"""
 
-        api.RequestData = api.RequestData % { 'token': self.Session.Token.encode("utf-8"),
-                                              'startTime' :  timeFrom,
-                                              'endTime' :  timeTo,
-                                              'pageNo': pageNo,
-                                            }
-                                              
+        api.RequestData = api.RequestData % {'token': self.Session.Token.encode("utf-8"),
+                                             'startTime': timeFrom,
+                                             'endTime': timeTo,
+                                             'pageNo': pageNo,
+                                             }
+
         responseDOM = api.MakeCall("GetOrders")
         logger.info('============responseDOM===========%s', responseDOM.toprettyxml())
         getErrordetails = self.getErrors(responseDOM)
         if getErrordetails != 'success':
             count = 1
-            while ( getErrordetails.lower().find('input transfer has been terminated') != -1 or getErrordetails.lower().find('internal error') != -1 or getErrordetails.lower().find('connection reset by peer') != -1):
+            while (getErrordetails.lower().find(
+                    'input transfer has been terminated') != -1 or getErrordetails.lower().find(
+                    'internal error') != -1 or getErrordetails.lower().find('connection reset by peer') != -1):
                 count = count + 1
                 time.sleep(25)
                 responseDOM = api.MakeCall("GetOrders")
@@ -1065,18 +1076,20 @@ class GetOrders:
         if responseDOM.getElementsByTagName('Ack')[0].childNodes[0].data == 'Failure':
             # raise Exception(responseDOM.getElementsByTagName('Errors')[0].childNodes[0].childNodes[0].data)
             raise UserError(responseDOM.getElementsByTagName('Errors')[0].childNodes[0].childNodes[0].data)
-        
+
         ordersInfo = self.getOrders(responseDOM.getElementsByTagName('Order'))
-        ordersInfo = ordersInfo + [{'HasMoreTransactions':responseDOM.getElementsByTagName('HasMoreOrders')[0].childNodes[0].data}]
+        ordersInfo = ordersInfo + [
+            {'HasMoreTransactions': responseDOM.getElementsByTagName('HasMoreOrders')[0].childNodes[0].data}]
 
         """ force garbage collection of the DOM object """
         responseDOM.unlink()
-        
+
         return ordersInfo
 
 
-
 """ get order by SalesRecordNo """
+
+
 class GetSellingManagerSoldListings:
     Session = Session()
 
@@ -1094,13 +1107,13 @@ class GetSellingManagerSoldListings:
                 details = {}
                 if cNode.nodeName == 'SellingManagerSoldTransaction':
                     for ssNode in cNode.childNodes:
-                        if ssNode.nodeName == 'ItemID':    # listing_id in OpneERP
+                        if ssNode.nodeName == 'ItemID':  # listing_id in OpneERP
                             details[ssNode.nodeName] = ssNode.childNodes[0].data
                         elif ssNode.nodeName == 'TransactionID':
                             details[ssNode.nodeName] = ssNode.childNodes[0].data
                         elif ssNode.nodeName == 'CustomLabel':
                             details[ssNode.nodeName] = ssNode.childNodes[0].data
-                        elif ssNode.nodeName == 'OrderLineItemID':   ## ItemID-TransactionID
+                        elif ssNode.nodeName == 'OrderLineItemID':  ## ItemID-TransactionID
                             details[ssNode.nodeName] = ssNode.childNodes[0].data
                         details.update(sale_rec)
                     listingDetails.append(details)
@@ -1170,8 +1183,8 @@ class GetSellingManagerSoldListings:
         """ force garbage collection of the DOM object """
         responseDOM.unlink()
         return listingDetails
-    
-    
+
+
 class CompleteSale:
     Session = Session()
 
@@ -1183,7 +1196,7 @@ class CompleteSale:
             info = {}
 
     def Get(self, order_data):
-        
+
         api = Call()
         api.Session = self.Session
 
@@ -1193,11 +1206,13 @@ class CompleteSale:
             <ShipmentTrackingNumber>%s</ShipmentTrackingNumber>
             <ShippingCarrierUsed>%s</ShippingCarrierUsed>
             </ShipmentTrackingDetails>
-            </Shipment>""" % (order_data['ShipmentTrackingNumber'],order_data['ShippingCarrierUsed']) if order_data.get('ShippingCarrierUsed') else "<Shipped>true</Shipped>"
-                
+            </Shipment>""" % (
+            order_data['ShipmentTrackingNumber'], order_data['ShippingCarrierUsed']) if order_data.get(
+                'ShippingCarrierUsed') else "<Shipped>true</Shipped>"
+
         else:
             shipment = ""
-            
+
         # api.RequestData = """<?xml version="1.0" encoding="utf-8"?>
         #     <CompleteSaleRequest xmlns="urn:ebay:apis:eBLBaseComponents">
         #     <RequesterCredentials>
@@ -1210,24 +1225,24 @@ class CompleteSale:
                     <CompleteSaleRequest xmlns="urn:ebay:apis:eBLBaseComponents">
                     <ItemID>%(item_id)s</ItemID>
                     <TransactionID>%(ebay_order_id)s</TransactionID>""" + shipment
-        
+
         if order_data.get('Paid') != False:
             api.RequestData += """<Paid>%(paid)s</Paid>"""
-        
+
         api.RequestData += """<ListingType>%(listing_type)s</ListingType>
             <OrderID>%(order_id)s</OrderID>
             <OrderLineItemID>%(order_line_item_id)s</OrderLineItemID>
             </CompleteSaleRequest>"""
-            
+
         api.RequestData = api.RequestData % {
-                                              # 'token': self.Session.Token.encode("utf-8"),
-                                              'item_id' :  order_data['ItemID'],
-                                              'ebay_order_id' :  order_data['TransactionID'],
-                                              'paid' :  order_data.get('Paid',False),
-                                              'listing_type' :  order_data['ListingType'],
-                                              'order_id' :  order_data['ItemID'] + '-' + order_data['TransactionID'],
-                                              'order_line_item_id' :  order_data['ItemID'] + '-' + order_data['TransactionID'],
-                                            }
+            # 'token': self.Session.Token.encode("utf-8"),
+            'item_id': order_data['ItemID'],
+            'ebay_order_id': order_data['TransactionID'],
+            'paid': order_data.get('Paid', False),
+            'listing_type': order_data['ListingType'],
+            'order_id': order_data['ItemID'] + '-' + order_data['TransactionID'],
+            'order_line_item_id': order_data['ItemID'] + '-' + order_data['TransactionID'],
+        }
 
         responseDOM = api.MakeCall("CompleteSale")
         logger.info('api.RequestData========%s', api.RequestData)
@@ -1235,8 +1250,8 @@ class CompleteSale:
         timeElement = responseDOM.getElementsByTagName('Ack')
         if (timeElement != []):
             return timeElement[0].childNodes[0].data
-                
-    
+
+
 class GetItem:
     Session = Session()
 
@@ -1247,37 +1262,37 @@ class GetItem:
         info = {}
         for cNode in node.childNodes:
             if cNode.nodeName == 'CategoryName':
-                 return cNode.childNodes[0].data
-             
+                return cNode.childNodes[0].data
+
     def getListingDetails(self, node):
         info = {}
         for cNode in node.childNodes:
             if cNode.nodeName == 'StartTime':
-                 info[cNode.nodeName] = cNode.childNodes[0].data
+                info[cNode.nodeName] = cNode.childNodes[0].data
             elif cNode.nodeName == 'EndTime':
-                 info[cNode.nodeName] = cNode.childNodes[0].data
+                info[cNode.nodeName] = cNode.childNodes[0].data
             elif cNode.nodeName == 'ConvertedStartPrice':
-                 info['ItemPrice'] = cNode.childNodes[0].data
+                info['ItemPrice'] = cNode.childNodes[0].data
         return info
 
-    def getSellerSKUVariationInfo(self, node,sku):
+    def getSellerSKUVariationInfo(self, node, sku):
         info = {}
         sku_list = []
         for cNode in node.childNodes:
             if cNode.nodeName == 'Variation':
-                info_list  = {}
+                info_list = {}
                 for ccNode in cNode.childNodes:
-                    if ccNode.nodeName in ['SKU','Quantity']:
+                    if ccNode.nodeName in ['SKU', 'Quantity']:
                         info_list[ccNode.nodeName] = ccNode.childNodes[0].data
                     if ccNode.nodeName == 'SellingStatus':
                         for cccNode in ccNode.childNodes:
                             if cccNode.nodeName in ['QuantitySold']:
                                 info_list[cccNode.nodeName] = cccNode.childNodes[0].data
-                        
+
                 sku_list.append(info_list)
 
         for each_sku_list in sku_list:
-            if each_sku_list.get('SKU',False) == sku:
+            if each_sku_list.get('SKU', False) == sku:
                 info['Quantity'] = each_sku_list['Quantity']
                 info['QuantitySold'] = each_sku_list['QuantitySold']
                 break
@@ -1289,9 +1304,9 @@ class GetItem:
         sku_list = []
         for cNode in node.childNodes:
             if cNode.nodeName == 'Variation':
-                info_list  = {}
+                info_list = {}
                 for ccNode in cNode.childNodes:
-                    if ccNode.nodeName in ['SKU','Quantity']:
+                    if ccNode.nodeName in ['SKU', 'Quantity']:
                         info_list[ccNode.nodeName] = ccNode.childNodes[0].data
                     if ccNode.nodeName == 'SellingStatus':
                         for cccNode in ccNode.childNodes:
@@ -1301,12 +1316,12 @@ class GetItem:
                 sku_list.append(info_list)
         info['variations'] = sku_list
         return info
-    
+
     def getSellingStatus(self, node):
         info = []
         for cNode in node.childNodes:
             if cNode.nodeName == 'QuantitySold':
-                 return cNode.childNodes[0].data
+                return cNode.childNodes[0].data
         return info
 
     def getItemShipDetailsInfo(self, node):
@@ -1327,12 +1342,12 @@ class GetItem:
                 info['ItemWeight'] = str(weight_major + weight_minor)
         return info
 
-    def getItemInfo(self, nodelist,sku):
+    def getItemInfo(self, nodelist, sku):
         data = []
         for node in nodelist:
             info = {}
             for cNode in node.childNodes:
-                if cNode.nodeName in ['ItemID','ConditionID']:
+                if cNode.nodeName in ['ItemID', 'ConditionID']:
                     info[cNode.nodeName] = cNode.childNodes[0].data
                 elif cNode.nodeName == 'ListingDetails':
                     info.update(self.getListingDetails(cNode))
@@ -1358,76 +1373,69 @@ class GetItem:
                     info.update(self.getItemShipDetailsInfo(cNode))
                 elif cNode.nodeName == 'Variations':
                     info.update(self.getSellerVariationInfo(cNode))
-                    info.update(self.getSellerSKUVariationInfo(cNode,sku))
+                    info.update(self.getSellerSKUVariationInfo(cNode, sku))
             data.append(info)
         return data
-    
-    
-    
+
     def getItemPicture(self, nodelist):
         data = []
         for node in nodelist:
             info = {}
             for cNode in node.childNodes:
                 if cNode.nodeName in ['GalleryURL']:
-                    info.update({'gallery_img' : cNode.childNodes[0].data})
+                    info.update({'gallery_img': cNode.childNodes[0].data})
                 if cNode.nodeName in ['PictureURL']:
                     pic_link = []
                     for cNode in node.childNodes:
-                        if cNode.nodeName =='PictureURL':
+                        if cNode.nodeName == 'PictureURL':
                             pic_url = cNode.childNodes[0].data
                             pic_link.append(pic_url)
-                    info.update({'picture_url' : pic_link})
+                    info.update({'picture_url': pic_link})
             data.append(info)
         return data
-    
-    
+
     def getItemcategory(self, nodelist):
         data = []
         for node in nodelist:
             info = {}
             for cNode in node.childNodes:
                 if cNode.nodeName in ['CategoryID']:
-                    info.update({'categ_code' : cNode.childNodes[0].data})
+                    info.update({'categ_code': cNode.childNodes[0].data})
 
                 if cNode.nodeName in ['CategoryName']:
-                    info.update({'categ_name' : cNode.childNodes[0].data})
+                    info.update({'categ_name': cNode.childNodes[0].data})
             data.append(info)
         return data
-    
-    
+
     def getItemStore(self, nodelist):
         data = []
         for node in nodelist:
             info = {}
             for cNode in node.childNodes:
                 if cNode.nodeName in ['StoreCategoryID']:
-                    info.update({'store_categ1' : cNode.childNodes[0].data})
+                    info.update({'store_categ1': cNode.childNodes[0].data})
 
                 if cNode.nodeName in ['StoreCategory2ID']:
-                    info.update({'store_categ2' : cNode.childNodes[0].data})
+                    info.update({'store_categ2': cNode.childNodes[0].data})
             data.append(info)
         return data
-    
-    
+
     def getItemcondition(self, nodelist):
         data = []
         for node in nodelist:
             info = {}
             for cNode in node.childNodes:
                 if cNode.nodeName in ['ConditionDisplayName']:
-                    info.update({'item_condition' : cNode.childNodes[0].data})
+                    info.update({'item_condition': cNode.childNodes[0].data})
             data.append(info)
         return data
-
-        
 
     def getItemInfoSellerList(self, nodelist):
         data = []
         for node in nodelist:
             info = {}
             for cNode in node.childNodes:
-                if cNode.nodeName in ['ItemID','ConditionID']:
+                if cNode.nodeName in ['ItemID', 'ConditionID']:
                     info[cNode.nodeName] = cNode.childNodes[0].data
                 elif cNode.nodeName == 'ListingDetails':
                     info.update(self.getListingDetails(cNode))
@@ -1455,8 +1463,8 @@ class GetItem:
                     info.update(self.getSellerVariationInfo(cNode))
             data.append(info)
         return data
-    
-    def Get(self, itemId , sku):
+
+    def Get(self, itemId, sku):
         api = Call()
         api.Session = self.Session
         # api.RequestData = """<?xml version="1.0" encoding="utf-8"?>
@@ -1477,143 +1485,147 @@ class GetItem:
                     </GetItemRequest>"""
 
         api.RequestData = api.RequestData % {
-                                                # 'token': self.Session.Token.encode("utf-8"),
-                                               'item_id' :  itemId,
-                                              'variant_sku' : sku,
-                                            }
+            # 'token': self.Session.Token.encode("utf-8"),
+            'item_id': itemId,
+            'variant_sku': sku,
+        }
         responseDOM = api.MakeCall("GetItem")
         logger.info('api.RequestData========%s', responseDOM.toprettyxml())
-        if responseDOM.getElementsByTagName('Ack')[0].childNodes[0].data in ['Success','Warning']:
-            itemInfo = self.getItemInfo(responseDOM.getElementsByTagName('Item'),sku)
+        if responseDOM.getElementsByTagName('Ack')[0].childNodes[0].data in ['Success', 'Warning']:
+            itemInfo = self.getItemInfo(responseDOM.getElementsByTagName('Item'), sku)
             categ_info = self.getItemcategory(responseDOM.getElementsByTagName('PrimaryCategory'))
             itempic = self.getItemPicture(responseDOM.getElementsByTagName('PictureDetails'))
             itemcondition = self.getItemcondition(responseDOM.getElementsByTagName('Item'))
             itemstore = self.getItemStore(responseDOM.getElementsByTagName('Storefront'))
-            
+
             """ force garbage collection of the DOM object """
             responseDOM.unlink()
-            
-            itemInfo[0].update({'picture' : itempic})
-            itemInfo[0].update({'condition' : itemcondition})
-            itemInfo[0].update({'categ_data' : categ_info})
-            itemInfo[0].update({'store_data' : itemstore})
+
+            itemInfo[0].update({'picture': itempic})
+            itemInfo[0].update({'condition': itemcondition})
+            itemInfo[0].update({'categ_data': categ_info})
+            itemInfo[0].update({'store_data': itemstore})
             return itemInfo
         else:
             return []
 
+
 class ReviseItem:
     Session = Session()
+
     def __init__(self, DevID, AppID, CertID, Token, ServerURL):
         self.Session.Initialize(DevID, AppID, CertID, Token, ServerURL)
 
     def geterrors(self, nodelist):
-       transDetails = []
-       info = {}
-       for cNode in nodelist.childNodes:
-           if cNode.nodeName == 'LongMessage':
-               if cNode.childNodes:
+        transDetails = []
+        info = {}
+        for cNode in nodelist.childNodes:
+            if cNode.nodeName == 'LongMessage':
+                if cNode.childNodes:
                     info[cNode.nodeName] = cNode.childNodes[0].data
-           if cNode.nodeName == 'SeverityCode':
-               if cNode.childNodes:
+            if cNode.nodeName == 'SeverityCode':
+                if cNode.childNodes:
                     info[cNode.nodeName] = cNode.childNodes[0].data
-       transDetails.append(info)
-       return transDetails
-   
-    def Get_common_update(self,itemlist,siteid):
+        transDetails.append(info)
+        return transDetails
+
+    def Get_common_update(self, itemlist, siteid):
         api = Call()
         api.Session = self.Session
         api.SiteID = siteid
         api.DetailLevel = "0"
-        msg_id=0
-        container=''
+        msg_id = 0
+        container = ''
         for item in itemlist:
-            sku_str=''
-            
-            shipping_obj= getshipping()
-            shipping_str=shipping_obj.Get(item['shipping_information'])
-            
-            return_policy=''
-            return_options=''
-            
+            sku_str = ''
+
+            shipping_obj = getshipping()
+            shipping_str = shipping_obj.Get(item['shipping_information'])
+
+            return_policy = ''
+            return_options = ''
+
             if item.get('refund_option'):
-                return_options+="""<RefundOption>%s</RefundOption>"""%(item['refund_option'])
+                return_options += """<RefundOption>%s</RefundOption>""" % (item['refund_option'])
 
+            if item.get('retur_days'):
+                return_options += """<ReturnsWithinOption>%s</ReturnsWithinOption>""" % (item['retur_days'])
 
-            if item.get('retur_days'):    
-                return_options+="""<ReturnsWithinOption>%s</ReturnsWithinOption>"""%(item['retur_days'])
+            if item.get('return_desc', False):
+                return_options += """<Description>%s</Description>""" % (item['return_desc'])
 
-            if item.get('return_desc',False):    
-                return_options+="""<Description>%s</Description>"""%(item['return_desc'])
+            if item.get('cost_paid_by'):
+                return_options += """<ShippingCostPaidByOption>%s</ShippingCostPaidByOption>""" % (item['cost_paid_by'])
 
-            if item.get('cost_paid_by'):    
-                return_options+="""<ShippingCostPaidByOption>%s</ShippingCostPaidByOption>"""%(item['cost_paid_by'])
+            return_policy = """<ReturnPolicy><ReturnsAcceptedOption>%s</ReturnsAcceptedOption>%s</ReturnPolicy>""" % (
+            item['return_accepted'], return_options)
 
+            # logger.info('shipping_str========%s', shipping_str)
+            # logger.info('return_policy========%s', return_policy)
 
-            return_policy="""<ReturnPolicy><ReturnsAcceptedOption>%s</ReturnsAcceptedOption>%s</ReturnPolicy>"""%(item['return_accepted'],return_options)
-            
-            
-            #logger.info('shipping_str========%s', shipping_str)
-            #logger.info('return_policy========%s', return_policy)
-            
             if item.get('product_sku'):
-                sku_str = "<SKU>%s</SKU>"%(item['product_sku'])
+                sku_str = "<SKU>%s</SKU>" % (item['product_sku'])
 
-            buy_it_now=''
+            buy_it_now = ''
             if item.get('buy_it_now_price'):
-                buy_it_now="""<BuyItNowPrice currencyID=\""""+item['currency']+"""\">%s</BuyItNowPrice>"""%(item['buy_it_now_price'])
-                
-            pickupinstore=''
-            if item.get('pickup_store',False):
-                pickupinstore = """<PickupInStoreDetails><EligibleForPickupInStore>%s</EligibleForPickupInStore></PickupInStoreDetails>"""%(item['pickup_store'])
-            
-            if item.get('listing_time')!=False:
-                s_time="<ScheduleTime>%s</ScheduleTime>"%(item['listing_time'])
-            else:
-                s_time=''            
+                buy_it_now = """<BuyItNowPrice currencyID=\"""" + item['currency'] + """\">%s</BuyItNowPrice>""" % (
+                item['buy_it_now_price'])
 
-            if item.get('sub_title')!=False:
-                subtitle="<SubTitle>%s</SubTitle>"%(item['sub_title'])
+            pickupinstore = ''
+            if item.get('pickup_store', False):
+                pickupinstore = """<PickupInStoreDetails><EligibleForPickupInStore>%s</EligibleForPickupInStore></PickupInStoreDetails>""" % (
+                item['pickup_store'])
+
+            if item.get('listing_time') != False:
+                s_time = "<ScheduleTime>%s</ScheduleTime>" % (item['listing_time'])
             else:
-                subtitle=''
+                s_time = ''
+
+            if item.get('sub_title') != False:
+                subtitle = "<SubTitle>%s</SubTitle>" % (item['sub_title'])
+            else:
+                subtitle = ''
 
             name_val_str = ''
-            
-            if item['attribute_array']!=False:
+
+            if item['attribute_array'] != False:
                 for key, value in item['attribute_array'].items():
-                    if key==False:
+                    if key == False:
                         continue
-                    if value==False:
+                    if value == False:
                         continue
-                    name_val_str+= """<NameValueList>
+                    name_val_str += """<NameValueList>
                                     <Name>%s</Name>
                                     <Value>%s</Value>
-                                  </NameValueList>""" %("<![CDATA["+key+"]]>","<![CDATA["+value+"]]>")
-                Itemspecifics = "<ItemSpecifics>"+ str(name_val_str)+ "</ItemSpecifics>"
+                                  </NameValueList>""" % ("<![CDATA[" + key + "]]>", "<![CDATA[" + value + "]]>")
+                Itemspecifics = "<ItemSpecifics>" + str(name_val_str) + "</ItemSpecifics>"
             else:
-                Itemspecifics=''
-            
+                Itemspecifics = ''
+
             storecategory = ''
             if item['store_category']:
-                store_category_count=1
+                store_category_count = 1
                 storecategory += """<Storefront>"""
                 for store_category in item['store_category']:
-                    if store_category_count ==1:
-                        storecategory +="""<StoreCategoryID>%s</StoreCategoryID>
-                        <StoreCategoryName>%s</StoreCategoryName>"""%(store_category['category_id'],store_category['name'])
+                    if store_category_count == 1:
+                        storecategory += """<StoreCategoryID>%s</StoreCategoryID>
+                        <StoreCategoryName>%s</StoreCategoryName>""" % (
+                        store_category['category_id'], store_category['name'])
 
-                    if store_category_count ==2:    
-                        storecategory +="""<StoreCategory2ID>%s</StoreCategory2ID>
-                        <StoreCategory2Name>%s</StoreCategory2Name>"""%(store_category['category_id'],store_category['name'])
+                    if store_category_count == 2:
+                        storecategory += """<StoreCategory2ID>%s</StoreCategory2ID>
+                        <StoreCategory2Name>%s</StoreCategory2Name>""" % (
+                        store_category['category_id'], store_category['name'])
 
                     store_category_count += 1
-                storecategory +="""</Storefront>"""
-            
-            msg_id=msg_id+1
-            ebay_images='<PhotoDisplay>SuperSize</PhotoDisplay>'
-            for img in item['images']:
-                ebay_images +="""<PictureURL>%s</PictureURL>"""%(img)
+                storecategory += """</Storefront>"""
 
-            container+="""
+            msg_id = msg_id + 1
+            ebay_images = '<PhotoDisplay>SuperSize</PhotoDisplay>'
+            for img in item['images']:
+                ebay_images += """<PictureURL>%s</PictureURL>""" % (img)
+
+            container += """
                     <Item>%s
                     <Title>%s</Title>
                      <ItemID>%s</ItemID>
@@ -1634,8 +1646,14 @@ class ReviseItem:
                     <PaymentMethods>%s</PaymentMethods>
                     <PayPalEmailAddress>%s</PayPalEmailAddress> 
                     <PictureDetails>%s</PictureDetails>
-                    </Item>"""% (storecategory,"<![CDATA["+item['listing_title']+ "]]>",item['ebay_item_id'],"<![CDATA[" +str(item['description'])+ "]]>",subtitle,item['category_code'],Itemspecifics,str(item['best_offer']),item['site_code'], sku_str,item['qnt'],item['price'],buy_it_now,item['condition'],item['duration'],item['location'],pickupinstore,item['list_type'],shipping_str,return_policy,item['country_code'],item['private_listing'],item['hand_time'],item['currency'],s_time,item['postal_code'],item['payment_method'],item['paypal_email'],ebay_images)
-        
+                    </Item>""" % (storecategory, "<![CDATA[" + item['listing_title'] + "]]>", item['ebay_item_id'],
+                                  "<![CDATA[" + str(item['description']) + "]]>", subtitle, item['category_code'],
+                                  Itemspecifics, str(item['best_offer']), item['site_code'], sku_str, item['qnt'],
+                                  item['price'], buy_it_now, item['condition'], item['duration'], item['location'],
+                                  pickupinstore, item['list_type'], shipping_str, return_policy, item['country_code'],
+                                  item['private_listing'], item['hand_time'], item['currency'], s_time,
+                                  item['postal_code'], item['payment_method'], item['paypal_email'], ebay_images)
+
         # api.RequestData="""<?xml version="1.0" encoding="utf-8" ?>
         #     <ReviseItemRequest xmlns="urn:ebay:apis:eBLBaseComponents">
         #     <RequesterCredentials>
@@ -1645,35 +1663,31 @@ class ReviseItem:
         api.RequestData = """<?xml version="1.0" encoding="utf-8" ?>
                     <ReviseItemRequest xmlns="urn:ebay:apis:eBLBaseComponents">%s</ReviseItemRequest>""" % (container)
         logger.info('api.RequestData=====%s', api.RequestData.encode('utf-8'))
-        responseDOM=api.MakeCall("ReviseItem")
+        responseDOM = api.MakeCall("ReviseItem")
         logger.info('api.RequestData========%s', responseDOM.toprettyxml())
-        Dictionary={}
+        Dictionary = {}
         if responseDOM.getElementsByTagName('Ack')[0].childNodes[0].data == 'Success':
-           ack = responseDOM.getElementsByTagName('Ack')[0].childNodes[0].data
-           Dictionary.update({'Ack': ack})
+            ack = responseDOM.getElementsByTagName('Ack')[0].childNodes[0].data
+            Dictionary.update({'Ack': ack})
         elif responseDOM.getElementsByTagName('Ack')[0].childNodes[0].data == 'Warning':
-           ack = responseDOM.getElementsByTagName('Ack')[0].childNodes[0].data
-           Dictionary.update({'Ack': ack})
-           many_errors = []
-           for each_error in  responseDOM.getElementsByTagName('Errors'):
-              errors = self.geterrors(each_error)
-              many_errors.append(errors)
-           Dictionary.update({'LongMessage': many_errors})
+            ack = responseDOM.getElementsByTagName('Ack')[0].childNodes[0].data
+            Dictionary.update({'Ack': ack})
+            many_errors = []
+            for each_error in responseDOM.getElementsByTagName('Errors'):
+                errors = self.geterrors(each_error)
+                many_errors.append(errors)
+            Dictionary.update({'LongMessage': many_errors})
         elif responseDOM.getElementsByTagName('Ack')[0].childNodes[0].data == 'Failure':
-          ack = responseDOM.getElementsByTagName('Ack')[0].childNodes[0].data
-          Dictionary.update({'Ack': ack})
-          many_errors = []
-          for each_error in  responseDOM.getElementsByTagName('Errors'):
-              errors = self.geterrors(each_error)
-              many_errors.append(errors)
-          Dictionary.update({'LongMessage': many_errors})
+            ack = responseDOM.getElementsByTagName('Ack')[0].childNodes[0].data
+            Dictionary.update({'Ack': ack})
+            many_errors = []
+            for each_error in responseDOM.getElementsByTagName('Errors'):
+                errors = self.geterrors(each_error)
+                many_errors.append(errors)
+            Dictionary.update({'LongMessage': many_errors})
         responseDOM.unlink()
         return Dictionary
- 
-        
-        
 
-        
 
 class RelistFixedPriceItem:
     Session = Session()
@@ -1681,14 +1695,14 @@ class RelistFixedPriceItem:
     def __init__(self, DevID, AppID, CertID, Token, ServerURL):
         self.Session.Initialize(DevID, AppID, CertID, Token, ServerURL)
 
-    def Get(self, itemId,qty,price,currency):
+    def Get(self, itemId, qty, price, currency):
         api = Call()
         api.Session = self.Session
         str_xml = ''
         if qty:
             str_xml += '<Quantity>%s</Quantity>' % int(qty)
         if price:
-            str_xml += ' <StartPrice currencyID="%s">%s</StartPrice>' % (currency,price)
+            str_xml += ' <StartPrice currencyID="%s">%s</StartPrice>' % (currency, price)
 
         api.RequestData = """<?xml version="1.0" encoding="utf-8"?>
                     <RelistFixedPriceItem xmlns="urn:ebay:apis:eBLBaseComponents">
@@ -1702,30 +1716,32 @@ class RelistFixedPriceItem:
         api.RequestData += """</RelistFixedPriceItem>"""
         error = ''
         responseDOM = api.MakeCall("RelistFixedPriceItem")
-        
-        if responseDOM.getElementsByTagName('Ack')[0].childNodes[0].data in ['Success','Warning'] :
+
+        if responseDOM.getElementsByTagName('Ack')[0].childNodes[0].data in ['Success', 'Warning']:
             return responseDOM.getElementsByTagName('ItemID')[0].childNodes[0].data
         else:
             for each_node in responseDOM.getElementsByTagName('Errors'):
                 error += str(each_node.childNodes[0].childNodes[0].data) + '\n'
 
-            raise UserError('Error RelistFixedPriceItem!',error)
+            raise UserError('Error RelistFixedPriceItem!', error)
             raise Exception(error)
+
 
 class ReviseInventoryStatus:
     Session = Session()
     var_update = ''
+
     def __init__(self, DevID, AppID, CertID, Token, ServerURL):
-        
+
         self.Session.Initialize(DevID, AppID, CertID, Token, ServerURL)
 
-    def Get(self, itemId, startPrice, quantity , sku, val):
-        #logger.info('quantity=====ReviseInventoryStatus=======%s', quantity)
-        #logger.info('startPrice=====ReviseInventoryStatus=======%s', startPrice)
-        if type(quantity) in (int,float):
+    def Get(self, itemId, startPrice, quantity, sku, val):
+        # logger.info('quantity=====ReviseInventoryStatus=======%s', quantity)
+        # logger.info('startPrice=====ReviseInventoryStatus=======%s', startPrice)
+        if type(quantity) in (int, float):
             if quantity == 0.0:
                 quantity = 0
-        
+
         self.var_update = val
         api = Call()
         api.Session = self.Session
@@ -1741,26 +1757,25 @@ class ReviseInventoryStatus:
                     <ReviseInventoryStatusRequest xmlns="urn:ebay:apis:eBLBaseComponents">
                     <InventoryStatus ComplexType="InventoryStatusType">
                     <ItemID>%s</ItemID><SKU>%s</SKU>""" % (str(itemId), str(sku))
-        
-        #logger.info('self.var_update=====ReviseInventoryStatus=======%s', self.var_update)
+
+        # logger.info('self.var_update=====ReviseInventoryStatus=======%s', self.var_update)
         if startPrice:
-            api.RequestData += """<StartPrice>%s</StartPrice>"""%(float(startPrice))
-        if type(quantity) in (int,float):
-            api.RequestData += """<Quantity>%s</Quantity>"""% (int(quantity))
-            
+            api.RequestData += """<StartPrice>%s</StartPrice>""" % (float(startPrice))
+        if type(quantity) in (int, float):
+            api.RequestData += """<Quantity>%s</Quantity>""" % (int(quantity))
+
         api.RequestData += """</InventoryStatus>"""
-#        if val['prom_discount']:
-#            api.RequestData +="""<Fees><Fee><Fee>%s</Fee>"""%(float(val['fee']))
-#            api.RequestData += """<Name>%s</Name>"""% (str(val['prom_name']))
-#            api.RequestData += """<PromotionalDiscount>%s</PromotionalDiscount></Fee>"""% (float(val['prom_discount']))
-#            api.RequestData += """<ItemID>%s</ItemID></Fees>"""% (str(itemId).encode("utf-8"))
-        
-        api.RequestData +="""</ReviseInventoryStatusRequest>"""
-                        
-        
-        #logger.info('api.RequestData=====ReviseInventoryStatus=======%s', api.RequestData)
+        #        if val['prom_discount']:
+        #            api.RequestData +="""<Fees><Fee><Fee>%s</Fee>"""%(float(val['fee']))
+        #            api.RequestData += """<Name>%s</Name>"""% (str(val['prom_name']))
+        #            api.RequestData += """<PromotionalDiscount>%s</PromotionalDiscount></Fee>"""% (float(val['prom_discount']))
+        #            api.RequestData += """<ItemID>%s</ItemID></Fees>"""% (str(itemId).encode("utf-8"))
+
+        api.RequestData += """</ReviseInventoryStatusRequest>"""
+
+        # logger.info('api.RequestData=====ReviseInventoryStatus=======%s', api.RequestData)
         responseDOM = api.MakeCall("ReviseInventoryStatus")
-        #logger.info('api.responseDOM=====ReviseInventoryStatus====%s', responseDOM.toprettyxml())
+        # logger.info('api.responseDOM=====ReviseInventoryStatus====%s', responseDOM.toprettyxml())
         if responseDOM.getElementsByTagName('Ack')[0].childNodes[0].data == 'Success':
             return True
         else:
@@ -1768,6 +1783,8 @@ class ReviseInventoryStatus:
 
 
 """ code for cancel varistion listing  Through Ebay API"""
+
+
 class DeleteVariationItem:
     Session = Session()
 
@@ -1775,8 +1792,8 @@ class DeleteVariationItem:
         self.Session.Initialize(DevID, AppID, CertID, Token, ServerURL)
 
     def Get(self, itemId, sku):
-        #logger.info('itemId--->%s',itemId)
-        #logger.info('arguments[1]------->%s',sku)
+        # logger.info('itemId--->%s',itemId)
+        # logger.info('arguments[1]------->%s',sku)
         api = Call()
         api.Session = self.Session
         # api.RequestData = """<?xml version="1.0" encoding="utf-8"?>
@@ -1810,23 +1827,25 @@ class DeleteVariationItem:
                     </Item>
                 """ % (str(itemId).encode("utf-8"), str(sku))
         api.RequestData += """</ReviseFixedPriceItemRequest>"""
-        #logger.info('api.RequestData ======%s',api.RequestData)
+        # logger.info('api.RequestData ======%s',api.RequestData)
         responseDOM = api.MakeCall("ReviseFixedPriceItem")
-        #logger.info('api.RequestData ======%s',responseDOM.toprettyxml())
+        # logger.info('api.RequestData ======%s',responseDOM.toprettyxml())
         if responseDOM.getElementsByTagName('Ack')[0].childNodes[0].data == 'Success':
             return True
         else:
             return False
-        
-        
-        
+
 
 """ code for cancel listing using enditem api """
+
+
 class EndItem:
     Session = Session()
+
     def __init__(self, DevID, AppID, CertID, Token, ServerURL):
         self.Session.Initialize(DevID, AppID, CertID, Token, ServerURL)
-    def Get(self,item_id,siteid):
+
+    def Get(self, item_id, siteid):
         api = Call()
         api.Session = self.Session
         api.SiteID = siteid
@@ -1848,17 +1867,17 @@ class EndItem:
                     <EndItemRequest xmlns="urn:ebay:apis:eBLBaseComponents">
                     <EndingReason>NotAvailable</EndingReason>
                     <ItemID>%s</ItemID>
-                  </EndItemRequest>​​""" %(item_id)
+                  </EndItemRequest>​​""" % (item_id)
         # api.RequestData = api.RequestData % {
         #                                      'item_id': str(item_id),
         #                                      }
-        api.RequestData=api.RequestData.encode('utf-8')
+        api.RequestData = api.RequestData.encode('utf-8')
         responseDOM = api.MakeCall("EndItem")
-        #logger.info('api.RequestData ======%s',responseDOM.toprettyxml())
-        
-        
-        
-        """ for getting the values of endtime """ 
+        # logger.info('api.RequestData ======%s',responseDOM.toprettyxml())
+
+
+
+        """ for getting the values of endtime """
         Dictionary = {}
         if responseDOM.getElementsByTagName('Ack')[0].childNodes[0].data == 'Success':
             end_time = responseDOM.getElementsByTagName('EndTime')[0].childNodes[0].data
@@ -1868,7 +1887,7 @@ class EndItem:
             Dictionary.update({'EndTime': end_time})
         elif responseDOM.getElementsByTagName('Ack')[0].childNodes[0].data == 'Failure':
             long_message = responseDOM.getElementsByTagName('LongMessage')[0].childNodes[0].data
-            #logger.info('api.RequestData ======%s',long_message)
+            # logger.info('api.RequestData ======%s',long_message)
             Dictionary.update({'long_message': long_message})
         responseDOM.unlink()
         return Dictionary
@@ -1880,7 +1899,7 @@ class RelistItem:
     def __init__(self, DevID, AppID, CertID, Token, ServerURL):
         self.Session.Initialize(DevID, AppID, CertID, Token, ServerURL)
 
-    def Get(self, itemId,qty):
+    def Get(self, itemId, qty):
         api = Call()
         api.Session = self.Session
         # api.RequestData = """<?xml version="1.0" encoding="utf-8"?>
@@ -1907,15 +1926,16 @@ class RelistItem:
         api.RequestData += """</RelistItemRequest>"""
         error = ''
         responseDOM = api.MakeCall("RelistItem")
-        if responseDOM.getElementsByTagName('Ack')[0].childNodes[0].data in ['Success','Warning'] :
+        if responseDOM.getElementsByTagName('Ack')[0].childNodes[0].data in ['Success', 'Warning']:
             return responseDOM.getElementsByTagName('ItemID')[0].childNodes[0].data
         else:
             for each_node in responseDOM.getElementsByTagName('Errors'):
                 error += str(each_node.childNodes[0].childNodes[0].data) + '\n'
-#            raise osv.except_osv('Error !',error+' '+str(itemId))
-            raise UserError('Error !',error+' '+str(itemId))
+            # raise osv.except_osv('Error !',error+' '+str(itemId))
+            raise UserError('Error !', error + ' ' + str(itemId))
             # raise UserError(_('Error ! %s'% (error)+))
-        
+
+
 class VerifyRelistItem:
     Session = Session()
 
@@ -1947,226 +1967,224 @@ class VerifyRelistItem:
 
         responseDOM = api.MakeCall("VerifyRelistItem")
         error = ''
-        if responseDOM.getElementsByTagName('Ack')[0].childNodes[0].data in ['Success','Warning']:
+        if responseDOM.getElementsByTagName('Ack')[0].childNodes[0].data in ['Success', 'Warning']:
             return True
         else:
             for each_node in responseDOM.getElementsByTagName('Errors'):
                 error += str(each_node.childNodes[0].childNodes[0].data) + '\n'
-#            raise osv.except_osv('Error !',error+' '+str(itemId))
-#             raise UserError('Error !',error+' '+str(itemId))
-            raise UserError(_('Error ! %s %s' % (str(error),str(itemId))))
-        
+            # raise osv.except_osv('Error !',error+' '+str(itemId))
+            #             raise UserError('Error !',error+' '+str(itemId))
+            raise UserError(_('Error ! %s %s' % (str(error), str(itemId))))
+
+
 class AddFixedPriceItem:
     Session = Session()
-    
+
     def __init__(self, DevID, AppID, CertID, Token, ServerURL):
         self.Session.Initialize(DevID, AppID, CertID, Token, ServerURL)
-        
+
     def geterrors(self, nodelist):
-       transDetails = []
-       info = {}
-       for cNode in nodelist.childNodes:
-           if cNode.nodeName == 'LongMessage':
-               if cNode.childNodes:
+        transDetails = []
+        info = {}
+        for cNode in nodelist.childNodes:
+            if cNode.nodeName == 'LongMessage':
+                if cNode.childNodes:
                     info[cNode.nodeName] = cNode.childNodes[0].data
-           if cNode.nodeName == 'SeverityCode':
-               if cNode.childNodes:
+            if cNode.nodeName == 'SeverityCode':
+                if cNode.childNodes:
                     info[cNode.nodeName] = cNode.childNodes[0].data
-       transDetails.append(info)
-       return transDetails    
-    
-       
-    def create_variaion_set(self,itemlist):
-        variations_value=''
-        variations_color_value=''
-        VariationSpecificValue=''
-        variation=''
+        transDetails.append(info)
+        return transDetails
+
+    def create_variaion_set(self, itemlist):
+        variations_value = ''
+        variations_color_value = ''
+        VariationSpecificValue = ''
+        variation = ''
         full_urls = []
-        att_val=[]
-        picture_variation_list=[]
-        
-        variations="""
+        att_val = []
+        picture_variation_list = []
+
+        variations = """
       <VariationSpecificsSet>
 
       </VariationSpecificsSet>"""
- 
-        cnt=0
-        #logger.info('variation_list=======%s', itemlist[0]['variation_list'])
-        for cnt in range(0, len(itemlist[0]['variation_list'])):
-            
-            variation_tag=''
-            for sin_variation_list in itemlist[0]['variation_list']:
-                cnt=cnt+1
-                namevalue="""<NameValueList><Name>"""+sin_variation_list[0]+"""</Name>"""
-                namevalues_list=''
-                for attribute in sin_variation_list[1]['attribute_values']:
-                    namevalues_list+="""<Value>"""+attribute+"""</Value>"""
-                variation_tag+=namevalue+namevalues_list+"""</NameValueList>"""
-        variations="""<VariationSpecificsSet>"""+variation_tag+""" </VariationSpecificsSet>"""            
 
-        all_variation=''
-        all_sku=''
-        variation=''
-        picture_dic={}
+        cnt = 0
+        # logger.info('variation_list=======%s', itemlist[0]['variation_list'])
+        for cnt in range(0, len(itemlist[0]['variation_list'])):
+
+            variation_tag = ''
+            for sin_variation_list in itemlist[0]['variation_list']:
+                cnt = cnt + 1
+                namevalue = """<NameValueList><Name>""" + sin_variation_list[0] + """</Name>"""
+                namevalues_list = ''
+                for attribute in sin_variation_list[1]['attribute_values']:
+                    namevalues_list += """<Value>""" + attribute + """</Value>"""
+                variation_tag += namevalue + namevalues_list + """</NameValueList>"""
+        variations = """<VariationSpecificsSet>""" + variation_tag + """ </VariationSpecificsSet>"""
+
+        all_variation = ''
+        all_sku = ''
+        variation = ''
+        picture_dic = {}
         for item in itemlist:
-                all_sku="""<Variation><SKU>%s</SKU>
+            all_sku = """<Variation><SKU>%s</SKU>
                     <StartPrice>%s</StartPrice>
-                    <Quantity>%s</Quantity>"""%(item['product_sku'],item['price'],item['qnt'])
-                
-                picture_dic['picture_variation_url']=item['images']
-                name_list=''
-                val=0
-                logger.info('item===var_dic====%s',item['var_dic'])
-                for single_var in item['var_dic']:
-                    if val==0:
-                         logger.info('single_var=======%s',single_var.items()[0])
-                         logger.info('single_var.items()=======%s',single_var.items()[0][1])
-                         picture_dic['picture_variation_val']=single_var.items()[0][1]
-                         picture_dic['picture_attribute']=single_var.items()[0][0]
-                         picture_variation_list.append(picture_dic)
-                         picture_dic={}
-                    val=val+1
-                    name_list+="""<NameValueList>
+                    <Quantity>%s</Quantity>""" % (item['product_sku'], item['price'], item['qnt'])
+
+            picture_dic['picture_variation_url'] = item['images']
+            name_list = ''
+            val = 0
+            logger.info('item===var_dic====%s', item['var_dic'])
+            for single_var in item['var_dic']:
+                if val == 0:
+                    logger.info('single_var=======%s', single_var.items()[0])
+                    logger.info('single_var.items()=======%s', single_var.items()[0][1])
+                    picture_dic['picture_variation_val'] = single_var.items()[0][1]
+                    picture_dic['picture_attribute'] = single_var.items()[0][0]
+                    picture_variation_list.append(picture_dic)
+                    picture_dic = {}
+                val = val + 1
+                name_list += """<NameValueList>
                             <Name>%s</Name>
                           <Value>%s</Value>
-                         </NameValueList>"""%(single_var.items()[0][0],single_var.items()[0][1])
-                variation+=all_sku+"""<VariationSpecifics>"""+name_list+"""</VariationSpecifics></Variation>"""
-
+                         </NameValueList>""" % (single_var.items()[0][0], single_var.items()[0][1])
+            variation += all_sku + """<VariationSpecifics>""" + name_list + """</VariationSpecifics></Variation>"""
 
         pictures = ''
-        logger.info('picture_variation_list=======%s',picture_variation_list)
+        logger.info('picture_variation_list=======%s', picture_variation_list)
         for picture_element in picture_variation_list:
-            picture_url=''
+            picture_url = ''
             for single_picture_url in picture_element['picture_variation_url']:
                 if single_picture_url:
-                    picture_url+="""<PictureURL>"""+single_picture_url+"""</PictureURL>"""
-                    
+                    picture_url += """<PictureURL>""" + single_picture_url + """</PictureURL>"""
+
             if picture_url != '':
-                VariationSpecificValue+="""<VariationSpecificPictureSet><VariationSpecificValue>"""+picture_element['picture_variation_val']+"""</VariationSpecificValue>"""+picture_url+"""</VariationSpecificPictureSet>"""
-                pictures="""<Pictures><VariationSpecificName>"""+picture_variation_list[0]['picture_attribute']+"""</VariationSpecificName>"""+VariationSpecificValue+"""</Pictures>"""
-         
-            
-        variation_set=variations+variation+pictures
-        
+                VariationSpecificValue += """<VariationSpecificPictureSet><VariationSpecificValue>""" + picture_element[
+                    'picture_variation_val'] + """</VariationSpecificValue>""" + picture_url + """</VariationSpecificPictureSet>"""
+                pictures = """<Pictures><VariationSpecificName>""" + picture_variation_list[0][
+                    'picture_attribute'] + """</VariationSpecificName>""" + VariationSpecificValue + """</Pictures>"""
+
+        variation_set = variations + variation + pictures
+
         return variation_set
-    
-    def Get(self, ids,itemlist,siteid):
+
+    def Get(self, ids, itemlist, siteid):
         api = Call()
         api.Session = self.Session
         api.SiteID = siteid
         api.DetailLevel = "0"
-        msg_id=0
-        container=''
-                       
+        msg_id = 0
+        container = ''
 
+        shipping_obj = getshipping()
+        shipping_str = shipping_obj.Get(itemlist[0]['shipping_information'])
+        #        shipping_str="""<ShippingDetails>
+        #            <CalculatedShippingRate>
+        #              <OriginatingPostalCode>07193</OriginatingPostalCode>
+        #              <MeasurementUnit>English</MeasurementUnit>
+        #              <PackagingHandlingCosts currencyID="EUR">0.0</PackagingHandlingCosts>
+        #              <ShippingPackage>LargeEnvelope</ShippingPackage>
+        #              <WeightMajor unit="lbs">6</WeightMajor>
+        #              <WeightMinor unit="oz">2</WeightMinor>
+        #            </CalculatedShippingRate>
+        #            <ShippingServiceOptions>
+        #              <ShippingService>ES_CorreosPostal4872</ShippingService>
+        #              <ShippingServicePriority>1</ShippingServicePriority>
+        #            </ShippingServiceOptions>
+        #            <InternationalShippingServiceOption>
+        #                <ShippingService>ES_CorreosCartasCertificadasUrgentes</ShippingService>
+        #                <ShippingServicePriority>2</ShippingServicePriority>
+        #            </InternationalShippingServiceOption>
+        #
+        #            <TaxTable>false</TaxTable>
+        #          </ShippingDetails>"""
+        return_policy = ''
+        return_options = ''
+        sku_str = ''
 
-        shipping_obj= getshipping()
-        shipping_str=shipping_obj.Get(itemlist[0]['shipping_information'])
-#        shipping_str="""<ShippingDetails>
-#            <CalculatedShippingRate>
-#              <OriginatingPostalCode>07193</OriginatingPostalCode>
-#              <MeasurementUnit>English</MeasurementUnit>
-#              <PackagingHandlingCosts currencyID="EUR">0.0</PackagingHandlingCosts>
-#              <ShippingPackage>LargeEnvelope</ShippingPackage>
-#              <WeightMajor unit="lbs">6</WeightMajor>
-#              <WeightMinor unit="oz">2</WeightMinor>
-#            </CalculatedShippingRate>
-#            <ShippingServiceOptions>
-#              <ShippingService>ES_CorreosPostal4872</ShippingService>
-#              <ShippingServicePriority>1</ShippingServicePriority>
-#            </ShippingServiceOptions>
-#            <InternationalShippingServiceOption>
-#                <ShippingService>ES_CorreosCartasCertificadasUrgentes</ShippingService>
-#                <ShippingServicePriority>2</ShippingServicePriority>
-#            </InternationalShippingServiceOption>
-#            
-#            <TaxTable>false</TaxTable>
-#          </ShippingDetails>"""
-        return_policy=''
-        return_options=''
-        sku_str=''
+        variation_set = self.create_variaion_set(itemlist)
 
-        variation_set=self.create_variaion_set(itemlist)
-
-        images=''
+        images = ''
         for each_url in itemlist[0]['main_imgs']:
-            images +="""<PictureURL>%s</PictureURL>"""%(each_url)
-
+            images += """<PictureURL>%s</PictureURL>""" % (each_url)
 
         images_url = ''
-        images_url = """<PictureDetails>""" + images  + """</PictureDetails>"""
+        images_url = """<PictureDetails>""" + images + """</PictureDetails>"""
 
-        
-        
         if itemlist[0].get('refund_option'):
-             return_options+="""<RefundOption>%s</RefundOption>"""%(itemlist[0]['refund_option'])
+            return_options += """<RefundOption>%s</RefundOption>""" % (itemlist[0]['refund_option'])
 
+        if itemlist[0].get('retur_days'):
+            return_options += """<ReturnsWithinOption>%s</ReturnsWithinOption>""" % (itemlist[0]['retur_days'])
 
-        if itemlist[0].get('retur_days'):    
-            return_options+="""<ReturnsWithinOption>%s</ReturnsWithinOption>"""%(itemlist[0]['retur_days'])
-        
-        if itemlist[0].get('return_desc',False):    
-            return_options+="""<Description>%s</Description>"""%(itemlist[0]['return_desc'])
-               
-        if itemlist[0].get('cost_paid_by'):    
-           return_options+="""<ShippingCostPaidByOption>%s</ShippingCostPaidByOption>"""%(itemlist[0]['cost_paid_by'])
+        if itemlist[0].get('return_desc', False):
+            return_options += """<Description>%s</Description>""" % (itemlist[0]['return_desc'])
 
-        buy_it_now=''
+        if itemlist[0].get('cost_paid_by'):
+            return_options += """<ShippingCostPaidByOption>%s</ShippingCostPaidByOption>""" % (
+            itemlist[0]['cost_paid_by'])
+
+        buy_it_now = ''
         if itemlist[0].get('buy_it_now_price'):
-            buy_it_now="""<BuyItNowPrice currencyID=\""""+itemlist[0]['currency']+"""\">%s</BuyItNowPrice>"""%(itemlist[0]['buy_it_now_price'])
+            buy_it_now = """<BuyItNowPrice currencyID=\"""" + itemlist[0]['currency'] + """\">%s</BuyItNowPrice>""" % (
+            itemlist[0]['buy_it_now_price'])
 
-        return_policy="""<ReturnPolicy><ReturnsAcceptedOption>%s</ReturnsAcceptedOption>%s</ReturnPolicy>"""%(itemlist[0]['return_accepted'],return_options)
-        
-        pickupinstore=''
-        if itemlist[0].get('pickup_store',False):
-            pickupinstore = """<PickupInStoreDetails><EligibleForPickupInStore>%s</EligibleForPickupInStore></PickupInStoreDetails>"""%(itemlist[0]['pickup_store'])
-            
+        return_policy = """<ReturnPolicy><ReturnsAcceptedOption>%s</ReturnsAcceptedOption>%s</ReturnPolicy>""" % (
+        itemlist[0]['return_accepted'], return_options)
+
+        pickupinstore = ''
+        if itemlist[0].get('pickup_store', False):
+            pickupinstore = """<PickupInStoreDetails><EligibleForPickupInStore>%s</EligibleForPickupInStore></PickupInStoreDetails>""" % (
+            itemlist[0]['pickup_store'])
+
         name_val_str = ''
-        
-        if itemlist[0].get('listing_time')!=False:
-            s_time="<ScheduleTime>%s</ScheduleTime>"%(itemlist['listing_time'])
+
+        if itemlist[0].get('listing_time') != False:
+            s_time = "<ScheduleTime>%s</ScheduleTime>" % (itemlist['listing_time'])
         else:
-            s_time='' 
-            
-        if itemlist[0].get('description',False):    
-            variation_des = "<![CDATA[" +itemlist[0]['description'].encode("utf-8")+ "]]>"
+            s_time = ''
+
+        if itemlist[0].get('description', False):
+            variation_des = "<![CDATA[" + itemlist[0]['description'].encode("utf-8") + "]]>"
         else:
-            variation_des = ''        
-        
-       
-        if itemlist[0]['attribute_array']!=False:
+            variation_des = ''
+
+        if itemlist[0]['attribute_array'] != False:
             for key, value in itemlist[0]['attribute_array'].items():
-                name_val_str+= """<NameValueList>
+                name_val_str += """<NameValueList>
                                 <Name>%s</Name>
                                 <Value>%s</Value>
-                              </NameValueList>""" %(key,value)
-            Itemspecifics = "<ItemSpecifics>"+ name_val_str.encode('utf-8')+ "</ItemSpecifics>"
+                              </NameValueList>""" % (key, value)
+            Itemspecifics = "<ItemSpecifics>" + name_val_str.encode('utf-8') + "</ItemSpecifics>"
         else:
-            Itemspecifics=''
+            Itemspecifics = ''
 
-        if itemlist[0].get('sub_title')!=False:
-                subtitle="<SubTitle>%s</SubTitle>"%("<![CDATA["+itemlist[0]['sub_title']+ "]]>")
+        if itemlist[0].get('sub_title') != False:
+            subtitle = "<SubTitle>%s</SubTitle>" % ("<![CDATA[" + itemlist[0]['sub_title'] + "]]>")
         else:
-                subtitle=''
+            subtitle = ''
 
         storecategory = ''
         if itemlist[0]['store_category']:
-            store_category_count=1
+            store_category_count = 1
             storecategory += """<Storefront>"""
             for store_category in itemlist[0]['store_category']:
-                if store_category_count ==1:
-                     storecategory +="""<StoreCategoryID>%s</StoreCategoryID>
-                    <StoreCategoryName>%s</StoreCategoryName>"""%(store_category['category_id'],store_category['name'])
-                    
-                if store_category_count ==2:    
-                    storecategory +="""<StoreCategory2ID>%s</StoreCategory2ID>
-                    <StoreCategory2Name>%s</StoreCategory2Name>"""%(store_category['category_id'],store_category['name'])
-                
-                store_category_count += 1
-            storecategory +="""</Storefront>"""
-              
+                if store_category_count == 1:
+                    storecategory += """<StoreCategoryID>%s</StoreCategoryID>
+                    <StoreCategoryName>%s</StoreCategoryName>""" % (
+                    store_category['category_id'], store_category['name'])
 
-        container="""<Item>%s
+                if store_category_count == 2:
+                    storecategory += """<StoreCategory2ID>%s</StoreCategory2ID>
+                    <StoreCategory2Name>%s</StoreCategory2Name>""" % (
+                    store_category['category_id'], store_category['name'])
+
+                store_category_count += 1
+            storecategory += """</Storefront>"""
+
+        container = """<Item>%s
                 <Title>%s</Title>%s<Variations>%s</Variations>
                 <Description>%s</Description>%s<PrimaryCategory>
                   <CategoryID>%s</CategoryID>
@@ -2182,7 +2200,13 @@ class AddFixedPriceItem:
                 <Currency>%s</Currency><PostalCode>%s</PostalCode>
                 <PaymentMethods>%s</PaymentMethods>
                 <PayPalEmailAddress>%s</PayPalEmailAddress>
-                </Item>"""%(storecategory,"<![CDATA["+itemlist[0]['variation_title']+ "]]>",images_url,variation_set,variation_des,str(subtitle),itemlist[0]['category_code'],Itemspecifics,str(itemlist[0]['best_offer']),itemlist[0]['site_code'],buy_it_now,itemlist[0]['condition'],itemlist[0]['duration'],itemlist[0]['location'],pickupinstore,itemlist[0]['list_type'],shipping_str,return_policy,itemlist[0]['country_code'],str(s_time),itemlist[0]['private_listing'],itemlist[0]['hand_time'],itemlist[0]['currency'],itemlist[0]['postal_code'],itemlist[0]['payment_method'],itemlist[0]['paypal_email'])
+                </Item>""" % (
+        storecategory, "<![CDATA[" + itemlist[0]['variation_title'] + "]]>", images_url, variation_set, variation_des,
+        str(subtitle), itemlist[0]['category_code'], Itemspecifics, str(itemlist[0]['best_offer']),
+        itemlist[0]['site_code'], buy_it_now, itemlist[0]['condition'], itemlist[0]['duration'],
+        itemlist[0]['location'], pickupinstore, itemlist[0]['list_type'], shipping_str, return_policy,
+        itemlist[0]['country_code'], str(s_time), itemlist[0]['private_listing'], itemlist[0]['hand_time'],
+        itemlist[0]['currency'], itemlist[0]['postal_code'], itemlist[0]['payment_method'], itemlist[0]['paypal_email'])
         # api.RequestData="""<?xml version="1.0" encoding="utf-8" ?>
         #     <AddFixedPriceItemRequest xmlns="urn:ebay:apis:eBLBaseComponents">
         #     <RequesterCredentials>
@@ -2197,7 +2221,7 @@ class AddFixedPriceItem:
                     <ErrorLanguage>en_US</ErrorLanguage>
                     <WarningLevel>High</WarningLevel>%s</AddFixedPriceItemRequest>""" % (container)
 
-        api.RequestData = api.RequestData.replace('&','&amp;').encode('utf-8')
+        api.RequestData = api.RequestData.replace('&', '&amp;').encode('utf-8')
         logger.info('api.RequestData=============%s', api.RequestData.encode('utf-8'))
         responseDOM = api.MakeCall("AddFixedPriceItem")
         logger.info('api.RequestData========%s', responseDOM.toprettyxml())
@@ -2221,204 +2245,199 @@ class AddFixedPriceItem:
             end_time = responseDOM.getElementsByTagName('EndTime')[0].childNodes[0].data
             Dictionary.update({'EndTime': end_time})
             many_errors = []
-            for each_error in  responseDOM.getElementsByTagName('Errors'):
-               errors = self.geterrors(each_error)
-               many_errors.append(errors)
+            for each_error in responseDOM.getElementsByTagName('Errors'):
+                errors = self.geterrors(each_error)
+                many_errors.append(errors)
             Dictionary.update({'LongMessage': many_errors})
         elif responseDOM.getElementsByTagName('Ack')[0].childNodes[0].data == 'Failure':
             ack = responseDOM.getElementsByTagName('Ack')[0].childNodes[0].data
             Dictionary.update({'Ack': ack})
             many_errors = []
-            for each_error in  responseDOM.getElementsByTagName('Errors'):
+            for each_error in responseDOM.getElementsByTagName('Errors'):
                 errors = self.geterrors(each_error)
                 many_errors.append(errors)
             Dictionary.update({'LongMessage': many_errors})
         responseDOM.unlink()
         return Dictionary
-        
 
 
 class ReviseFixedPriceItem:
     Session = Session()
-    
+
     def __init__(self, DevID, AppID, CertID, Token, ServerURL):
         self.Session.Initialize(DevID, AppID, CertID, Token, ServerURL)
-        
+
     def geterrors(self, nodelist):
-       transDetails = []
-       info = {}
-       for cNode in nodelist.childNodes:
-           if cNode.nodeName == 'LongMessage':
-               if cNode.childNodes:
+        transDetails = []
+        info = {}
+        for cNode in nodelist.childNodes:
+            if cNode.nodeName == 'LongMessage':
+                if cNode.childNodes:
                     info[cNode.nodeName] = cNode.childNodes[0].data
-           if cNode.nodeName == 'SeverityCode':
-               if cNode.childNodes:
+            if cNode.nodeName == 'SeverityCode':
+                if cNode.childNodes:
                     info[cNode.nodeName] = cNode.childNodes[0].data
-       transDetails.append(info)
-       return transDetails    
-    
-       
-    def create_variaion_set(self,itemlist):
-        variations_value=''
-        variations_color_value=''
-        VariationSpecificValue=''
-        variation=''
+        transDetails.append(info)
+        return transDetails
+
+    def create_variaion_set(self, itemlist):
+        variations_value = ''
+        variations_color_value = ''
+        VariationSpecificValue = ''
+        variation = ''
         full_urls = []
-        att_val=[]
-        picture_variation_list=[]
-        
-        variations="""
+        att_val = []
+        picture_variation_list = []
+
+        variations = """
       <VariationSpecificsSet>
 
       </VariationSpecificsSet>"""
- 
-        cnt=0
-      
-        for cnt in range(0, len(itemlist[0]['variation_list'])):
-            
-            variation_tag=''
-            for sin_variation_list in itemlist[0]['variation_list']:
-                cnt=cnt+1
-                namevalue="""<NameValueList><Name>"""+sin_variation_list[0]+"""</Name>"""
-                namevalues_list=''
-                for attribute in sin_variation_list[1]['attribute_values']:
-                    namevalues_list+="""<Value>"""+attribute+"""</Value>"""
-                variation_tag+=namevalue+namevalues_list+"""</NameValueList>"""
-        variations="""<VariationSpecificsSet>"""+variation_tag+""" </VariationSpecificsSet>"""            
 
-        all_variation=''
-        all_sku=''
-        variation=''
-        picture_dic={}
+        cnt = 0
+
+        for cnt in range(0, len(itemlist[0]['variation_list'])):
+
+            variation_tag = ''
+            for sin_variation_list in itemlist[0]['variation_list']:
+                cnt = cnt + 1
+                namevalue = """<NameValueList><Name>""" + sin_variation_list[0] + """</Name>"""
+                namevalues_list = ''
+                for attribute in sin_variation_list[1]['attribute_values']:
+                    namevalues_list += """<Value>""" + attribute + """</Value>"""
+                variation_tag += namevalue + namevalues_list + """</NameValueList>"""
+        variations = """<VariationSpecificsSet>""" + variation_tag + """ </VariationSpecificsSet>"""
+
+        all_variation = ''
+        all_sku = ''
+        variation = ''
+        picture_dic = {}
         for item in itemlist:
-                all_sku="""<Variation><SKU>%s</SKU>
+            all_sku = """<Variation><SKU>%s</SKU>
                     <StartPrice>%s</StartPrice>
-                    <Quantity>%s</Quantity>"""%(item['product_sku'],item['price'],item['qnt'])
-                
-                picture_dic['picture_variation_url']=item['images']
-                name_list=''
-                val=0
-                for single_var in item['var_dic']:
-                    if val==0:
-                         picture_dic['picture_variation_val']=single_var.items()[0][1]
-                         picture_dic['picture_attribute']=single_var.items()[0][0]
-                         picture_variation_list.append(picture_dic)
-                         picture_dic={}
-                    val=val+1
-                    name_list+="""<NameValueList>
+                    <Quantity>%s</Quantity>""" % (item['product_sku'], item['price'], item['qnt'])
+
+            picture_dic['picture_variation_url'] = item['images']
+            name_list = ''
+            val = 0
+            for single_var in item['var_dic']:
+                if val == 0:
+                    picture_dic['picture_variation_val'] = single_var.items()[0][1]
+                    picture_dic['picture_attribute'] = single_var.items()[0][0]
+                    picture_variation_list.append(picture_dic)
+                    picture_dic = {}
+                val = val + 1
+                name_list += """<NameValueList>
                             <Name>%s</Name>
                           <Value>%s</Value>
-                         </NameValueList>"""%(single_var.items()[0][0],single_var.items()[0][1])
-                variation+=all_sku+"""<VariationSpecifics>"""+name_list+"""</VariationSpecifics></Variation>"""
-
-
+                         </NameValueList>""" % (single_var.items()[0][0], single_var.items()[0][1])
+            variation += all_sku + """<VariationSpecifics>""" + name_list + """</VariationSpecifics></Variation>"""
 
         for picture_element in picture_variation_list:
 
-            picture_url=''
+            picture_url = ''
             for single_picture_url in picture_element['picture_variation_url']:
+                picture_url += """<PictureURL>""" + single_picture_url + """</PictureURL>"""
+            VariationSpecificValue += """<VariationSpecificPictureSet><VariationSpecificValue>""" + picture_element[
+                'picture_variation_val'] + """</VariationSpecificValue>""" + picture_url + """</VariationSpecificPictureSet>"""
 
-                            picture_url+="""<PictureURL>"""+single_picture_url+"""</PictureURL>"""
-            VariationSpecificValue+="""<VariationSpecificPictureSet><VariationSpecificValue>"""+picture_element['picture_variation_val']+"""</VariationSpecificValue>"""+picture_url+"""</VariationSpecificPictureSet>"""
+        pictures = """<Pictures><VariationSpecificName>""" + picture_variation_list[0][
+            'picture_attribute'] + """</VariationSpecificName>""" + VariationSpecificValue + """</Pictures>"""
 
-        pictures="""<Pictures><VariationSpecificName>"""+picture_variation_list[0]['picture_attribute']+"""</VariationSpecificName>"""+VariationSpecificValue+"""</Pictures>"""
-         
-            
-        variation_set=variations+variation+pictures
-        
+        variation_set = variations + variation + pictures
+
         return variation_set
-    
-    def Get(self, ids,itemlist,siteid):
+
+    def Get(self, ids, itemlist, siteid):
         api = Call()
         api.Session = self.Session
         api.SiteID = siteid
         api.DetailLevel = "0"
-        msg_id=0
-        container=''
-                       
-        shipping_obj= getshipping()
-        shipping_str=shipping_obj.Get(itemlist[0]['shipping_information'])
-        return_policy=''
-        return_options=''
-        sku_str=''
+        msg_id = 0
+        container = ''
 
-        variation_set=self.create_variaion_set(itemlist)
+        shipping_obj = getshipping()
+        shipping_str = shipping_obj.Get(itemlist[0]['shipping_information'])
+        return_policy = ''
+        return_options = ''
+        sku_str = ''
 
-        images=''
+        variation_set = self.create_variaion_set(itemlist)
+
+        images = ''
         for each_url in itemlist[0]['main_imgs']:
-            images +="""<PictureURL>%s</PictureURL>"""%(each_url)
-
+            images += """<PictureURL>%s</PictureURL>""" % (each_url)
 
         images_url = ''
-        images_url = """<PictureDetails>""" + images  + """</PictureDetails>"""
+        images_url = """<PictureDetails>""" + images + """</PictureDetails>"""
 
-        
-        
         if itemlist[0].get('refund_option'):
-             return_options+="""<RefundOption>%s</RefundOption>"""%(itemlist[0]['refund_option'])
+            return_options += """<RefundOption>%s</RefundOption>""" % (itemlist[0]['refund_option'])
 
+        if itemlist[0].get('retur_days'):
+            return_options += """<ReturnsWithinOption>%s</ReturnsWithinOption>""" % (itemlist[0]['retur_days'])
 
-        if itemlist[0].get('retur_days'):    
-            return_options+="""<ReturnsWithinOption>%s</ReturnsWithinOption>"""%(itemlist[0]['retur_days'])
-        
-        if itemlist[0].get('return_desc',False):    
-            return_options+="""<Description>%s</Description>"""%(itemlist[0]['return_desc'])
-               
-        if itemlist[0].get('cost_paid_by'):    
-           return_options+="""<ShippingCostPaidByOption>%s</ShippingCostPaidByOption>"""%(itemlist[0]['cost_paid_by'])
+        if itemlist[0].get('return_desc', False):
+            return_options += """<Description>%s</Description>""" % (itemlist[0]['return_desc'])
 
-        buy_it_now=''
+        if itemlist[0].get('cost_paid_by'):
+            return_options += """<ShippingCostPaidByOption>%s</ShippingCostPaidByOption>""" % (
+            itemlist[0]['cost_paid_by'])
+
+        buy_it_now = ''
         if itemlist[0].get('buy_it_now_price'):
-            buy_it_now="""<BuyItNowPrice currencyID=\""""+itemlist[0]['currency']+"""\">%s</BuyItNowPrice>"""%(itemlist[0]['buy_it_now_price'])
+            buy_it_now = """<BuyItNowPrice currencyID=\"""" + itemlist[0]['currency'] + """\">%s</BuyItNowPrice>""" % (
+            itemlist[0]['buy_it_now_price'])
 
-        return_policy="""<ReturnPolicy><ReturnsAcceptedOption>%s</ReturnsAcceptedOption>%s</ReturnPolicy>"""%(itemlist[0]['return_accepted'],return_options)
-        
-        pickupinstore=''
-        if itemlist[0].get('pickup_store',False):
-            pickupinstore = """<PickupInStoreDetails><EligibleForPickupInStore>%s</EligibleForPickupInStore></PickupInStoreDetails>"""%(itemlist[0]['pickup_store'])
-            
+        return_policy = """<ReturnPolicy><ReturnsAcceptedOption>%s</ReturnsAcceptedOption>%s</ReturnPolicy>""" % (
+        itemlist[0]['return_accepted'], return_options)
+
+        pickupinstore = ''
+        if itemlist[0].get('pickup_store', False):
+            pickupinstore = """<PickupInStoreDetails><EligibleForPickupInStore>%s</EligibleForPickupInStore></PickupInStoreDetails>""" % (
+            itemlist[0]['pickup_store'])
+
         name_val_str = ''
-        
-        if itemlist[0].get('listing_time')!=False:
-            s_time="<ScheduleTime>%s</ScheduleTime>"%(itemlist['listing_time'])
+
+        if itemlist[0].get('listing_time') != False:
+            s_time = "<ScheduleTime>%s</ScheduleTime>" % (itemlist['listing_time'])
         else:
-            s_time=''        
-        
-       
-        if itemlist[0]['attribute_array']!=False:
+            s_time = ''
+
+        if itemlist[0]['attribute_array'] != False:
             for key, value in itemlist[0]['attribute_array'].items():
-                name_val_str+= """<NameValueList>
+                name_val_str += """<NameValueList>
                                 <Name>%s</Name>
                                 <Value>%s</Value>
-                              </NameValueList>""" %(key,value)
-            Itemspecifics = "<ItemSpecifics>"+ name_val_str.encode('utf-8')+ "</ItemSpecifics>"
+                              </NameValueList>""" % (key, value)
+            Itemspecifics = "<ItemSpecifics>" + name_val_str.encode('utf-8') + "</ItemSpecifics>"
         else:
-            Itemspecifics=''
+            Itemspecifics = ''
 
-        if itemlist[0].get('sub_title')!=False:
-                subtitle="<SubTitle>%s</SubTitle>"%("<![CDATA["+itemlist[0]['sub_title']+ "]]>")
+        if itemlist[0].get('sub_title') != False:
+            subtitle = "<SubTitle>%s</SubTitle>" % ("<![CDATA[" + itemlist[0]['sub_title'] + "]]>")
         else:
-                subtitle=''
-
+            subtitle = ''
 
         storecategory = ''
         if itemlist[0]['store_category']:
-            store_category_count=1
+            store_category_count = 1
             storecategory += """<Storefront>"""
             for store_category in itemlist[0]['store_category']:
-                if store_category_count ==1:
-                     storecategory +="""<StoreCategoryID>%s</StoreCategoryID>
-                    <StoreCategoryName>%s</StoreCategoryName>"""%(store_category['category_id'],store_category['name'])
-                    
-                if store_category_count ==2:    
-                    storecategory +="""<StoreCategory2ID>%s</StoreCategory2ID>
-                    <StoreCategory2Name>%s</StoreCategory2Name>"""%(store_category['category_id'],store_category['name'])
-                
-                store_category_count += 1
-            storecategory +="""</Storefront>"""
-              
+                if store_category_count == 1:
+                    storecategory += """<StoreCategoryID>%s</StoreCategoryID>
+                    <StoreCategoryName>%s</StoreCategoryName>""" % (
+                    store_category['category_id'], store_category['name'])
 
-        container="""<Item>%s
+                if store_category_count == 2:
+                    storecategory += """<StoreCategory2ID>%s</StoreCategory2ID>
+                    <StoreCategory2Name>%s</StoreCategory2Name>""" % (
+                    store_category['category_id'], store_category['name'])
+
+                store_category_count += 1
+            storecategory += """</Storefront>"""
+
+        container = """<Item>%s
                 <Title>%s</Title>%s
                 <ItemID>%s</ItemID>
                 <Variations>%s</Variations>
@@ -2436,7 +2455,14 @@ class ReviseFixedPriceItem:
                 <Currency>%s</Currency><PostalCode>%s</PostalCode>
                 <PaymentMethods>%s</PaymentMethods>
                 <PayPalEmailAddress>%s</PayPalEmailAddress>
-                </Item>"""%(storecategory,"<![CDATA["+itemlist[0]['variation_title']+ "]]>",images_url,itemlist[0]['ebay_item_id'],variation_set,"<![CDATA[" +itemlist[0]['description'].encode("utf-8")+ "]]>",str(subtitle),itemlist[0]['category_code'],Itemspecifics,str(itemlist[0]['best_offer']),itemlist[0]['site_code'],buy_it_now,itemlist[0]['condition'],itemlist[0]['duration'],itemlist[0]['location'],pickupinstore,itemlist[0]['list_type'],shipping_str,return_policy,itemlist[0]['country_code'],str(s_time),itemlist[0]['private_listing'],itemlist[0]['hand_time'],itemlist[0]['currency'],itemlist[0]['postal_code'],itemlist[0]['payment_method'],itemlist[0]['paypal_email'])
+                </Item>""" % (
+        storecategory, "<![CDATA[" + itemlist[0]['variation_title'] + "]]>", images_url, itemlist[0]['ebay_item_id'],
+        variation_set, "<![CDATA[" + itemlist[0]['description'].encode("utf-8") + "]]>", str(subtitle),
+        itemlist[0]['category_code'], Itemspecifics, str(itemlist[0]['best_offer']), itemlist[0]['site_code'],
+        buy_it_now, itemlist[0]['condition'], itemlist[0]['duration'], itemlist[0]['location'], pickupinstore,
+        itemlist[0]['list_type'], shipping_str, return_policy, itemlist[0]['country_code'], str(s_time),
+        itemlist[0]['private_listing'], itemlist[0]['hand_time'], itemlist[0]['currency'], itemlist[0]['postal_code'],
+        itemlist[0]['payment_method'], itemlist[0]['paypal_email'])
         # api.RequestData="""<?xml version="1.0" encoding="utf-8" ?>
         #     <ReviseFixedPriceItemRequest xmlns="urn:ebay:apis:eBLBaseComponents">
         #     <RequesterCredentials>
@@ -2444,15 +2470,15 @@ class ReviseFixedPriceItem:
         #     </RequesterCredentials>%s</ReviseFixedPriceItemRequest>"""%(self.Session.Token.encode("utf-8"),container)
 
         api.RequestData = """<?xml version="1.0" encoding="utf-8" ?>
-                    <ReviseFixedPriceItemRequest xmlns="urn:ebay:apis:eBLBaseComponents">%s</ReviseFixedPriceItemRequest>""" % (container)
+                    <ReviseFixedPriceItemRequest xmlns="urn:ebay:apis:eBLBaseComponents">%s</ReviseFixedPriceItemRequest>""" % (
+        container)
 
-        api.RequestData = api.RequestData.replace('&','&amp;').encode('utf-8')
+        api.RequestData = api.RequestData.replace('&', '&amp;').encode('utf-8')
         logger.info('api.RequestData===============%s', api.RequestData.encode('utf-8'))
         responseDOM = api.MakeCall("ReviseFixedPriceItem")
         logger.info('api.RequestData=======%s', responseDOM.toprettyxml())
         Dictionary = {}
-        
-        
+
         if responseDOM.getElementsByTagName('Ack')[0].childNodes[0].data == 'Success':
             ack = responseDOM.getElementsByTagName('Ack')[0].childNodes[0].data
             Dictionary.update({'Ack': ack})
@@ -2462,7 +2488,7 @@ class ReviseFixedPriceItem:
             Dictionary.update({'StartTime': start_time})
             end_time = responseDOM.getElementsByTagName('EndTime')[0].childNodes[0].data
             Dictionary.update({'EndTime': end_time})
-            
+
         elif responseDOM.getElementsByTagName('Ack')[0].childNodes[0].data == 'Warning':
             ack = responseDOM.getElementsByTagName('Ack')[0].childNodes[0].data
             Dictionary.update({'Ack': ack})
@@ -2473,27 +2499,25 @@ class ReviseFixedPriceItem:
             end_time = responseDOM.getElementsByTagName('EndTime')[0].childNodes[0].data
             Dictionary.update({'EndTime': end_time})
             many_errors = []
-            for each_error in  responseDOM.getElementsByTagName('Errors'):
-               errors = self.geterrors(each_error)
-               many_errors.append(errors)
+            for each_error in responseDOM.getElementsByTagName('Errors'):
+                errors = self.geterrors(each_error)
+                many_errors.append(errors)
             Dictionary.update({'LongMessage': many_errors})
         elif responseDOM.getElementsByTagName('Ack')[0].childNodes[0].data == 'Failure':
-           ack = responseDOM.getElementsByTagName('Ack')[0].childNodes[0].data
-           Dictionary.update({'Ack': ack})
-           many_errors = []
-           for each_error in  responseDOM.getElementsByTagName('Errors'):
-               errors = self.geterrors(each_error)
-               many_errors.append(errors)
-           Dictionary.update({'LongMessage': many_errors})
+            ack = responseDOM.getElementsByTagName('Ack')[0].childNodes[0].data
+            Dictionary.update({'Ack': ack})
+            many_errors = []
+            for each_error in responseDOM.getElementsByTagName('Errors'):
+                errors = self.geterrors(each_error)
+                many_errors.append(errors)
+            Dictionary.update({'LongMessage': many_errors})
         responseDOM.unlink()
-        return Dictionary      
-
-
+        return Dictionary
 
 
 class ebayerp_osv(models.Model):
     _name = 'ebayerp.osv'
-    
+
     @api.multi
     def call(self, referential, method, *arguments):
         """if arguments:
@@ -2501,202 +2525,235 @@ class ebayerp_osv(models.Model):
             print "arguments: ",arguments
         else:
             arguments = []"""
-            
+
         log_obj = self.env['ecommerce.logs']
-            
+
         logger.info('===========arguments=======%s', arguments)
         if method == 'GetToken':
-            tk = Token(referential.dev_id, referential.app_id, referential.cert_id, referential.auth_token, referential.server_url)
+            tk = Token(referential.dev_id, referential.app_id, referential.cert_id, referential.auth_token,
+                       referential.server_url)
             result = tk.Get()
             return result
-        
+
         elif method == 'GeteBayOfficialTime':
-            eTime = eBayTime(referential.dev_id, referential.app_id, referential.cert_id, referential.auth_token, referential.server_url)
+            eTime = eBayTime(referential.dev_id, referential.app_id, referential.cert_id, referential.auth_token,
+                             referential.server_url)
             result = eTime.Get()
             return result
-        
+
         elif method == 'GetOrders':
-            gOrders = GetOrders(referential.dev_id, referential.app_id, referential.cert_id, referential.auth_token, referential.server_url)
-            result = gOrders.Get(arguments[0],arguments[1],str(arguments[2]))
-            
+            gOrders = GetOrders(referential.dev_id, referential.app_id, referential.cert_id, referential.auth_token,
+                                referential.server_url)
+            result = gOrders.Get(arguments[0], arguments[1], str(arguments[2]))
+
             return result
-        
+
         elif method == 'GetMemberMessages':
-            messages_ebay = GetMemberMessages(referential.dev_id, referential.app_id, referential.cert_id, referential.auth_token, referential.server_url)
-            result = messages_ebay.Get(arguments[0],arguments[1],str(arguments[2]))
+            messages_ebay = GetMemberMessages(referential.dev_id, referential.app_id, referential.cert_id,
+                                              referential.auth_token, referential.server_url)
+            result = messages_ebay.Get(arguments[0], arguments[1], str(arguments[2]))
             return result
-        
+
 
         elif method == 'GetSellingManagerSoldListings':
-            getSellingManagerSoldListings = GetSellingManagerSoldListings(referential.dev_id, referential.app_id, referential.cert_id, referential.auth_token, referential.server_url)
-            result = getSellingManagerSoldListings.Get(arguments[0],arguments[1],str(arguments[2]),str(arguments[3]))
+            getSellingManagerSoldListings = GetSellingManagerSoldListings(referential.dev_id, referential.app_id,
+                                                                          referential.cert_id, referential.auth_token,
+                                                                          referential.server_url)
+            result = getSellingManagerSoldListings.Get(arguments[0], arguments[1], str(arguments[2]), str(arguments[3]))
             return result
-        
+
         elif method == 'GetItemTransactions':
-            gItemTrans = GetItemTransactions(referential.dev_id, referential.app_id, referential.cert_id, referential.auth_token, referential.server_url)
+            gItemTrans = GetItemTransactions(referential.dev_id, referential.app_id, referential.cert_id,
+                                             referential.auth_token, referential.server_url)
             result = gItemTrans.Get(arguments)
             return result
-        
+
         elif method == 'GetSellerTransactions':
-            gSellerTrans = GetSellerTransactions(referential.dev_id, referential.app_id, referential.cert_id, referential.auth_token, referential.server_url)
-            result = gSellerTrans.Get(arguments[0],arguments[1],str(arguments[2]))
+            gSellerTrans = GetSellerTransactions(referential.dev_id, referential.app_id, referential.cert_id,
+                                                 referential.auth_token, referential.server_url)
+            result = gSellerTrans.Get(arguments[0], arguments[1], str(arguments[2]))
             return result
-        
+
         elif method == 'GetItem':
-            gItem = GetItem(referential.dev_id, referential.app_id, referential.cert_id, referential.auth_token, referential.server_url)
-            result = gItem.Get(arguments[0],arguments[1])
+            gItem = GetItem(referential.dev_id, referential.app_id, referential.cert_id, referential.auth_token,
+                            referential.server_url)
+            result = gItem.Get(arguments[0], arguments[1])
             return result
-        
+
         elif method == 'GetSellerList':
-            gItem = GetSellerList(referential.dev_id, referential.app_id, referential.cert_id, referential.auth_token, referential.server_url)
-            result = gItem.Get(arguments[0],arguments[1],arguments[2])
+            gItem = GetSellerList(referential.dev_id, referential.app_id, referential.cert_id, referential.auth_token,
+                                  referential.server_url)
+            result = gItem.Get(arguments[0], arguments[1], arguments[2])
             return result
-        
+
         elif method == 'CompleteSale':
-            gCompleteSale = CompleteSale(referential.dev_id, referential.app_id, referential.cert_id, referential.auth_token, referential.server_url)
+            gCompleteSale = CompleteSale(referential.dev_id, referential.app_id, referential.cert_id,
+                                         referential.auth_token, referential.server_url)
             result = gCompleteSale.Get(arguments[0])
-            
-#            log_obj.log_data(cr,uid,"OSV result",result)
-            
+
+            #            log_obj.log_data(cr,uid,"OSV result",result)
+
             return result
-        
+
         elif method == 'RelistFixedPriceItem':
-            relistFixedPriceItem = RelistFixedPriceItem(referential.dev_id, referential.app_id, referential.cert_id, referential.auth_token,referential.server_url)
-            result = relistFixedPriceItem.Get(arguments[0],arguments[1],arguments[2],arguments[3])
+            relistFixedPriceItem = RelistFixedPriceItem(referential.dev_id, referential.app_id, referential.cert_id,
+                                                        referential.auth_token, referential.server_url)
+            result = relistFixedPriceItem.Get(arguments[0], arguments[1], arguments[2], arguments[3])
             return result
-        
+
         elif method == 'ReviseInventoryStatus':
-            revInvStatus = ReviseInventoryStatus(referential.dev_id, referential.app_id, referential.cert_id, referential.auth_token, referential.server_url)
-            result = revInvStatus.Get(arguments[0],arguments[1], arguments[2],arguments[3],arguments[4])
+            revInvStatus = ReviseInventoryStatus(referential.dev_id, referential.app_id, referential.cert_id,
+                                                 referential.auth_token, referential.server_url)
+            result = revInvStatus.Get(arguments[0], arguments[1], arguments[2], arguments[3], arguments[4])
             return result
 
         elif method == 'GetOrderTransactions':
-            gOrderTrans = GetOrderTransactions(referential.dev_id, referential.app_id, referential.cert_id, referential.auth_token, referential.server_url)
+            gOrderTrans = GetOrderTransactions(referential.dev_id, referential.app_id, referential.cert_id,
+                                               referential.auth_token, referential.server_url)
             result = gOrderTrans.Get(arguments[0])
             return result
         elif method == 'CreateDSRSummaryByPeriodRequest':
-            summaryJobID = CreateDSRSummaryByPeriodRequest(referential.dev_id, referential.app_id, referential.cert_id, referential.auth_token, 'https://svcs.ebay.com/FeedbackService?')
-            result = summaryJobID.Get(arguments[0],arguments[1])
+            summaryJobID = CreateDSRSummaryByPeriodRequest(referential.dev_id, referential.app_id, referential.cert_id,
+                                                           referential.auth_token,
+                                                           'https://svcs.ebay.com/FeedbackService?')
+            result = summaryJobID.Get(arguments[0], arguments[1])
             return result
         elif method == 'getDSRSummaryRequest':
-            summaryDSR = getDSRSummaryRequest(referential.dev_id, referential.app_id, referential.cert_id, referential.auth_token, 'https://svcs.ebay.com/FeedbackService?')
+            summaryDSR = getDSRSummaryRequest(referential.dev_id, referential.app_id, referential.cert_id,
+                                              referential.auth_token, 'https://svcs.ebay.com/FeedbackService?')
             result = summaryDSR.Get(arguments[0])
             return result
         elif method == 'EndItem':
-            endItem = EndItem(referential.dev_id, referential.app_id, referential.cert_id, referential.auth_token,referential.server_url)
-            result = endItem.Get(arguments[0],arguments[1])
+            endItem = EndItem(referential.dev_id, referential.app_id, referential.cert_id, referential.auth_token,
+                              referential.server_url)
+            result = endItem.Get(arguments[0], arguments[1])
             return result
 
         elif method == 'ReviseFixedPriceItem':
-            reviseFixedItem = ReviseFixedPriceItem(referential.dev_id, referential.app_id, referential.cert_id, referential.auth_token,referential.server_url)
-            result = reviseFixedItem.Get(arguments[0],arguments[1],arguments[2])
+            reviseFixedItem = ReviseFixedPriceItem(referential.dev_id, referential.app_id, referential.cert_id,
+                                                   referential.auth_token, referential.server_url)
+            result = reviseFixedItem.Get(arguments[0], arguments[1], arguments[2])
             return result
         elif method == 'RelistItem':
-            relistItem = RelistItem(referential.dev_id, referential.app_id, referential.cert_id, referential.auth_token,referential.server_url)
-            result = relistItem.Get(arguments[0],arguments[1])
+            relistItem = RelistItem(referential.dev_id, referential.app_id, referential.cert_id, referential.auth_token,
+                                    referential.server_url)
+            result = relistItem.Get(arguments[0], arguments[1])
             return result
         elif method == 'VerifyRelistItem':
-            verifyRelistItem = VerifyRelistItem(referential.dev_id, referential.app_id, referential.cert_id, referential.auth_token,referential.server_url)
+            verifyRelistItem = VerifyRelistItem(referential.dev_id, referential.app_id, referential.cert_id,
+                                                referential.auth_token, referential.server_url)
             result = verifyRelistItem.Get(arguments[0])
             return result
         elif method == 'GeteBayDetails':
-            getebaydet = GeteBayDetails(referential.dev_id, referential.app_id, referential.cert_id, referential.auth_token,referential.server_url)
+            getebaydet = GeteBayDetails(referential.dev_id, referential.app_id, referential.cert_id,
+                                        referential.auth_token, referential.server_url)
             result = getebaydet.Get(arguments[0])
             return result
-            
+
         elif method == 'GetCategory2CS':
-           categories = GetCategory2CS(referential.dev_id, referential.app_id, referential.cert_id, referential.auth_token, referential.server_url)
-           result = categories.Get(arguments[0],arguments[1])
-           return result
-       
+            categories = GetCategory2CS(referential.dev_id, referential.app_id, referential.cert_id,
+                                        referential.auth_token, referential.server_url)
+            result = categories.Get(arguments[0], arguments[1])
+            return result
+
         elif method == 'GetCategoryFeatures':
-            itemspecfics = GetCategoryFeatures(referential.dev_id, referential.app_id, referential.cert_id, referential.auth_token, referential.server_url)
-            result = itemspecfics.Get(arguments[0],arguments[1])
+            itemspecfics = GetCategoryFeatures(referential.dev_id, referential.app_id, referential.cert_id,
+                                               referential.auth_token, referential.server_url)
+            result = itemspecfics.Get(arguments[0], arguments[1])
             return result
-        
+
         elif method == 'GetCategorySpecifics':
-            categories = GetCategorySpecifics(referential.dev_id, referential.app_id, referential.cert_id, referential.auth_token, referential.server_url)
-            result = categories.Get(arguments[0],arguments[1])
+            categories = GetCategorySpecifics(referential.dev_id, referential.app_id, referential.cert_id,
+                                              referential.auth_token, referential.server_url)
+            result = categories.Get(arguments[0], arguments[1])
             return result
-        
+
         elif method == 'UploadSiteHostedPictures':
-           # upload = UploadSiteHostedPictures(referential.dev_id, referential.app_id, referential.cert_id, referential.auth_token, referential.server_url)
-           upload = UploadSiteHostedPictures(referential.dev_id, referential.app_id, referential.cert_id, referential.auth_n_auth_token, referential.server_url)
-           result = upload.Get(arguments[0],arguments[1])
-           return result      
-        
-        
-        elif method=='AddEbayItems':
-            additem = AddEbayItems(referential.dev_id, referential.app_id, referential.cert_id, referential.auth_token, referential.server_url)
+            upload = UploadSiteHostedPictures(referential.dev_id, referential.app_id, referential.cert_id, referential.auth_token, referential.server_url)
+            # upload = UploadSiteHostedPictures(referential.dev_id, referential.app_id, referential.cert_id,
+            #                                   referential.auth_n_auth_token, referential.server_url)
+            result = upload.Get(arguments[0], arguments[1])
+            return result
+
+
+        elif method == 'AddEbayItems':
+            additem = AddEbayItems(referential.dev_id, referential.app_id, referential.cert_id, referential.auth_token,
+                                   referential.server_url)
             # result = additem.Get(arguments[0],arguments[1],arguments[2])
-            result = additem.Get(arguments[0],arguments[1])
+            result = additem.Get(arguments[0], arguments[1])
             return result
-        
-        elif method=='GetStore':
-            getstore = GetStore(referential.dev_id, referential.app_id, referential.cert_id, referential.auth_token, referential.server_url)
 
-            result = getstore.Get(arguments[0],arguments[1])
+        elif method == 'GetStore':
+            getstore = GetStore(referential.dev_id, referential.app_id, referential.cert_id, referential.auth_token,
+                                referential.server_url)
+
+            result = getstore.Get(arguments[0], arguments[1])
             return result
-        
-        elif method=='AddFixedPriceItem':
-             
-            additem_variation = AddFixedPriceItem(referential.dev_id, referential.app_id, referential.cert_id, referential.auth_token, referential.server_url)
-            result = additem_variation.Get(arguments[0],arguments[1],arguments[2])     
-            return result       
-        
-        
-        elif method=='ReviseItem':
-            
-            additem = ReviseItem(referential.dev_id, referential.app_id, referential.cert_id, referential.auth_token, referential.server_url)
-            result = additem.Get_common_update(arguments[0],arguments[1])
-            return result  
-        
-        
+
+        elif method == 'AddFixedPriceItem':
+
+            additem_variation = AddFixedPriceItem(referential.dev_id, referential.app_id, referential.cert_id,
+                                                  referential.auth_token, referential.server_url)
+            result = additem_variation.Get(arguments[0], arguments[1], arguments[2])
+            return result
+
+
+        elif method == 'ReviseItem':
+
+            additem = ReviseItem(referential.dev_id, referential.app_id, referential.cert_id, referential.auth_token,
+                                 referential.server_url)
+            result = additem.Get_common_update(arguments[0], arguments[1])
+            return result
+
+
         elif method == 'DeleteVariationItem':
-            #logger.info('arguments[0]====%s',arguments[0])
-            #logger.info('arguments[201]====%s',arguments[1])
-            end_item = DeleteVariationItem(referential.dev_id, referential.app_id, referential.cert_id, referential.auth_token, referential.server_url)
-            result = end_item.Get(arguments[0],arguments[1])
+            # logger.info('arguments[0]====%s',arguments[0])
+            # logger.info('arguments[201]====%s',arguments[1])
+            end_item = DeleteVariationItem(referential.dev_id, referential.app_id, referential.cert_id,
+                                           referential.auth_token, referential.server_url)
+            result = end_item.Get(arguments[0], arguments[1])
             return result
-        
-        
+
+
         elif method == 'EndItem':
-            end_item = EndItem(referential.dev_id, referential.app_id, referential.cert_id, referential.auth_token, referential.server_url)
-            result = end_item.Get(arguments[0],arguments[1])
+            end_item = EndItem(referential.dev_id, referential.app_id, referential.cert_id, referential.auth_token,
+                               referential.server_url)
+            result = end_item.Get(arguments[0], arguments[1])
             return result
 
-        # elif method == 'getUserReturns':
-        #     get_user_returns = getUserReturns(referential.dev_id, referential.app_id, referential.cert_id, referential.auth_token, 'https://svcs.ebay.com/services/returns/v1/ReturnManagementService')
-        #     result = get_user_returns.Get(arguments[0])
-        #     return result
-        #
-        # elif method == 'issueRefund':
-        #     issue_refund = issueRefund(referential.dev_id, referential.app_id, referential.cert_id, referential.auth_token, 'https://svcs.ebay.com/services/returns/v1/ReturnManagementService')
-        #     result = issue_refund.Get(arguments[0],arguments[1],arguments[2],arguments[3],arguments[4])
-        #     return result
-        #
-        # elif method == 'getActivityOptions':
-        #     getActivity = getActivityOptions(referential.dev_id, referential.app_id, referential.cert_id, referential.auth_token, 'https://svcs.ebay.com/services/returns/v1/ReturnManagementService')
-        #     result = getActivity.Get(arguments[0],arguments[1])
-        #     return result
-        #
-        # elif method == 'provideSellerInfo':
-        #     provide_rma = provideSellerInfo(referential.dev_id, referential.app_id, referential.cert_id, referential.auth_token, 'https://svcs.ebay.com/services/returns/v1/ReturnManagementService')
-        #     result = provide_rma.Get(arguments[0],arguments[1],arguments[2])
-        #     return result
-        #
-        # elif method == 'getReturnDetail':
-        #     get_detail = getReturnDetail(referential.dev_id, referential.app_id, referential.cert_id, referential.auth_token, 'https://svcs.ebay.com/services/returns/v1/ReturnManagementService')
-        #     result = get_detail.Get(arguments[0],arguments[1])
-        #     return result
+            # elif method == 'getUserReturns':
+            #     get_user_returns = getUserReturns(referential.dev_id, referential.app_id, referential.cert_id, referential.auth_token, 'https://svcs.ebay.com/services/returns/v1/ReturnManagementService')
+            #     result = get_user_returns.Get(arguments[0])
+            #     return result
+            #
+            # elif method == 'issueRefund':
+            #     issue_refund = issueRefund(referential.dev_id, referential.app_id, referential.cert_id, referential.auth_token, 'https://svcs.ebay.com/services/returns/v1/ReturnManagementService')
+            #     result = issue_refund.Get(arguments[0],arguments[1],arguments[2],arguments[3],arguments[4])
+            #     return result
+            #
+            # elif method == 'getActivityOptions':
+            #     getActivity = getActivityOptions(referential.dev_id, referential.app_id, referential.cert_id, referential.auth_token, 'https://svcs.ebay.com/services/returns/v1/ReturnManagementService')
+            #     result = getActivity.Get(arguments[0],arguments[1])
+            #     return result
+            #
+            # elif method == 'provideSellerInfo':
+            #     provide_rma = provideSellerInfo(referential.dev_id, referential.app_id, referential.cert_id, referential.auth_token, 'https://svcs.ebay.com/services/returns/v1/ReturnManagementService')
+            #     result = provide_rma.Get(arguments[0],arguments[1],arguments[2])
+            #     return result
+            #
+            # elif method == 'getReturnDetail':
+            #     get_detail = getReturnDetail(referential.dev_id, referential.app_id, referential.cert_id, referential.auth_token, 'https://svcs.ebay.com/services/returns/v1/ReturnManagementService')
+            #     result = get_detail.Get(arguments[0],arguments[1])
+            #     return result
 
-        
 
 class UploadSiteHostedPictures:
     Session = Session()
+
     def __init__(self, DevID, AppID, CertID, Token, ServerURL):
         self.Session.Initialize(DevID, AppID, CertID, Token, ServerURL)
-    def geturl(self,nodelist):
+
+    def geturl(self, nodelist):
         url = []
         for node in nodelist:
             info1 = {}
@@ -2706,297 +2763,317 @@ class UploadSiteHostedPictures:
                         info1[cNode.nodeName] = cNode.childNodes[0].data
             url.append(info1)
         return url
+
     def geterrors(self, nodelist):
-       transDetails = []
-       info = {}
-       for cNode in nodelist.childNodes:
-           if cNode.nodeName == 'LongMessage':
-               if cNode.childNodes:
+        transDetails = []
+        info = {}
+        for cNode in nodelist.childNodes:
+            if cNode.nodeName == 'LongMessage':
+                if cNode.childNodes:
                     info[cNode.nodeName] = cNode.childNodes[0].data
-           if cNode.nodeName == 'SeverityCode':
-               if cNode.childNodes:
+            if cNode.nodeName == 'SeverityCode':
+                if cNode.childNodes:
                     info[cNode.nodeName] = cNode.childNodes[0].data
-       transDetails.append(info)
-       return transDetails
-    def Get(self,filename,siteid):
+        transDetails.append(info)
+        return transDetails
+
+    def Get(self, filename, siteid):
         api = Call()
         api.Session = self.Session
-        print("----api.session------",api.session)
         api.SiteID = siteid
-        uploading_image = open(filename,'rb')
+        uploading_image = open(filename, 'rb')
         multiPartImageData = uploading_image.read()
-        print("-----multiPartImageData",multiPartImageData)
+        print("-----multiPartImageData", multiPartImageData)
+        multiPartImageData=base64.b64encode(multiPartImageData)
+        multiPartImageData=multiPartImageData.decode()
         uploading_image.close()
         string1 = "--MIME_boundary"
         string2 = "Content-Disposition: form-data; name=\"XML Payload\""
         string3 = "Content-Type: text/xml;charset=utf-8"
-        string4 = string1 + '\r\n' + string2 +'\r\n' + string3
-        string5 = string4 + '\r\n'+'\r\n'
-        string6 = string5 + "<?xml version='1.0' encoding='utf-8'?>"+'\r\n'
-        string7=  string6 + "<UploadSiteHostedPicturesRequest xmlns=\"urn:ebay:apis:eBLBaseComponents\">"+'\r\n'
-        string8 = string7 + "<Version>747</Version>"+'\r\n'
-        string9 = string8 + "<PictureName>my_pic</PictureName>"+'\r\n'
-        string17 = string9 + "<RequesterCredentials><eBayAuthToken>" + str(self.Session.Token.encode("utf-8")) + "</eBayAuthToken></RequesterCredentials>"+'\r\n'
+        string4 = string1 + '\r\n' + string2 + '\r\n' + string3
+        string5 = string4 + '\r\n' + '\r\n'
+        string6 = string5 + "<?xml version='1.0' encoding='utf-8'?>" + '\r\n'
+        string7 = string6 + "<UploadSiteHostedPicturesRequest xmlns=\"urn:ebay:apis:eBLBaseComponents\">" + '\r\n'
+        string8 = string7 + "<Version>747</Version>" + '\r\n'
+        string9 = string8 + "<PictureName>my_pic</PictureName>" + '\r\n'
+        # string17 = string9 + "<RequesterCredentials><eBayAuthToken>" + str(
+        #     self.Session.Token) + "</eBayAuthToken></RequesterCredentials>" + '\r\n'
         # string11 = string10 + "</UploadSiteHostedPicturesRequest>"+'\r\n'
-        string10 = string17 + "</UploadSiteHostedPicturesRequest>"+'\r\n'
-        string11 = string10 + "--MIME_boundary" +'\r\n'
-        string12 = string11 + "Content-Disposition: form-data; name='dummy'; filename='dummy'" +'\r\n'
+        string10 = string9 + "</UploadSiteHostedPicturesRequest>" + '\r\n'
+        string11 = string10 + "--MIME_boundary" + '\r\n'
+        string12 = string11 + "Content-Disposition: form-data; name='dummy'; filename='dummy'" + '\r\n'
         string13 = string12 + "Content-Transfer-Encoding: binary" + '\r\n'
-        string14 = string13 + "Content-Type: application/octet-stream" + '\r\n'+'\r\n'
-        # string16 = string15 + multiPartImageData + '\r\n'
-        string15 = string14+'<PictureData contentType="string">' + str(multiPartImageData) + '\r\n'+'</PictureData>'
+        string14 = string13 + "Content-Type: application/octet-stream" + '\r\n' + '\r\n'
+        string15 = string14 + str(multiPartImageData) + '\r\n'
+        # string15 = string14+'<PictureData contentType="string">' + str(multiPartImageData) + '\r\n'+'</PictureData>'
+        # multiPartImageData.decode('utf-8')
         string16 = string15 + "--MIME_boundary--" + '\r\n'
         api.RequestData = string16
         responseDOM = api.MakeCall("UploadSiteHostedPictures")
 
-        Dictionary={}
+        Dictionary = {}
         if responseDOM.getElementsByTagName('Ack')[0].childNodes[0].data == 'Success':
             ack = responseDOM.getElementsByTagName('Ack')[0].childNodes[0].data
             Dictionary.update({'Ack': ack})
             full_url = self.geturl(responseDOM.getElementsByTagName('SiteHostedPictureDetails'))
-            Dictionary.update({'FullURL':full_url})
+            Dictionary.update({'FullURL': full_url})
         elif responseDOM.getElementsByTagName('Ack')[0].childNodes[0].data == 'Warning':
             ack = responseDOM.getElementsByTagName('Ack')[0].childNodes[0].data
             Dictionary.update({'Ack': ack})
             full_url = self.geturl(responseDOM.getElementsByTagName('SiteHostedPictureDetails'))
-            Dictionary.update({'FullURL':full_url})
+            Dictionary.update({'FullURL': full_url})
             many_errors = []
-            for each_error in  responseDOM.getElementsByTagName('Errors'):
-               errors = self.geterrors(each_error)
-               many_errors.append(errors)
+            for each_error in responseDOM.getElementsByTagName('Errors'):
+                errors = self.geterrors(each_error)
+                many_errors.append(errors)
             Dictionary.update({'LongMessage': many_errors})
         elif responseDOM.getElementsByTagName('Ack')[0].childNodes[0].data == 'Failure':
             ack = responseDOM.getElementsByTagName('Ack')[0].childNodes[0].data
             Dictionary.update({'Ack': ack})
             many_errors = []
-            for each_error in  responseDOM.getElementsByTagName('Errors'):
-               errors = self.geterrors(each_error)
-               many_errors.append(errors)
+            for each_error in responseDOM.getElementsByTagName('Errors'):
+                errors = self.geterrors(each_error)
+                many_errors.append(errors)
             Dictionary.update({'LongMessage': many_errors})
         responseDOM.unlink()
         return Dictionary
-    
+
+
 class getshipping:
-    def Get(self,shipping_information):
+    def Get(self, shipping_information):
         shipping_type = shipping_information[1]['shipping_type']
-        if shipping_information[1]['shipping_type']=='Flat':
-            package_handling="""<InternationalPackagingHandlingCosts>%s</InternationalPackagingHandlingCosts>"""%(shipping_information[1]['handling_cost'])
-            calculated_shipping=''
+        if shipping_information[1]['shipping_type'] == 'Flat':
+            package_handling = """<InternationalPackagingHandlingCosts>%s</InternationalPackagingHandlingCosts>""" % (
+            shipping_information[1]['handling_cost'])
+            calculated_shipping = ''
         else:
-            package_handling="""<PackagingHandlingCosts currencyID="%s">%s</PackagingHandlingCosts>"""%(shipping_information[1]['currency'],shipping_information[1]['handling_cost'])
-            calculated_shipping="""<CalculatedShippingRate>%s<ShippingIrregular>%s</ShippingIrregular>
+            package_handling = """<PackagingHandlingCosts currencyID="%s">%s</PackagingHandlingCosts>""" % (
+            shipping_information[1]['currency'], shipping_information[1]['handling_cost'])
+            calculated_shipping = """<CalculatedShippingRate>%s<ShippingIrregular>%s</ShippingIrregular>
                         <ShippingPackage>%s</ShippingPackage>
                         <WeightMajor unit="lbs">%s</WeightMajor>
                         <WeightMinor unit="oz">%s</WeightMinor>
-                        </CalculatedShippingRate>"""%(package_handling,shipping_information[1]['shipping_irregular'],shipping_information[1]['intr_pack_type'],shipping_information[1]['intr_max_weight'],shipping_information[1]['intr_min_weight'])            
+                        </CalculatedShippingRate>""" % (
+            package_handling, shipping_information[1]['shipping_irregular'], shipping_information[1]['intr_pack_type'],
+            shipping_information[1]['intr_max_weight'], shipping_information[1]['intr_min_weight'])
 
-        
-        
-        if shipping_information[1]['shipping_type']=='Flat':
-           
-            shipping_option_domestic=''
-            shipping_option_international=''
-            cnt=0
+        if shipping_information[1]['shipping_type'] == 'Flat':
+
+            shipping_option_domestic = ''
+            shipping_option_international = ''
+            cnt = 0
             for shipping_option in shipping_information[0]:
-                cnt=cnt+1
-                if shipping_option['service_pattern']=='domestic':
-                    if cnt==1:
-                        free_shipping="""<FreeShipping>%s</FreeShipping>"""%(shipping_information[1]['free_shipping'])
+                cnt = cnt + 1
+                if shipping_option['service_pattern'] == 'domestic':
+                    if cnt == 1:
+                        free_shipping = """<FreeShipping>%s</FreeShipping>""" % (
+                        shipping_information[1]['free_shipping'])
                     else:
-                        free_shipping=''
-                    shipping_option_domestic+="""<ShippingServiceOptions>%s<ShippingService>%s</ShippingService>
+                        free_shipping = ''
+                    shipping_option_domestic += """<ShippingServiceOptions>%s<ShippingService>%s</ShippingService>
                     <ShippingServiceAdditionalCost>%s</ShippingServiceAdditionalCost>
                     <ShippingServiceCost>%s</ShippingServiceCost>
                     <ShippingServicePriority>%s</ShippingServicePriority>
-                    </ShippingServiceOptions>"""%(free_shipping,shipping_option['option_service'],shipping_option['add_cost'],shipping_option['cost'],shipping_option['priority'])
-                    shipping_type='Flat'
+                    </ShippingServiceOptions>""" % (
+                    free_shipping, shipping_option['option_service'], shipping_option['add_cost'],
+                    shipping_option['cost'], shipping_option['priority'])
+                    shipping_type = 'Flat'
                 else:
-                    final_locations=''
-                    if shipping_option['ship_to'].find(',')!=-1:
-                        locations=shipping_option['ship_to'].split(',')
-                        
+                    final_locations = ''
+                    if shipping_option['ship_to'].find(',') != -1:
+                        locations = shipping_option['ship_to'].split(',')
+
                         for loc in locations:
-                            if loc!='':
-                                final_locations+="<ShipToLocation>"+loc+"</ShipToLocation>"
+                            if loc != '':
+                                final_locations += "<ShipToLocation>" + loc + "</ShipToLocation>"
                     else:
-                        loc=shipping_option['ship_to']
-                        final_locations="<ShipToLocation>"+loc+"</ShipToLocation>"
-                            
-                    shipping_option_international+="""<InternationalShippingServiceOption>
+                        loc = shipping_option['ship_to']
+                        final_locations = "<ShipToLocation>" + loc + "</ShipToLocation>"
+
+                    shipping_option_international += """<InternationalShippingServiceOption>
                     <ShippingService>%s</ShippingService>
-                    <ShippingServicePriority>%s</ShippingServicePriority>%s</InternationalShippingServiceOption>"""%(shipping_option['option_service'],shipping_option['priority'],final_locations)
-                    
+                    <ShippingServicePriority>%s</ShippingServicePriority>%s</InternationalShippingServiceOption>""" % (
+                    shipping_option['option_service'], shipping_option['priority'], final_locations)
+
         else:
-            shipping_type='Calculated'
-            shipping_option_domestic=''
-            shipping_option_international=''
+            shipping_type = 'Calculated'
+            shipping_option_domestic = ''
+            shipping_option_international = ''
             for shipping_option in shipping_information[0]:
-                cnt=0
-                if shipping_option['service_pattern']=='domestic':
-                    cnt=cnt+1
-                    if cnt==1:
-                        free_shipping="""<FreeShipping>%s</FreeShipping>"""%(shipping_information[1]['free_shipping'])
+                cnt = 0
+                if shipping_option['service_pattern'] == 'domestic':
+                    cnt = cnt + 1
+                    if cnt == 1:
+                        free_shipping = """<FreeShipping>%s</FreeShipping>""" % (
+                        shipping_information[1]['free_shipping'])
                     else:
-                        free_shipping=''
-                    shipping_option_domestic+="""<ShippingServiceOptions>%s<ShippingService>%s</ShippingService>
+                        free_shipping = ''
+                    shipping_option_domestic += """<ShippingServiceOptions>%s<ShippingService>%s</ShippingService>
                     <ShippingServicePriority>%s</ShippingServicePriority>
-                    </ShippingServiceOptions>"""%(free_shipping,shipping_option['option_service'],shipping_option['priority'])
+                    </ShippingServiceOptions>""" % (
+                    free_shipping, shipping_option['option_service'], shipping_option['priority'])
                 else:
-                    final_locations=''
-                    if shipping_option['ship_to'].find(',')!=-1:
-                        locations=shipping_option['ship_to'].split(',')
+                    final_locations = ''
+                    if shipping_option['ship_to'].find(',') != -1:
+                        locations = shipping_option['ship_to'].split(',')
                         for loc in locations:
-                            if loc!='':
-                                final_locations+="<ShipToLocation>"+loc+"</ShipToLocation>"
+                            if loc != '':
+                                final_locations += "<ShipToLocation>" + loc + "</ShipToLocation>"
                     else:
-                        loc=shipping_option['ship_to']
-                        final_locations="<ShipToLocation>"+loc+"</ShipToLocation>"
-                            
-                    shipping_option_international+="""<InternationalShippingServiceOption>
+                        loc = shipping_option['ship_to']
+                        final_locations = "<ShipToLocation>" + loc + "</ShipToLocation>"
+
+                    shipping_option_international += """<InternationalShippingServiceOption>
                     <ShippingService>%s</ShippingService>
-                    <ShippingServicePriority>%s</ShippingServicePriority>%s</InternationalShippingServiceOption>"""%(shipping_option['option_service'],shipping_option['priority'],final_locations)
-        ship_str="""<ShippingDetails><ShippingType>%s</ShippingType><PaymentInstructions></PaymentInstructions>%s%s%s</ShippingDetails>"""%(shipping_type,shipping_option_domestic,calculated_shipping,shipping_option_international)
-        
+                    <ShippingServicePriority>%s</ShippingServicePriority>%s</InternationalShippingServiceOption>""" % (
+                    shipping_option['option_service'], shipping_option['priority'], final_locations)
+        ship_str = """<ShippingDetails><ShippingType>%s</ShippingType><PaymentInstructions></PaymentInstructions>%s%s%s</ShippingDetails>""" % (
+        shipping_type, shipping_option_domestic, calculated_shipping, shipping_option_international)
+
         return ship_str
+
+
 class AddEbayItems:
     Session = Session()
+
     def __init__(self, DevID, AppID, CertID, Token, ServerURL):
         self.Session.Initialize(DevID, AppID, CertID, Token, ServerURL)
 
     def geterrors(self, nodelist):
-       transDetails = []
-       info = {}
-       for cNode in nodelist.childNodes:
-           if cNode.nodeName == 'LongMessage':
-               if cNode.childNodes:
+        transDetails = []
+        info = {}
+        for cNode in nodelist.childNodes:
+            if cNode.nodeName == 'LongMessage':
+                if cNode.childNodes:
                     info[cNode.nodeName] = cNode.childNodes[0].data
-           if cNode.nodeName == 'SeverityCode':
-               if cNode.childNodes:
+            if cNode.nodeName == 'SeverityCode':
+                if cNode.childNodes:
                     info[cNode.nodeName] = cNode.childNodes[0].data
-       transDetails.append(info)
-       return transDetails
-   
-    def Get(self,itemlist,siteid):
+        transDetails.append(info)
+        return transDetails
+
+    def Get(self, itemlist, siteid):
         api = Call()
         api.Session = self.Session
         api.SiteID = siteid
         api.DetailLevel = "0"
-        msg_id=0
-        container=''
-                       
+        msg_id = 0
+        container = ''
 
-        
-        
         for item in itemlist:
-            shipping_obj= getshipping()
-            shipping_str=shipping_obj.Get(item['shipping_information'])
-            
+            shipping_obj = getshipping()
+            shipping_str = shipping_obj.Get(item['shipping_information'])
+
             # This for Shipping Frieght Table or shipping matrix
-            
-#            shipping_str="""<ShippingDetails>
-#      <CalculatedShippingRate>
-#        <OriginatingPostalCode>07193</OriginatingPostalCode>
-#        <MeasurementUnit>Metric</MeasurementUnit>
-#        <PackagingHandlingCosts currencyID="AUD">0.0</PackagingHandlingCosts>
-#        <ShippingPackage>PaddedBags</ShippingPackage>
-#        <WeightMajor unit="lbs">6</WeightMajor>
-#        <WeightMinor unit="oz">0</WeightMinor>
-#      </CalculatedShippingRate>
-#      <ShippingServiceOptions>
-#        <ShippingService>ES_CorreosPostal4872</ShippingService>
-#        <ShippingServicePriority>1</ShippingServicePriority>
-#      </ShippingServiceOptions>
-#      <ShippingServiceOptions>
-#        <ShippingService>ES_CorreosCartasCertificadasUrgentes</ShippingService>
-#        <ShippingServicePriority>2</ShippingServicePriority>
-#      </ShippingServiceOptions>
-#      <TaxTable>false</TaxTable>
-#    </ShippingDetails>"""
-    
-            return_policy=''
-            return_options=''
-            sku_str=''
-            
+
+            #            shipping_str="""<ShippingDetails>
+            #      <CalculatedShippingRate>
+            #        <OriginatingPostalCode>07193</OriginatingPostalCode>
+            #        <MeasurementUnit>Metric</MeasurementUnit>
+            #        <PackagingHandlingCosts currencyID="AUD">0.0</PackagingHandlingCosts>
+            #        <ShippingPackage>PaddedBags</ShippingPackage>
+            #        <WeightMajor unit="lbs">6</WeightMajor>
+            #        <WeightMinor unit="oz">0</WeightMinor>
+            #      </CalculatedShippingRate>
+            #      <ShippingServiceOptions>
+            #        <ShippingService>ES_CorreosPostal4872</ShippingService>
+            #        <ShippingServicePriority>1</ShippingServicePriority>
+            #      </ShippingServiceOptions>
+            #      <ShippingServiceOptions>
+            #        <ShippingService>ES_CorreosCartasCertificadasUrgentes</ShippingService>
+            #        <ShippingServicePriority>2</ShippingServicePriority>
+            #      </ShippingServiceOptions>
+            #      <TaxTable>false</TaxTable>
+            #    </ShippingDetails>"""
+
+            return_policy = ''
+            return_options = ''
+            sku_str = ''
+
             if item.get('product_sku'):
-                sku_str = "<SKU>%s</SKU>"%(item['product_sku'])
+                sku_str = "<SKU>%s</SKU>" % (item['product_sku'])
 
             # elif item.get('default_code'):
             #     sku_str = "<SKU>%s</SKU>" % (item['default_code'])
 
             if item.get('refund_option'):
-                 return_options+="""<RefundOption>%s</RefundOption>"""%(item['refund_option'])
-               
-                
-            if item.get('retur_days'):    
-                return_options+="""<ReturnsWithinOption>%s</ReturnsWithinOption>"""%(item['retur_days'])
-            
-            if item.get('return_desc',False):    
-               return_options+="""<Description>%s</Description>"""%(item['return_desc'])
-               
-            if item.get('cost_paid_by'):    
-               return_options+="""<ShippingCostPaidByOption>%s</ShippingCostPaidByOption>"""%(item['cost_paid_by'])
+                return_options += """<RefundOption>%s</RefundOption>""" % (item['refund_option'])
 
-            buy_it_now=''
+            if item.get('retur_days'):
+                return_options += """<ReturnsWithinOption>%s</ReturnsWithinOption>""" % (item['retur_days'])
+
+            if item.get('return_desc', False):
+                return_options += """<Description>%s</Description>""" % (item['return_desc'])
+
+            if item.get('cost_paid_by'):
+                return_options += """<ShippingCostPaidByOption>%s</ShippingCostPaidByOption>""" % (item['cost_paid_by'])
+
+            buy_it_now = ''
             if item.get('buy_it_now_price'):
-                buy_it_now="""<BuyItNowPrice currencyID=\""""+item['currency']+"""\">%s</BuyItNowPrice>"""%(item['buy_it_now_price'])
-                
-            return_policy="""<ReturnPolicy><ReturnsAcceptedOption>%s</ReturnsAcceptedOption>%s</ReturnPolicy>"""%(item['return_accepted'],return_options)
-            pickupinstore=''
-            if item.get('pickup_store',False):
-                pickupinstore = """<PickupInStoreDetails><EligibleForPickupInStore>%s</EligibleForPickupInStore></PickupInStoreDetails>"""%(item['pickup_store'])
-            
-            if item.get('listing_time')!=False:
-                s_time="<ScheduleTime>%s</ScheduleTime>"%(item['listing_time'])
-            else:
-                s_time=''            
+                buy_it_now = """<BuyItNowPrice currencyID=\"""" + item['currency'] + """\">%s</BuyItNowPrice>""" % (
+                item['buy_it_now_price'])
 
-            if item.get('sub_title')!=False:
-                subtitle="<SubTitle>%s</SubTitle>"%(item['sub_title'])
+            return_policy = """<ReturnPolicy><ReturnsAcceptedOption>%s</ReturnsAcceptedOption>%s</ReturnPolicy>""" % (
+            item['return_accepted'], return_options)
+            pickupinstore = ''
+            if item.get('pickup_store', False):
+                pickupinstore = """<PickupInStoreDetails><EligibleForPickupInStore>%s</EligibleForPickupInStore></PickupInStoreDetails>""" % (
+                item['pickup_store'])
+
+            if item.get('listing_time') != False:
+                s_time = "<ScheduleTime>%s</ScheduleTime>" % (item['listing_time'])
             else:
-                subtitle=''
+                s_time = ''
+
+            if item.get('sub_title') != False:
+                subtitle = "<SubTitle>%s</SubTitle>" % (item['sub_title'])
+            else:
+                subtitle = ''
 
             name_val_str = ''
-            
-            if item['attribute_array']!=False:
+
+            if item['attribute_array'] != False:
                 for key, value in item['attribute_array'].items():
-                    if key==False:
+                    if key == False:
                         continue
-                    if value==False:
+                    if value == False:
                         continue
-                    name_val_str+= """<NameValueList>
+                    name_val_str += """<NameValueList>
                                     <Name>%s</Name>
                                     <Value>%s</Value>
-                                  </NameValueList>""" %("<![CDATA["+key+"]]>","<![CDATA["+value+"]]>")
-                Itemspecifics = "<ItemSpecifics>"+ str(name_val_str)+ "</ItemSpecifics>"
+                                  </NameValueList>""" % ("<![CDATA[" + key + "]]>", "<![CDATA[" + value + "]]>")
+                Itemspecifics = "<ItemSpecifics>" + str(name_val_str) + "</ItemSpecifics>"
             else:
-                Itemspecifics=''
+                Itemspecifics = ''
 
             ProductListing = """
                       <EAN>Do not apply</EAN> """
 
             storecategory = ''
             if item['store_category']:
-                store_category_count=1
+                store_category_count = 1
                 storecategory += """<Storefront>"""
                 for store_category in item['store_category']:
-                    if store_category_count ==1:
-                         storecategory +="""<StoreCategoryID>%s</StoreCategoryID>
-                        <StoreCategoryName>%s</StoreCategoryName>"""%(store_category['category_id'],store_category['name'])
+                    if store_category_count == 1:
+                        storecategory += """<StoreCategoryID>%s</StoreCategoryID>
+                        <StoreCategoryName>%s</StoreCategoryName>""" % (
+                        store_category['category_id'], store_category['name'])
 
-                    if store_category_count ==2:    
-                        storecategory +="""<StoreCategory2ID>%s</StoreCategory2ID>
-                        <StoreCategory2Name>%s</StoreCategory2Name>"""%(store_category['category_id'],store_category['name'])
+                    if store_category_count == 2:
+                        storecategory += """<StoreCategory2ID>%s</StoreCategory2ID>
+                        <StoreCategory2Name>%s</StoreCategory2Name>""" % (
+                        store_category['category_id'], store_category['name'])
 
                     store_category_count += 1
-                storecategory +="""</Storefront>"""
-            
-            msg_id=msg_id+1
-            ebay_images='<PhotoDisplay>SuperSize</PhotoDisplay>'
-            for img in item['images']:
-                ebay_images +="""<PictureURL>%s</PictureURL>"""%(img)
+                storecategory += """</Storefront>"""
 
-            container+="""<AddItemRequestContainer>
-                    <MessageID>"""+str(msg_id)+"""</MessageID>
+            msg_id = msg_id + 1
+            ebay_images = '<PhotoDisplay>SuperSize</PhotoDisplay>'
+            for img in item['images']:
+                ebay_images += """<PictureURL>%s</PictureURL>""" % (img)
+
+            container += """<AddItemRequestContainer>
+                    <MessageID>""" + str(msg_id) + """</MessageID>
                     <Item>%s
                     <Title>%s</Title>
                     <Description>%s</Description>%s<PrimaryCategory>
@@ -3018,7 +3095,13 @@ class AddEbayItems:
                     <PictureDetails>%s</PictureDetails>
                     <ProductListingDetails>%s</ProductListingDetails>
                     </Item>
-                    </AddItemRequestContainer>"""% (storecategory,"<![CDATA["+item['listing_title']+ "]]>","<![CDATA[" +str(item['description'])+ "]]>",subtitle,item['category_code'],Itemspecifics,str(item['best_offer']),item['site_code'], sku_str,item['qnt'],item['price'],buy_it_now,item['condition'],item['duration'],item['location'],pickupinstore,item['list_type'],shipping_str,return_policy,item['country_code'],item['private_listing'],item['hand_time'],item['currency'],s_time,item['postal_code'],item['payment_method'],item['paypal_email'],ebay_images,ProductListing)
+                    </AddItemRequestContainer>""" % (
+            storecategory, "<![CDATA[" + item['listing_title'] + "]]>", "<![CDATA[" + str(item['description']) + "]]>",
+            subtitle, item['category_code'], Itemspecifics, str(item['best_offer']), item['site_code'], sku_str,
+            item['qnt'], item['price'], buy_it_now, item['condition'], item['duration'], item['location'],
+            pickupinstore, item['list_type'], shipping_str, return_policy, item['country_code'],
+            item['private_listing'], item['hand_time'], item['currency'], s_time, item['postal_code'],
+            item['payment_method'], item['paypal_email'], ebay_images, ProductListing)
 
         # api.RequestData="""<?xml version="1.0" encoding="utf-8" ?>
         #     <AddItemsRequest xmlns="urn:ebay:apis:eBLBaseComponents">
@@ -3033,107 +3116,107 @@ class AddEbayItems:
                     <WarningLevel>High</WarningLevel>%s</AddItemsRequest>""" % (container)
 
         logger.info('api.RequestData=======%s', api.RequestData.encode('utf-8'))
-        responseDOM=api.MakeCall("AddItems")
+        responseDOM = api.MakeCall("AddItems")
 
         logger.info('api.RequestData=======%s', responseDOM.toprettyxml())
         return responseDOM
-    
-    
+
+
 class GetStore:
     Session = Session()
+
     def __init__(self, DevID, AppID, CertID, Token, ServerURL):
         self.Session.Initialize(DevID, AppID, CertID, Token, ServerURL)
 
     def geterrors(self, nodelist):
-       transDetails = []
-       info = {}
-       
-       for cNode in nodelist.childNodes:
-           if cNode.nodeName == 'LongMessage':
-               if cNode.childNodes:
+        transDetails = []
+        info = {}
+
+        for cNode in nodelist.childNodes:
+            if cNode.nodeName == 'LongMessage':
+                if cNode.childNodes:
                     info[cNode.nodeName] = cNode.childNodes[0].data
-           if cNode.nodeName == 'SeverityCode':
-               if cNode.childNodes:
+            if cNode.nodeName == 'SeverityCode':
+                if cNode.childNodes:
                     info[cNode.nodeName] = cNode.childNodes[0].data
-       transDetails.append(info)
-       return transDetails
-   
+        transDetails.append(info)
+        return transDetails
+
     def getChildCategoryInfo(self, nodelist):
-       transDetails = []
-       storeinfo = {}
-       customcategoryinfo = {}
-       subchildcategoryinfo = {}
-       childcategoryinfo = {}
-       CustomCategories =[]
-       
-       subchildcategory =[]
-       for node in nodelist:
-           for cNode in node.childNodes:
-               if cNode.nodeName == 'Name':
-                   storeinfo[cNode.nodeName] = cNode.childNodes[0].data
-               if cNode.nodeName == 'CategoryID':
-                   storeinfo[cNode.nodeName] = cNode.childNodes[0].data
-               if cNode.nodeName == 'Order':
-                    transDetails.append(storeinfo)
-                    storeinfo={}
-       #logger.info('transDetails=======%s', transDetails)
-       
-       return transDetails
-   
-    def getCustomCategoryInfo(self, nodelist):
-       transDetails = []
-       
-       customcategoryinfo = {}
-       subchildcategoryinfo = {}
-       childcategoryinfo = {}
-       CustomCategories =[]
+        transDetails = []
+        storeinfo = {}
+        customcategoryinfo = {}
+        subchildcategoryinfo = {}
+        childcategoryinfo = {}
+        CustomCategories = []
 
-       subchildcategory =[]
-       storeinfo = {}
-       for node in nodelist:
-           for cNode in node.childNodes:
+        subchildcategory = []
+        for node in nodelist:
+            for cNode in node.childNodes:
                 if cNode.nodeName == 'Name':
-
                     storeinfo[cNode.nodeName] = cNode.childNodes[0].data
                 if cNode.nodeName == 'CategoryID':
                     storeinfo[cNode.nodeName] = cNode.childNodes[0].data
                 if cNode.nodeName == 'Order':
                     transDetails.append(storeinfo)
-                    storeinfo={}
-       ##logger.info('transDetails========%s', transDetails)
-       
-       return transDetails
-   
+                    storeinfo = {}
+        # logger.info('transDetails=======%s', transDetails)
+
+        return transDetails
+
+    def getCustomCategoryInfo(self, nodelist):
+        transDetails = []
+
+        customcategoryinfo = {}
+        subchildcategoryinfo = {}
+        childcategoryinfo = {}
+        CustomCategories = []
+
+        subchildcategory = []
+        storeinfo = {}
+        for node in nodelist:
+            for cNode in node.childNodes:
+                if cNode.nodeName == 'Name':
+                    storeinfo[cNode.nodeName] = cNode.childNodes[0].data
+                if cNode.nodeName == 'CategoryID':
+                    storeinfo[cNode.nodeName] = cNode.childNodes[0].data
+                if cNode.nodeName == 'Order':
+                    transDetails.append(storeinfo)
+                    storeinfo = {}
+        ##logger.info('transDetails========%s', transDetails)
+
+        return transDetails
+
     def getStoreInfo(self, nodelist):
-       transDetails = []
-       storeinfo = {}
-       customcategoryinfo = {}
-       subchildcategoryinfo = {}
-       childcategoryinfo = {}
-       CustomCategories =[]
-       
-       subchildcategory =[]
-       for node in nodelist:
-           for cNode in node.childNodes:
-               if cNode.nodeName == 'Name':
-                   storeinfo[cNode.nodeName] = cNode.childNodes[0].data
-               if cNode.nodeName == 'SubscriptionLevel':
-                   storeinfo[cNode.nodeName] = cNode.childNodes[0].data
-               if cNode.nodeName == 'Description':
-                   storeinfo[cNode.nodeName] = cNode.childNodes[0].data
-           transDetails.append(storeinfo)
-       #logger.info('transDetails==========%s', transDetails)
-       return transDetails
-   
+        transDetails = []
+        storeinfo = {}
+        customcategoryinfo = {}
+        subchildcategoryinfo = {}
+        childcategoryinfo = {}
+        CustomCategories = []
+
+        subchildcategory = []
+        for node in nodelist:
+            for cNode in node.childNodes:
+                if cNode.nodeName == 'Name':
+                    storeinfo[cNode.nodeName] = cNode.childNodes[0].data
+                if cNode.nodeName == 'SubscriptionLevel':
+                    storeinfo[cNode.nodeName] = cNode.childNodes[0].data
+                if cNode.nodeName == 'Description':
+                    storeinfo[cNode.nodeName] = cNode.childNodes[0].data
+            transDetails.append(storeinfo)
+        # logger.info('transDetails==========%s', transDetails)
+        return transDetails
+
     # def Get(self, ids,userid,siteid):
-    def Get(self, userid,siteid):
+    def Get(self, userid, siteid):
         api = Call()
         api.Session = self.Session
         api.SiteID = siteid
 
         api.DetailLevel = "0"
-        user="""<UserID>%s</UserID>"""% (userid)
-        
+        user = """<UserID>%s</UserID>""" % (userid)
+
         # api.RequestData="""<?xml version="1.0" encoding="utf-8" ?>
         #     <GetStoreRequest xmlns="urn:ebay:apis:eBLBaseComponents">
         #     <RequesterCredentials>
@@ -3153,10 +3236,10 @@ class GetStore:
                     <LevelLimit>3</LevelLimit>
                     <MessageID>1</MessageID>%s</GetStoreRequest>""" % (user)
 
-        #logger.info('api.RequestData========%s', api.RequestData.encode('utf-8'))
-        responseDOM=api.MakeCall("GetStore")
-        #logger.info('api.RequestData========%s', responseDOM.toprettyxml())
-        #logger.info('api.RequestData======%s', responseDOM.getElementsByTagName('Store'))
+        # logger.info('api.RequestData========%s', api.RequestData.encode('utf-8'))
+        responseDOM = api.MakeCall("GetStore")
+        # logger.info('api.RequestData========%s', responseDOM.toprettyxml())
+        # logger.info('api.RequestData======%s', responseDOM.getElementsByTagName('Store'))
         if responseDOM.getElementsByTagName('Ack')[0].childNodes[0].data == 'Success':
             StoreInfo = self.getStoreInfo(responseDOM.getElementsByTagName('Store'))
             CustomCategoryInfo = self.getCustomCategoryInfo(responseDOM.getElementsByTagName('CustomCategory'))
@@ -3164,27 +3247,26 @@ class GetStore:
             if len(ChildCategoryInfo):
                 for Child in ChildCategoryInfo:
                     CustomCategoryInfo.append(Child)
-            data=[{'StoreInfo':StoreInfo,'CustomCategoryInfo':CustomCategoryInfo}]
-            
+            data = [{'StoreInfo': StoreInfo, 'CustomCategoryInfo': CustomCategoryInfo}]
+
             """ force garbage collection of the DOM object """
             responseDOM.unlink()
-            
+
             return data
         else:
-#            raise osv.except_osv('Error !',responseDOM.getElementsByTagName('Errors')[0].childNodes[0].childNodes[0].data)
+            #            raise osv.except_osv('Error !',responseDOM.getElementsByTagName('Errors')[0].childNodes[0].childNodes[0].data)
             # raise UserError('Error !',responseDOM.getElementsByTagName('Errors')[0].childNodes[0].childNodes[0].data)
             raise UserError(responseDOM.getElementsByTagName('Errors')[0].childNodes[0].childNodes[0].data)
             return False
         return responseDOM
 
-   
-   
-
 
 class GeteBayDetails:
     Session = Session()
+
     def __init__(self, DevID, AppID, CertID, Token, ServerURL):
         self.Session.Initialize(DevID, AppID, CertID, Token, ServerURL)
+
     def getshipserv(self, nodelist):
         transDetails = []
         for node in nodelist:
@@ -3208,7 +3290,7 @@ class GeteBayDetails:
                         if cNode.childNodes:
                             info[cNode.nodeName] = cNode.childNodes[0].data
                             flag = 1
-                    else :
+                    else:
                         cNode.nodeName = 'ServiceType1'
                         if cNode.childNodes:
                             info[cNode.nodeName] = cNode.childNodes[0].data
@@ -3260,6 +3342,7 @@ class GeteBayDetails:
                         info2[cNode.nodeName] = cNode.childNodes[0].data
             locations.append(info2)
         return locations
+
     def getsitedetails(self, nodelist):
         sitedetails = []
         for node in nodelist:
@@ -3274,22 +3357,22 @@ class GeteBayDetails:
             sitedetails.append(info)
         return sitedetails
 
-    def Get(self,siteid):
+    def Get(self, siteid):
         api = Call()
         api.Session = self.Session
         api.SiteID = siteid
         api.DetailLevel = "ReturnAll"
-      #   api.RequestData = """<?xml version="1.0" encoding="utf-8"?>
-      #   <GeteBayDetailsRequest xmlns="urn:ebay:apis:eBLBaseComponents">
-      #   <DetailName>ExcludeShippingLocationDetails</DetailName>
-      #   <DetailName>ShippingServiceDetails</DetailName>
-      #   <DetailName>ShippingLocationDetails</DetailName>
-      #   <DetailName>SiteDetails</DetailName>
-      #   <RequesterCredentials>
-      #     <eBayAuthToken>%s</eBayAuthToken>
-      #   </RequesterCredentials>
-      #   <WarningLevel>High</WarningLevel>
-      # </GeteBayDetailsRequest>"""%(self.Session.Token.encode("utf-8"))
+        #   api.RequestData = """<?xml version="1.0" encoding="utf-8"?>
+        #   <GeteBayDetailsRequest xmlns="urn:ebay:apis:eBLBaseComponents">
+        #   <DetailName>ExcludeShippingLocationDetails</DetailName>
+        #   <DetailName>ShippingServiceDetails</DetailName>
+        #   <DetailName>ShippingLocationDetails</DetailName>
+        #   <DetailName>SiteDetails</DetailName>
+        #   <RequesterCredentials>
+        #     <eBayAuthToken>%s</eBayAuthToken>
+        #   </RequesterCredentials>
+        #   <WarningLevel>High</WarningLevel>
+        # </GeteBayDetailsRequest>"""%(self.Session.Token.encode("utf-8"))
 
         api.RequestData = """<?xml version="1.0" encoding="utf-8"?>
                 <GeteBayDetailsRequest xmlns="urn:ebay:apis:eBLBaseComponents">
@@ -3300,12 +3383,12 @@ class GeteBayDetails:
                 <WarningLevel>High</WarningLevel>
               </GeteBayDetailsRequest>"""
 
-        #logger.info('api.RequestData======= %s', api.RequestData)
+        # logger.info('api.RequestData======= %s', api.RequestData)
         responseDOM = api.MakeCall("GeteBayDetails")
         logger.info('============RequestData======== %s', responseDOM.toprettyxml())
         Dictionary = {}
         ack_response = responseDOM.getElementsByTagName('Ack')[0].childNodes[0].data
-        if  ack_response == 'Success':
+        if ack_response == 'Success':
             getshipInfo = self.getshipserv(responseDOM.getElementsByTagName('ShippingServiceDetails'))
             getcountryInfo = self.getlocdetails(responseDOM.getElementsByTagName('ExcludeShippingLocationDetails'))
             getlocationInfo = self.getlocations(responseDOM.getElementsByTagName('ShippingLocationDetails'))
@@ -3316,7 +3399,7 @@ class GeteBayDetails:
             Dictionary.update({'ExcludeShippingLocationDetails': getcountryInfo})
             Dictionary.update({'SiteDetails': sitedetails})
         elif ack_response == 'Warning':
-            
+
             getshipInfo = self.getshipserv(responseDOM.getElementsByTagName('ShippingServiceDetails'))
             getcountryInfo = self.getlocdetails(responseDOM.getElementsByTagName('ExcludeShippingLocationDetails'))
             getlocationInfo = self.getlocations(responseDOM.getElementsByTagName('ShippingLocationDetails'))
@@ -3324,11 +3407,12 @@ class GeteBayDetails:
             Dictionary.update({'ShippingLocationDetails': getlocationInfo})
             Dictionary.update({'ShippingServiceDetails': getshipInfo})
             Dictionary.update({'ExcludeShippingLocationDetails': getcountryInfo})
-            Dictionary.update({'SiteDetails': sitedetails}) 
-        else:   
-#            raise osv.except_osv(_('Error!'), _((responseDOM.getElementsByTagName('Errors')[0].childNodes[0].childNodes[0].data)))
+            Dictionary.update({'SiteDetails': sitedetails})
+        else:
+            #            raise osv.except_osv(_('Error!'), _((responseDOM.getElementsByTagName('Errors')[0].childNodes[0].childNodes[0].data)))
             raise UserError(_(responseDOM.getElementsByTagName('Errors')[0].childNodes[0].childNodes[0].data))
         return Dictionary
+
 
 class GetCategory2CS:
     Session = Session()
@@ -3336,7 +3420,7 @@ class GetCategory2CS:
     def __init__(self, DevID, AppID, CertID, Token, ServerURL):
         self.Session.Initialize(DevID, AppID, CertID, Token, ServerURL)
 
-    def Get(self,categoryid,siteid):
+    def Get(self, categoryid, siteid):
         api = Call()
         api.Session = self.Session
         api.SiteID = siteid
@@ -3361,8 +3445,8 @@ class GetCategory2CS:
                 <WarningLevel>High</WarningLevel>
                 </GetCategory2CSRequest>"""
         api.RequestData = api.RequestData % {
-                                             'detail': api.DetailLevel,
-                                             'category_id': categoryid}
+            'detail': api.DetailLevel,
+            'category_id': categoryid}
         Dictionary = {}
         responseDOM = api.MakeCall("GetCategory2CS")
         timeElement = responseDOM.getElementsByTagName('AttributeSetID')
@@ -3374,11 +3458,14 @@ class GetCategory2CS:
         responseDOM.unlink()
         return Dictionary
 
+
 class GetCategoryFeatures:
     Session = Session()
+
     def __init__(self, DevID, AppID, CertID, Token, ServerURL):
         self.Session.Initialize(DevID, AppID, CertID, Token, ServerURL)
-    def condition_vals(self,node):
+
+    def condition_vals(self, node):
         cNodes = node.childNodes
         condition_details = []
         info = {}
@@ -3391,23 +3478,23 @@ class GetCategoryFeatures:
                     info[cNode.nodeName] = cNode.childNodes[0].data
         condition_details.append(info)
         return condition_details
-    def getConditionValues(self,nodelist):
+
+    def getConditionValues(self, nodelist):
         condition_details = []
         for cNode in nodelist:
             info = {}
             for cNode in cNode.childNodes:
-               if cNode.nodeName == 'ID':
+                if cNode.nodeName == 'ID':
                     if cNode.childNodes:
                         info[cNode.nodeName] = cNode.childNodes[0].data
 
-               elif cNode.nodeName == 'DisplayName':
+                elif cNode.nodeName == 'DisplayName':
                     if cNode.childNodes:
                         info[cNode.nodeName] = cNode.childNodes[0].data
             condition_details.append(info)
         return condition_details
 
-
-    def Get(self,category_id,siteid):
+    def Get(self, category_id, siteid):
         api = Call()
         api.Session = self.Session
         api.SiteID = siteid
@@ -3435,19 +3522,20 @@ class GetCategoryFeatures:
                 </GetCategoryFeaturesRequest>"""
 
         api.RequestData = api.RequestData % {
-                                             'detail': api.DetailLevel,
-                                             'categoryid': category_id
-                                             }
+            'detail': api.DetailLevel,
+            'categoryid': category_id
+        }
 
-        #logger.info('RequestData========%s', api.RequestData)                                    
+        # logger.info('RequestData========%s', api.RequestData)
         responseDOM = api.MakeCall("GetCategoryFeatures")
-        #logger.info('responseDOM========%s', responseDOM.toprettyxml())
+        # logger.info('responseDOM========%s', responseDOM.toprettyxml())
         ack_response = responseDOM.getElementsByTagName('Ack')[0].childNodes[0].data
-        if  ack_response == 'Failure':
-#            raise osv.except_osv(_('Error!'), _((responseDOM.getElementsByTagName('Errors')[0].childNodes[0].childNodes[0].data)))
-            raise UserError(_('Error!'), _((responseDOM.getElementsByTagName('Errors')[0].childNodes[0].childNodes[0].data)))
+        if ack_response == 'Failure':
+            #            raise osv.except_osv(_('Error!'), _((responseDOM.getElementsByTagName('Errors')[0].childNodes[0].childNodes[0].data)))
+            raise UserError(_('Error!'),
+                            _((responseDOM.getElementsByTagName('Errors')[0].childNodes[0].childNodes[0].data)))
         Dictionary = {}
-            
+
         item_spc = responseDOM.getElementsByTagName('ItemSpecificsEnabled')[0].childNodes[0].data
         Dictionary.update({'ItemSpecificsEnabled': item_spc})
         class_ad_en = responseDOM.getElementsByTagName('AdFormatEnabled')[0].childNodes[0].data
@@ -3459,23 +3547,25 @@ class GetCategoryFeatures:
         responseDOM.unlink()
         return Dictionary
 
+
 class GetCategorySpecifics:
     Session = Session()
+
     def __init__(self, DevID, AppID, CertID, Token, ServerURL):
         self.Session.Initialize(DevID, AppID, CertID, Token, ServerURL)
+
     def getCategoryArray(self, nodelist):
         categoryarray = []
         info = []
-        res_result={}
-        res1_result={}
-        cnt=0
+        res_result = {}
+        res1_result = {}
+        cnt = 0
         for node in nodelist:
             for cNode in node.childNodes:
 
-
                 if cNode.nodeName == 'Name':
-                    main_sub_category=cNode.childNodes[0].data
-                    res1_result[main_sub_category]=[]
+                    main_sub_category = cNode.childNodes[0].data
+                    res1_result[main_sub_category] = []
 
                 if cNode.nodeName == 'ValidationRules':
                     for mNode in cNode.childNodes:
@@ -3485,13 +3575,11 @@ class GetCategorySpecifics:
                 if cNode.nodeName == 'ValueRecommendation':
                     for gcNode in cNode.childNodes:
                         if gcNode.nodeName == 'Value':
-                            sub_cat=gcNode.childNodes[0].data
+                            sub_cat = gcNode.childNodes[0].data
                             res1_result[main_sub_category].append(sub_cat)
         return res1_result
 
-
-
-    def Get(self,category_id,siteid):
+    def Get(self, category_id, siteid):
         api = Call()
         api.Session = self.Session
         api.SiteID = siteid
@@ -3514,13 +3602,13 @@ class GetCategorySpecifics:
                 <CategoryID>%(category_id)s</CategoryID>
                 </GetCategorySpecificsRequest>"""
         api.RequestData = api.RequestData % {
-                                             'detail': api.DetailLevel,
-                                             'category_id': category_id
-                                             }
+            'detail': api.DetailLevel,
+            'category_id': category_id
+        }
 
-        #logger.info('RequestData====GetCategorySpecifics====%s', api.RequestData)                                    
+        # logger.info('RequestData====GetCategorySpecifics====%s', api.RequestData)
         responseDOM = api.MakeCall("GetCategorySpecifics")
-        #logger.info('responseDOM====GetCategorySpecifics====%s', responseDOM.toprettyxml())
+        # logger.info('responseDOM====GetCategorySpecifics====%s', responseDOM.toprettyxml())
         getcategory_array = self.getCategoryArray(responseDOM.getElementsByTagName('NameRecommendation'))
         """ force garbage collection of the DOM object """
         responseDOM.unlink()

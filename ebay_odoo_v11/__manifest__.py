@@ -21,7 +21,7 @@
 {
     "name" : "Ebay Connector",
     "version" : "1.1.1",
-    "depends" : ["base","product","sale",'base_ecommerce_v11'],
+    "depends" : ["base","product","sale",'base_ecommerce_v11','website'],
     "author" : "TeckZilla",
     "description": """
         Ebay Management\n
@@ -41,6 +41,7 @@
 	'price': 499.99,
 	'currency': 'EUR',
     "data" : [
+
             'security/ir.model.access.csv',
             'data/ebay.site.csv',
             'wizard/relist_item_view.xml',
