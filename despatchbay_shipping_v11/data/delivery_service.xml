@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <record id="despatch_dx" model="select.service">
+            <field name="name">Despatch Bay DX</field>
+        </record>
+
+        <record id="despatch_parcelforce" model="select.service">
+            <field name="name">Despatch Bay ParcelForce</field>
+        </record>
+
+        <record id="despatch_royalmail" model="select.service">
+            <field name="name">Despatch Bay RoyalMail</field>
+        </record>
+
+        <record id="despatch_yodel" model="select.service">
+            <field name="name">Despatch Bay Yodel</field>
+        </record>
+
+        <record id="despatch_dhl" model="select.service">
+            <field name="name">Despatch Bay DHL</field>
+        </record>
+    </data>
+</odoo>

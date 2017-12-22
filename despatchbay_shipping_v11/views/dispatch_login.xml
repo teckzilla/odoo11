@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <record id="view_dispatch_form_login" model="ir.ui.view">
+            <field name="name">view.dispatch.login.form</field>
+            <field name="model">dispatch.login</field>
+            <!--<field name="type">form</field>-->
+            <field name="arch" type="xml">
+            <form string="DispatchBay Keys">   
+            <group colspan="4">
+            <field name="name"/>
+            </group>    
+             <group colspan="4" col="4" string="DispatchBay Keys" >
+                    <field name="user"/>
+                    <field name="password"/>
+                 </group>
+              </form>
+            </field>
+        </record>
+
+       <record id="view_dispatch_tree" model="ir.ui.view">
+            <field name="name">view.dispatch.login.tree</field>
+            <field name="model">dispatch.login</field>
+            <!--<field name="type">tree</field>-->
+            <field name="arch" type="xml">
+                <tree string="DispatchBay Keys">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+       
+
+        <record id="dispatch_login_action" model="ir.actions.act_window">
+            <field name="name">Dispatch Bay Login</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">dispatch.login</field>
+            <field name="view_type">form</field>
+             <field name="view_mode">tree,form</field>
+        </record>
+
+       <menuitem id="menu_dispatch_child1" name="DispatchBay Keys" parent="base_shipping_v11.menu_shipping_services_settings" action="dispatch_login_action" groups="base_shipping_v11.group_base_shipping_manager"/>
+
+    </odoo>
