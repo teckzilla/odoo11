@@ -2518,7 +2518,6 @@ class UploadSiteHostedPictures:
         string17 = string16 + "--MIME_boundary--" + '\r\n'
         api.RequestData = string17
         responseDOM = api.MakeCall("UploadSiteHostedPictures")
-
         Dictionary={}
         if responseDOM.getElementsByTagName('Ack')[0].childNodes[0].data == 'Success':
             ack = responseDOM.getElementsByTagName('Ack')[0].childNodes[0].data

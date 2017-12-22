@@ -1,0 +1,25 @@
+.o_web_client > .o_main .o_sub_menu .o_sub_menu_footer > a > span {
+color:#9ACD32;
+}
+
+
+.navbar-inverse
+{
+background-color: #9ACD32;
+}
+.navbar-inverse-link-hover
+{
+background-color: #06e88d;
+}
+.navbar-inverse-toggle-hover{
+background-color: #9ACD32;
+}
+
+
+.navbar-inverse .navbar-nav > li > a {
+    color: #000000;
+    }
+
+.oe_footer {
+    color: #FFFFFF;
+}

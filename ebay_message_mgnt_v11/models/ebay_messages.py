@@ -30,18 +30,19 @@ logger = logging.getLogger('list_item')
 
 class ebay_messages(models.Model):
     _name = "ebay.messages"
-    _inherit = ['mail.thread', 'ir.needaction_mixin']
+    # _inherit = ['mail.thread', 'ir.needaction_mixin']
+    _inherit = ['mail.thread']
     _rec_name = 'message_id'
     @api.multi
     def write(self ,values):
         if values.get('assigned_user'):
             values.update({'state' : 'pending'})
-        print"-==values==",values
+        print("-==values==",values)
         return  super(ebay_messages, self).write(values)
     
     @api.multi
     def reply(self):
-        view_ref = self.env['ir.model.data'].get_object_reference('ebay_message_mgnt_v10', 'compose_messages_on_ebay_wiz')
+        view_ref = self.env['ir.model.data'].get_object_reference('ebay_message_mgnt_v11', 'compose_messages_on_ebay_wiz')
         view_id = view_ref and view_ref[1] or False,
         context = self._context
         return {

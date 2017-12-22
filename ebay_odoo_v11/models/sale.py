@@ -309,65 +309,65 @@ class sale_shop(models.Model):
             message = _('No more orders to import')
         return True
     
-    
-    @api.multi
-    def import_ebay_customer_messages(self):
-        '''
-        This function is used to Import Ebay customer messages
-        parameters:
-           No Parameter
-        '''
-        context = self._context.copy()
-        connection_obj = self.env['ebayerp.osv']
-        mail_obj = self.env['mail.thread']
-        mail_msg_obj = self.env['mail.message']
-        partner_obj = self.env['res.partner']
-        sale_shop_obj = self.env['sale.shop']
-        shop_obj = self
-        inst_lnk = shop_obj.instance_id
-#        
-        for id in self:
-            shop_data = self.browse(id)
-            inst_lnk = shop_data.instance_id
-
-            currentTimeTo = datetime.datetime.utcnow()
-            currentTimeTo = time.strptime(str(currentTimeTo), "%Y-%m-%d %H:%M:%S.%f")
-            currentTimeTo = time.strftime("%Y-%m-%dT%H:%M:%S.000Z",currentTimeTo)
-            currentTimeFrom = shop_data.last_ebay_messages_import
-            currentTime = datetime.datetime.strptime(currentTimeTo, "%Y-%m-%dT%H:%M:%S.000Z")
-            if not currentTimeFrom:
-                now = currentTime - datetime.timedelta(days=100)
-                currentTimeFrom = now.strftime("%Y-%m-%dT%H:%M:%S.000Z")
-            else:
-                currentTimeFrom = time.strptime(currentTimeFrom, "%Y-%m-%d %H:%M:%S")
-                now = currentTime - datetime.timedelta(days=5)
-                currentTimeFrom = now.strftime("%Y-%m-%dT%H:%M:%S.000Z")
-        pageNo = 1
-        while True:
-            results = connection_obj.call(inst_lnk, 'GetMemberMessages',currentTimeFrom,currentTimeTo,pageNo)
-            pageNo = pageNo + 1
-            if results:
-                for result in results:
-                    if not result:
-                        continue
-                    if result:
-                        partner_ids = partner_obj.search([('ebay_user_id', '=', result.get('SenderID'))])
-                        if len(partner_ids):
-                            msg_vals = {
-                            'res_id' : partner_ids[0].id,
-                            'model' : 'res.partner',
-                            'record_name' : partner_ids[0].name,
-                             'body' : result.get('Body')
-                            }
-                            mail_ids = mail_msg_obj.search([('res_id', '=', partner_ids[0])])
-                            if len(mail_ids):
-                                mail_id = mail_ids[0].id
-                            else:
-                                mail_id = mail_msg_obj.create(msg_vals)
-                            self._cr.commit()
-            sale_shop_obj.write({'last_ebay_messages_import' : currentTimeTo})        
-        return True
-    
+#
+#     @api.multi
+#     def import_ebay_customer_messages(self):
+#         '''
+#         This function is used to Import Ebay customer messages
+#         parameters:
+#            No Parameter
+#         '''
+#         context = self._context.copy()
+#         connection_obj = self.env['ebayerp.osv']
+#         mail_obj = self.env['mail.thread']
+#         mail_msg_obj = self.env['mail.message']
+#         partner_obj = self.env['res.partner']
+#         sale_shop_obj = self.env['sale.shop']
+#         shop_obj = self
+#         inst_lnk = shop_obj.instance_id
+# #
+#         for id in self:
+#             shop_data = self.browse(id)
+#             inst_lnk = shop_data.instance_id
+#
+#             currentTimeTo = datetime.datetime.utcnow()
+#             currentTimeTo = time.strptime(str(currentTimeTo), "%Y-%m-%d %H:%M:%S.%f")
+#             currentTimeTo = time.strftime("%Y-%m-%dT%H:%M:%S.000Z",currentTimeTo)
+#             currentTimeFrom = shop_data.last_ebay_messages_import
+#             currentTime = datetime.datetime.strptime(currentTimeTo, "%Y-%m-%dT%H:%M:%S.000Z")
+#             if not currentTimeFrom:
+#                 now = currentTime - datetime.timedelta(days=100)
+#                 currentTimeFrom = now.strftime("%Y-%m-%dT%H:%M:%S.000Z")
+#             else:
+#                 currentTimeFrom = time.strptime(currentTimeFrom, "%Y-%m-%d %H:%M:%S")
+#                 now = currentTime - datetime.timedelta(days=5)
+#                 currentTimeFrom = now.strftime("%Y-%m-%dT%H:%M:%S.000Z")
+#         pageNo = 1
+#         while True:
+#             results = connection_obj.call(inst_lnk, 'GetMemberMessages',currentTimeFrom,currentTimeTo,pageNo)
+#             pageNo = pageNo + 1
+#             if results:
+#                 for result in results:
+#                     if not result:
+#                         continue
+#                     if result:
+#                         partner_ids = partner_obj.search([('ebay_user_id', '=', result.get('SenderID'))])
+#                         if len(partner_ids):
+#                             msg_vals = {
+#                             'res_id' : partner_ids[0].id,
+#                             'model' : 'res.partner',
+#                             'record_name' : partner_ids[0].name,
+#                              'body' : result.get('Body')
+#                             }
+#                             mail_ids = mail_msg_obj.search([('res_id', '=', partner_ids[0])])
+#                             if len(mail_ids):
+#                                 mail_id = mail_ids[0].id
+#                             else:
+#                                 mail_id = mail_msg_obj.create(msg_vals)
+#                             self._cr.commit()
+#             sale_shop_obj.write({'last_ebay_messages_import' : currentTimeTo})
+#         return True
+#
     
     @api.multi
     def import_listing_csv_ebay(self):
@@ -1216,7 +1216,9 @@ class sale_shop(models.Model):
                 querystring = {"return_state": "RETURN_STARTED"}
 
                 # payload = "\n}\n"
-                token = "TOKEN "+shop_obj.instance_id.auth_n_auth_token
+                # token = "TOKEN "+shop_obj.instance_id.auth_token
+                token = "TOKEN "+shop_obj.instance_id.auth_token
+
                 headers = {
                     'authorization': token,
                     'x-ebay-c-marketplace-id': "EBAY_GB",
@@ -1226,7 +1228,7 @@ class sale_shop(models.Model):
 
                 response = requests.request("GET", url, headers=headers, params=querystring)
 
-                # print("-----response----",response.text)
+                print("-----response----",response.text)
 
                 # results = connection_obj.call(shop_obj.instance_id, 'getUserReturns', shop_obj.instance_id.site_id.site)
                 # results =response.text

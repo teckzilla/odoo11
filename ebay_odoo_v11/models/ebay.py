@@ -25,6 +25,7 @@ from odoo.http import request
 import base64
 import json
 import urllib
+# from urllib.parse import urlparse
 from datetime import datetime, timedelta
 import requests
 import logging
@@ -99,8 +100,9 @@ class sales_channel_instance(models.Model):
         # basic=outh.encode("utf-8")
         basic=base64.b64encode(outh.encode('utf-8'))
         scope = "https://api.ebay.com/oauth/api_scope https://api.ebay.com/oauth/api_scope/sell.marketing.readonly https://api.ebay.com/oauth/api_scope/sell.marketing https://api.ebay.com/oauth/api_scope/sell.inventory.readonly https://api.ebay.com/oauth/api_scope/sell.inventory https://api.ebay.com/oauth/api_scope/sell.account.readonly https://api.ebay.com/oauth/api_scope/sell.account https://api.ebay.com/oauth/api_scope/sell.fulfillment.readonly https://api.ebay.com/oauth/api_scope/sell.fulfillment https://api.ebay.com/oauth/api_scope/sell.analytics.readonly"
+        # scope = "https://api.ebay.com/oauth/api_scope https://api.ebay.com/oauth/api_scope/sell.marketing.readonly https://api.ebay.com/oauth/api_scope/sell.marketing https://api.ebay.com/oauth/api_scope/sell.inventory.readonly https://api.ebay.com/oauth/api_scope/sell.inventory https://api.ebay.com/oauth/api_scope/sell.account.readonly https://api.ebay.com/oauth/api_scope/sell.account https://api.ebay.com/oauth/api_scope/sell.fulfillment.readonly https://api.ebay.com/oauth/api_scope/sell.fulfillment https://api.ebay.com/oauth/api_scope/sell.analytics.readonly https://api.ebay.com/oauth/api_scope/buy.order.readonly https://api.ebay.com/oauth/api_scope/buy.guest.order https://api.ebay.com/oauth/api_scope/buy.item.feed https://api.ebay.com/oauth/api_scope/buy.marketing"
         # final_scope = urllib.quote(scope)
-        final_scope=urllib.parse.quote_plus(scope)
+        final_scope=urllib.parse.quote(scope)
         request_url = 'https://api.ebay.com/identity/v1/oauth2/token'
         headers = {
             'Content-Type': 'application/x-www-form-urlencoded',

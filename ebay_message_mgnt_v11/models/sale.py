@@ -43,7 +43,7 @@ class sale_shop(models.Model):
         parameters:
            No Parameter
         '''
-        print "ibnmmmmmmmmmmmmmmm innnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn"
+        print ("ibnmmmmmmmmmmmmmmm innnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn")
         connection_obj = self.env['ebayerp.osv']
         mail_obj =self.env['mail.thread']
         mail_msg_obj = self.env['mail.message']
@@ -73,14 +73,14 @@ class sale_shop(models.Model):
         pageNo = 1
         data = True
         while data:
-            print "hhhhhhhhhhh"
+
             results = connection_obj.call(inst_lnk, 'GetMemberMessages',currentTimeFrom,currentTimeTo,pageNo)
-            print "=====results==>",results
+
             if not results:
                 data = False
-                print "===========i m innnnnnnnnnn"
+
                 continue
-            print "=====results======>",results
+
             pageNo = pageNo + 1
 #                for testing
 #                results.append({
@@ -92,7 +92,7 @@ class sale_shop(models.Model):
 #                                'Body' : "Test For Available sender Id Type of MESSAGES",
 #                                'ItemID' : "261698035031"
 #                            })
-            print"resultsresultsresultsresultsresultsresultsresultsresultsresults",results
+
             if results:
                 for msg in results:
                     if msg:
@@ -122,14 +122,14 @@ class sale_shop(models.Model):
                         }
 #                            m_ids = message_obj.search(cr, uid, [('message_id','=', msg['MessageID'])])
                         m_ids = message_obj.search([('message_id','=',msg.get('MessageID'))])
-                        print "====m_ids==>",m_ids
+
 
                         if not m_ids:
                             # self._context.update({'ebay' : True})
                             m_id = message_obj.create(msg_vals)
                             self._cr.commit()
                         else:
-                            print"message already available in ebay messages"
+
                             msg_vals = {
                             'res_id' : m_ids[0].id,
                             'model' : 'ebay.messages',
@@ -207,7 +207,7 @@ class sale_shop(models.Model):
                         }
                         m_ids = message_obj.search([('message_id','=', msg['MessageID'])])
                         if not m_ids:
-                            print "***",message_obj.create(msg_vals)
+
                             self._cr.commit()
         self.write({'last_ebay_messages_import' : currentTimeTo})
         return True
@@ -234,7 +234,8 @@ class mail_message(models.Model):
         partners = self.env['res.partner'].sudo()
         attachments = self.env['ir.attachment']
         trackings = self.env['mail.tracking.value']
-        for key, message in message_tree.iteritems():
+        # for key, message in message_tree.iteritems():
+        for key, message in message_tree.items():
             if message.author_id:
                 partners |= message.author_id
             if message.subtype_id and message.partner_ids:  # take notified people of message with a subtype
@@ -299,7 +300,7 @@ class mail_message(models.Model):
                 if tracking_value.id in tracking_tree:
                     tracking_value_ids.append(tracking_tree[tracking_value.id])
 
-            print "=====partner_ids====>", partner_ids
+
             if self._context.get('default_model') == 'ebay.messages' and self._context.get('default_res_id') and not self._context.get(
                     'mail_post_autofollow') == True:
                 message_obj = self.env['ebay.messages']
@@ -307,10 +308,10 @@ class mail_message(models.Model):
                 mail_obj = self.env['mail.message']
                 mail_data = mail_obj.browse(message_id)
                 if mail_data.message_id_log == False or mail_data.is_reply == True:
-                    print"in hereeeeeeeeeee"
+
                     partner_ids = [(obj.sender.id, obj.sender.name)]
                 else:
-                    print"in thrrrrrrrrrrrrrr"
+
                     partner_ids = [(obj.recipient_user_id.id, obj.recipient_user_id.name)]
 
             if self._context.get('mail_post_autofollow') == True and self._context.get(
@@ -336,7 +337,7 @@ class mail_message(models.Model):
     @api.model
     def create(self,values):
         message_obj = self.env['ebay.messages']
-        print"=========context===>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>",self._context, values
+
         if self._context.get('ebay'):
             if values.get('res_id'):
                 msg_data = message_obj.browse( values.get('res_id'))

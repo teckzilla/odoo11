@@ -22,7 +22,7 @@
 {
     "name" : "Ebay Messaging",
     "version" : "1.1.1",
-    "depends" : ['ebay_odoo_v10'],
+    "depends" : ['ebay_odoo_v11'],
     "author" : "TeckZilla",
     "description": """
        Messaging management:
@@ -36,9 +36,9 @@
     "demo" : [],
     "data" : [
         'wizard/compose_message_view.xml',
-        'sale_view.xml',
-        'ebay_messages_view.xml',
-        'ebay_msg_data.xml'
+        'views/sale_view.xml',
+        'views/ebay_messages_view.xml',
+        # 'views/ebay_msg_data.xml'
     ],
     'auto_install': False,
     "installable": True,

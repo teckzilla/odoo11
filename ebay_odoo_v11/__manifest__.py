@@ -47,7 +47,6 @@
             'wizard/relist_item_view.xml',
             'data/return_cron.xml',
             'wizard/refund_order_view.xml',
-            'view/product_view.xml',
             'view/ebay_view.xml',
             'view/product_images_view.xml',
             'view/stock_view.xml',
@@ -59,7 +58,8 @@
             'view/template_view.xml',
             'view/ebay_data.xml',
             'view/ebay_oauth_view.xml',
-            'view/oauth_thank_you_template.xml'
+            'view/oauth_thank_you_template.xml',
+            'view/product_view.xml'
             # 'wizard/update_marketplace_price_view.xml',
 #            'channel2.csv'
     ],

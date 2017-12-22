@@ -20,14 +20,16 @@
 #
 ##############################################################################
 from odoo import api, fields, models, _
-
+from importlib import reload
 import sys
 reload(sys)
-sys.setdefaultencoding( "latin-1" )
+# sys.setdefaultencoding( "latin-1" )
 sys.getdefaultencoding()
 
 import logging
-from odoo.addons.ebay_odoo_v10.models.ebayerp_osv import Call, Session
+# sys.path.append("/odoo/custom/addons/ebay_odoo_v11/models")
+# from ebayerp_osv import Call, Session
+from odoo11.ebay_odoo_v11.models.ebayerp_osv import Call, Session
 logger= logging.getLogger('ebayerp_osv')
 
 class GetMemberMessages:
@@ -74,29 +76,43 @@ class GetMemberMessages:
         api = Call()
         api.Session = self.Session
         
+        # api.RequestData = """
+        #     <?xml version="1.0" encoding="utf-8"?>
+        #     <GetMemberMessagesRequest xmlns="urn:ebay:apis:eBLBaseComponents">
+        #       <RequesterCredentials>
+        #         <eBayAuthToken>%(token)s</eBayAuthToken>
+        #       </RequesterCredentials>
+        #       <WarningLevel>High</WarningLevel>
+        #       <MailMessageType>All</MailMessageType>
+        #       <MessageStatus>Unanswered</MessageStatus>
+        #       <StartCreationTime>%(startTime)s</StartCreationTime>
+        #       <EndCreationTime>%(endTime)s</EndCreationTime>
+        #       <Pagination>
+        #         <EntriesPerPage>200</EntriesPerPage>
+        #         <PageNumber>%(pageNo)s</PageNumber>
+        #       </Pagination>
+        #     </GetMemberMessagesRequest>"""
+
         api.RequestData = """
-            <?xml version="1.0" encoding="utf-8"?>
-            <GetMemberMessagesRequest xmlns="urn:ebay:apis:eBLBaseComponents">
-              <RequesterCredentials>
-                <eBayAuthToken>%(token)s</eBayAuthToken>
-              </RequesterCredentials>
-              <WarningLevel>High</WarningLevel>
-              <MailMessageType>All</MailMessageType>
-              <MessageStatus>Unanswered</MessageStatus>
-              <StartCreationTime>%(startTime)s</StartCreationTime>
-              <EndCreationTime>%(endTime)s</EndCreationTime>
-              <Pagination>
-                <EntriesPerPage>200</EntriesPerPage>
-                <PageNumber>%(pageNo)s</PageNumber>
-              </Pagination>
-            </GetMemberMessagesRequest>"""
+                    <?xml version="1.0" encoding="utf-8"?>
+                    <GetMemberMessagesRequest xmlns="urn:ebay:apis:eBLBaseComponents">                
+                      <WarningLevel>High</WarningLevel>
+                      <MailMessageType>All</MailMessageType>
+                      <MessageStatus>Unanswered</MessageStatus>
+                      <StartCreationTime>%(startTime)s</StartCreationTime>
+                      <EndCreationTime>%(endTime)s</EndCreationTime>
+                      <Pagination>
+                        <EntriesPerPage>200</EntriesPerPage>
+                        <PageNumber>%(pageNo)s</PageNumber>
+                      </Pagination>
+                    </GetMemberMessagesRequest>"""
         
-        api.RequestData = api.RequestData % { 'token': self.Session.Token.encode("utf-8"),
+        api.RequestData = api.RequestData % {
                                               'startTime': timeFrom,
                                               'pageNo': pageNo,
                                               'endTime': timeTo,
                                              }
-        print "======api.RequestData======>",api.RequestData
+        print ("======api.RequestData======>",api.RequestData)
         responseDOM = api.MakeCall("getmembermessages")
         Sender_msg_data = self.getMemberDetails(responseDOM.getElementsByTagName('MemberMessage'))
         
@@ -135,9 +151,6 @@ class AddMemberMessageRTQ:
         api.RequestData = """
             <?xml version="1.0" encoding="utf-8"?>
             <AddMemberMessageRTQRequest xmlns="urn:ebay:apis:eBLBaseComponents">
-              <RequesterCredentials>
-                <eBayAuthToken>%(token)s</eBayAuthToken>
-              </RequesterCredentials>
               <ItemID>%(itemid)s</ItemID>
               <MemberMessage>
                 <Body>
@@ -151,17 +164,17 @@ class AddMemberMessageRTQ:
             </AddMemberMessageRTQRequest>
             """
         
-        api.RequestData = api.RequestData % { 'token': self.Session.Token.encode("utf-8"),
+        api.RequestData = api.RequestData % {
                                               'itemid': item_id,
                                               'body': body,
                                               'r_id': r_id,
                                               'm_id': m_id,
                                              }
-        print "===api.RequestData===>",api.RequestData
+        print ("===api.RequestData===>",api.RequestData)
         responseDOM = api.MakeCall("AddMemberMessageRTQ")
         xml = responseDOM.toprettyxml()
         Sender_msg_data = self.getMemmberReply(responseDOM.getElementsByTagName('AddMemberMessageRTQResponse'))
-        print"=============Sender_msg_data======",Sender_msg_data
+        print("=============Sender_msg_data======",Sender_msg_data)
         """ force garbage collection of the DOM object """
         responseDOM.unlink()
         return Sender_msg_data
@@ -244,16 +257,13 @@ class GetMyMessages:
                 api.RequestData = """
                     <?xml version="1.0" encoding="utf-8"?>
                     <GetMyMessagesRequest xmlns="urn:ebay:apis:eBLBaseComponents">
-                      <DetailLevel>ReturnMessages</DetailLevel> 
-                      <RequesterCredentials>
-                        <eBayAuthToken>%(token)s</eBayAuthToken>
-                      </RequesterCredentials>
+                      <DetailLevel>ReturnMessages</DetailLevel>                      
                       <MessageIDs> 
                         %(msges)s
                       </MessageIDs> 
                     </GetMyMessagesRequest>
                 """
-                api.RequestData = api.RequestData % { 'token': self.Session.Token.encode("utf-8"), 'msges' : msges,}
+                api.RequestData = api.RequestData % {'msges' : msges}
                 cnt = cnt + 10
                 responseDOM = api.MakeCall("GetMyMessages")
                 data = self.getmyDetails(responseDOM.getElementsByTagName('Messages'), msg_id)
@@ -262,16 +272,13 @@ class GetMyMessages:
             api.RequestData = """
                 <?xml version="1.0" encoding="utf-8"?>
                 <GetMyMessagesRequest xmlns="urn:ebay:apis:eBLBaseComponents">
-                  <RequesterCredentials>
-                    <eBayAuthToken>%(token)s</eBayAuthToken>
-                  </RequesterCredentials>
                    <StartTime>2015-06-23T12:34:42.000Z</StartTime>
                    <EndTime>%(etime)s</EndTime>
                   <WarningLevel>High</WarningLevel>
                   <DetailLevel>ReturnHeaders</DetailLevel>
                 </GetMyMessagesRequest>
             """
-            api.RequestData = api.RequestData % { 'token': self.Session.Token.encode("utf-8"), 'stime' : timeFrom, 'etime' : endtime}
+            api.RequestData = api.RequestData % {'stime' : timeFrom, 'etime' : endtime}
             responseDOM = api.MakeCall("GetMyMessages")
             Sender_msg_data = self.getmyDetails(responseDOM.getElementsByTagName('Messages'), msg_id)
         """ force garbage collection of the DOM object """

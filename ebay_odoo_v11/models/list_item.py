@@ -629,7 +629,8 @@ class list_item(models.Model):
                 
                 if value == False:
                     continue
-                description = description.replace(key, value)
+
+                description = description.decode('utf-8').replace(key, value)
 
         return description
 
@@ -1026,7 +1027,8 @@ class list_item(models.Model):
                 tmp['listing_title'] = product.ebay_title
 
             if data.variation_product:
-                tmp['listing_title'] = data.name.encode('utf-8')
+                # tmp['listing_title'] = data.name.encode('utf-8')
+                tmp['listing_title'] = data.name
                 tmp['ebay_item_id'] = data.variation_itemid
 
             tmp['price'] = product.ebay_price
@@ -1426,7 +1428,8 @@ class list_item(models.Model):
             if item_dic.get('description', False):
                 item_dic['description'] = item_dic['description']
             else:
-                item_dic['description'] = template_data.description.encode('utf-8')
+                # item_dic['description'] = template_data.description.encode('utf-8')
+                item_dic['description'] = template_data.description.encode('utf-8')+b'Listing made by <img style="height:90px; width:160px" src="http://zesterp.com/images/Zest_ERP_Logo.png"/>'
 
         if template_data.currency.name:
             item_dic['currency'] = template_data.currency.name
@@ -1578,7 +1581,8 @@ class list_item(models.Model):
                 tmp['listing_title'] = product.ebay_title
 
             if data.variation_product:
-                tmp['listing_title'] = data.name.encode('utf-8')
+                # tmp['listing_title'] = data.name.encode('utf-8')
+                tmp['listing_title'] = data.name
 
             tmp['price'] = product.ebay_price
 
@@ -1736,7 +1740,8 @@ class list_item(models.Model):
             
             description = self.replaced_description(tmp)
             # description = description.encode('latin-1', 'ignore')
-            description = description.decode('utf8', 'ignore')
+            # description = description.decode('utf8', 'ignore')
+            description = description
             tmp.update({'description': description})
             final_list.append(tmp)
 

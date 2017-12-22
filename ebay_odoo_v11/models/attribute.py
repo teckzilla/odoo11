@@ -84,7 +84,7 @@ class product_attribute_set(models.Model):
 
             response=api.execute('UploadSiteHostedPictures', pictureData, files=files)
             print(response.dict())
-            json.dump(api)
+            json.dumps(api)
 
 
         except ConnectionError as e:

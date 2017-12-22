@@ -5,7 +5,7 @@
         <record model="ir.ui.view" id="sale_cahnnel_ebay_shop_message_view">
             <field name="name">sale.cahnnel.ebay.shop.message.view</field>
             <field name="model">sale.shop</field>
-            <field name="inherit_id" ref="ebay_odoo_v10.sale_cahnnel_ebay_shop_view"/>
+            <field name="inherit_id" ref="ebay_odoo_v11.sale_cahnnel_ebay_shop_view"/>
             <field name="arch" type="xml">
                 <xpath expr="//group[@name='listing']" position="after">
                     <group name="Ebay messages">

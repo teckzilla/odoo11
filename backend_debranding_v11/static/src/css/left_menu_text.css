@@ -1,0 +1,21 @@
+/* for main menu*/
+.o_web_client > .o_main .o_sub_menu .o_sub_menu_content .oe_secondary_menu_section{
+  color: #000000;
+}
+/* submenu*/
+
+.o_web_client > .o_main .o_sub_menu .o_sub_menu_content .oe_secondary_submenu > li:not(.active) > a{
+  color: #000000;
+}
+
+a{
+  color:#000000;
+}
+
+.nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus {
+background-color:#000000;
+}
+
+body{
+color:#000000;
+}

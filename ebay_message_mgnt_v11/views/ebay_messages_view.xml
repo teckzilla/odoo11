@@ -114,8 +114,9 @@
         </record>
 
         <!--<menuitem action="action_ebay_messages" id="menu_ebay_msges" parent="base.menu_sales"/>-->
-        <menuitem name="Ebay Messages" id="menu_ebay_msges" parent="sales_team.menu_sales"/>
-        
+        <!--<menuitem name="Ebay Messages" id="menu_ebay_msges" parent="sales_team.menu_sales"/>-->
+        <menuitem name="Ebay Messages" id="menu_ebay_msges" parent="sale.sale_order_menu"/>
+
         
         <menuitem action="action_ebay_messages_unassigned" id="menu_ebay_msges_unassigned" parent="menu_ebay_msges"/>
         <menuitem action="action_ebay_messages_pending" id="menu_ebay_msges_pending" parent="menu_ebay_msges"/>

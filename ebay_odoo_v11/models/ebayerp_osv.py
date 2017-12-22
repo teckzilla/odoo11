@@ -21,7 +21,11 @@
 import sys
 from importlib import reload
 import base64
-
+from requests import Request, Session
+import requests
+import json
+from ebaysdk.exception import ConnectionError
+from ebaysdk.trading import Connection as Trading
 reload(sys)
 # not neede in python3 setdefaultencoding(latin)
 # sys.setdefaultencoding( "latin-1" )
@@ -78,25 +82,50 @@ class Session:
 class Call:
     """ # just a stub """
     RequestData = "<xml />"
+    Data=""
+    File=""
     DetailLevel = "0"
     SiteID = "0"
+
 
     def MakeCall(self, CallName):
         """specify the connection to the eBay Sandbox environment
         # TODO: Make this configurable in eBay.ini (sandbox/production)
         """
         # conn = httplib.HTTPSConnection(self.Session.Server)
+        self.request = None
+        self.session=requests.session()
+        response1=''
         conn = http.client.HTTPSConnection(self.Session.Server)
         if CallName == 'UploadSiteHostedPictures':
-            conn.request("POST", self.Session.Command, self.RequestData,
-                         self.GenerateHeaders_upload_picture(self.Session, CallName, len(self.RequestData)))
+            # conn.request("POST", self.Session.Command, self.RequestData,
+            #              self.GenerateHeaders_upload_picture(self.Session, CallName, len(self.RequestData)))
+            request=Request("POST",
+                    'https://api.ebay.com/ws/api.dll',
+                    data=self.Data,
+                    headers=self.GenerateHeaders_upload_picture(self.Session, CallName, len(self.RequestData)),
+                    files=self.File,
+                    )
+            self.request=request.prepare()
+            response1 =  self.session.send(self.request,
+                                              verify=True,
+                                              allow_redirects=True
+                                              )
         else:
             conn.request("POST", self.Session.Command, self.RequestData, self.GenerateHeaders(self.Session, CallName))
-        response = conn.getresponse()
-        """store the response data and close the connection
-        """
-        data = response.read()
+
+
+        data=''
+        if response1:
+            if response1.status_code == requests.codes.ok:
+                data = response1.text
+        else:
+            response = conn.getresponse()
+            """store the response data and close the connection
+            """
+            data = response.read()
         print("----------data------", data)
+
         conn.close()
         responseDOM = parseString(data)
 
@@ -111,16 +140,27 @@ class Call:
         return responseDOM
 
     def GenerateHeaders_upload_picture(self, Session, CallName, length):
+        # headers = {
+        #     "Content-Type": "multipart/form-data; boundary=MIME_boundary",
+        #     "Content-Length": length,
+        #     "X-EBAY-API-COMPATIBILITY-LEVEL": "747",
+        #     "X-EBAY-API-DEV-NAME": Session.Developer,
+        #     "X-EBAY-API-IAF-TOKEN": Session.Token,
+        #     "X-EBAY-API-APP-NAME": Session.Application,
+        #     "X-EBAY-API-CERT-NAME": Session.Certificate,
+        #     "X-EBAY-API-CALL-NAME": CallName,
+        #     "X-EBAY-API-SITEID": self.SiteID,
+        #
+        # }
         headers = {
-            "Content-Type": "multipart/form-data; boundary=MIME_boundary",
-            "Content-Length": length,
-            "X-EBAY-API-COMPATIBILITY-LEVEL": "747",
-            "X-EBAY-API-DEV-NAME": Session.Developer,
-            "X-EBAY-API-IAF-TOKEN": Session.Token,
-            "X-EBAY-API-APP-NAME": Session.Application,
-            "X-EBAY-API-CERT-NAME": Session.Certificate,
-            "X-EBAY-API-CALL-NAME": CallName,
-            "X-EBAY-API-SITEID": self.SiteID,
+                      "X-EBAY-API-COMPATIBILITY-LEVEL": "747",
+                      "X-EBAY-API-DEV-NAME": Session.Developer,
+                      "X-EBAY-API-IAF-TOKEN": Session.Token,
+                      "X-EBAY-API-APP-NAME": Session.Application,
+                      "X-EBAY-API-CERT-NAME": Session.Certificate,
+                      "User-Agent": 'eBaySDK/2.1.5 Python/3.5.2 Linux/4.4.0-104-generic',
+                      "X-EBAY-API-CALL-NAME": CallName,
+                      "X-EBAY-API-SITEID": self.SiteID,
 
         }
         logger.info('headers====GenerateHeaders_upload_picture====%s', headers)
@@ -2787,55 +2827,94 @@ class UploadSiteHostedPictures:
         multiPartImageData=base64.b64encode(multiPartImageData)
         multiPartImageData=multiPartImageData.decode()
         uploading_image.close()
-        string1 = "--MIME_boundary"
-        string2 = "Content-Disposition: form-data; name=\"XML Payload\""
-        string3 = "Content-Type: text/xml;charset=utf-8"
-        string4 = string1 + '\r\n' + string2 + '\r\n' + string3
-        string5 = string4 + '\r\n' + '\r\n'
-        string6 = string5 + "<?xml version='1.0' encoding='utf-8'?>" + '\r\n'
-        string7 = string6 + "<UploadSiteHostedPicturesRequest xmlns=\"urn:ebay:apis:eBLBaseComponents\">" + '\r\n'
-        string8 = string7 + "<Version>747</Version>" + '\r\n'
-        string9 = string8 + "<PictureName>my_pic</PictureName>" + '\r\n'
-        # string17 = string9 + "<RequesterCredentials><eBayAuthToken>" + str(
-        #     self.Session.Token) + "</eBayAuthToken></RequesterCredentials>" + '\r\n'
-        # string11 = string10 + "</UploadSiteHostedPicturesRequest>"+'\r\n'
-        string10 = string9 + "</UploadSiteHostedPicturesRequest>" + '\r\n'
-        string11 = string10 + "--MIME_boundary" + '\r\n'
-        string12 = string11 + "Content-Disposition: form-data; name='dummy'; filename='dummy'" + '\r\n'
-        string13 = string12 + "Content-Transfer-Encoding: binary" + '\r\n'
-        string14 = string13 + "Content-Type: application/octet-stream" + '\r\n' + '\r\n'
-        string15 = string14 + str(multiPartImageData) + '\r\n'
-        # string15 = string14+'<PictureData contentType="string">' + str(multiPartImageData) + '\r\n'+'</PictureData>'
-        # multiPartImageData.decode('utf-8')
-        string16 = string15 + "--MIME_boundary--" + '\r\n'
-        api.RequestData = string16
-        responseDOM = api.MakeCall("UploadSiteHostedPictures")
+        # string1 = "--MIME_boundary"
+        # string2 = "Content-Disposition: form-data; name=\"XML Payload\""
+        # string3 = "Content-Type: text/xml;charset=utf-8"
+        # string4 = string1 + '\r\n' + string2 + '\r\n' + string3
+        # string5 = string4 + '\r\n' + '\r\n'
+        # string6 = string5 + "<?xml version='1.0' encoding='utf-8'?>" + '\r\n'
+        # string7 = string6 + "<UploadSiteHostedPicturesRequest xmlns=\"urn:ebay:apis:eBLBaseComponents\">" + '\r\n'
+        # string8 = string7 + "<Version>747</Version>" + '\r\n'
+        # string9 = string8 + "<PictureName>my_pic</PictureName>" + '\r\n'
+        # # string17 = string9 + "<RequesterCredentials><eBayAuthToken>" + str(
+        # #     self.Session.Token) + "</eBayAuthToken></RequesterCredentials>" + '\r\n'
+        # # string11 = string10 + "</UploadSiteHostedPicturesRequest>"+'\r\n'
+        # string10 = string9 + "</UploadSiteHostedPicturesRequest>" + '\r\n'
+        # string11 = string10 + "--MIME_boundary" + '\r\n'
+        # string12 = string11 + "Content-Disposition: form-data; name='dummy'; filename='dummy'" + '\r\n'
+        # string13 = string12 + "Content-Transfer-Encoding: binary" + '\r\n'
+        # string14 = string13 + "Content-Type: application/octet-stream" + '\r\n' + '\r\n'
+        # string15 = string14 + str(multiPartImageData) + '\r\n'
+        # # string15 = string14+'<PictureData contentType="string">' + str(multiPartImageData) + '\r\n'+'</PictureData>'
+        # # multiPartImageData.decode('utf-8')
+        # string16 = string15 + "--MIME_boundary--" + '\r\n'
+        # api.RequestData = string16
+        # responseDOM = api.MakeCall("UploadSiteHostedPictures")
+        #
 
+        string='<?xml version=\'1.0\' encoding=\'utf-8\'?><UploadSiteHostedPicturesRequest xmlns="urn:ebay:apis:eBLBaseComponents"><PictureName>'
+        api.Data={'XMLPayload': string+filename.split('/')[-2]+'</PictureName><WarningLevel>High</WarningLevel></UploadSiteHostedPicturesRequest>'}
+        api.File = {'file': ('EbayImage', open(filename, 'rb'))}
+        responseDOM = api.MakeCall("UploadSiteHostedPictures")
         Dictionary = {}
-        if responseDOM.getElementsByTagName('Ack')[0].childNodes[0].data == 'Success':
-            ack = responseDOM.getElementsByTagName('Ack')[0].childNodes[0].data
-            Dictionary.update({'Ack': ack})
-            full_url = self.geturl(responseDOM.getElementsByTagName('SiteHostedPictureDetails'))
-            Dictionary.update({'FullURL': full_url})
-        elif responseDOM.getElementsByTagName('Ack')[0].childNodes[0].data == 'Warning':
-            ack = responseDOM.getElementsByTagName('Ack')[0].childNodes[0].data
-            Dictionary.update({'Ack': ack})
-            full_url = self.geturl(responseDOM.getElementsByTagName('SiteHostedPictureDetails'))
-            Dictionary.update({'FullURL': full_url})
-            many_errors = []
-            for each_error in responseDOM.getElementsByTagName('Errors'):
-                errors = self.geterrors(each_error)
-                many_errors.append(errors)
-            Dictionary.update({'LongMessage': many_errors})
-        elif responseDOM.getElementsByTagName('Ack')[0].childNodes[0].data == 'Failure':
-            ack = responseDOM.getElementsByTagName('Ack')[0].childNodes[0].data
-            Dictionary.update({'Ack': ack})
-            many_errors = []
-            for each_error in responseDOM.getElementsByTagName('Errors'):
-                errors = self.geterrors(each_error)
-                many_errors.append(errors)
-            Dictionary.update({'LongMessage': many_errors})
-        responseDOM.unlink()
+        try:
+
+            # api = Trading(config_file=False, appid='ReviveOn-ZestERP-PRD-05d7504c4-7e62e952',
+            #               token='AgAAAA**AQAAAA**aAAAAA**514uWg**nY+sHZ2PrBmdj6wVnY+sEZ2PrA2dj6AFloCgAJaEogidj6x9nY+seQ**4M8DAA**AAMAAA**pJTxWPk5v7uA4HdkanTFWcUAzgQdjHsD7hreui/eFJdqrxw3PsgdsK+WGP5fY8urMJ9rmIozaeVq5Wh7rU9FchyAwcTYu42LFXXM+7Q/TGo+KhsDuWL2WGz4t4JtuFw4iVJpWWLnkdGNkMed6S+xYjvfSU0XOYKIRnSIcs4JfzK1uwgCuSaUS1ajmH5ZCpVciLjtm9pQvguT4j3odY5CoGh5wsRYMJnjvYvQqCI114Nx65XBmShPKRLVZOfvO6OWYL6bkBhd8grmR3JFYMGj5LZz3Z3lF/Xy7Qdfz9Lpjt49k7TThwXzZw0jjsKCUUJBdfEvFBg/qZcVPreCDgm3h8X3p55e78mBnqV+OQFmIh38Kk1ZKAaYiicOHxRvVxTcZib+6bBB/5Jb1gBYTLDdqYZ6BC0B6TYc49BsOE8yMAe3/VTm0V5SZw0R3WAiyy3Csj7pFy8KN6oxXwLJsC8v2RqqnueejMPp08Vn6kRohh5uoLFSiTdxMoam5Bim/3KLXH7qNeM4y720Rw/FIantaeezF5kVug9Ic/9gq84nXj1rqRfeZfRrr2BofIBF9rjiLmZ5YHHhNKXCMsLctNgCyOosPeMc08jhZIS53ELYqZ/RB8fVCIHXAZyXFy5Vg5D/2YP9T+4NELQjJgYIx2EYh079iNJMxE9jBYOsKQP5qshRuJqOCZvubTFCiJN9e0MPLaaUz5569T2Xxi9QTlSBLuaMNmEGHeFCwGKt31cWgx9oEQroxRKBE7unHGNUY9Ws',
+            #               certid='PRD-5d7504c480f9-39be-4693-bc3c-5485',
+            #               devid='12b0abb8-96e5-4f07-b012-97081166a3a8', warnings=True)
+            # api = Trading(config_file=False, appid=self.Session.Application,
+            #               token=self.Session.Token,
+            #               certid=self.Session.Certificate,
+            #               devid=self.Session.Developer, warnings=True)
+
+
+            # pass in an open file
+            # the Requests module will close the file
+            # files = {'file': ('EbayImage', open(filename, 'rb'))}
+            # # files = {'file': ('EbayImage', uploading_image)}
+            #
+            # pictureData = {
+            #     "WarningLevel": "High",
+            #     "PictureName": filename.split('/')[-2]
+            #
+            # }
+            #
+            # response = api.execute('UploadSiteHostedPictures', pictureData, files=files)
+            # print(response.dict())
+            # # json.dumps(api)
+            # responseDOM=response.dict()
+            #
+
+
+
+            if responseDOM.getElementsByTagName('Ack')[0].childNodes[0].data == 'Success':
+                ack = responseDOM.getElementsByTagName('Ack')[0].childNodes[0].data
+                Dictionary.update({'Ack': ack})
+                full_url = self.geturl(responseDOM.getElementsByTagName('SiteHostedPictureDetails'))
+                Dictionary.update({'FullURL': full_url})
+            elif responseDOM.getElementsByTagName('Ack')[0].childNodes[0].data == 'Warning':
+                ack = responseDOM.getElementsByTagName('Ack')[0].childNodes[0].data
+                Dictionary.update({'Ack': ack})
+                full_url = self.geturl(responseDOM.getElementsByTagName('SiteHostedPictureDetails'))
+                Dictionary.update({'FullURL': full_url})
+                many_errors = []
+                for each_error in responseDOM.getElementsByTagName('Errors'):
+                    errors = self.geterrors(each_error)
+                    many_errors.append(errors)
+                Dictionary.update({'LongMessage': many_errors})
+            elif responseDOM.getElementsByTagName('Ack')[0].childNodes[0].data == 'Failure':
+                ack = responseDOM.getElementsByTagName('Ack')[0].childNodes[0].data
+                Dictionary.update({'Ack': ack})
+                many_errors = []
+                for each_error in responseDOM.getElementsByTagName('Errors'):
+                    errors = self.geterrors(each_error)
+                    many_errors.append(errors)
+                Dictionary.update({'LongMessage': many_errors})
+            responseDOM.unlink()
+        except ConnectionError as e:
+            print(e)
+            print(e.response.dict())
         return Dictionary
 
 
@@ -3116,6 +3195,7 @@ class AddEbayItems:
                     <WarningLevel>High</WarningLevel>%s</AddItemsRequest>""" % (container)
 
         logger.info('api.RequestData=======%s', api.RequestData.encode('utf-8'))
+        api.RequestData= api.RequestData.encode('utf-8')
         responseDOM = api.MakeCall("AddItems")
 
         logger.info('api.RequestData=======%s', responseDOM.toprettyxml())

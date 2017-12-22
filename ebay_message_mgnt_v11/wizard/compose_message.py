@@ -35,7 +35,7 @@ class compose_message(models.TransientModel):
     #     return {'value': value}
     
     def send(self):
-        print "Send messages"
+        print ("Send messages")
 #        mtp = self.pool.get('email.template')
         connection_obj = self.env['ebayerp.osv']
         ebay_msg_obj = self.env['ebay.messages']
@@ -47,7 +47,7 @@ class compose_message(models.TransientModel):
         inst_lnk = shop_data.instance_id
         # wiz_obj = self.browse(cr, uid, ids[0])
         results = connection_obj.call(inst_lnk, 'AddMemberMessageRTQ', self.item_id, self.body, self.sender, self.msg_id)
-        print "======results=====>",results
+        print ("======results=====>",results)
 #        print "****",mtp.send_mail(cr, uid, wiz_obj.template_id.id, context.get('active_id'), context)
 #         ebay_data_msg = ebay_msg_obj.browse(self._context.get('active_id'))
         if results:

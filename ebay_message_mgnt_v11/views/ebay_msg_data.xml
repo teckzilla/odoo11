@@ -34,7 +34,7 @@
         
          <record id="ebay_msg_unassign" model="workflow.activity">
             <field name="wkf_id" ref="wkf_rma_order"/>
-            <field name="name">Soved</field>
+            <field name="name">Solved</field>
             <field name="kind">function</field>
             <field name="action">write({'state':'solved'})</field>
         </record>

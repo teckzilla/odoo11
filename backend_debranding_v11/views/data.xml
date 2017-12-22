@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="default_logo_module" model="ir.config_parameter">
+        <field name="key">backend_debranding_v11.default_logo_module</field>
+        <field name="value">backend_debranding_v11</field>
+    </record>
+    <record id="base.main_partner" model="res.partner">
+        <field name="image"></field>
+    </record>
+</odoo>

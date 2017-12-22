@@ -2,7 +2,5 @@
 # Init Ebay
 #----------------------------------------------------------
 
-import ebayerp_osv
-import ebay_messages
-import sale
-import wizard
+from . import models
+from . import wizard
