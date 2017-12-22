@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+     <record id="view_delivery_carrier_inherit_form_despatch" model="ir.ui.view">
+            <field name="name">delivery.carrier.form.despatch</field>
+            <field name="model">delivery.carrier</field>
+            <field name="inherit_id" ref="base_shipping_v11.view_delivery_carrier_inherit_form" />
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='select_service']" position="after">
+                     <field name="carrier_rates" attrs="{'invisible': [('service_name','!=','Despatch Bay DX'),('service_name','!=','Despatch Bay ParcelForce'),('service_name','!=','Despatch Bay RoyalMail'),('service_name','!=','Despatch Bay Yodel'),('service_name','!=','Despatch Bay DHL')]}"/>
+                </xpath>
+            </field>
+        </record>
+        
+</odoo>

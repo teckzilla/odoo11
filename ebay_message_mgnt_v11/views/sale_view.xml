@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        
+        <record model="ir.ui.view" id="sale_cahnnel_ebay_shop_message_view">
+            <field name="name">sale.cahnnel.ebay.shop.message.view</field>
+            <field name="model">sale.shop</field>
+            <field name="inherit_id" ref="ebay_odoo_v11.sale_cahnnel_ebay_shop_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='listing']" position="after">
+                    <group name="Ebay messages">
+                        <label for="id" string="Messages"/>
+                        <div>
+                            <div name="Messages">
+                                <field name="last_ebay_messages_import" nolabel="1"  class="oe_inline"/>
+                                <button name="import_ebay_customer_messages" string="Import Customer Messages" colspan="1" type="object" class="btn-primary" style="margin-left:10px;"/>
+                            </div>
+                        </div>
+                    </group>
+                </xpath>
+            </field>   
+        </record>
+        
+    </data>
+</openerp>

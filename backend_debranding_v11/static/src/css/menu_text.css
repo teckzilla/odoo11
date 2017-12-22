@@ -1,0 +1,39 @@
+/*.navbar-inverse .navbar-text {
+  color: #660000;
+}*/
+.navbar-inverse .navbar-nav > li > a {
+  color: #ffffff;
+}
+
+.openerp .oe_secondary_menu_section {
+    color:#cc66ff;
+}
+
+/*.openerp .oe_secondary_submenu .oe_menu_text {
+    color:#ffffff;
+}*/
+
+
+.openerp .nav-pills > li.active > a, .openerp a.list-group-item.active > a{
+    background-color: #cc66ff;
+}
+
+.openerp .oe_application a {
+    color:#cc66ff;
+}
+
+
+.openerp .nav-pills > li.active a:hover, .openerp .nav-pills > li.active a:focus,
+.openerp a.list-group-item.active a:hover, .openerp a.list-group-item.active a:focus{
+  background-color: #cc66ff;  
+}
+
+.openerp .badge {
+    background-color: #cc66ff;
+}
+
+.openerp .oe_view_manager table.oe_view_manager_header h2 a{
+    color: #cc66ff;
+}
+
+

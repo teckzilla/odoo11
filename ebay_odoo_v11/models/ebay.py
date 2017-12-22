@@ -25,9 +25,11 @@ from odoo.http import request
 import base64
 import json
 import urllib
+# from urllib.parse import urlparse
 from datetime import datetime, timedelta
 import requests
-
+import logging
+logger = logging.getLogger(__name__)
 
 class sales_channel_instance(models.Model):
     _inherit = 'sales.channel.instance'
@@ -72,6 +74,9 @@ class sales_channel_instance(models.Model):
         }
         state_json = json.dumps(state_dict)
         encoded_params = base64.urlsafe_b64encode(state_json.encode('utf-8'))
+        print ("----encoded_params",encoded_params)
+        encoded_params=encoded_params.decode('utf-8')
+        print("------",encoded_params)
         ebay_outh = self.env['ebay.oauth'].search([])
         if not ebay_outh:
             raise UserError(_("eBay App credentials not found"))
@@ -93,23 +98,24 @@ class sales_channel_instance(models.Model):
         client_secret = self.cert_id
         outh = client_id + ':' + client_secret
         # basic=outh.encode("utf-8")
-        basic=outh
-        # basic = base64.b64encode(outh)
+        basic=base64.b64encode(outh.encode('utf-8'))
         scope = "https://api.ebay.com/oauth/api_scope https://api.ebay.com/oauth/api_scope/sell.marketing.readonly https://api.ebay.com/oauth/api_scope/sell.marketing https://api.ebay.com/oauth/api_scope/sell.inventory.readonly https://api.ebay.com/oauth/api_scope/sell.inventory https://api.ebay.com/oauth/api_scope/sell.account.readonly https://api.ebay.com/oauth/api_scope/sell.account https://api.ebay.com/oauth/api_scope/sell.fulfillment.readonly https://api.ebay.com/oauth/api_scope/sell.fulfillment https://api.ebay.com/oauth/api_scope/sell.analytics.readonly"
+        # scope = "https://api.ebay.com/oauth/api_scope https://api.ebay.com/oauth/api_scope/sell.marketing.readonly https://api.ebay.com/oauth/api_scope/sell.marketing https://api.ebay.com/oauth/api_scope/sell.inventory.readonly https://api.ebay.com/oauth/api_scope/sell.inventory https://api.ebay.com/oauth/api_scope/sell.account.readonly https://api.ebay.com/oauth/api_scope/sell.account https://api.ebay.com/oauth/api_scope/sell.fulfillment.readonly https://api.ebay.com/oauth/api_scope/sell.fulfillment https://api.ebay.com/oauth/api_scope/sell.analytics.readonly https://api.ebay.com/oauth/api_scope/buy.order.readonly https://api.ebay.com/oauth/api_scope/buy.guest.order https://api.ebay.com/oauth/api_scope/buy.item.feed https://api.ebay.com/oauth/api_scope/buy.marketing"
         # final_scope = urllib.quote(scope)
-        final_scope=urllib.parse.quote_plus(scope)
+        final_scope=urllib.parse.quote(scope)
         request_url = 'https://api.ebay.com/identity/v1/oauth2/token'
         headers = {
             'Content-Type': 'application/x-www-form-urlencoded',
-            'Authorization': 'Basic ' + str(basic),
+            'Authorization': 'Basic ' + basic.decode('utf-8'),
         }
         payload = {
             'grant_type': 'refresh_token',
-            'refresh_token': self.refresh_token.encode('utf-8'),
+            'refresh_token': self.refresh_token,
             'scope': scope
         }
         resp = requests.post(url=request_url, data=payload, headers=headers)
-
+        print("--------resp--------",json.loads(resp.text))
+        logger.info("---resp-----%s",json.loads(resp.text))
         if resp.status_code == requests.codes.ok:
             post_data = json.loads(resp.text)
             token = post_data.get('access_token',False)

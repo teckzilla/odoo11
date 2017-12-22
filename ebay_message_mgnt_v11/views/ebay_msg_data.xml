@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+       
+         <record id="wkf_rma_order" model="workflow">
+            <field name="name">wkf_rma_order</field>
+            <field name="osv">ebay.messages</field>
+            <field name="on_create">True</field>
+        </record>
+        
+         <!-- Activity -->
+         
+          <record id="act_rma_order_darft" model="workflow.activity">
+            <field name="wkf_id" ref="wkf_rma_order"/>
+            <field name="flow_start">True</field>
+            <field name="name">draft</field>
+        </record>
+        
+         <record id="ebay_msg_unassign" model="workflow.activity">
+            <field name="wkf_id" ref="wkf_rma_order"/>
+            <field name="name">Unassigned</field>
+            <field name="kind">function</field>
+            <field name="action">write({'state':'Unassigned'})</field>
+        </record>
+        
+         
+        
+         <record id="ebay_msg_unassign" model="workflow.activity">
+            <field name="wkf_id" ref="wkf_rma_order"/>
+            <field name="name">Pending</field>
+            <field name="kind">function</field>
+            <field name="action">write({'state':'pending'})</field>
+        </record>
+        
+         <record id="ebay_msg_unassign" model="workflow.activity">
+            <field name="wkf_id" ref="wkf_rma_order"/>
+            <field name="name">Solved</field>
+            <field name="kind">function</field>
+            <field name="action">write({'state':'solved'})</field>
+        </record>
+        
+       <record id="act_rma_order_darft" model="workflow.activity">
+            <field name="wkf_id" ref="wkf_rma_order"/>
+            <field name="flow_stop">True</field>
+            <field name="name">cancel</field>
+        </record>
+        
+    </data>
+</openerp>

@@ -122,6 +122,7 @@ class ebay_product_listing(models.Model):
         ('1750', 'New with defects'),
         ('2000', 'Manufacturer refurbished'),
         ('2500', 'Seller refurbished'),
+        ('2750', 'Like New'),
         ('3000', 'Used'),
         ('4000', 'Very Good'),
         ('5000', 'Good'),

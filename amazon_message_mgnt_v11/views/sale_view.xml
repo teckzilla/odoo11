@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        
+        <record model="ir.ui.view" id="sale_cahnnel_amazon_shop_message_view">
+            <field name="name">sale.cahnnel.amazon.shop.message.view</field>
+            <field name="model">sale.shop</field>
+            <field name="inherit_id" ref="base_ecommerce_v11.view_shop_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='Actions']" position="after">
+                    <page name="Amazon Messages" string="Amazon Messages" attrs="{'invisible':[('amazon_shop','!=',True)]}">
+                       <group>
+                            <field name="amazon_shop" invisible="1" />
+                            <field name="fetchmail_id"/>
+                        </group>
+                    </page>
+                </xpath>
+            </field>   
+        </record>
+        
+    </data>
+</odoo>

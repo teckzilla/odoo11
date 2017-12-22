@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+
+
+<odoo>
+    <data>
+
+         <template id="web_web_less_helpers_inherit" inherit_id="web.less_helpers">
+             <xpath expr='//link[@href="/web/static/src/less/variables.less"]' position="replace">
+
+
+        <link rel="stylesheet" type="text/less" href="/Zesterp_Debranding_v11/static/src/less/variables.less"/>
+
+             </xpath>
+    </template>
+ 
+    <template id="web_menu_secondary_inherit" inherit_id="web.menu_secondary" name="Secondary Menu1">
+            <xpath expr="//div[@class='o_sub_menu_footer']" position="replace">
+                <div class="oe_footer">
+                Powered by <a href="http://www.ZestErp.com/" target="_blank"><span>Zest ERP</span></a>
+                </div>
+            </xpath>
+        </template>
+
+        <!--<template id="web_web_layout_inherit" inherit_id="web.layout" name="Web layout">-->
+            <!--<xpath expr="//title" position="replace">-->
+                 <!--<title t-esc="title or 'Zest ERP'"/>-->
+                    <!--</xpath>-->
+                <!--</template>-->
+    </data>
+</odoo>

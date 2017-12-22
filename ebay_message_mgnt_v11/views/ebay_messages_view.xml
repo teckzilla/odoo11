@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="ebay_messages_form_view" model="ir.ui.view">
+            <field name="name">ebay.messages.form.view</field>
+            <field name="model">ebay.messages</field>
+            <field name="arch" type="xml">
+                
+                <form string="Ebay Listing" version="7.0" >
+                    <header>
+                        <button name="reply" string="Reply" type="object" />
+                        
+                        <field name="state" widget="statusbar" statusbar_visible="unassigned,pending,solved" clickable="True" />
+                    
+                    
+                    </header>
+                    <sheet>
+                        <h1>
+                            <label string="Subject : "/>
+                            <field name="name" class="oe_inline"/>
+                        </h1>
+                        <group>
+                            <group>
+                                <field name="message_id" invisible="0"/>
+                                 <field name="sender" />
+                                 <field name="shop_id" />
+                                 <field name="external_msg_id" />
+                                 <field name="assigned_user" />
+                            </group>
+                            <group>
+                                <field name="sender_email" />
+                                <field name="recipient_user_id" />
+                                <field name="item_id" />
+                            </group>
+                        </group>
+                        <group string="Email Body">
+                            <field name="body" colspan="4" nolabel="4"/>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" groups="base.group_user" context="{'done' : True}"/>
+                    <field name="message_ids" widget="mail_thread" />
+                </div>
+                </form>
+            </field>
+         </record>
+         
+         <record id="ebay_messages_tree_view" model="ir.ui.view">
+                <field name="name">ebay.messages.tree.view</field>
+                <field name="model">ebay.messages</field>
+                <field name="arch" type="xml">
+                    <tree string="messages" fonts="bold:message_unread==True" colors="grey:state=='unassigned';blue:state=='solved';red:state=='pending'">
+                        <field name="message_unread" invisible="1"/>
+                        <field name="name"/>
+                        <field name="message_id"/>
+                        <field name="sender"/>
+                        <field name="recipient_user_id"/>
+                        <field name="state"/>
+                    </tree>
+                </field>
+         </record>
+         
+         <record id="ebay_messages_search_view" model="ir.ui.view">
+                <field name="name">ebay.messages.search.view</field>
+                <field name="model">ebay.messages</field>
+                <field name="arch" type="xml">
+                    <search string="messages">
+                        <field name="name" string="Subject" filter_domain="['|',('name','ilike',self),('client_order_ref','ilike',self)]"/>
+                        <field name="message_id" string="Message ID"/>
+                        <field name="sender" string="Sender"/>
+                        <field name="recipient_user_id" string="Recipient"/>
+                        <filter string="New Mail" name="message_unread" domain="[('message_unread','=',True)]"/>
+                        <group expand="0" string="Group By">
+                            <filter string="Sender" domain="[]" context="{'group_by':'sender'}"/>
+                            <filter string="Recipient" domain="[]" context="{'group_by':'recipient_user_id'}"/>
+                        </group>
+                    </search>
+                </field>
+         </record>
+
+<!--        <record id="action_ebay_messages" model="ir.actions.act_window">
+            <field name="name"> Ebay Messages</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">ebay.messages</field>
+            <field name="view_type">form</field>
+        </record>-->
+        
+        <record id="action_ebay_messages_unassigned" model="ir.actions.act_window">
+            <field name="name">Unassigned Messages</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">ebay.messages</field>
+            <field name="view_type">form</field>
+            <field name="domain">[('state','=','unassigned')]</field>
+        </record>
+        
+        
+        
+        <record id="action_ebay_messages_pending" model="ir.actions.act_window">
+            <field name="name">Pending Messages</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">ebay.messages</field>
+            <field name="view_type">form</field>
+            <field name="domain">[('state','=','pending')]</field>
+        </record>
+        
+        
+        <record id="action_ebay_messages_solved" model="ir.actions.act_window">
+            <field name="name">Solved Messages</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">ebay.messages</field>
+            <field name="view_type">form</field>
+            <field name="domain">[('state','=','solved')]</field>
+        </record>
+
+        <!--<menuitem action="action_ebay_messages" id="menu_ebay_msges" parent="base.menu_sales"/>-->
+        <!--<menuitem name="Ebay Messages" id="menu_ebay_msges" parent="sales_team.menu_sales"/>-->
+        <menuitem name="Ebay Messages" id="menu_ebay_msges" parent="sale.sale_order_menu"/>
+
+        
+        <menuitem action="action_ebay_messages_unassigned" id="menu_ebay_msges_unassigned" parent="menu_ebay_msges"/>
+        <menuitem action="action_ebay_messages_pending" id="menu_ebay_msges_pending" parent="menu_ebay_msges"/>
+        <menuitem action="action_ebay_messages_solved" id="menu_ebay_msges_solved" parent="menu_ebay_msges"/>
+        
+     </data>
+</openerp>

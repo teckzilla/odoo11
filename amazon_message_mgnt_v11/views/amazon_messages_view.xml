@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="amazon_messages_form_view" model="ir.ui.view">
+            <field name="name">amazon.messages.form.view</field>
+            <field name="model">amazon.messages</field>
+            <field name="arch" type="xml">
+                
+                <form string="Amazon Listing" version="7.0" >
+                    <header>
+                        <button name="reply" string="Reply" type="object" />
+                        <field name="state" widget="statusbar" statusbar_visible="unassigned,pending,solved" clickable="True" />
+                    </header>
+                    <sheet>
+                        <h1>
+                            <label string="Subject : "/>
+                            <field name="name" class="oe_inline"/>
+                        </h1>
+                        <group>
+                            <group>
+                                <field name="message_id" invisible="0"/>
+                                 <field name="sender" />
+                                 <field name="shop_id"/>
+                            </group>
+                            <group>
+                                <field name="sender_email" />
+                                <field name="recipient_user_id" />
+                                <field name="assigned_user" />
+                            </group>
+                        </group>
+                        <group string="Amazon Body">
+                            <field name="body" colspan="4" nolabel="4" widget="html"/>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+         </record>
+         
+         <record id="amazon_messages_tree_view" model="ir.ui.view">
+                <field name="name">amazon.messages.tree.view</field>
+                <field name="model">amazon.messages</field>
+                <field name="arch" type="xml">
+                    <tree string="messages">
+                        <field name="name"/>
+                        <field name="message_id"/>
+                        <field name="sender"/>
+                        <field name="recipient_user_id"/>
+                        <field name="shop_id"/>
+                        <field name="state"/>
+                    </tree>
+                </field>
+         </record>
+         
+         <record id="amazon_messages_search_view" model="ir.ui.view">
+                <field name="name">amazon.messages.search.view</field>
+                <field name="model">amazon.messages</field>
+                <field name="arch" type="xml">
+                    <search string="messages">
+                        <field name="name" string="Subject" filter_domain="['|',('name','ilike',self),('client_order_ref','ilike',self)]"/>
+                        <field name="message_id" string="Message ID"/>
+                        <field name="sender" string="Sender"/>
+                        <group expand="0" string="Group By">
+                            <filter string="Sender" domain="[]" context="{'group_by':'sender'}"/>
+                            <filter string="Shop" domain="[]" context="{'group_by':'shop_id'}"/>
+                        </group>
+                    </search>
+                </field>
+         </record>
+
+<!--        <record id="action_amazon_messages" model="ir.actions.act_window">
+            <field name="name">Amazon Messages</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">amazon.messages</field>
+            <field name="view_type">form</field>
+        </record>-->
+        
+        <record id="action_amazon_messages_unassigned" model="ir.actions.act_window">
+            <field name="name">Unassigned Messages</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">amazon.messages</field>
+            <field name="view_type">form</field>
+            <field name="domain">[('state','=','unassigned')]</field>
+        </record>
+        
+        
+        
+        <record id="action_amazon_messages_pending" model="ir.actions.act_window">
+            <field name="name">Pending Messages</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">amazon.messages</field>
+            <field name="view_type">form</field>
+            <field name="domain">[('state','=','pending')]</field>
+        </record>
+        
+        
+        <record id="action_amazon_messages_solved" model="ir.actions.act_window">
+            <field name="name">Solved Messages</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">amazon.messages</field>
+            <field name="view_type">form</field>
+            <field name="domain">[('state','=','solved')]</field>
+        </record>
+
+        <menuitem name = "Amazon Messages" id="menu_amazon_msges" parent="sale.sale_order_menu"/>
+        
+        
+        <menuitem action="action_amazon_messages_unassigned" id="menu_amazon_msges_unassigned" parent="menu_amazon_msges"/>
+        <menuitem action="action_amazon_messages_pending" id="menu_amazon_msges_pending" parent="menu_amazon_msges"/>
+        <menuitem action="action_amazon_messages_solved" id="menu_amazon_msges_solved" parent="menu_amazon_msges"/>
+        
+     </data>
+</odoo>

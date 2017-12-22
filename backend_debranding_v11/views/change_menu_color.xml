@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <data>
+        <!--<template id="change_menu_color_branding_css_replace" name="change_menu_color assets" inherit_id="web.assets_common">-->
+            <!--<xpath expr="." position="inside">-->
+                <!--<link rel="stylesheet" href="/backend_debranding_v11/static/src/css/menu.css"/>-->
+            <!--</xpath>-->
+        <!--</template>-->
+        <!--<template id="change_menu_color_css_branding_replace_text" name="change_menu_color assets" inherit_id="web.assets_backend">-->
+            <!--<xpath expr="." position="inside">-->
+                <!--<link rel="stylesheet" href="/backend_debranding_v11/static/src/css/menu_text.css"/>-->
+            <!--</xpath>-->
+        <!--</template>-->
+
+        <template id="change_menu_left_color_css_branding_replace" name="change_menu_color assets" inherit_id="web.assets_common">
+            <xpath expr="." position="inside">
+                <link rel="stylesheet" href="/backend_debranding_v11/static/src/css/left_menu.css"/>
+            </xpath>
+        </template>
+         <template id="change_menu_left_color_css_branding_replace_text" name="change_menu_color assets" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <link rel="stylesheet" href="/backend_debranding_v11/static/src/css/left_menu_text.css"/>
+            </xpath>
+        </template>
+    </data>
+</odoo>
