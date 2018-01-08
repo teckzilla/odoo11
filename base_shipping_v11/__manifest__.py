@@ -36,7 +36,7 @@
 	'currency': 'GBP',
     "data" : [
 
-
+            'views/sequence.xml',
             'security/base_shipping_security.xml',
             'security/ir.model.access.csv',
             'views/stock_picking_view.xml',
@@ -46,6 +46,11 @@
             'wizard/print_picklist_view.xml',
             'wizard/search_pickings_view.xml',
             'views/base_carrier_code_view.xml',
+            'views/manifest_view.xml',
+            'report/base_manifest_report.xml',
+            'report/base_manifest_template.xml',
+            'views/report_paperformat.xml',
+            'views/base_shipping_logs.xml'
 
 
     ],

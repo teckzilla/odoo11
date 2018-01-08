@@ -419,17 +419,17 @@ class mail_message(models.Model):
 
         return True
 
-
+    @api.model
     def create(self, values):
         message_obj = self.env['amazon.messages']
-
+        print("-----values---",values)
         context = self._context
         if context.get('Amazon'):
             if values.get('res_id'):
                 msg_data = message_obj.browse(values.get('res_id'))
 
                 values.update({'author_id' :  msg_data.sender.id})
-        if context.get('default_model') == 'amazon.messages' and context.get('default_res_id') and  context.get('mail_post_autofollow') == True:    
+        if context.get('default_model') == 'amazon.messages' and context.get('default_res_id') and  context.get('mail_post_autofollow') == True:
             msg_data = message_obj.browse(context.get('default_res_id'))
             values.update({'author_id' :  msg_data.recipient_user_id.id})
         if context.get('amazon_reply') and context.get('active_id'):

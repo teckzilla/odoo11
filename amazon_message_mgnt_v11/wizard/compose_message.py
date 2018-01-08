@@ -42,7 +42,7 @@ class compose_amazon_message(models.TransientModel):
     def send(self):
 
         # wiz_obj = self.browse(cr, uid, ids[0])
-        context = self._context
+        context = dict(self._context)
         ir_mail_server = self.env['ir.mail_server']
         mail_msg_obj = self.env['mail.message']
         mail_mail = self.env['mail.mail']
@@ -63,7 +63,8 @@ class compose_amazon_message(models.TransientModel):
     
             msg_id = mail_mail.create(values)
             self._cr.commit()
-            mail_mail.send([msg_id], auto_commit=True, context=context)
+            # mail_mail.send([msg_id], auto_commit=True, context=context)
+            mail_mail.send(msg_id)
             amazon_data_msg = amazon_msg_obj.browse(context.get('active_id'))
             msg_vals = {
                 'res_id' : context.get('active_id'),
@@ -74,9 +75,12 @@ class compose_amazon_message(models.TransientModel):
                  'message_id_log' : amazon_data_msg.message_id,
                  'is_reply_amazon' : True,
             }
-            self._context.update({'amazon_reply' : True})
+
+            # self._context.update({'amazon_reply' : True})
+            context.update({'amazon_reply' : True})
             mail_id = mail_msg_obj.create(msg_vals)
-            amazon_msg_obj.write( [context.get('active_id')], {'state' : 'solved'})
+            # amazon_msg_obj.write( [context.get('active_id')], {'state' : 'solved'})
+            amazon_data_msg.write({'state' : 'solved'})
         return True
         
 
@@ -90,4 +94,4 @@ class compose_amazon_message(models.TransientModel):
     sender = fields.Char('Sender',size=256)
     external_msg_id = fields.Char('ExternalMessageID')
 
-compose_amazon_message()
+# compose_amazon_message()

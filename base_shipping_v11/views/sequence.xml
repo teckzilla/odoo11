@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="sequence_base_manifest_rm" model="ir.sequence">
+            <field name="name">Royal Manifest</field>
+            <field name="code">base.manifest</field>
+            <field name="prefix">MAN/</field>
+            <field name="padding">4</field>
+        </record>
+
+    </data>
+</odoo>

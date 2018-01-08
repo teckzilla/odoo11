@@ -49,16 +49,27 @@ class update_base_picking(models.TransientModel):
 
     @api.multi
     def get_yodel_shipping_details(self, picking):
+        log_obj=self.env['base.shipping.logs']
         details = {}
         product_dict = []
         if not picking.carrier_id:
             picking.faulty = True
             picking.write({'error_log': 'Please define Delivery Method'})
+            log_obj.create({
+                'date':datetime.datetime.now(),
+                'picking_id':picking.id,
+                'message':'Please define Delivery Method'
+            })
             return {}
         if picking.carrier_id:
             if not picking.carrier_id.base_carrier_code:
                 picking.faulty = True
                 picking.write({'error_log': 'Please define Tariff code for Yodel in delivery method'})
+                log_obj.create({
+                    'date': datetime.datetime.now(),
+                    'picking_id': picking.id,
+                    'message': 'Please define Tariff code for Yodel in delivery method'
+                })
                 return {}
             else:
                 details['tariff_code'] = str(picking.carrier_id.base_carrier_code.name) or ''
@@ -267,16 +278,17 @@ class update_base_picking(models.TransientModel):
         details['next_date'] = str(next_date) or ''
         details['product_dict'] = product_dict or ''
 
-        if not note:
-            picking.faulty = True
-            picking.write({'error_log': 'Please Enter Note in delivery order.'})
-            return {}
-        else:
-            details['note'] = str(note) or ''
+
+        details['note'] = str(note) or ''
 
         if not company_street and not company_street2:
             picking.faulty = True
             picking.write({'error_log': 'Please Enter full address of the company : Street'})
+            log_obj.create({
+                'date': datetime.datetime.now(),
+                'picking_id': picking.id,
+                'message': 'Please Enter full address of the company : Street'
+            })
             return {}
         else:
             if not company_street:
@@ -291,6 +303,11 @@ class update_base_picking(models.TransientModel):
         if not company_city:
             picking.faulty = True
             picking.write({'error_log': 'Please Enter city of the company.'})
+            log_obj.create({
+                'date': datetime.datetime.now(),
+                'picking_id': picking.id,
+                'message': 'Please Enter city of the company.'
+            })
             return {}
         else:
             details['company_city'] = str(company_city) or ''
@@ -298,6 +315,11 @@ class update_base_picking(models.TransientModel):
         if not company_zip:
             picking.faulty = True
             picking.write({'error_log': 'Please Enter postal code of the company.'})
+            log_obj.create({
+                'date': datetime.datetime.now(),
+                'picking_id': picking.id,
+                'message': 'Please Enter postal code of the company.'
+            })
             return {}
         else:
             details['company_zip'] = str(company_zip) or ''
@@ -305,10 +327,20 @@ class update_base_picking(models.TransientModel):
         if not company_country_name:
             picking.faulty = True
             picking.write({'error_log': 'Please Enter country of the company.'})
+            log_obj.create({
+                'date': datetime.datetime.now(),
+                'picking_id': picking.id,
+                'message': 'Please Enter country of the company.'
+            })
             return {}
         elif company_country_code != 'GB':
             picking.faulty = True
             picking.write({'error_log': 'Please select proper country in company for delivery address'})
+            log_obj.create({
+                'date': datetime.datetime.now(),
+                'picking_id': picking.id,
+                'message': 'Please select proper country in company for delivery address.'
+            })
             return {}
         else:
             details['company_country_name'] = str(company_country_name) or ''
@@ -318,6 +350,11 @@ class update_base_picking(models.TransientModel):
         if not company_name:
             picking.faulty = True
             picking.write({'error_log': 'Please Enter company name.'})
+            log_obj.create({
+                'date': datetime.datetime.now(),
+                'picking_id': picking.id,
+                'message': 'Please Enter company name.'
+            })
             return {}
         else:
             details['company_name'] = str(company_name) or ''
@@ -325,6 +362,11 @@ class update_base_picking(models.TransientModel):
         if not company_phone:
             picking.faulty = True
             picking.write({'error_log': 'Please Enter company phone number.'})
+            log_obj.create({
+                'date': datetime.datetime.now(),
+                'picking_id': picking.id,
+                'message': 'Please Enter company phone number.'
+            })
             return {}
         else:
             details['company_phone'] = company_phone or ''
@@ -337,6 +379,11 @@ class update_base_picking(models.TransientModel):
         if not street and not street2:
             picking.faulty = True
             picking.write({'error_log': 'Please Enter full delivery address : Street'})
+            log_obj.create({
+                'date': datetime.datetime.now(),
+                'picking_id': picking.id,
+                'message': 'Please Enter full delivery address : Street'
+            })
             return {}
         else:
             if not street:
@@ -351,6 +398,11 @@ class update_base_picking(models.TransientModel):
         if not city:
             picking.faulty = True
             picking.write({'error_log': 'Please Enter city for delivery address'})
+            log_obj.create({
+                'date': datetime.datetime.now(),
+                'picking_id': picking.id,
+                'message': 'Please Enter city for delivery address'
+            })
             return {}
         else:
             details['city'] = str(city) or ''
@@ -358,6 +410,11 @@ class update_base_picking(models.TransientModel):
         if not zip:
             picking.faulty = True
             picking.write({'error_log': 'Please Enter postal code for delivery address'})
+            log_obj.create({
+                'date': datetime.datetime.now(),
+                'picking_id': picking.id,
+                'message': 'Please Enter postal code for delivery address'
+            })
             return {}
         else:
             details['zip'] = str(zip) or ''
@@ -365,10 +422,20 @@ class update_base_picking(models.TransientModel):
         if not country_name:
             picking.faulty = True
             picking.write({'error_log': 'Please Enter country for delivery address'})
+            log_obj.create({
+                'date': datetime.datetime.now(),
+                'picking_id': picking.id,
+                'message': 'Please Enter country for delivery address'
+            })
             return {}
         elif country_code != 'GB':
             picking.faulty = True
             picking.write({'error_log': 'Service is not available for this country'})
+            log_obj.create({
+                'date': datetime.datetime.now(),
+                'picking_id': picking.id,
+                'message': 'Service is not available for this country'
+            })
             return {}
         else:
             details['country_name'] = str(country_name) or ''
@@ -378,6 +445,11 @@ class update_base_picking(models.TransientModel):
         if not partner_name:
             picking.faulty = True
             picking.write({'error_log': 'Please Enter delivery contact name.'})
+            log_obj.create({
+                'date': datetime.datetime.now(),
+                'picking_id': picking.id,
+                'message': 'Please Enter delivery contact name.'
+            })
             return {}
         else:
             details['partner_name'] = str(partner_name) or ''
@@ -420,6 +492,7 @@ class update_base_picking(models.TransientModel):
         logger.error("===========ship_details==================%s", ship_details)
         if not ship_details:
             return True
+        log_obj=self.env['base.shipping.logs']
         style_tag = ''
         if picking.carrier_id.yodel_category == 'is_dhl':
             style_tag = "DHL"
@@ -562,6 +635,11 @@ class update_base_picking(models.TransientModel):
 
                     picking.faulty = True
                     picking.write({'error_log': error})
+                    log_obj.create({
+                        'date': datetime.datetime.now(),
+                        'picking_id': picking.id,
+                        'message': error
+                    })
                     # raise UserError(_("%s.") % (error))
 
 
@@ -577,11 +655,17 @@ class update_base_picking(models.TransientModel):
                     picking.shipment_created = True
                     picking.label_generated = True
                     picking.picklist_printed = True
+                    picking.label_printed = True
                     picking.faulty = False
                     picking.write({'carrier_tracking_ref': a.value,'error_log':''})
                     # for node value<ref>1234</ref>
                     reference = responseDOM.getElementsByTagName("reference")
                     print (reference[0].firstChild.nodeValue)
+                    if a.value:
+                        wiz = self.env['stock.immediate.transfer'].create({'pick_ids': [(4, picking.id)]})
+                        wiz.process()
+
+                        # picking.button_validate()
 
                     # Order is processed since label is printed from Velocity Connector
                     # picking.force_assign()
@@ -608,6 +692,11 @@ class update_base_picking(models.TransientModel):
             else:
                 picking.faulty = True
                 picking.write({'error_log': 'Please check netdespatch configuration'})
+                log_obj.create({
+                    'date': datetime.datetime.now(),
+                    'picking_id': picking.id,
+                    'message': 'Please check netdespatch configuration.'
+                })
 
         except Exception as e:
             print("Exception", e)
@@ -616,16 +705,27 @@ class update_base_picking(models.TransientModel):
 
     @api.multi
     def get_ukmail_shipping_details(self, picking):
+        log_obj=self.env['base.shipping.logs']
         details = {}
         product_dict = []
         if not picking.carrier_id:
             picking.faulty = True
             picking.write({'error_log': 'Please define Delivery Method'})
+            log_obj.create({
+                'date': datetime.datetime.now(),
+                'picking_id': picking.id,
+                'message': 'Please define Delivery Method'
+            })
             return {}
         if picking.carrier_id:
             if not picking.carrier_id.base_carrier_code:
                 picking.faulty = True
                 picking.write({'error_log': 'Please define Tariff code for Netdespatch UKMail in delivery method'})
+                log_obj.create({
+                    'date': datetime.datetime.now(),
+                    'picking_id': picking.id,
+                    'message': 'Please define Tariff code for Netdespatch UKMail in delivery method'
+                })
                 return {}
             else:
                 details['tariff_code'] = str(picking.carrier_id.base_carrier_code.name) or ''
@@ -857,16 +957,17 @@ class update_base_picking(models.TransientModel):
         details['next_date'] = str(next_date) or ''
         details['product_dict'] = product_dict or ''
 
-        if not note:
-            picking.faulty = True
-            picking.write({'error_log': 'Please Enter Note in Delivery order.'})
-            return {}
-        else:
-            details['note'] = str(note) or ''
+
+        details['note'] = str(note) or ''
 
         if not company_street and not company_street2:
             picking.faulty = True
             picking.write({'error_log': 'Please Enter full address of the company : Street'})
+            log_obj.create({
+                'date': datetime.datetime.now(),
+                'picking_id': picking.id,
+                'message': 'Please Enter full address of the company : Street'
+            })
             return {}
         else:
             if not company_street:
@@ -881,6 +982,11 @@ class update_base_picking(models.TransientModel):
         if not company_city:
             picking.faulty = True
             picking.write({'error_log': 'Please Enter city of the company.'})
+            log_obj.create({
+                'date': datetime.datetime.now(),
+                'picking_id': picking.id,
+                'message': 'Please Enter city of the company.'
+            })
             return {}
         else:
             details['company_city'] = str(company_city) or ''
@@ -888,6 +994,11 @@ class update_base_picking(models.TransientModel):
         if not company_zip:
             picking.faulty = True
             picking.write({'error_log': 'Please Enter postal code of the company.'})
+            log_obj.create({
+                'date': datetime.datetime.now(),
+                'picking_id': picking.id,
+                'message': 'Please Enter postal code of the company.'
+            })
             return {}
         else:
             details['company_zip'] = str(company_zip) or ''
@@ -895,6 +1006,11 @@ class update_base_picking(models.TransientModel):
         if not company_country_name:
             picking.faulty = True
             picking.write({'error_log': 'Please Enter country of the company.'})
+            log_obj.create({
+                'date': datetime.datetime.now(),
+                'picking_id': picking.id,
+                'message': 'Please Enter country of the company.'
+            })
             return {}
         else:
             details['company_country_name'] = str(company_country_name) or ''
@@ -904,6 +1020,11 @@ class update_base_picking(models.TransientModel):
         if not company_name:
             picking.faulty = True
             picking.write({'error_log': 'Please Enter company name.'})
+            log_obj.create({
+                'date': datetime.datetime.now(),
+                'picking_id': picking.id,
+                'message': 'Please Enter company name.'
+            })
             return {}
         else:
             details['company_name'] = str(company_name) or ''
@@ -911,6 +1032,11 @@ class update_base_picking(models.TransientModel):
         if not company_phone:
             picking.faulty = True
             picking.write({'error_log': 'Please Enter company phone number.'})
+            log_obj.create({
+                'date': datetime.datetime.now(),
+                'picking_id': picking.id,
+                'message': 'Please Enter company phone number.'
+            })
             return {}
         else:
             details['company_phone'] = company_phone or ''
@@ -923,6 +1049,11 @@ class update_base_picking(models.TransientModel):
         if not street and not street2:
             picking.faulty = True
             picking.write({'error_log': 'Please Enter full delivery address : Street'})
+            log_obj.create({
+                'date': datetime.datetime.now(),
+                'picking_id': picking.id,
+                'message': 'Please Enter full delivery address : Street.'
+            })
             return {}
         else:
             if not street:
@@ -937,6 +1068,11 @@ class update_base_picking(models.TransientModel):
         if not city:
             picking.faulty = True
             picking.write({'error_log': 'Please Enter city for delivery address'})
+            log_obj.create({
+                'date': datetime.datetime.now(),
+                'picking_id': picking.id,
+                'message': 'Please Enter city for delivery address.'
+            })
             return {}
         else:
             details['city'] = str(city) or ''
@@ -944,6 +1080,11 @@ class update_base_picking(models.TransientModel):
         if not zip:
             picking.faulty = True
             picking.write({'error_log': 'Please Enter postal code for delivery address'})
+            log_obj.create({
+                'date': datetime.datetime.now(),
+                'picking_id': picking.id,
+                'message': 'Please Enter postal code for delivery address.'
+            })
             return {}
         else:
             details['zip'] = str(zip) or ''
@@ -951,6 +1092,11 @@ class update_base_picking(models.TransientModel):
         if not country_name:
             picking.faulty = True
             picking.write({'error_log': 'Please Enter country for delivery address'})
+            log_obj.create({
+                'date': datetime.datetime.now(),
+                'picking_id': picking.id,
+                'message': 'Please Enter country for delivery address.'
+            })
             return {}
         else:
             details['country_name'] = str(country_name) or ''
@@ -960,6 +1106,11 @@ class update_base_picking(models.TransientModel):
         if not partner_name:
             picking.faulty = True
             picking.write({'error_log': 'Please Enter delivery contact name.'})
+            log_obj.create({
+                'date': datetime.datetime.now(),
+                'picking_id': picking.id,
+                'message': 'Please Enter delivery contact name.'
+            })
             return {}
         else:
             details['partner_name'] = str(partner_name) or ''
@@ -996,6 +1147,7 @@ class update_base_picking(models.TransientModel):
     @api.multi
     def create_netdespatch_ukmail_Shipment(self, config, picking):
         ship_details = self.get_ukmail_shipping_details(picking)
+        log_obj=self.env['base.shipping.logs']
         print ("---------------------------------ship_details----------------",ship_details)
         logger.error("===========ship_details================%s", ship_details)
         if not ship_details:
@@ -1141,6 +1293,11 @@ class update_base_picking(models.TransientModel):
 
                     picking.faulty = True
                     picking.write({'error_log': error})
+                    log_obj.create({
+                        'date': datetime.datetime.now(),
+                        'picking_id': picking.id,
+                        'message': error
+                    })
                     # raise UserError(_("%s.") % (error))
 
 
@@ -1156,12 +1313,17 @@ class update_base_picking(models.TransientModel):
                     picking.shipment_created = True
                     picking.label_generated = True
                     picking.picklist_printed = True
+                    picking.label_printed = True
                     picking.faulty = False
                     picking.write({'carrier_tracking_ref': a.value,'error_log':''})
                     # for node value<ref>1234</ref>
                     reference = responseDOM.getElementsByTagName("reference")
                     print (reference[0].firstChild.nodeValue)
+                    if a.value:
+                        wiz = self.env['stock.immediate.transfer'].create({'pick_ids': [(4, picking.id)]})
+                        wiz.process()
 
+                        # picking.button_validate()
                     # Order is processed since label is printed from Velocity Connector
                     # picking.force_assign()
                     # picking.do_transfer()
@@ -1187,6 +1349,11 @@ class update_base_picking(models.TransientModel):
             else:
                 picking.faulty = True
                 picking.write({'error_log': 'Please check netdespatch configuration'})
+                log_obj.create({
+                    'date': datetime.datetime.now(),
+                    'picking_id': picking.id,
+                    'message': 'Please check netdespatch configuration'
+                })
         except Exception as e:
             print("Exception", e)
 
@@ -1197,16 +1364,27 @@ class update_base_picking(models.TransientModel):
 
     @api.multi
     def get_apc_shipping_details(self, picking):
+        log_obj=self.env['base.shipping.logs']
         details = {}
         product_dict = []
         if not picking.carrier_id:
             picking.faulty = True
             picking.write({'error_log': 'Please define Delivery Method'})
+            log_obj.create({
+                'date': datetime.datetime.now(),
+                'picking_id': picking.id,
+                'message': 'Please define Delivery Method'
+            })
             return {}
         if picking.carrier_id:
             if not picking.carrier_id.base_carrier_code:
                 picking.faulty = True
                 picking.write({'error_log': 'Please define Tariff code for APC in delivery method'})
+                log_obj.create({
+                    'date': datetime.datetime.now(),
+                    'picking_id': picking.id,
+                    'message': 'Please define Tariff code for APC in delivery method'
+                })
                 return {}
             else:
                 details['tariff_code'] = str(picking.carrier_id.base_carrier_code.name) or ''
@@ -1432,6 +1610,11 @@ class update_base_picking(models.TransientModel):
         if not note:
             picking.faulty = True
             picking.write({'error_log': 'Please Enter Note in delivery order.'})
+            log_obj.create({
+                'date': datetime.datetime.now(),
+                'picking_id': picking.id,
+                'message': 'Please Enter Note in delivery order'
+            })
             return {}
         else:
             details['note'] = str(note) or ''
@@ -1439,6 +1622,11 @@ class update_base_picking(models.TransientModel):
         if not company_street and not company_street2:
             picking.faulty = True
             picking.write({'error_log': 'Please Enter full address of the company : Street'})
+            log_obj.create({
+                'date': datetime.datetime.now(),
+                'picking_id': picking.id,
+                'message': 'Please Enter full address of the company : Street'
+            })
             return {}
         else:
             if not company_street:
@@ -1453,6 +1641,11 @@ class update_base_picking(models.TransientModel):
         if not company_city:
             picking.faulty = True
             picking.write({'error_log': 'Please Enter city of the company.'})
+            log_obj.create({
+                'date': datetime.datetime.now(),
+                'picking_id': picking.id,
+                'message': 'Please Enter city of the company.'
+            })
             return {}
         else:
             details['company_city'] = str(company_city) or ''
@@ -1460,6 +1653,11 @@ class update_base_picking(models.TransientModel):
         if not company_zip:
             picking.faulty = True
             picking.write({'error_log': 'Please Enter postal code of the company.'})
+            log_obj.create({
+                'date': datetime.datetime.now(),
+                'picking_id': picking.id,
+                'message': 'Please Enter postal code of the company.'
+            })
             return {}
         else:
             details['company_zip'] = str(company_zip) or ''
@@ -1467,6 +1665,11 @@ class update_base_picking(models.TransientModel):
         if not company_country_name:
             picking.faulty = True
             picking.write({'error_log': 'Please Enter country of the company.'})
+            log_obj.create({
+                'date': datetime.datetime.now(),
+                'picking_id': picking.id,
+                'message': 'Please Enter country of the company.'
+            })
             return {}
         else:
             details['company_country_name'] = str(company_country_name) or ''
@@ -1476,6 +1679,11 @@ class update_base_picking(models.TransientModel):
         if not company_name:
             picking.faulty = True
             picking.write({'error_log': 'Please Enter company name.'})
+            log_obj.create({
+                'date': datetime.datetime.now(),
+                'picking_id': picking.id,
+                'message': 'Please Enter company name.'
+            })
             return {}
         else:
             details['company_name'] = str(company_name) or ''
@@ -1483,6 +1691,11 @@ class update_base_picking(models.TransientModel):
         if not company_phone:
             picking.faulty = True
             picking.write({'error_log': 'Please Enter company phone number.'})
+            log_obj.create({
+                'date': datetime.datetime.now(),
+                'picking_id': picking.id,
+                'message': 'Please Enter company phone number.'
+            })
             return {}
         else:
             details['company_phone'] = company_phone or ''
@@ -1495,6 +1708,11 @@ class update_base_picking(models.TransientModel):
         if not street and not street2:
             picking.faulty = True
             picking.write({'error_log': 'Please Enter full delivery address : Street'})
+            log_obj.create({
+                'date': datetime.datetime.now(),
+                'picking_id': picking.id,
+                'message': 'Please Enter full delivery address : Street.'
+            })
             return {}
         else:
             if not street:
@@ -1509,6 +1727,11 @@ class update_base_picking(models.TransientModel):
         if not city:
             picking.faulty = True
             picking.write({'error_log': 'Please Enter city for delivery address'})
+            log_obj.create({
+                'date': datetime.datetime.now(),
+                'picking_id': picking.id,
+                'message': 'Please Enter city for delivery address.'
+            })
             return {}
         else:
             details['city'] = str(city) or ''
@@ -1516,6 +1739,11 @@ class update_base_picking(models.TransientModel):
         if not zip:
             picking.faulty = True
             picking.write({'error_log': 'Please Enter postal code for delivery address'})
+            log_obj.create({
+                'date': datetime.datetime.now(),
+                'picking_id': picking.id,
+                'message': 'Please Enter postal code for delivery address.'
+            })
             return {}
         else:
             details['zip'] = str(zip) or ''
@@ -1523,6 +1751,11 @@ class update_base_picking(models.TransientModel):
         if not country_name:
             picking.faulty = True
             picking.write({'error_log': 'Please Enter country for delivery address'})
+            log_obj.create({
+                'date': datetime.datetime.now(),
+                'picking_id': picking.id,
+                'message': 'Please Enter country for delivery address.'
+            })
             return {}
         else:
             details['country_name'] = str(country_name) or ''
@@ -1532,6 +1765,11 @@ class update_base_picking(models.TransientModel):
         if not partner_name:
             picking.faulty = True
             picking.write({'error_log': 'Please Enter delivery contact name.'})
+            log_obj.create({
+                'date': datetime.datetime.now(),
+                'picking_id': picking.id,
+                'message': 'Please Enter delivery contact name.'
+            })
             return {}
         else:
             details['partner_name'] = str(partner_name) or ''
@@ -1725,12 +1963,17 @@ class update_base_picking(models.TransientModel):
                     picking.shipment_created = True
                     picking.label_generated = True
                     picking.picklist_printed = True
+                    picking.label_printed = True
                     picking.faulty = False
                     picking.write({'carrier_tracking_ref': a.value,'error_log':''})
                     # for node value<ref>1234</ref>
                     reference = responseDOM.getElementsByTagName("reference")
                     print (reference[0].firstChild.nodeValue)
+                    if a.value:
+                        wiz = self.env['stock.immediate.transfer'].create({'pick_ids': [(4, picking.id)]})
+                        wiz.process()
 
+                        # picking.button_validate()
                     # Order is processed since label is printed from Velocity Connector
                     # picking.force_assign()
                     # picking.do_transfer()
@@ -2752,6 +2995,7 @@ class update_base_picking(models.TransientModel):
                     picking.picklist_printed = True
                     picking.faulty = False
                     picking.write({'carrier_tracking_ref': a.value,'error_log':''})
+                    self._cr.commit()
                     # for node value<ref>1234</ref>
                     reference = responseDOM.getElementsByTagName("reference")
                     print (reference[0].firstChild.nodeValue)
@@ -2770,7 +3014,14 @@ class update_base_picking(models.TransientModel):
                                            'res_model': 'stock.picking',
                                            'res_id': picking.id}
                         attach_id = self.env['ir.attachment'].create(attachment_vals)
-                        print ("-----------=-attach_id------------=", attach_id)
+                        print("-----------=-attach_id------------=", attach_id)
+                    if a.value:
+                        wiz = self.env['stock.immediate.transfer'].create({'pick_ids': [(4, picking.id)]})
+                        wiz.process()
+
+                        # picking.button_validate()
+
+
                 else:
                     print ("------------nothing-----------------------------------=======")
             else:
@@ -2978,6 +3229,11 @@ class update_base_picking(models.TransientModel):
                                            'res_id': picking.id}
                         attach_id = self.env['ir.attachment'].create(attachment_vals)
                         print ("-----------=-attach_id------------=", attach_id)
+                    if a.value:
+                        wiz = self.env['stock.immediate.transfer'].create({'pick_ids': [(4, picking.id)]})
+                        wiz.process()
+
+                        # picking.button_validate()
                 else:
                     print ("------------nothing-----------------------------------=======")
             else:

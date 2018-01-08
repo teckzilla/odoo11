@@ -1,0 +1,169 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* dpd_connector
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 6.1rc1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-02-16 09:08+0000\n"
+"PO-Revision-Date: 2012-02-16 09:08+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: dpd_connector
+#: code:addons/dpd_connector/wizard/generate_carrier_files.py:60
+#, python-format
+msgid "No delivery orders selected"
+msgstr ""
+
+#. module: dpd_connector
+#: view:delivery.carrier.file.generate:0
+msgid "Generate the carrier files for the selected delivery orders."
+msgstr ""
+
+#. module: dpd_connector
+#: help:stock.picking,carrier_file_generated:0
+msgid "The file for the delivery carrier has been generated."
+msgstr ""
+
+#. module: dpd_connector
+#: view:stock.picking:0
+msgid "Carrier File To Generate"
+msgstr ""
+
+#. module: dpd_connector
+#: model:ir.model,name:dpd_connector.model_delivery_carrier_file
+msgid "delivery.carrier.file"
+msgstr ""
+
+#. module: dpd_connector
+#: model:ir.model,name:dpd_connector.model_stock_picking
+msgid "Picking List"
+msgstr ""
+
+#. module: dpd_connector
+#: view:delivery.carrier.file.generate:0
+msgid "Carrier Files"
+msgstr ""
+
+#. module: dpd_connector
+#: help:delivery.carrier.file,auto_export:0
+msgid "The file will be automatically generated when a delivery order is processed. If activated, each delivery order will be exported in a separate file."
+msgstr ""
+
+#. module: dpd_connector
+#: model:ir.actions.act_window,name:dpd_connector.action_delivery_carrier_file_generate
+msgid "Generate Carrier Files"
+msgstr ""
+
+#. module: dpd_connector
+#: model:ir.actions.act_window,help:dpd_connector.action_delivery_carrier_file_form
+msgid "Generates automatically files asked by carriers for outgoing pickings"
+msgstr ""
+
+#. module: dpd_connector
+#: field:delivery.carrier.file,type:0
+msgid "Type"
+msgstr ""
+
+#. module: dpd_connector
+#: help:delivery.carrier.file,group_pickings:0
+msgid "All the pickings will be grouped in the same file. Has no effect when the files are automatically exported at the delivery order process."
+msgstr ""
+
+#. module: dpd_connector
+#: code:addons/dpd_connector/carrier_file.py:73
+#: code:addons/dpd_connector/wizard/generate_carrier_files.py:60
+#, python-format
+msgid "Error"
+msgstr ""
+
+#. module: dpd_connector
+#: field:delivery.carrier.file,auto_export:0
+msgid "Export at delivery order process"
+msgstr ""
+
+#. module: dpd_connector
+#: field:delivery.carrier.file,group_pickings:0
+msgid "Group all pickings in one file"
+msgstr ""
+
+#. module: dpd_connector
+#: field:delivery.carrier.file,name:0
+msgid "Name"
+msgstr ""
+
+#. module: dpd_connector
+#: field:delivery.carrier.file,export_path:0
+msgid "Export Path"
+msgstr ""
+
+#. module: dpd_connector
+#: view:stock.picking:0
+msgid "Delivery orders to invoice"
+msgstr ""
+
+#. module: dpd_connector
+#: model:ir.model,name:dpd_connector.model_delivery_carrier
+msgid "Carrier"
+msgstr ""
+
+#. module: dpd_connector
+#: sql_constraint:stock.picking:0
+msgid "Reference must be unique per Company!"
+msgstr ""
+
+#. module: dpd_connector
+#: view:stock.picking:0
+msgid "Additional info"
+msgstr ""
+
+#. module: dpd_connector
+#: model:ir.model,name:dpd_connector.model_delivery_carrier_file_generate
+msgid "delivery.carrier.file.generate"
+msgstr ""
+
+#. module: dpd_connector
+#: view:delivery.carrier.file:0
+msgid "Write options"
+msgstr ""
+
+#. module: dpd_connector
+#: view:delivery.carrier.file.generate:0
+msgid "Generate Files"
+msgstr ""
+
+#. module: dpd_connector
+#: field:stock.picking,carrier_file_generated:0
+msgid "Carrier File Generated"
+msgstr ""
+
+#. module: dpd_connector
+#: field:delivery.carrier.file,write_mode:0
+msgid "Write on"
+msgstr ""
+
+#. module: dpd_connector
+#: view:delivery.carrier.file.generate:0
+msgid "Cancel"
+msgstr ""
+
+#. module: dpd_connector
+#: field:delivery.carrier,carrier_file_id:0
+#: view:delivery.carrier.file:0
+#: model:ir.actions.act_window,name:dpd_connector.action_delivery_carrier_file_form
+#: model:ir.ui.menu,name:dpd_connector.menu_action_delivery_carrier_file_form
+msgid "Carrier File"
+msgstr ""
+
+#. module: dpd_connector
+#: view:delivery.carrier.file.generate:0
+#: field:delivery.carrier.file.generate,picking_ids:0
+msgid "Delivery Orders"
+msgstr ""
+

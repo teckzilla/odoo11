@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <template id="delivery_slip_template">
+        <t t-set="o" t-value="o.with_context({'lang':o.partner_id.lang})" />
+         <div class="page" style="position: relative;">
+            <div class="oe_structure"/>
+             <div style="padding:5px;">
+                 <h4 >Order: <span t-field="o.name"/></h4>
+                 <!--<h4><span t-field="o.min_date" t-field-options="{&quot;format&quot;: &quot;yyyy-MM-dd&quot;}" /></h4>-->
+                 <h4><span t-field="o.scheduled_date" t-field-options="{&quot;format&quot;: &quot;yyyy-MM-dd&quot;}" /></h4>
+             </div>
+
+             <br/>
+             <div class="row">
+                <div class="col-xs-9">
+                    <h4>Item</h4>
+                </div>
+                <div class="col-xs-3" align="center">
+                   <h4>Qty</h4>
+                </div>
+             </div>
+             <t t-foreach="o.move_lines" t-as="line">
+                 <div class="row">
+                    <div class="col-xs-9">
+                        <span t-field="line.name"/>
+                    </div>
+                    <div class="col-xs-3" align="center">
+                       <!--<span t-field="line.product_uom_qty"/>-->
+                        <span t-esc="'%.0f'%line.product_uom_qty"/>
+                    </div>
+                 </div>
+                <h4>Sku:<span t-field="line.product_id.default_code"/></h4>
+             </t>
+
+         </div>
+    </template>
+
+
+    <template id="delivery_slip">
+        <t t-foreach="docs" t-as="o">
+            <t t-call="pick_pack_method2.delivery_slip_template" t-lang="o.partner_id.lang"/>
+        </t>
+    </template>
+</odoo>

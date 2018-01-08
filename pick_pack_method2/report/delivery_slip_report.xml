@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <data>
+
+         <report
+        	id="delivery_slip_report"
+        	string="Product Details Label"
+        	model="stock.picking"
+			report_type="qweb-pdf"
+			name="pick_pack_method2.delivery_slip"
+			file="pick_pack_method2.delivery_slip" />
+
+
+    </data>
+</odoo>

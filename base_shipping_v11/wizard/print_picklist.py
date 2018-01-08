@@ -21,7 +21,8 @@
 
 from odoo import models, fields, api, _
 import unicodecsv as csv
-from io import StringIO
+# from io import StringIO
+import io
 import logging
 import base64
 import datetime
@@ -69,9 +70,14 @@ class print_picklist(models.TransientModel):
 
         for new_product_list in set_product_list:
             new_product_list1.append(new_product_list.id)
-        prod_list = str(tuple(new_product_list1))
+        prod_list = tuple(new_product_list1)
+        # prod_list = str(tuple(new_product_list1))
+        if len(prod_list) == 1:
+            prod_list=str(prod_list).replace(",", "")
+
+
         self._cr.execute(
-            'select id from product_product where id in ' + prod_list + ' ORDER BY default_code'
+            'select id from product_product where id in ' + str(prod_list) + ' ORDER BY default_code'
         )
         products = self._cr.fetchall()
         product_details =[]
@@ -115,9 +121,13 @@ class print_picklist(models.TransientModel):
 
         for new_product_list in set_product_list:
             new_product_list1.append(new_product_list.id)
-        prod_list = str(tuple(new_product_list1))
+        prod_list = tuple(new_product_list1)
+        # prod_list = str(tuple(new_product_list1))
+        if len(prod_list) == 1:
+            prod_list=str(prod_list).replace(",", "")
+
         self._cr.execute(
-            'select id from product_product where id in ' + prod_list + ' ORDER BY default_code'
+            'select id from product_product where id in ' + str(prod_list) + ' ORDER BY default_code'
         )
         products = self._cr.fetchall()
         product_details = []
@@ -166,7 +176,8 @@ class print_picklist(models.TransientModel):
 
     @api.multi
     def generate_picklist_csv_with_location(self, product_details):
-        csvfile = StringIO.StringIO()
+        # csvfile = StringIO.StringIO()
+        csvfile = io.BytesIO()
         w = csv.writer(csvfile, delimiter='\t')
         w.writerow(self.HEADER2)
         row_count = 1
@@ -195,7 +206,8 @@ class print_picklist(models.TransientModel):
 
     @api.multi
     def generate_picklist_csv(self,product_details):
-        csvfile = StringIO.StringIO()
+        # csvfile = StringIO.StringIO()
+        csvfile = io.BytesIO()
         w = csv.writer(csvfile, delimiter='\t')
         w.writerow(self.HEADERS)
         row_count = 1

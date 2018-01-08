@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <record id="netdespatch_rm_service" model="select.service">
+            <field name="name">DPD</field>
+        </record>
+    </data>
+</odoo>

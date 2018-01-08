@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+
+        <!-- Fedex Start -->
+        <record id="fedex_config_form" model="ir.ui.view">
+            <field name="name">fedex.config.form</field>
+            <field name="model">fedex.config</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Fedex Settings">
+                            <group colspan="2" col="2" style="width:70%">
+                                <separator string="General Information" colspan="2" />
+                                <field name="name" />
+                                <field name="account_no" />
+                                <field name="key" />
+                                <field name="password" />
+                                <field name="meter_no" />
+                                <field name="integrator_id" />
+                            </group>
+
+                            <group colspan="2" col="2" style="width:70%">
+                                <separator string="Shipping Address" colspan="2" />
+                                <field name="config_shipping_address_id" required = "1"/>
+                            </group>
+
+                            <group colspan="2" col="2">
+                                <group>
+                                     <separator string="Production/Test" colspan="2" />
+                                      <field name="test"/>
+                                </group>
+                              <group>
+                                    <separator string="Active" colspan="2" />
+                                    <field name="active"/>
+                              </group>
+                            </group>
+
+                </form>
+            </field>
+        </record>
+
+        <record id="fedex_config_tree" model="ir.ui.view">
+            <field name="name">fedex.config.tree</field>
+            <field name="model">fedex.config</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Fedex Settings">
+                    <field name="name" />
+                    <field name="account_no" />
+                    <field name="key" />
+                    <field name="password" />
+                    <field name="meter_no" />
+                    <field name="integrator_id" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="fedex_config_action" model="ir.actions.act_window">
+            <field name="name">Fedex Settings</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">fedex.config</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="fedex_config_tree"/>
+            <field name="help">Key in account details which you get from Fedex website.</field>
+        </record>
+        <!-- Fedex End -->
+        <menuitem id="menu_fedex_setting" name="Fedex Settings" parent="base_shipping_v11.menu_shipping_services_settings" action="fedex_config_action" groups="base_shipping_v11.group_base_shipping_manager"/>
+
+    </data>
+</odoo>

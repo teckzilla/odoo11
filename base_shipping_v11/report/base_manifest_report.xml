@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <data>
+
+         <report
+        	id="base_manifest_report"
+        	string="Manifest Report"
+        	model="base.manifest"
+			report_type="qweb-pdf"
+			name="base_shipping_v11.manifest_report_template"
+			file="base_shipping_v11.manifest_report_template" />
+
+
+    </data>
+</odoo>

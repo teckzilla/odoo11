@@ -39,6 +39,7 @@ import xml.etree.ElementTree as ET
 from PyPDF2 import PdfFileWriter, PdfFileReader
 from tempfile import mkstemp
 from datetime import timedelta
+from io import FileIO as file
 
 
 
@@ -55,7 +56,8 @@ class update_base_picking(models.TransientModel):
         ('remove_faulty', 'Move Faulty Orders'),
         ('process_orders', 'Process Shipment'),
         ('add_carrier', 'Add Carrier'),
-        ('cancel_shipments', 'Cancel Shipments')
+        ('cancel_shipments', 'Cancel Shipments'),
+        ('create_all_manifest','Create Manifest')
         ]
         return op_list
 
@@ -71,7 +73,9 @@ class update_base_picking(models.TransientModel):
     #     ('add_carrier', 'Add Carrier'),
     # ], string='Select Operation')
 
-
+    base_manifest_ref = fields.Text('Manifest Reference')
+    base_manifest_desc = fields.Text('Manifest Description')
+    select_delivery_service=fields.Many2one('select.service','Select Delivery Service')
 
     @api.multi
     def add_carrier(self):
@@ -94,18 +98,40 @@ class update_base_picking(models.TransientModel):
     @api.multi
     def create_shipment(self):
         # base = super(update_base_picking, self).create_shipment()
-
-        active_ids = self.env.context.get('active_ids', [])
+        log_obj = self.env['base.shipping.logs']
+        if self.env.context.get('picking_id',False):
+            active_ids=self.env.context.get('picking_id',False)
+        else:
+            active_ids = self.env.context.get('active_ids', [])
         dpd_pickings = []
 
         for picking in self.env['stock.picking'].browse(active_ids):
             print ("-------------------picking--------name---", picking.name)
+            # extra
+            if picking.picking_type_id.warehouse_id.delivery_steps == 'pick_ship':
+                if picking.picking_type_id.name != 'Pick':
+                    continue
+            if picking.picking_type_id.warehouse_id.delivery_steps == 'pick_pack_ship':
+                if picking.picking_type_id.name == 'Pick':
+                    continue
+                if picking.picking_type_id.name != 'Pack':
+                    continue
+            if picking.state != 'assigned':
+                continue
+
+                # end
             if not picking.carrier_id:
                 picking.faulty = True
                 picking.write({'error_log': 'Please select delivery carrier'})
+                log_obj.create({
+                    'date': datetime.datetime.now(),
+                    'picking_id': picking.id,
+                    'message': 'Please select delivery carrier'
+                })
                 continue
             if picking.shipment_created and picking.carrier_tracking_ref:
                 continue
+
 
             if picking.carrier_id.select_service.name == 'Netdespatch Royalmail':
                 config = self.env['netdespatch.config'].search([])
@@ -132,6 +158,10 @@ class update_base_picking(models.TransientModel):
                     raise UserError(_("Netdespatch  configuration not found!"))
                 elif not config[0].ukmail_enable:
                     raise UserError(_("Please enable UKmail in Netdespatch configuration"))
+
+                wiz = self.env['stock.immediate.transfer'].create({'pick_ids': [(4, picking.id)]})
+                wiz.process()
+
                 self.create_netdespatch_ukmail_Shipment(config[0], picking)
 
             if picking.carrier_id.select_service.name == 'Netdespatch Yodel':
@@ -194,7 +224,8 @@ class update_base_picking(models.TransientModel):
     def process_orders(self):
         for picking in self.env['stock.picking'].browse(self._context['active_ids']):
             picking.force_assign()
-            picking.do_transfer()
+            # picking.do_transfer()
+            picking.action_done()
             picking.manifested = True
         return True
 
@@ -337,7 +368,194 @@ class update_base_picking(models.TransientModel):
                     raise UserError(_("Ukmail configuration not found!"))
                 self.cancel_ukconsignment(config[0],picking)
 
+    @api.multi
+    def create_all_manifest(self):
+        netdespatch_royalmail=[]
+        netdespatch_apc=[]
+        netdespatch_ukmail=[]
+        netdespatch_yodel=[]
+        net_royalmail_list=[]
+        net_apc_list=[]
+        net_yodel_list=[]
+        net_ukmail_list=[]
 
+
+        # -----
+        append_list=[]
+        create_list=[]
+
+        start_datetime=fields.datetime.now()
+        picking_obj=self.env['stock.picking']
+        manifest_obj=self.env['base.manifest']
+        # picking_ids = picking_obj.search([('state', 'not in', ['cancel']),
+        #                                   ('label_generated', '=', True),
+        #                                   ('label_printed', '=', True),
+        #                                   ('faulty', '=', False),
+        #                                   ('shipment_created','=',True),
+        #                                   ('manifested','=',False)
+        #                                    ])
+
+        picking_ids = picking_obj.search([('state', 'in', ['assigned']),
+                                          ('faulty', '=', False),
+                                          ('manifested', '=', False)
+                                          ])
+        # for pick in self.env['stock.picking'].browse(self._context['active_ids']).search([('state', 'not in', ['cancel']),
+        #                                   ('state','=','assigned'),
+        #                                   ('faulty', '=', False),
+        #                                   ('manifested', '=', False)
+        #                                   ]):
+
+        for pick in picking_ids:
+            # extra
+            if pick.picking_type_id.name != 'Delivery Orders':
+                log_obj = self.env['ecommerce.logs']
+                log_vals = {
+                    'start_datetime': start_datetime,
+                    'end_datetime': fields.datetime.now(),
+                    'message': 'This type of operation can only perform with outgoing shipments - ' + pick[0].origin
+                }
+                log_obj.create(log_vals)
+                continue
+                # raise UserError(_("This type of operation can only perform with outgoing shipments."))
+                # continue
+            # sale_order_id=self.env['sale.order'].search([('name','=',pick.origin)])
+            if pick.picking_type_id.warehouse_id.delivery_steps == 'ship_only':
+                if pick.carrier_id and pick.shipment_created == True:
+                    if pick.carrier_id.select_service.name == self.select_delivery_service.name:
+                        append_list.append(pick)
+
+
+
+                    # if pick.carrier_id.select_service.name == 'Netdespatch Royalmail':
+                    #     netdespatch_royalmail.append(pick)
+                    # elif pick.carrier_id.select_service.name == 'Netdespatch APC':
+                    #     netdespatch_apc.append(pick)
+                    # elif pick.carrier_id.select_service.name == 'Netdespatch Yodel':
+                    #     netdespatch_yodel.append(pick)
+                    # elif pick.carrier_id.select_service.name == 'Netdespatch UKMail':
+                    #     netdespatch_ukmail.append(pick)
+                    # else:
+                    #     print("-----no tracking---", pick)
+            elif pick.picking_type_id.warehouse_id.delivery_steps == 'pick_ship':
+                pick_id = picking_obj.search([('origin', '=', pick.origin)])
+                pick_list=[]
+                for pick_ship in pick_id:
+                    if pick_ship.picking_type_id.name == 'Pick':
+                        pick_list.append(pick_ship)
+                if len(pick_list)==0:
+                    log_obj = self.env['ecommerce.logs']
+                    log_vals = {
+                        'start_datetime': start_datetime,
+                        'end_datetime': fields.datetime.now(),
+                        'message': 'Outgoing shipment is not available for this order - '+pick[0].origin
+                    }
+                    log_obj.create(log_vals)
+                    continue
+
+                else:
+                # end
+                    for picks in pick_list:
+                        if picks.carrier_id:
+                            if picks.carrier_id.select_service.name == self.select_delivery_service.name:
+                                pick.write({'shipment_created':True,'carrier_id':picks.carrier_id.id,'carrier_tracking_ref':picks.carrier_tracking_ref})
+                                append_list.append(pick)
+                            # if pack_id.carrier_id.select_service.name == 'Netdespatch Royalmail':
+                            #     netdespatch_royalmail.append(pack_id)
+                            # elif pack_id.carrier_id.select_service.name == 'Netdespatch APC':
+                            #     netdespatch_apc.append(pack_id)
+                            # elif pack_id.carrier_id.select_service.name == 'Netdespatch Yodel':
+                            #     netdespatch_yodel.append(pack_id)
+                            # elif pack_id.carrier_id.select_service.name == 'Netdespatch UKMail':
+                            #     netdespatch_ukmail.append(pack_id)
+                            # else:
+                            #     print("-----no tracking---",pack_id)
+            elif pick.picking_type_id.warehouse_id.delivery_steps == 'pick_pack_ship':
+                pack_id = picking_obj.search([('origin', '=', pick.origin)])
+                pack_list = []
+                for pack_ship in pack_id:
+                    if pack_ship.picking_type_id.name == 'Pick':
+                        continue
+                    if pack_ship.picking_type_id.name == 'Pack':
+                        pick.write({'shipment_created':True,'carrier_id': pack_ship.carrier_id.id, 'carrier_tracking_ref': pack_ship.carrier_tracking_ref})
+                        pack_list.append(pack_ship)
+                if len(pack_list) == 0:
+                    log_obj = self.env['ecommerce.logs']
+                    log_vals = {
+                        'start_datetime': start_datetime,
+                        'end_datetime': fields.datetime.now(),
+                        'message': 'Outgoing shipment is not available for this order - ' + pick[0].origin
+                    }
+                    log_obj.create(log_vals)
+                    continue
+
+                else:
+                    # end
+                    for packs in pack_list:
+                        if packs.carrier_id:
+                            if packs.carrier_id.select_service.name == self.select_delivery_service.name:
+                                append_list.append(pick)
+
+
+        for nr in append_list:
+            create_list.append((0, 0, {'picking_id': nr.id, 'carrier_id': nr.carrier_id.id}))
+        if create_list:
+            create_list_vals = {
+                'service_provider': self.select_delivery_service.name,
+                'date': datetime.datetime.now(),
+                'user_id': self._uid,
+                'base_manifest_ref': self.base_manifest_ref,
+                'base_manifest_desc': self.base_manifest_desc,
+                'manifest_lines': create_list
+            }
+            manifest_id = manifest_obj.create(create_list_vals)
+        # for nr in netdespatch_royalmail:
+        #     net_royalmail_list.append((0,0,{'picking_id':nr.id,'carrier_id':nr.carrier_id.id}))
+        # if net_royalmail_list:
+        #     net_royalmail_vals={
+        #         'service_provider':'Netdespatch Royalmail',
+        #         'date':datetime.datetime.now(),
+        #         'user_id':self._uid,
+        #         'base_manifest_ref':self.base_manifest_ref,
+        #         'base_manifest_desc':self.base_manifest_desc,
+        #         'manifest_lines':net_royalmail_list
+        #     }
+        #     manifest_id=manifest_obj.create(net_royalmail_vals)
+        # for na in netdespatch_apc:
+        #     net_apc_list.append((0,0,{'picking_id':na.id,'carrier_id':na.carrier_id.id}))
+        # if net_apc_list:
+        #     net_apc_vals={
+        #         'service_provider':'Netdespatch APC',
+        #         'date':datetime.datetime.now(),
+        #         'user_id':self._uid,
+        #         'base_manifest_ref': self.base_manifest_ref,
+        #         'base_manifest_desc': self.base_manifest_desc,
+        #         'manifest_lines':net_apc_list
+        #     }
+        #     manifest_id=manifest_obj.create(net_apc_vals)
+        # for ny in netdespatch_yodel:
+        #     net_yodel_list.append((0,0,{'picking_id':ny.id,'carrier_id':ny.carrier_id.id}))
+        # if net_yodel_list:
+        #     net_yodel_vals={
+        #         'service_provider': 'Netdespatch Yodel',
+        #         'date': datetime.datetime.now(),
+        #         'user_id': self._uid,
+        #         'base_manifest_ref': self.base_manifest_ref,
+        #         'base_manifest_desc': self.base_manifest_desc,
+        #         'manifest_lines': net_yodel_list
+        #     }
+        #     manifest_id = manifest_obj.create(net_yodel_vals)
+        # for nu in netdespatch_ukmail:
+        #     net_ukmail_list.append((0,0,{'picking_id':nu.id,'carrier_id':nu.carrier_id.id}))
+        # if net_ukmail_list:
+        #     net_ukmail_vals={
+        #         'service_provider': 'Netdespatch UKMail',
+        #         'date': datetime.datetime.now(),
+        #         'user_id': self._uid,
+        #         'base_manifest_ref': self.base_manifest_ref,
+        #         'base_manifest_desc': self.base_manifest_desc,
+        #         'manifest_lines': net_ukmail_list
+        #     }
+        #     manifest_id = manifest_obj.create(net_ukmail_vals)
 
 
 update_base_picking()

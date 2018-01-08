@@ -1,0 +1,29 @@
+<odoo>
+    <data>
+        <!--Log Tree View-->
+        <record model="ir.ui.view" id="base_shipping_log_tree_view">
+            <field name="name">base.shipping.logs.tree.view</field>
+                <field name="model">base.shipping.logs</field>
+                <field name="arch" type="xml">
+                    <tree string="Logs">
+                        <field name="date" />
+                        <field name="picking_id" />
+                        <field name="message" />
+                    </tree>
+                </field>
+        </record>
+
+        <!--Log method Action-->
+        <record id="action_shipping_log_view" model="ir.actions.act_window">
+            <field name="name">Log</field>
+            <field name="res_model">base.shipping.logs</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="base_shipping_log_tree_view"/>
+        </record>
+
+        <menuitem id="menu_base_shipping_log" name="Shipping Logs" parent="stock.menu_stock_root" groups="base_shipping_v11.group_base_shipping_manager"/>
+        <menuitem id="sub_menu_base_shipping_log" name="Logs" action="action_shipping_log_view" parent="base_shipping_v11.menu_base_shipping_log"/>
+       </data>
+ </odoo>

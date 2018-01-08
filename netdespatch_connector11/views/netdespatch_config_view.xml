@@ -19,25 +19,33 @@
                                 <group>
                                      <field name="rm_enable"/>
                                  </group>
-                             <group string="Domestic" attrs="{'invisible': [('rm_enable','=', False)]}">
+
+                             <!--<group string="Domestic" attrs="{'invisible': [('rm_enable','=', False)]}">-->
+                             <group>
+                            <label for="njh" string="Domestic" style="font-size:20px; color:#9ACD32;" attrs="{'invisible': [('rm_enable','=', False)]}"/>
 
                                  <group>
-                                      <field name="domestic_name" attrs="{'required': [('rm_enable','=', True)]}"/>
-                                        <field name="domestic_pwd" attrs="{'required': [('rm_enable','=', True)]}"/>
+                                      <field name="domestic_name" attrs="{'required': [('rm_enable','=', True)],'invisible': [('rm_enable','=', False)]}"/>
+                                        <field name="domestic_pwd" attrs="{'required': [('rm_enable','=', True)],'invisible': [('rm_enable','=', False)]}"/>
 
                                  </group>
                                  <group>
-                                     <field name="domestic_accountid" attrs="{'required': [('rm_enable','=', True)]}"/>
+                                     <field name="domestic_act_name" attrs="{'required': [('rm_enable','=', True)],'invisible': [('rm_enable','=', False)]}"/>
+                                     <field name="domestic_accountid" attrs="{'required': [('rm_enable','=', True)],'invisible': [('rm_enable','=', False)]}"/>
                                      <!--<field name="category" widget="radio" options="{'horizontal': true}"/>-->
                                  </group>
+
                              </group>
-                            <group string="International" attrs="{'invisible': [('rm_enable','=', False)]}">
+                            <!--<group string="International" attrs="{'invisible': [('rm_enable','=', False)]}">-->
+                            <group>
+                                <label for="nh" string="International" style="font-size:20px; color:#9ACD32;" attrs="{'invisible': [('rm_enable','=', False)]}"/>
                                 <group>
-                                    <field name="in_name" attrs="{'required': [('rm_enable','=', True)]}"/>
-                                    <field name="in_pwd" attrs="{'required': [('rm_enable','=', True)]}"/>
+                                    <field name="in_name" attrs="{'required': [('rm_enable','=', True)],'invisible': [('rm_enable','=', False)]}"/>
+                                    <field name="in_pwd" attrs="{'required': [('rm_enable','=', True)],'invisible': [('rm_enable','=', False)]}"/>
                                 </group>
                                 <group>
-                                    <field name="in_accountid" attrs="{'required': [('rm_enable','=', True)]}"/>
+                                    <field name="in_act_name" attrs="{'required': [('rm_enable','=', True)],'invisible': [('rm_enable','=', False)]}"/>
+                                    <field name="in_accountid" attrs="{'required': [('rm_enable','=', True)],'invisible': [('rm_enable','=', False)]}"/>
                                 </group>
                             </group>
                                  </page>
@@ -55,6 +63,7 @@
 
                                  </group>
                                  <group>
+                                     <field name="apc_act_name" attrs="{'required': [('apc_enable','=', True)]}"/>
                                      <field name="apc_accountid" attrs="{'required': [('apc_enable','=', True)]}"/>
 
                                  </group>
@@ -73,6 +82,7 @@
 
                                  </group>
                                  <group>
+                                     <field name="ukmail_act_name" attrs="{'required': [('ukmail_enable','=', True)]}"/>
                                      <field name="ukmail_accountid" attrs="{'required': [('ukmail_enable','=', True)]}"/>
 
                                  </group>
@@ -91,6 +101,7 @@
 
                                  </group>
                                  <group>
+                                     <field name="yodel_act_name" attrs="{'required': [('yodel_enable','=', True)]}"/>
                                      <field name="yodel_accountid" attrs="{'required': [('yodel_enable','=', True)]}"/>
                                  </group>
                              </group>

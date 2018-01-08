@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <template id="manifest_report_template">
+        <!--<t t-call="web.external_layout">-->
+        <t t-set="o" t-value="docs" />
+
+            <t t-call="base_shipping_v11.custom_layout_footer" />
+
+         <div class="article">
+            <!--<div class="oe_structure"/>-->
+             <div class="row">
+             <div style="padding:5px;">
+
+                 <h4 style="text-align:center"><span t-field="o.service_provider"/></h4>
+        <div>
+            <div class="col-xs-12">
+                <div t-if="o.service_provider == 'Netdespatch Royalmail'" style="border-bottom: 1px solid red;"></div>
+                <div t-if="o.service_provider == 'Netdespatch APC'" style="border-bottom: 1px solid #191970;"></div>
+                <div t-if="o.service_provider == 'Netdespatch UKMail'" style="border-bottom: 1px solid gray;"></div>
+                <div t-if="o.service_provider == 'Netdespatch Yodel'" style="border-bottom: 1px solid #9ACD32;"></div>
+            </div>
+        </div>
+        <br/>
+
+
+        <div class="row">
+            <div class="col-xs-3" style="margin-left:24px;">
+                <img t-if="o.service_provider == 'Netdespatch Royalmail'" src="/base_shipping_v11/static/src/img/net_royal_new.jpg" style="height:75px; width:95px;"/>
+                <img t-if="o.service_provider == 'Netdespatch APC'" src="/base_shipping_v11/static/src/img/apc_new.jpg" style="height:75px; width:95px;"/>
+                <img t-if="o.service_provider == 'Netdespatch UKMail'" src="/base_shipping_v11/static/src/img/ukmail_new.gif" style="height:75px; width:95px;"/>
+                <img t-if="o.service_provider == 'Netdespatch Yodel'" src="/base_shipping_v11/static/src/img/yodel_new.jpg" style="height:75px; width:95px;"/>
+            </div>
+        </div>
+                 <br/>
+                 <br/>
+
+        <style>
+                     table.b, table.b th, table.b td {
+                        font-size:11px;
+                        font-weight:normal;
+                        padding:5px;
+
+
+                    }
+                 </style>
+        <table class="b" style="width:100%">
+            <tr >
+                <td style="width:15%; font-size:14px;">Manifest No: </td><td  style="font-size:14px;"><span t-field="o.name"/></td><td style="text-align:right; font-size:14px;"><div style="margin-right:28px;" t-field="o.date" t-field-options="{&quot;format&quot;: &quot;MM-dd-yyyy&quot;}" /></td></tr>
+            <tr> <td style="width:15%">Your Reference: </td><td colspan="2" style="text-align:left"><span t-field="o.base_manifest_ref"/></td></tr>
+                <tr><td style="width:15%">Your Description: </td><td colspan="2" style="text-align:left"><span t-field="o.base_manifest_desc"/></td>
+            </tr>
+        </table>
+        <br/>
+
+        <table style="width:100%" class="b">
+            <tr><td>Poster name: </td><td><span t-field="o.user_id.company_id.name"/></td><td style="width:30%"></td>
+                <td>Account name: </td><td><span t-esc="o.config_act_name()" /></td></tr>
+            <tr><td>Poster address:</td><td><span t-field="o.user_id.company_id.city"/>,&#160;<span t-field="o.user_id.company_id.zip"/></td><td></td>
+                <td>Account number:</td><td><span t-esc="o.config_act_id()"/></td></tr>
+        </table>
+                 <style>
+                     table.beta, table.beta th, table.beta td {
+
+                        border: 1px solid black;
+                        font-size:11px;
+                        font-weight:normal;
+                        padding:10px;
+                        border-collapse: collapse
+                    }
+                 </style>
+                 <br/>
+
+
+
+                 <table class="beta" >
+
+                    <thead>
+                         <td style="width:10%; font-weight:bold">Airwaybill</td>
+                         <td style="width:10%; font-weight:bold">Reference Number</td>
+                         <td style="width:13%; font-weight:bold">Attention</td>
+                         <td style="width:12%; font-weight:bold">Address3</td>
+                         <td style="width:10%; font-weight:bold">Pincode</td>
+                         <td style="width:35%; font-weight:bold">Contents</td>
+                         <td style="width:3%; font-weight:bold">Weight(gm)</td>
+                         <td style="width:5%; font-weight:bold">Declared Value</td>
+                     </thead>
+                     <tr style="page-break-inside: avoid" t-foreach="o.manifest_lines" t-as="m">
+                         <td style="width:20px;"><span t-field="m.picking_id.carrier_tracking_ref"/></td>
+                         <td>
+                             <t t-if="not m.picking_id.origin">
+                             <span t-field="m.picking_id.name"/>
+                            </t>
+                             <t t-if="m.picking_id.origin">
+                             <span t-field="m.picking_id.origin"/>
+                             </t>
+
+                         </td>
+                         <td><span t-field="m.picking_id.partner_id.name"/></td>
+                         <td><span t-field="m.picking_id.partner_id.city"/></td>
+                         <td><span t-field="m.picking_id.partner_id.zip"/></td>
+                         <td>
+                            CRL: <span t-field="m.carrier_id.name"/><br/>
+                             <t t-if="m.picking_id.move_lines">
+                                 <t t-set="count" t-value="0"/>
+                                 Product Details:
+                                 <t t-foreach="m.picking_id.move_lines" t-as="ml">
+                                         <span t-field="ml.product_id.name"/>
+                                        <t t-set="count" t-value="count+1"/>
+                                     <t t-if="len(m.picking_id.move_lines) > count">
+                                     <span>,</span>
+                                     </t>
+
+                                 </t>
+
+                             </t>
+                         </td>
+                         <td><span t-field="m.picking_id.weight"/></td>
+
+                         <td><span t-esc="m.picking_id.total_amount()"/>
+                         </td>
+
+
+                     </tr>
+                 </table>
+             </div>
+
+
+             </div>
+         </div>
+
+
+    </template>
+
+
+
+        <template id="custom_layout_footer">
+    <div class="footer">
+        <div style="border-top: 1px solid black;">
+            <br/>
+            <div style="margin-left:20%; margin-top:-20px">
+
+            <ul class="list-inline" style="text-align:right">
+                <li><span class="page"/></li>
+                <li>of</li>
+                <li><span class="topage"/></li>
+            </ul>
+                </div>
+        </div>
+    </div>
+</template>
+
+    <!--<template id="manifest_report">-->
+        <!--<t t-foreach="docs" t-as="o">-->
+            <!--<t t-call="base_shipping_v11.manifest_report_template" />-->
+        <!--</t>-->
+    <!--</template>-->
+</odoo>

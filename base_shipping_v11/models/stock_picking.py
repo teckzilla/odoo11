@@ -21,6 +21,10 @@
 
 from odoo import models, fields, api, _
 from odoo.exceptions import Warning
+import datetime
+import base64
+from odoo.exceptions import UserError
+from odoo.tools.float_utils import float_compare, float_round
 
 class stock_picking(models.Model):
     _inherit = 'stock.picking'
@@ -76,6 +80,74 @@ class stock_picking(models.Model):
     #                 else:
     #                     res.carrier_id = carrier_id[0].id
     #     return res
+
+
+
+    # @api.multi
+    # def action_done(self):
+    #     if self.picking_type_id.code == 'outgoing':
+    #         if not self.carrier_tracking_ref:
+    #             attach = self.env['update.base.picking'].with_context({'picking_id': self.id}).create_shipment()
+    #         if self.carrier_tracking_ref:
+    #             res = super(stock_picking, self).action_done()
+    #         else:
+    #             return
+    #     else:
+    #         res = super(stock_picking, self).action_done()
+    #         return True
+
+    @api.multi
+    def new_action_done(self):
+        if not self.carrier_tracking_ref:
+            attach = self.env['update.base.picking'].with_context({'picking_id': self.id}).create_shipment()
+
+
+    @api.multi
+    def action_done(self):
+        if self.manifested == True:
+            res = super(stock_picking, self).action_done()
+        else:
+            if self.carrier_tracking_ref:
+                if self.picking_type_id.warehouse_id.delivery_steps == 'ship_only':
+                    return
+                else:
+                    res = super(stock_picking, self).action_done()
+            else:
+                if self.picking_type_id.warehouse_id.delivery_steps == 'ship_only':
+                    self.new_action_done()
+                    return
+
+                if self.picking_type_id.warehouse_id.delivery_steps == 'pick_ship':
+                    if self.picking_type_id.name == 'Pick':
+                        self.new_action_done()
+                    if self.carrier_tracking_ref:
+                        res = super(stock_picking, self).action_done()
+                    else:
+                        return
+
+                if self.picking_type_id.warehouse_id.delivery_steps == 'pick_pack_ship':
+                    if self.picking_type_id.name == 'Pick':
+                        res = super(stock_picking, self).action_done()
+                    if self.picking_type_id.name == 'Pack':
+                        self.new_action_done()
+                    if self.carrier_tracking_ref:
+                        res = super(stock_picking, self).action_done()
+                    else:
+                        return
+
+
+
+
+
+
+
+    @api.multi
+    def total_amount(self):
+        print ("----jdj",self)
+        sale_order_id=self.env['sale.order'].search([('name','=',self.origin)])
+        if sale_order_id:
+            print("----sale_order_id.amount_total--",sale_order_id.amount_total)
+            return sale_order_id.amount_total
 
 class url_class(models.Model):
     _name = "url.class"

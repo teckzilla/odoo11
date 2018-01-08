@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+
+        <record id="view_picking_out_form_inherit_fedex" model="ir.ui.view">
+            <field name="name">stock.picking.out.form.inherit1</field>
+            <field name="model">stock.picking</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="stock.view_picking_form" />
+            <field name="arch" type="xml">
+
+                <xpath expr="/form/sheet/notebook" position="inside">
+                    <page string="Shipping Info">
+
+                        <group name = "Dimension" colspan="4" >
+                            <separator string = "Dimension" />
+                            <group colspan="4" col="4" >
+                            <field name="length_package" required = "1"/>
+                            <field name="width_package" required = "1"/>
+                            <field name="height_package" required = "1"/>
+                            <field name="units_package" required = "1"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

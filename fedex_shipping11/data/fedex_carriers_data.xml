@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!--Creating product shipping and handling-->
+        <record id="product_product_fedex_delivery" model="product.product">
+            <field name="name">Fedex Shipping and Handling</field>
+            <field name="type">service</field>
+            <field name="categ_id" ref="product.product_category_all"/>
+            <field name="sale_ok" eval="True"/>
+            <field name="purchase_ok" eval="False"/>
+            <field name="list_price">0.00</field>
+        </record>
+        <!--<record id="free_fedex_delivery_carrier" model="delivery.carrier">-->
+            <!--<field name="name">Fedex Shipping and Handling</field>-->
+            <!--<field name="fixed_price">0.00</field>-->
+            <!--<field name="free_over" eval="True"/>-->
+            <!--<field name="amount">1000</field>-->
+            <!--<field name="sequence">1</field>-->
+            <!--<field name="delivery_type">fixed</field>-->
+            <!--<field name="product_id" ref="delivery.product_product_fedex_delivery"/>-->
+        <!--</record>-->
+
+        <record id="fedex_service" model="select.service">
+            <field name="name">Fedex</field>
+        </record>
+
+        <record id="dlv_carrier_code_fedex_fc" model="base.carrier.code">
+            <field name="select_service" ref="fedex_service"/>
+            <field name="name">EUROPE_FIRST_INTERNATIONAL_PRIORITY</field>
+        </record>
+
+        <record id="dlv_fedex_fc" model="delivery.carrier">
+            <field name="name">Fedex EUROPE FIRST INTERNATIONAL PRIORITY</field>
+            <field name="select_service" ref="fedex_service"/>
+            <field name="base_carrier_code" ref="dlv_carrier_code_fedex_fc"/>
+            <field name="product_id" ref="fedex_shipping11.product_product_fedex_delivery"/>
+        </record>
+
+
+        <record id="dlv_carrier_code_fedex_1day" model="base.carrier.code">
+            <field name="name">FEDEX_1_DAY_FREIGHT</field>
+            <field name="select_service" ref="fedex_service"/>
+        </record>
+        <record id="dlv_fedex_1day" model="delivery.carrier">
+            <field name="name">Fedex 1 Day Freight</field>
+            <field name="select_service" ref="fedex_service"/>
+            <field name="base_carrier_code" ref="dlv_carrier_code_fedex_1day"/>
+            <field name="product_id" ref="fedex_shipping11.product_product_fedex_delivery"/>
+        </record>
+
+        <record id="dlv_carrier_code_fedex_2day" model="base.carrier.code">
+            <field name="name">FEDEX_2_DAY</field>
+            <field name="select_service" ref="fedex_service"/>
+        </record>
+        <record id="dlv_fedex_2day" model="delivery.carrier">
+            <field name="name">Fedex 2 DAY</field>
+            <field name="select_service" ref="fedex_service"/>
+            <field name="base_carrier_code" ref="dlv_carrier_code_fedex_2day"/>
+            <field name="product_id" ref="fedex_shipping11.product_product_fedex_delivery"/>
+        </record>
+
+        <record id="dlv_carrier_code_fedex_2day_frieght" model="base.carrier.code">
+            <field name="name">FEDEX_2_DAY_FREIGHT</field>
+            <field name="select_service" ref="fedex_service"/>
+        </record>
+        <record id="dlv_fedex_2day_frieght" model="delivery.carrier">
+            <field name="name">Fedex 2 DAY Freight</field>
+            <field name="select_service" ref="fedex_service"/>
+            <field name="base_carrier_code" ref="dlv_carrier_code_fedex_2day_frieght"/>
+            <field name="product_id" ref="fedex_shipping11.product_product_fedex_delivery"/>
+        </record>
+
+        <record id="dlv__carrier_code_fedex_3day_frieght" model="base.carrier.code">
+            <field name="name">FEDEX_3_DAY_FREIGHT</field>
+            <field name="select_service" ref="fedex_service"/>
+        </record>
+        <record id="dlv_fedex_3day_frieght" model="delivery.carrier">
+            <field name="name">Fedex 3 DAY Freight</field>
+            <field name="select_service" ref="fedex_service"/>
+            <field name="base_carrier_code" ref="dlv__carrier_code_fedex_3day_frieght"/>
+            <field name="product_id" ref="fedex_shipping11.product_product_fedex_delivery"/>
+        </record>
+
+
+        <record id="dlv_carrier_code_fedex_express_saver" model="base.carrier.code">
+            <field name="name">FEDEX_EXPRESS_SAVER</field>
+            <field name="select_service" ref="fedex_service"/>
+        </record>
+        <record id="dlv_fedex_express_saver" model="delivery.carrier">
+            <field name="name">Fedex Express Saver</field>
+            <field name="select_service" ref="fedex_service"/>
+            <field name="base_carrier_code" ref="dlv_carrier_code_fedex_express_saver"/>
+            <field name="product_id" ref="fedex_shipping11.product_product_fedex_delivery"/>
+        </record>
+
+
+        <record id="dlv_carrier_code_fedex_standard_overnight" model="base.carrier.code">
+            <field name="name">STANDARD_OVERNIGHT</field>
+            <field name="select_service" ref="fedex_service"/>
+        </record>
+        <record id="dlv_fedex_standard_overnight" model="delivery.carrier">
+            <field name="name">Fedex Standard Overnight</field>
+            <field name="select_service" ref="fedex_service"/>
+            <field name="base_carrier_code" ref="dlv_carrier_code_fedex_standard_overnight"/>
+            <field name="product_id" ref="fedex_shipping11.product_product_fedex_delivery"/>
+        </record>
+
+
+        <record id="dlv_carrier_code_fedex_priority_overnight" model="base.carrier.code">
+            <field name="name">PRIORITY_OVERNIGHT</field>
+            <field name="select_service" ref="fedex_service"/>
+        </record>
+        <record id="dlv_fedex_priority_overnight" model="delivery.carrier">
+            <field name="name">Fedex Priority Overnight</field>
+            <field name="select_service" ref="fedex_service"/>
+            <field name="base_carrier_code" ref="dlv_carrier_code_fedex_priority_overnight"/>
+            <field name="product_id" ref="fedex_shipping11.product_product_fedex_delivery"/>
+        </record>
+
+
+        <record id="dlv_carrier_code_fedex_ground" model="base.carrier.code">
+            <field name="name">FEDEX_GROUND</field>
+            <field name="select_service" ref="fedex_service"/>
+        </record>
+        <record id="dlv_fedex_ground" model="delivery.carrier">
+            <field name="name">Fedex Ground</field>
+            <field name="select_service" ref="fedex_service"/>
+            <field name="base_carrier_code" ref="dlv_carrier_code_fedex_ground"/>
+            <field name="product_id" ref="fedex_shipping11.product_product_fedex_delivery"/>
+        </record>
+    </data>
+</odoo>
