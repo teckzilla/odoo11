@@ -1805,6 +1805,7 @@ class update_base_picking(models.TransientModel):
 
     @api.multi
     def create_netdespatch_apc_Shipment(self, config, picking):
+        log_obj=self.env['base.shipping.logs']
         ship_details = self.get_apc_shipping_details(picking)
         print ("---------------------------------ship_details----------------",ship_details)
         logger.error("===========ship_details================%s", ship_details)
@@ -1948,6 +1949,11 @@ class update_base_picking(models.TransientModel):
 
                     picking.faulty = True
                     picking.write({'error_log': error})
+                    log_obj.create({
+                        'date': datetime.datetime.now(),
+                        'picking_id': picking.id,
+                        'message': error
+                    })
                     # raise UserError(_("%s.") % (error))
 
 

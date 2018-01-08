@@ -21,7 +21,8 @@
 
 from odoo import models, fields, api, _
 from datetime import datetime
-
+import logging
+logger = logging.getLogger(__name__)
 class base_manifest(models.Model):
     _name = 'base.manifest'
 
@@ -76,7 +77,9 @@ class base_manifest(models.Model):
     def close_manifest(self):
         date =datetime.now()
         for mani in self.manifest_lines:
-            mani.picking_id.action_done()
+            wiz = self.env['stock.immediate.transfer'].create({'pick_ids': [(4, mani.picking_id.id)]})
+            wiz.process()
+            # mani.picking_id.action_done()
         return self.write({'state':'closed','date':date})
 
     @api.multi
