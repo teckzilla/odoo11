@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="res_config_settings_delivery_slip_view_form" model="ir.ui.view">
+        <field name="name">delivery.slip.res.config.settings.view.form.inherit</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="stock.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <div id="warning_info" position="after">
+                <div class="col-xs-12 col-md-6 o_setting_box" id="delivery_slip_info">
+                    <div class="o_setting_left_pane">
+                        <field name="delivery_slip"/>
+                    </div>
+                    <div class="o_setting_right_pane">
+                        <label for="delivery_slip"/>
+                        <div class="text-muted">
+                            Get Delivery Slip
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-md-6 o_setting_box" id="delivery_slip_info">
+                </div>
+            </div>
+        </field>
+    </record>
+</odoo>

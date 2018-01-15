@@ -28,15 +28,16 @@ class product_product(models.Model):
     def get_allocation(self):
         return True
     
-    @api.model
-    def copy(self, id, default=None):
+    @api.multi
+    def copy(self, default=None):
         if not default:
             default = {}
         default.update({
             'default_code': False,
             'images_ids': False,
         })
-        return super(product_product, self).copy(id, default)
+
+        return super(product_product, self).copy(default)
 
 
     @api.multi

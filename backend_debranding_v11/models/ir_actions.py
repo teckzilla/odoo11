@@ -13,7 +13,7 @@ class ir_actions_act_window_debranding(models.Model):
         """
         result = super(ir_actions_act_window_debranding, self).read(fields, load=load)
         if not fields or 'help' in fields:
-            new_name = self.env['ir.config_parameter'].get_param('backend_debranding_v11.new_name')
+            new_name = self.env['ir.config_parameter'].sudo().get_param('backend_debranding_v11.new_name')
             new_name = new_name and new_name.strip() or _('Software')
             for values in result:
                 model = values.get('res_model')

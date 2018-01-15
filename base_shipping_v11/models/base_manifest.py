@@ -33,7 +33,7 @@ class base_manifest(models.Model):
     state = fields.Selection([('draft', 'New'),
                               ('closed', 'Closed')],
                              'Status', readonly=True, index=True, copy=False,store=True,default = 'draft')
-    date = fields.Datetime('Date')
+    date = fields.Date('Date')
     user_id = fields.Many2one('res.users','User')
     error_log = fields.Text('Error Logs')
     service_provider=fields.Char('Service Provider Name')
@@ -76,9 +76,9 @@ class base_manifest(models.Model):
     @api.multi
     def close_manifest(self):
         date =datetime.now()
-        for mani in self.manifest_lines:
-            wiz = self.env['stock.immediate.transfer'].create({'pick_ids': [(4, mani.picking_id.id)]})
-            wiz.process()
+        # for mani in self.manifest_lines:
+            # wiz = self.env['stock.immediate.transfer'].create({'pick_ids': [(4, mani.picking_id.id)]})
+            # wiz.process()
             # mani.picking_id.action_done()
         return self.write({'state':'closed','date':date})
 

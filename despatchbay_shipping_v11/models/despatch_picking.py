@@ -4,14 +4,17 @@ from .. models import shipping_osv as connection_obj
 import logging
 # from urllib2 import Request, urlopen
 import urllib.request
+import datetime
+from datetime import timedelta
 import base64
-_logger = logging.getLogger(__name__)
+logger = logging.getLogger(__name__)
 
 class update_base_picking(models.TransientModel):
     _inherit = "update.base.picking"
 
     @api.multi
     def genrate_despatchbay_barcode(self,picking):
+        log_obj = self.env['base.shipping.logs']
         try:
             config_dic = {}
             shipment_dic = {}
@@ -24,10 +27,20 @@ class update_base_picking(models.TransientModel):
                 config_data = config_id[0]
             else:
                 picking.write({'faulty':True,'error_log':'Configuration not found for Despatchbay'})
+                log_obj.create({
+                    'date': datetime.datetime.now(),
+                    'picking_id': picking.id,
+                    'message': 'Configuration not found for Despatchbay'
+                })
                 return False
             print('daconfig_data----------------ta', config_data)
             if not picking.carrier_id.base_carrier_code:
                 picking.write({'faulty': True, 'error_log': 'Please define carrier code in delivery'})
+                log_obj.create({
+                    'date': datetime.datetime.now(),
+                    'picking_id': picking.id,
+                    'message': 'Please define carrier code in delivery'
+                })
                 return False
             config_dic['api_user'] = config_data.user
             config_dic['api_key'] = config_data.password
@@ -50,17 +63,32 @@ class update_base_picking(models.TransientModel):
             if country_code is None:
                 picking.faulty = True
                 picking.write({'error_log': 'Country Is Not Existed For This Customer'})
+                log_obj.create({
+                    'date': datetime.datetime.now(),
+                    'picking_id': picking.id,
+                    'message': 'Country Is Not Existed For This Customer'
+                })
                 return False
 
             if country_code.strip() != 'GB':
                 picking.faulty = True
                 picking.write(
                     {'error_log': "It Is Not Domestic Order.For International Order Go On DespatchBay Leagal Site"})
+                log_obj.create({
+                    'date': datetime.datetime.now(),
+                    'picking_id': picking.id,
+                    'message': 'It Is Not Domestic Order.For International Order Go On DespatchBay Leagal Site'
+                })
                 return False
 
             if zip == False or None:
                 picking.faulty = True
                 picking.write({'error_log': 'Postal Code Is Not Exist'})
+                log_obj.create({
+                    'date': datetime.datetime.now(),
+                    'picking_id': picking.id,
+                    'message': 'Postal Code Is Not Exist'
+                })
                 return False
 
                 # picking.weight = 15
@@ -68,6 +96,11 @@ class update_base_picking(models.TransientModel):
             if picking.weight >= 30.0:
                 picking.faulty = True
                 picking.write({'error_log': 'Weight Is Greater Then 30 Kg.'})
+                log_obj.create({
+                    'date': datetime.datetime.now(),
+                    'picking_id': picking.id,
+                    'message': 'Weight Is Greater Then 30 Kg.'
+                })
                 return False
 
             shipment_dic['ServiceID'] = service_id

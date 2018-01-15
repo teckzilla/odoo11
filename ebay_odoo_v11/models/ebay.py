@@ -66,7 +66,7 @@ class sales_channel_instance(models.Model):
 
     @api.multi
     def get_authorization_code(self):
-        callbck_url = request.env['ir.config_parameter'].get_param('web.base.url')
+        callbck_url = request.env['ir.config_parameter'].sudo().get_param('web.base.url')
         state_dict = {
             'db_name': request.session.get('db'),
             'res_id': self.id,

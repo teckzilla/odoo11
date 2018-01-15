@@ -291,7 +291,7 @@ class product_images(models.Model):
         each = self.read(['link', 'url', 'name', 'file_db_store', 'product_id', 'name', 'extention'])
         each = each[0]
         if each['link']:
-            (filename, header) = urllib.urlretrieve(each['url'])
+            (filename, header) = urllib.request.urlretrieve(each['url'])
             f = open(filename, 'rb')
             img = base64.encodestring(f.read())
             f.close()

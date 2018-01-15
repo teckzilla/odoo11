@@ -12,18 +12,18 @@
                     <group>
                         <field name="operations"/>
                     </group>
-                    <group>
-                        <group><field name="select_delivery_service" attrs="{'invisible':[('operations','!=','create_all_manifest')]}"/></group>
-                        <group></group>
-                    </group>
-                    <group>
-                        <group string="Manifest Description" attrs="{'invisible':[('operations','!=','create_all_manifest')]}">
-                            <field name="base_manifest_ref" nolabel="1" attrs="{'invisible':[('operations','!=','create_all_manifest')]}"/>
-                        </group>
-                        <group string="Manifest Reference" attrs="{'invisible':[('operations','!=','create_all_manifest')]}">
-                            <field name="base_manifest_desc" nolabel="1" attrs="{'invisible':[('operations','!=','create_all_manifest')]}"/>
-                        </group>
-                    </group>
+                    <!--<group>-->
+                        <!--<group><field name="select_delivery_service" attrs="{'invisible':[('operations','!=','create_all_manifest')]}"/></group>-->
+                        <!--<group></group>-->
+                    <!--</group>-->
+                    <!--<group>-->
+                        <!--<group string="Manifest Description" attrs="{'invisible':[('operations','!=','create_all_manifest')]}">-->
+                            <!--<field name="base_manifest_ref" nolabel="1" attrs="{'invisible':[('operations','!=','create_all_manifest')]}"/>-->
+                        <!--</group>-->
+                        <!--<group string="Manifest Reference" attrs="{'invisible':[('operations','!=','create_all_manifest')]}">-->
+                            <!--<field name="base_manifest_desc" nolabel="1" attrs="{'invisible':[('operations','!=','create_all_manifest')]}"/>-->
+                        <!--</group>-->
+                    <!--</group>-->
                     <group colspan="4" attrs="{'invisible':[('operations','!=','add_carrier')]}">
                         <field name="carrier_id" attrs="{'required':[('operations','=','add_carrier')]}"/>
                     </group>
@@ -36,7 +36,9 @@
                        <button name="remove_faulty" string="Move Faulty to New Orders" type="object" class="btn-primary" attrs="{'invisible':[('operations','!=','remove_faulty')]}"/>
                        <button name="add_carrier" string="Add Carrier" type="object" class="btn-primary" attrs="{'invisible':[('operations','!=','add_carrier')]}"/>
                          <button name="cancel_shipments" string="Cancel Shipments" type="object" class="btn-primary" attrs="{'invisible':[('operations','!=','cancel_shipments')]}"/>
-                        <button name="create_all_manifest" string="Create Manifest" type="object" class="btn-primary" attrs="{'invisible':[('operations','!=','create_all_manifest')]}"/>
+                        <!--<button name="create_all_manifest" string="Create Manifest" type="object" class="btn-primary" attrs="{'invisible':[('operations','!=','create_all_manifest')]}"/>-->
+                        <button name="bulk_validate" string="Validate" type="object" class="btn-primary" attrs="{'invisible':[('operations','!=','bulk_validate')]}"/>
+
                     </footer>
                 </form>
             </field>

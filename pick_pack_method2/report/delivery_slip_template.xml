@@ -3,7 +3,8 @@
 
     <template id="delivery_slip_template">
         <t t-set="o" t-value="o.with_context({'lang':o.partner_id.lang})" />
-         <div class="page" style="position: relative;">
+         <!--<div class="page" style="position: relative;">-->
+         <div class="article" style="position: relative;">
             <div class="oe_structure"/>
              <div style="padding:5px;">
                  <h4 >Order: <span t-field="o.name"/></h4>

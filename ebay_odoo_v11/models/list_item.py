@@ -597,7 +597,7 @@ class list_item(models.Model):
             cnt = 1
             if tmp.get('main_imgs', False):
                 for img in tmp['main_imgs']:
-                    description = description.replace(b'%image-' + bytes(cnt) + b'%'+ img.encode('utf-8'))
+                    description = description.replace(b'%image-' + bytes(cnt) + b'%', img.encode('utf-8'))
                     cnt = cnt + 1
 
             for img in tmp['images']:
@@ -1746,8 +1746,8 @@ class list_item(models.Model):
             final_list.append(tmp)
 
         if data.variation_product == True:
-
             results = connection_obj.call(data.shop_id.instance_id, 'AddFixedPriceItem', final_list, data.shop_id.instance_id.site_id.site)
+
             id = 0
             ack = results.get('Ack', False)
             if ack == 'Failure':

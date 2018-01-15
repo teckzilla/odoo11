@@ -101,39 +101,117 @@ class stock_picking(models.Model):
         if not self.carrier_tracking_ref:
             attach = self.env['update.base.picking'].with_context({'picking_id': self.id}).create_shipment()
 
-
+    @api.multi
+    def base_manifest(self):
+        for picking in self:
+            manifest_obj=self.env['base.manifest']
+            # need to check state
+            current_date=datetime.datetime.now().strftime('%Y-%m-%d')
+            manifest_id=manifest_obj.search([('service_provider','=',picking.carrier_id.select_service.name),('state','=','draft'),('date','=',current_date)])
+            if manifest_id:
+                update_manifest_id = manifest_id[0].write({'manifest_lines':[(0, 0, {'picking_id': picking.id, 'carrier_id': picking.carrier_id.id})]})
+                if update_manifest_id == True:
+                    return manifest_id[0]
+            else:
+                created_manifest_id = manifest_obj.create({
+                    'service_provider': picking.carrier_id.select_service.name,
+                    'date': datetime.datetime.now(),
+                    'user_id': picking._uid,
+                    'base_manifest_ref': datetime.datetime.now().strftime("%m-%d-%Y"),
+                    'base_manifest_desc': picking.carrier_id.select_service.name,
+                    'manifest_lines':[(0, 0, {'picking_id': picking.id, 'carrier_id': picking.carrier_id.id})]
+                })
+                return created_manifest_id
     @api.multi
     def action_done(self):
+        picking_obj=self.env['stock.picking']
         if self.manifested == True:
             res = super(stock_picking, self).action_done()
         else:
-            if self.carrier_tracking_ref:
-                if self.picking_type_id.warehouse_id.delivery_steps == 'ship_only':
-                    return
-                else:
-                    res = super(stock_picking, self).action_done()
-            else:
-                if self.picking_type_id.warehouse_id.delivery_steps == 'ship_only':
+            # if self.carrier_tracking_ref:
+            #     if self.picking_type_id.warehouse_id.delivery_steps == 'ship_only':
+            #         return
+            #     else:
+            #         res = super(stock_picking, self).action_done()
+            # else:
+            if self.picking_type_id.warehouse_id.delivery_steps == 'ship_only':
+                if not self.carrier_tracking_ref:
                     self.new_action_done()
+                if self.carrier_tracking_ref:
+                    manifest_id=self.base_manifest()
+                    if manifest_id:
+                        res = super(stock_picking, self).action_done()
+                    else:
+                        return
+                else:
                     return
 
-                if self.picking_type_id.warehouse_id.delivery_steps == 'pick_ship':
-                    if self.picking_type_id.name == 'Pick':
+            if self.picking_type_id.warehouse_id.delivery_steps == 'pick_ship':
+                if self.picking_type_id.name == 'Pick':
+                    if not self.carrier_tracking_ref:
                         self.new_action_done()
                     if self.carrier_tracking_ref:
                         res = super(stock_picking, self).action_done()
-                    else:
-                        return
+                else:
+                    if self.picking_type_id.name == 'Delivery Orders':
+                        if not self.carrier_tracking_ref:
+                            pick_id = picking_obj.search([('origin', '=', self.origin),('state','=','done')])
+                            if pick_id.picking_type_id.name == 'Pick':
+                                if pick_id.carrier_tracking_ref:
+                                    pick_obj=self.write({'carrier_tracking_ref': pick_id.carrier_tracking_ref,
+                                                'carrier_id': pick_id.carrier_id.id, 'shipment_created': True})
+                                    print("---pick_obj--",pick_obj)
 
-                if self.picking_type_id.warehouse_id.delivery_steps == 'pick_pack_ship':
-                    if self.picking_type_id.name == 'Pick':
-                        res = super(stock_picking, self).action_done()
-                    if self.picking_type_id.name == 'Pack':
+                                    manifest_id=self.base_manifest()
+                                    if manifest_id:
+                                        res = super(stock_picking, self).action_done()
+                                    else:
+                                        return
+                                else:
+                                    return
+                        else:
+                            manifest_id = self.base_manifest()
+                            if manifest_id:
+                                res = super(stock_picking, self).action_done()
+                            else:
+                                return
+
+
+
+            if self.picking_type_id.warehouse_id.delivery_steps == 'pick_pack_ship':
+                if self.picking_type_id.name == 'Pick':
+                    res = super(stock_picking, self).action_done()
+                if self.picking_type_id.name == 'Pack':
+                    if not self.carrier_tracking_ref:
                         self.new_action_done()
                     if self.carrier_tracking_ref:
                         res = super(stock_picking, self).action_done()
-                    else:
-                        return
+                else:
+                    if self.picking_type_id.name == 'Delivery Orders':
+                        if not self.carrier_tracking_ref:
+                            pick_id = picking_obj.search([('origin', '=', self.origin), ('state', '=', 'done')])
+                            if pick_id:
+                                for pick in pick_id:
+                                    if pick.picking_type_id.name == 'Pack':
+                                        if pick.carrier_tracking_ref:
+                                            pick_obj=self.write({'carrier_tracking_ref': pick.carrier_tracking_ref,
+                                                        'carrier_id': pick.carrier_id.id, 'shipment_created': True})
+                                            print("---pick_obj--", pick_obj)
+
+                                            manifest_id=self.base_manifest()
+                                            if manifest_id:
+                                                res = super(stock_picking, self).action_done()
+                                            else:
+                                                return
+                                        else:
+                                            return
+                        else:
+                            manifest_id = self.base_manifest()
+                            if manifest_id:
+                                res = super(stock_picking, self).action_done()
+                            else:
+                                return
+
 
 
 

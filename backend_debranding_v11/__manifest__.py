@@ -11,8 +11,8 @@
         'mail',
         'web_settings_dashboard',
         'website',
-        'im_livechat',
-        'web_planner',
+        # 'im_livechat',
+        # 'web_planner',
         'portal'
 
     ],

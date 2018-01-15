@@ -46,9 +46,9 @@
                  </style>
         <table class="b" style="width:100%">
             <tr >
-                <td style="width:15%; font-size:14px;">Manifest No: </td><td  style="font-size:14px;"><span t-field="o.name"/></td><td style="text-align:right; font-size:14px;"><div style="margin-right:28px;" t-field="o.date" t-field-options="{&quot;format&quot;: &quot;MM-dd-yyyy&quot;}" /></td></tr>
-            <tr> <td style="width:15%">Your Reference: </td><td colspan="2" style="text-align:left"><span t-field="o.base_manifest_ref"/></td></tr>
-                <tr><td style="width:15%">Your Description: </td><td colspan="2" style="text-align:left"><span t-field="o.base_manifest_desc"/></td>
+                <td style="width:17%; font-size:14px;">Manifest No: </td><td  style="font-size:14px;"><span t-field="o.name"/></td><td style="text-align:right; font-size:14px;"><div style="margin-right:28px;" t-field="o.date" t-field-options="{&quot;format&quot;: &quot;MM-dd-yyyy&quot;}" /></td></tr>
+            <tr> <td style="width:17%">Your Reference: </td><td colspan="2" style="text-align:left"><span t-field="o.base_manifest_ref"/></td></tr>
+                <tr><td style="width:17%">Your Description: </td><td colspan="2" style="text-align:left"><span t-field="o.base_manifest_desc"/></td>
             </tr>
         </table>
         <br/>

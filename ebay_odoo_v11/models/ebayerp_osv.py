@@ -2078,18 +2078,25 @@ class AddFixedPriceItem:
             val = 0
             logger.info('item===var_dic====%s', item['var_dic'])
             for single_var in item['var_dic']:
+                key_data = ''
+                value_data=''
                 if val == 0:
-                    logger.info('single_var=======%s', single_var.items()[0])
-                    logger.info('single_var.items()=======%s', single_var.items()[0][1])
-                    picture_dic['picture_variation_val'] = single_var.items()[0][1]
-                    picture_dic['picture_attribute'] = single_var.items()[0][0]
+                    # logger.info('single_var=======%s', single_var.items()[0])
+                    # logger.info('single_var.items()=======%s', single_var.items()[0][1])
+                    logger.info('single_var.items()=======%s', single_var.items())
+                    for value in single_var.values():
+                        picture_dic['picture_variation_val'] =value
+                        value_data=value
+                    for key in single_var.keys():
+                        picture_dic['picture_attribute'] = key
+                        key_data=key
                     picture_variation_list.append(picture_dic)
                     picture_dic = {}
                 val = val + 1
                 name_list += """<NameValueList>
                             <Name>%s</Name>
                           <Value>%s</Value>
-                         </NameValueList>""" % (single_var.items()[0][0], single_var.items()[0][1])
+                         </NameValueList>""" % (key_data, value_data)
             variation += all_sku + """<VariationSpecifics>""" + name_list + """</VariationSpecifics></Variation>"""
 
         pictures = ''
@@ -2110,7 +2117,8 @@ class AddFixedPriceItem:
 
         return variation_set
 
-    def Get(self, ids, itemlist, siteid):
+    # def Get(self, ids, itemlist, siteid):
+    def Get(self, itemlist, siteid):
         api = Call()
         api.Session = self.Session
         api.SiteID = siteid
@@ -2182,12 +2190,12 @@ class AddFixedPriceItem:
         name_val_str = ''
 
         if itemlist[0].get('listing_time') != False:
-            s_time = "<ScheduleTime>%s</ScheduleTime>" % (itemlist['listing_time'])
+            s_time = "<ScheduleTime>%s</ScheduleTime>" % (itemlist[0]['listing_time'])
         else:
             s_time = ''
 
         if itemlist[0].get('description', False):
-            variation_des = "<![CDATA[" + itemlist[0]['description'].encode("utf-8") + "]]>"
+            variation_des = "<![CDATA[" + str(itemlist[0]['description']) + "]]>"
         else:
             variation_des = ''
 
@@ -2197,7 +2205,7 @@ class AddFixedPriceItem:
                                 <Name>%s</Name>
                                 <Value>%s</Value>
                               </NameValueList>""" % (key, value)
-            Itemspecifics = "<ItemSpecifics>" + name_val_str.encode('utf-8') + "</ItemSpecifics>"
+            Itemspecifics = "<ItemSpecifics>" + str(name_val_str) + "</ItemSpecifics>"
         else:
             Itemspecifics = ''
 
@@ -2241,7 +2249,7 @@ class AddFixedPriceItem:
                 <PaymentMethods>%s</PaymentMethods>
                 <PayPalEmailAddress>%s</PayPalEmailAddress>
                 </Item>""" % (
-        storecategory, "<![CDATA[" + itemlist[0]['variation_title'] + "]]>", images_url, variation_set, variation_des,
+        storecategory, "<![CDATA[" + str(itemlist[0]['variation_title']) + "]]>", images_url, variation_set, variation_des,
         str(subtitle), itemlist[0]['category_code'], Itemspecifics, str(itemlist[0]['best_offer']),
         itemlist[0]['site_code'], buy_it_now, itemlist[0]['condition'], itemlist[0]['duration'],
         itemlist[0]['location'], pickupinstore, itemlist[0]['list_type'], shipping_str, return_policy,
@@ -2262,7 +2270,7 @@ class AddFixedPriceItem:
                     <WarningLevel>High</WarningLevel>%s</AddFixedPriceItemRequest>""" % (container)
 
         api.RequestData = api.RequestData.replace('&', '&amp;').encode('utf-8')
-        logger.info('api.RequestData=============%s', api.RequestData.encode('utf-8'))
+        logger.info('api.RequestData=============%s', api.RequestData)
         responseDOM = api.MakeCall("AddFixedPriceItem")
         logger.info('api.RequestData========%s', responseDOM.toprettyxml())
         Dictionary = {}
@@ -2388,7 +2396,8 @@ class ReviseFixedPriceItem:
 
         return variation_set
 
-    def Get(self, ids, itemlist, siteid):
+    # def Get(self, ids, itemlist, siteid):
+    def Get(self, itemlist, siteid):
         api = Call()
         api.Session = self.Session
         api.SiteID = siteid
@@ -2672,7 +2681,8 @@ class ebayerp_osv(models.Model):
         elif method == 'ReviseFixedPriceItem':
             reviseFixedItem = ReviseFixedPriceItem(referential.dev_id, referential.app_id, referential.cert_id,
                                                    referential.auth_token, referential.server_url)
-            result = reviseFixedItem.Get(arguments[0], arguments[1], arguments[2])
+            # result = reviseFixedItem.Get(arguments[0], arguments[1], arguments[2])
+            result = reviseFixedItem.Get(arguments[0], arguments[1])
             return result
         elif method == 'RelistItem':
             relistItem = RelistItem(referential.dev_id, referential.app_id, referential.cert_id, referential.auth_token,
@@ -2734,7 +2744,8 @@ class ebayerp_osv(models.Model):
 
             additem_variation = AddFixedPriceItem(referential.dev_id, referential.app_id, referential.cert_id,
                                                   referential.auth_token, referential.server_url)
-            result = additem_variation.Get(arguments[0], arguments[1], arguments[2])
+            # result = additem_variation.Get(arguments[0], arguments[1], arguments[2])
+            result = additem_variation.Get(arguments[0], arguments[1])
             return result
 
 

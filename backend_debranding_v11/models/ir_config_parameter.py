@@ -19,7 +19,7 @@ class IrConfigParameter(models.Model):
     def get_debranding_parameters(self):
         res = {}
         for param in PARAMS:
-            value = self.env['ir.config_parameter'].get_param(param)
+            value = self.env['ir.config_parameter'].sudo().get_param(param)
             res[param] = value
         return res
 

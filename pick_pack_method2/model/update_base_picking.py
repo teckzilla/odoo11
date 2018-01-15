@@ -2,6 +2,7 @@ from odoo import models, fields, api, _
 from PyPDF2 import PdfFileWriter, PdfFileReader
 from tempfile import mkstemp
 from io import FileIO as file
+import io
 import base64
 import os
 import datetime
@@ -9,6 +10,8 @@ import datetime
 
 class update_base_picking(models.TransientModel):
     _inherit = 'update.base.picking'
+    file = fields.Binary('delivery file')
+    filename = fields.Char('Filename')
 
     @api.multi
     def get_delivery_slip(self,picking):
@@ -20,8 +23,7 @@ class update_base_picking(models.TransientModel):
         report_service = report.report_name
         if report.report_type in ['qweb-html', 'qweb-pdf']:
             # result, format = self.env['report'].get_pdf([picking.id], report_service), 'pdf'
-            result, format=self.env.ref('pick_pack_method2.delivery_slip_report').render_qweb_pdf(picking.id)
-            # result = base64.standard_b64encode(result)
+            result = self.env.ref('pick_pack_method2.delivery_slip_report').render_qweb_pdf([picking.id])[0]
             os.write(slip, result)
         pdf = PdfFileReader(file(file_name, "rb"))
         return pdf
@@ -52,6 +54,7 @@ class update_base_picking(models.TransientModel):
 
             if not attachment_id:
                 continue
+
             os.write(fd, base64.decodestring(attachment_id[0].datas))
             pdf = PdfFileReader(file(file_name, "rb"))
             pgcnt = pdf.getNumPages()
@@ -60,10 +63,15 @@ class update_base_picking(models.TransientModel):
             final_pickings.append(picking)
             
             # if picking.company_id.pick_pack_method == 'method2':
-            delivery_slip = self.get_delivery_slip(picking)
-            slipcount = delivery_slip.getNumPages()
-            for i in range(0, slipcount):
-                output.addPage(delivery_slip.getPage(i))
+            # if picking.picking_type_id.warehouse_id.delivery_steps == 'pick_ship':
+            config_parameter_id = self.env['ir.config_parameter'].sudo().search([('key','=','base_shipping_v11.delivery_slip')])
+            if config_parameter_id:
+                if config_parameter_id.value == 'True':
+
+                    delivery_slip = self.get_delivery_slip(picking)
+                    slipcount = delivery_slip.getNumPages()
+                    for i in range(0, slipcount):
+                        output.addPage(delivery_slip.getPage(i))
 
         if sorted_pickings:
             binary_pdfs = output

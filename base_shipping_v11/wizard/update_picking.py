@@ -57,9 +57,11 @@ class update_base_picking(models.TransientModel):
         ('process_orders', 'Process Shipment'),
         ('add_carrier', 'Add Carrier'),
         ('cancel_shipments', 'Cancel Shipments'),
-        ('create_all_manifest','Create Manifest')
+        ('bulk_validate','Bulk Vallidate')
         ]
         return op_list
+
+    # ('create_all_manifest', 'Create Manifest')
 
 
     carrier_id = fields.Many2one('delivery.carrier','Carrier')
@@ -108,16 +110,18 @@ class update_base_picking(models.TransientModel):
         for picking in self.env['stock.picking'].browse(active_ids):
             print ("-------------------picking--------name---", picking.name)
             # extra
+            if picking.state != 'assigned':
+                continue
             if picking.picking_type_id.warehouse_id.delivery_steps == 'pick_ship':
                 if picking.picking_type_id.name != 'Pick':
                     continue
             if picking.picking_type_id.warehouse_id.delivery_steps == 'pick_pack_ship':
                 if picking.picking_type_id.name == 'Pick':
+                    wiz = self.env['stock.immediate.transfer'].create({'pick_ids': [(4, picking.id)]})
+                    wiz.process()
                     continue
                 if picking.picking_type_id.name != 'Pack':
                     continue
-            if picking.state != 'assigned':
-                continue
 
                 # end
             if not picking.carrier_id:
@@ -267,8 +271,7 @@ class update_base_picking(models.TransientModel):
                 # new_product_list1 = []
                 move_list_id.append(move_lines.id)
                 movelist = tuple(move_list_id)
-        print ("-----------tuple-------move_list_id---------------", tuple(move_list_id))
-        print ("------------------move_list_id--------------", move_list_id)
+
         len_movelist = len(movelist)
 
         if len_movelist == 1:
@@ -277,11 +280,10 @@ class update_base_picking(models.TransientModel):
         for new_product_list in set_product_list:
             new_product_list1.append(new_product_list.id)
         prod_list = tuple(new_product_list1)
-        print ("--------prod_list-----prod_list------------", prod_list)
-        print ("-------len----prod_list-------------", len(prod_list))
+
         if len(prod_list) == 1:
             prod_list = str(prod_list).replace(",", "")
-        print ("----------in replace-prod_list------------------------------------", prod_list)
+
         if prod_list:
             self._cr.execute('select id from product_product where id in ' + str(prod_list) + ' ORDER BY default_code')
             products = self._cr.fetchall()
@@ -508,54 +510,18 @@ class update_base_picking(models.TransientModel):
                 'manifest_lines': create_list
             }
             manifest_id = manifest_obj.create(create_list_vals)
-        # for nr in netdespatch_royalmail:
-        #     net_royalmail_list.append((0,0,{'picking_id':nr.id,'carrier_id':nr.carrier_id.id}))
-        # if net_royalmail_list:
-        #     net_royalmail_vals={
-        #         'service_provider':'Netdespatch Royalmail',
-        #         'date':datetime.datetime.now(),
-        #         'user_id':self._uid,
-        #         'base_manifest_ref':self.base_manifest_ref,
-        #         'base_manifest_desc':self.base_manifest_desc,
-        #         'manifest_lines':net_royalmail_list
-        #     }
-        #     manifest_id=manifest_obj.create(net_royalmail_vals)
-        # for na in netdespatch_apc:
-        #     net_apc_list.append((0,0,{'picking_id':na.id,'carrier_id':na.carrier_id.id}))
-        # if net_apc_list:
-        #     net_apc_vals={
-        #         'service_provider':'Netdespatch APC',
-        #         'date':datetime.datetime.now(),
-        #         'user_id':self._uid,
-        #         'base_manifest_ref': self.base_manifest_ref,
-        #         'base_manifest_desc': self.base_manifest_desc,
-        #         'manifest_lines':net_apc_list
-        #     }
-        #     manifest_id=manifest_obj.create(net_apc_vals)
-        # for ny in netdespatch_yodel:
-        #     net_yodel_list.append((0,0,{'picking_id':ny.id,'carrier_id':ny.carrier_id.id}))
-        # if net_yodel_list:
-        #     net_yodel_vals={
-        #         'service_provider': 'Netdespatch Yodel',
-        #         'date': datetime.datetime.now(),
-        #         'user_id': self._uid,
-        #         'base_manifest_ref': self.base_manifest_ref,
-        #         'base_manifest_desc': self.base_manifest_desc,
-        #         'manifest_lines': net_yodel_list
-        #     }
-        #     manifest_id = manifest_obj.create(net_yodel_vals)
-        # for nu in netdespatch_ukmail:
-        #     net_ukmail_list.append((0,0,{'picking_id':nu.id,'carrier_id':nu.carrier_id.id}))
-        # if net_ukmail_list:
-        #     net_ukmail_vals={
-        #         'service_provider': 'Netdespatch UKMail',
-        #         'date': datetime.datetime.now(),
-        #         'user_id': self._uid,
-        #         'base_manifest_ref': self.base_manifest_ref,
-        #         'base_manifest_desc': self.base_manifest_desc,
-        #         'manifest_lines': net_ukmail_list
-        #     }
-        #     manifest_id = manifest_obj.create(net_ukmail_vals)
+
+    @api.multi
+    def bulk_validate(self):
+        active_ids = self.env.context.get('active_ids', [])
+        assign_orders=self.env['stock.picking'].browse(active_ids)
+        for picking_id in assign_orders:
+            if picking_id.state == 'assigned':
+                if picking_id.picking_type_id.name == 'Delivery Orders':
+                    wiz = self.env['stock.immediate.transfer'].create({'pick_ids': [(4, picking_id.id)]})
+                    wiz.process()
+                else:
+                    return
 
 
 update_base_picking()

@@ -50,7 +50,9 @@
             'report/base_manifest_report.xml',
             'report/base_manifest_template.xml',
             'views/report_paperformat.xml',
-            'views/base_shipping_logs.xml'
+            'views/base_shipping_logs.xml',
+            'wizard/res_config_settings.xml'
+
 
 
     ],
